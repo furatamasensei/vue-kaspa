@@ -45,7 +45,7 @@
     "test:watch": "vitest"
   },
   "peerDependencies": {
-    "@nuxt/kit": "^3.0.0",
+    "@nuxt/kit": ">=3.0.0",
     "@vue-kaspa/kaspa-wasm": ">=1.1.0",
     "vue": ">=3.4.0"
   },

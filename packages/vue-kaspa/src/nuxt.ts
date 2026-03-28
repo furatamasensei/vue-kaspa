@@ -8,7 +8,7 @@ export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'vue-kaspa',
     configKey: 'kaspa',
-    compatibility: { nuxt: '^3.0.0' },
+    compatibility: { nuxt: '>=3.0.0' },
   },
   defaults: {
     network: 'mainnet',
