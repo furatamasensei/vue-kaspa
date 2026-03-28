@@ -13,7 +13,7 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': resolve(__dirname, './src'),
         // In dev only: resolve vue-kaspa from source for instant HMR.
-        // In production: use the pre-built dist to avoid kaspa-wasm chunk duplication.
+        // In production: use the pre-built dist.
         ...(isDev && {
           'vue-kaspa': resolve(__dirname, '../packages/vue-kaspa/src/index.ts'),
         }),
@@ -29,10 +29,20 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
+      // kaspa-wasm (wasm-bindgen) embeds class names like "Resolver",
+      // "RpcClient" in the WASM binary and validates them via
+      // obj.constructor.name at runtime. Vite's minifier renames every
+      // unexported class to a single-letter identifier, causing the WASM
+      // type check to fail with "object constructor `e` does not match
+      // expected class `Resolver`". Disabling minification preserves the
+      // original class names. The playground is a demo app; bundle size
+      // is not a concern.
+      minify: false,
       rollupOptions: {
         output: {
-          // Force kaspa-wasm JS bindings into a single chunk to prevent
-          // class identity mismatches from Rolldown chunk duplication.
+          // Keep kaspa-wasm bindings in a single dedicated chunk so all
+          // dynamic imports of @vue-kaspa/kaspa-wasm share one module
+          // evaluation and thus one set of class references.
           manualChunks(id) {
             if (
               id.includes('@vue-kaspa/kaspa-wasm') ||
