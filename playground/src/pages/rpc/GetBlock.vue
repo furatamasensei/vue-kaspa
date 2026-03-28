@@ -8,6 +8,14 @@ const block = ref<BlockInfo | null>(null)
 const loading = ref(false)
 const error = ref<string | null>(null)
 
+function fmtDate(ts: number): string {
+  try {
+    return new Date(Number(ts)).toISOString()
+  } catch {
+    return String(ts)
+  }
+}
+
 async function fetch() {
   if (!hash.value.trim()) return
   loading.value = true
@@ -38,8 +46,8 @@ async function fetch() {
     <div v-if="block" class="card">
       <h2>Block</h2>
       <div class="row"><span class="label">Hash:</span><span class="value mono">{{ block.hash }}</span></div>
-      <div class="row"><span class="label">Blue Score:</span><span class="value mono">{{ block.blueScore }}</span></div>
-      <div class="row"><span class="label">Timestamp:</span><span class="value">{{ new Date(block.timestamp).toISOString() }}</span></div>
+      <div class="row"><span class="label">Blue Score:</span><span class="value mono">{{ block.blueScore.toString() }}</span></div>
+      <div class="row"><span class="label">Timestamp:</span><span class="value">{{ fmtDate(block.timestamp) }}</span></div>
       <div class="row"><span class="label">Transactions:</span><span class="value">{{ block.transactions.length }}</span></div>
     </div>
   </div>

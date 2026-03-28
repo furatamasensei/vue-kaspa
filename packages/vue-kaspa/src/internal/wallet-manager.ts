@@ -68,10 +68,10 @@ export class WalletManager {
     return this.wallet
   }
 
-  async init(): Promise<void> {
+  async init(networkId = 'mainnet'): Promise<void> {
     if (this.wallet) return
-    const { Wallet } = await import('kaspa-wasm')
-    this.wallet = new Wallet({ resident: false }) as AnyWallet
+    const { Wallet, Resolver } = await import('kaspa-wasm')
+    this.wallet = new Wallet({ resident: false, networkId, resolver: new Resolver() }) as AnyWallet
     this.attachEventListener()
     this.state.walletStatus = 'closed'
   }
@@ -124,7 +124,8 @@ export class WalletManager {
     await this.init()
     this.state.walletStatus = 'opening'
     try {
-      await this.wallet!.walletOpen({ walletSecret: params.walletSecret, filename: 'wallet' })
+      await this.wallet!.walletOpen({ walletSecret: params.walletSecret, filename: 'wallet', accountDescriptors: false })
+      await this.wallet!.connect()
       await this.wallet!.start()
 
       const { accountDescriptors } = await this.wallet!.accountsEnumerate({})

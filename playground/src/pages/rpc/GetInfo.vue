@@ -7,6 +7,11 @@ const info = ref<ServerInfo | null>(null)
 const loading = ref(false)
 const error = ref<string | null>(null)
 
+function fmt(v: unknown): string {
+  if (typeof v === 'bigint') return v.toString()
+  return String(v)
+}
+
 async function fetch() {
   if (!rpc.isConnected.value) {
     error.value = 'Not connected. Go to Dashboard and connect first.'
@@ -40,15 +45,23 @@ async function fetch() {
 
     <div v-if="info" class="card">
       <h2>Response</h2>
-      <div class="row"><span class="label">Network ID:</span><span class="value">{{ info.networkId }}</span></div>
-      <div class="row"><span class="label">Server Version:</span><span class="value">{{ info.serverVersion }}</span></div>
+      <div class="row"><span class="label">Network ID:</span><span class="value">{{ fmt(info.networkId) }}</span></div>
+      <div class="row"><span class="label">Server Version:</span><span class="value">{{ fmt(info.serverVersion) }}</span></div>
       <div class="row">
         <span class="label">Synced:</span>
-        <span :class="['badge', info.isSynced ? 'badge-green' : 'badge-yellow']">{{ info.isSynced }}</span>
+        <span :class="['badge', info.isSynced ? 'badge-green' : 'badge-yellow']">{{ fmt(info.isSynced) }}</span>
       </div>
       <div class="row">
         <span class="label">UTXO Index:</span>
-        <span :class="['badge', info.isUtxoIndexEnabled ? 'badge-green' : 'badge-gray']">{{ info.isUtxoIndexEnabled }}</span>
+        <span :class="['badge', info.isUtxoIndexEnabled ? 'badge-green' : 'badge-gray']">{{ fmt(info.isUtxoIndexEnabled) }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Has Notify Command:</span>
+        <span :class="['badge', info.hasNotifyCommand ? 'badge-green' : 'badge-gray']">{{ fmt(info.hasNotifyCommand) }}</span>
+      </div>
+      <div class="row">
+        <span class="label">Has Message ID:</span>
+        <span :class="['badge', info.hasMessageId ? 'badge-green' : 'badge-gray']">{{ fmt(info.hasMessageId) }}</span>
       </div>
     </div>
   </div>

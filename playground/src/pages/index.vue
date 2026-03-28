@@ -88,7 +88,7 @@ async function handleDisconnect() {
           :disabled="rpc.connectionState.value === 'connecting'"
           @click="initAndConnect"
         >
-          {{ rpc.connectionState.value === 'connecting' ? 'Connecting...' : 'Connect to mainnet' }}
+          {{ rpc.connectionState.value === 'connecting' ? 'Connecting...' : `Connect to ${network.currentNetwork.value}` }}
         </button>
         <button v-else class="btn btn-secondary" @click="handleDisconnect">Disconnect</button>
       </div>
@@ -96,18 +96,34 @@ async function handleDisconnect() {
 
     <div class="card">
       <h2>Network</h2>
-      <div class="row">
-        <span class="label">Current:</span>
-        <span class="value">{{ network.currentNetwork.value }}</span>
+      <div v-if="rpc.connectionState.value === 'reconnecting' || rpc.connectionState.value === 'connecting'" style="margin-bottom:12px;color:#fbbf24;font-size:13px">
+        Switching network...
       </div>
-      <div class="row">
-        <span class="label">Available:</span>
-        <div style="display:flex;gap:4px;flex-wrap:wrap">
-          <span
-            v-for="n in network.availableNetworks"
-            :key="n"
-            :class="['badge', n === network.currentNetwork.value ? 'badge-green' : 'badge-gray']"
-          >{{ n }}</span>
+      <div style="display:flex;flex-direction:column;gap:8px">
+        <div
+          v-for="n in network.availableNetworks"
+          :key="n"
+          :style="{
+            padding: '10px 12px',
+            borderRadius: '6px',
+            border: n === network.currentNetwork.value ? '1px solid #70c7ba' : '1px solid #334155',
+            background: n === network.currentNetwork.value ? '#0f2922' : '#1e293b',
+            cursor: n === network.currentNetwork.value ? 'default' : 'pointer',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '12px',
+          }"
+          @click="n !== network.currentNetwork.value && network.switchNetwork(n)"
+        >
+          <span :class="['badge', n === network.currentNetwork.value ? 'badge-green' : 'badge-gray']">{{ n }}</span>
+          <span style="font-size:13px;color:#94a3b8">{{ {
+            'mainnet': 'Kaspa mainnet — production network',
+            'testnet-10': 'Testnet v10 — public test network',
+            'testnet-11': 'Testnet v11 — newer public test network',
+            'simnet': 'Simulation network — local testing',
+            'devnet': 'Development network — local development',
+          }[n] ?? n }}</span>
+          <span v-if="n === network.currentNetwork.value" style="margin-left:auto;font-size:12px;color:#70c7ba">current</span>
         </div>
       </div>
     </div>

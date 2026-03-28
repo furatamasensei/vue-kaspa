@@ -17,7 +17,7 @@ async function open() {
     await wallet.open({ walletSecret: password.value })
     router.push('/wallet/accounts')
   } catch (e: unknown) {
-    error.value = e instanceof Error ? e.message : String(e)
+    error.value = e instanceof Error ? e.message + (e.cause ? ': ' + String(e.cause) : '') : String(e)
   } finally {
     loading.value = false
   }

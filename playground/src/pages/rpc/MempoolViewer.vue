@@ -1,8 +1,9 @@
 <script setup lang="ts">
 import { ref } from 'vue'
-import { useRpc, type MempoolEntry } from 'vue-kaspa'
+import { useRpc, useCrypto, type MempoolEntry } from 'vue-kaspa'
 
 const rpc = useRpc()
+const crypto = useCrypto()
 const entries = ref<MempoolEntry[]>([])
 const loading = ref(false)
 const error = ref<string | null>(null)
@@ -31,10 +32,29 @@ async function fetch() {
     </div>
     <div v-if="error" class="card" style="border-color:#ef4444"><p style="color:#f87171">{{ error }}</p></div>
     <div v-if="entries.length" class="card">
-      <h2>{{ entries.length }} entries</h2>
-      <div v-for="(entry, i) in entries.slice(0, 20)" :key="i" style="padding:8px 0;border-bottom:1px solid #334155">
-        <span class="mono" style="color:#94a3b8">{{ entry.transaction.id }}</span>
-        <span class="badge badge-gray" style="margin-left:8px">fee: {{ entry.fee }}</span>
+      <h2>{{ entries.length }} entries{{ entries.length > 20 ? ' (showing first 20)' : '' }}</h2>
+      <div v-for="(entry, i) in entries.slice(0, 20)" :key="i" style="padding:12px 0;border-bottom:1px solid #334155">
+        <div class="row" style="margin-bottom:6px">
+          <span class="label">TX ID:</span>
+          <span class="mono" style="color:#94a3b8;font-size:12px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap" :title="entry.transaction.id">{{ entry.transaction.id }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Fee:</span>
+          <span class="value mono">{{ entry.fee }} sompi ({{ crypto.sompiToKaspaString(entry.fee) }} KAS)</span>
+        </div>
+        <div class="row">
+          <span class="label">Orphan:</span>
+          <span :class="['badge', entry.isOrphan ? 'badge-yellow' : 'badge-gray']">{{ entry.isOrphan ? 'yes' : 'no' }}</span>
+        </div>
+        <div class="row">
+          <span class="label">Inputs:</span>
+          <span class="value">{{ entry.transaction.inputs.length }}</span>
+          <span class="label" style="margin-left:16px">Outputs:</span>
+          <span class="value">{{ entry.transaction.outputs.length }}</span>
+        </div>
+      </div>
+      <div v-if="entries.length > 20" style="padding-top:8px;color:#64748b;font-size:13px">
+        {{ entries.length - 20 }} more entries not shown.
       </div>
     </div>
     <div v-else-if="!loading && entries.length === 0 && !error" class="card">

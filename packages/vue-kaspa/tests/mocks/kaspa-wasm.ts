@@ -145,6 +145,23 @@ export const Mnemonic = vi.fn(function MnemonicImpl(phrase: string) {
   toSeed: vi.fn().mockReturnValue('a'.repeat(128)),
 })
 
+export const XPrv = vi.fn(function XPrvImpl(seed: string) {
+  return { seed }
+})
+
+export const PrivateKeyGenerator = vi.fn(function PrivateKeyGeneratorImpl(_xprv: unknown, _isMultisig: boolean, _accountIndex: bigint) {
+  return {
+    receiveKey: vi.fn().mockImplementation((index: number) => ({
+      toPublicKey: vi.fn().mockReturnValue({ toString: () => `mock-receive-pubkey-${index}` }),
+      toAddress: vi.fn().mockReturnValue({ toString: () => `kaspa:qrmockreceive${index}` }),
+    })),
+    changeKey: vi.fn().mockImplementation((index: number) => ({
+      toPublicKey: vi.fn().mockReturnValue({ toString: () => `mock-change-pubkey-${index}` }),
+      toAddress: vi.fn().mockReturnValue({ toString: () => `kaspa:qrmockchange${index}` }),
+    })),
+  }
+})
+
 export const PublicKeyGenerator = {
   fromMasterXPrv: vi.fn().mockResolvedValue({
     receivePubkeys: vi.fn().mockResolvedValue(

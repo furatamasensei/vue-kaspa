@@ -3,6 +3,8 @@ import {
   sompiToKaspaString as sdkSompiToKaspaString,
   PrivateKey,
   Mnemonic,
+  XPrv,
+  PrivateKeyGenerator,
   createAddress,
   Address,
   signMessage as sdkSignMessage,
@@ -57,20 +59,20 @@ export function useCrypto(): UseCryptoReturn {
       changeCount = 10,
     ): { receive: DerivedKey[]; change: DerivedKey[] } {
       try {
-        // Simplified derivation — production use should use XPrv/PublicKeyGenerator
         const m = new Mnemonic(phrase)
         const seedHex = m.toSeed()
-        const basePrivKeyHex = seedHex.slice(0, 64)
+        const xprv = new XPrv(seedHex)
+        const generator = new PrivateKeyGenerator(xprv, false, 0n)
 
         const receive: DerivedKey[] = Array.from({ length: receiveCount }, (_, i) => {
-          const pubKey = new PrivateKey(basePrivKeyHex).toPublicKey()
-          const address = pubKey.toAddress(network)
-          return { index: i, publicKeyHex: pubKey.toString(), address: address.toString() }
+          const privKey = generator.receiveKey(i)
+          const address = privKey.toAddress(network)
+          return { index: i, publicKeyHex: privKey.toPublicKey().toString(), address: address.toString() }
         })
         const change: DerivedKey[] = Array.from({ length: changeCount }, (_, i) => {
-          const pubKey = new PrivateKey(basePrivKeyHex).toPublicKey()
-          const address = pubKey.toAddress(network)
-          return { index: i, publicKeyHex: pubKey.toString(), address: address.toString() }
+          const privKey = generator.changeKey(i)
+          const address = privKey.toAddress(network)
+          return { index: i, publicKeyHex: privKey.toPublicKey().toString(), address: address.toString() }
         })
         return { receive, change }
       } catch (err) {

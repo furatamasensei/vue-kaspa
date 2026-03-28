@@ -26,13 +26,10 @@ watch(kasValue, (val) => {
 
 watch(sompiValue, (val) => {
   if (updating.value) return
+  if (!val || !/^\d+$/.test(val.trim())) { kasValue.value = ''; return }
   updating.value = true
   try {
-    if (val) {
-      kasValue.value = crypto.sompiToKaspa(BigInt(val))
-    } else {
-      kasValue.value = ''
-    }
+    kasValue.value = crypto.sompiToKaspa(BigInt(val.trim()))
   } catch {
     kasValue.value = ''
   }
@@ -66,7 +63,7 @@ const examples = [
         <div style="color:#64748b;font-size:20px;padding-top:20px">=</div>
         <div>
           <div class="label">Sompi</div>
-          <input v-model="sompiValue" class="input" type="number" step="1" placeholder="0" />
+          <input v-model="sompiValue" class="input" type="text" placeholder="0" />
         </div>
       </div>
     </div>

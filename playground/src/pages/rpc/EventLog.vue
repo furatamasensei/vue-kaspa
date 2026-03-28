@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { onMounted, onUnmounted, ref } from 'vue'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useRpc, type RpcEventType } from 'vue-kaspa'
 
 const rpc = useRpc()
 const filter = ref<RpcEventType | 'all'>('all')
 const allTypes: Array<RpcEventType | 'all'> = [
-  'all', 'blockAdded', 'virtualChainChanged', 'utxosChanged',
-  'finalityConflict', 'sinkBlueScoreChanged', 'virtualDaaScoreChanged',
-  'newBlockTemplate', 'syncStateChanged', 'connect', 'disconnect',
+  'all', 'block-added', 'virtual-chain-changed', 'utxos-changed',
+  'finality-conflict', 'sink-blue-score-changed', 'virtual-daa-score-changed',
+  'new-block-template', 'connect', 'disconnect',
 ]
 
 const filtered = computed(() =>
@@ -17,22 +17,27 @@ const filtered = computed(() =>
 )
 
 const colorMap: Record<string, string> = {
-  blockAdded: '#4ade80',
-  virtualDaaScoreChanged: '#60a5fa',
-  sinkBlueScoreChanged: '#818cf8',
-  syncStateChanged: '#fbbf24',
-  utxosChanged: '#f472b6',
-  finalityConflict: '#fb923c',
-  connect: '#4ade80',
-  disconnect: '#f87171',
-  default: '#94a3b8',
+  'block-added': '#4ade80',
+  'virtual-daa-score-changed': '#60a5fa',
+  'sink-blue-score-changed': '#818cf8',
+  'utxos-changed': '#f472b6',
+  'finality-conflict': '#fb923c',
+  'connect': '#4ade80',
+  'disconnect': '#f87171',
+  'default': '#94a3b8',
 }
 
 function colorFor(type: string) {
   return colorMap[type] ?? colorMap.default
 }
 
-import { computed } from 'vue'
+function safeJson(v: unknown): string {
+  try {
+    return JSON.stringify(v, (_, val) => typeof val === 'bigint' ? val.toString() + 'n' : val, 2)
+  } catch {
+    return String(v)
+  }
+}
 </script>
 
 <template>
@@ -67,7 +72,7 @@ import { computed } from 'vue'
           class="badge"
           :style="{ background: colorFor(event.type) + '22', color: colorFor(event.type) }"
         >{{ event.type }}</span>
-        <pre class="mono" style="font-size:11px;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:400px">{{ JSON.stringify(event.data) }}</pre>
+        <pre class="mono" style="font-size:11px;color:#64748b;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:400px">{{ safeJson(event.data) }}</pre>
       </div>
     </div>
   </div>
