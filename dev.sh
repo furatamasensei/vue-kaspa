@@ -11,7 +11,50 @@ success() { echo -e "${GREEN}✓${NC} $*"; }
 warn()    { echo -e "${YELLOW}!${NC} $*"; }
 die()     { echo -e "${RED}✗${NC} $*"; exit 1; }
 
-# ── pnpm check ───────────────────────────────────────────────────────────────
+PIDS_DIR="$ROOT/.dev-pids"
+LOGS_DIR="$ROOT/.dev-logs"
+mkdir -p "$PIDS_DIR" "$LOGS_DIR"
+
+# ── helpers ───────────────────────────────────────────────────────────────────
+start_service() {
+  local name="$1"; shift          # e.g. "playground"
+  local pid_file="$PIDS_DIR/$name.pid"
+  local log_file="$LOGS_DIR/$name.log"
+
+  # Kill any previous instance for this service
+  if [[ -f "$pid_file" ]]; then
+    local old_pid
+    old_pid=$(cat "$pid_file")
+    kill "$old_pid" 2>/dev/null && warn "Stopped previous $name (pid $old_pid)"
+    rm -f "$pid_file"
+  fi
+
+  # Start detached
+  "$@" > "$log_file" 2>&1 &
+  echo $! > "$pid_file"
+  success "$name started (pid $!, log: .dev-logs/$name.log)"
+}
+
+stop_service() {
+  local name="$1"
+  local pid_file="$PIDS_DIR/$name.pid"
+  if [[ -f "$pid_file" ]]; then
+    local pid
+    pid=$(cat "$pid_file")
+    kill "$pid" 2>/dev/null && success "Stopped $name (pid $pid)" || warn "$name was not running"
+    rm -f "$pid_file"
+  else
+    warn "$name is not running"
+  fi
+}
+
+is_running() {
+  local name="$1"
+  local pid_file="$PIDS_DIR/$name.pid"
+  [[ -f "$pid_file" ]] && kill -0 "$(cat "$pid_file")" 2>/dev/null
+}
+
+# ── pnpm check ────────────────────────────────────────────────────────────────
 command -v pnpm &>/dev/null || die "pnpm not found. Run: npm install -g pnpm"
 
 # ── auto-install if node_modules is missing or lock file is newer ─────────────
@@ -30,41 +73,69 @@ if needs_install; then
   success "Dependencies ready."
 fi
 
-# ── mode ─────────────────────────────────────────────────────────────────────
-MODE="${1:-dev}"
+# ── mode ──────────────────────────────────────────────────────────────────────
+MODE="${1:-all}"
 
 case "$MODE" in
   dev)
-    info "Starting playground at http://localhost:5173"
-    info "vue-kaspa source is aliased directly — edits hot-reload instantly"
-    info "Press Ctrl+C to stop"
+    start_service playground pnpm --filter playground dev
     echo ""
-    pnpm --filter playground dev
+    info "Playground → http://localhost:5173  (tail: ./dev.sh logs playground)"
     ;;
 
   docs)
-    info "Starting docs dev server..."
-    info "Press Ctrl+C to stop"
+    start_service docs pnpm --filter docs dev
     echo ""
-    pnpm --filter docs dev
+    info "Docs → http://localhost:5173  (tail: ./dev.sh logs docs)"
+    ;;
+
+  all)
+    start_service playground pnpm --filter playground dev
+    start_service docs pnpm --filter docs dev
+    echo ""
+    info "Playground → http://localhost:5173"
+    info "Docs       → http://localhost:5174"
+    info "Tail logs  → ./dev.sh logs"
+    info "Stop all   → ./dev.sh stop"
+    ;;
+
+  stop)
+    TARGET="${2:-}"
+    if [[ -n "$TARGET" ]]; then
+      stop_service "$TARGET"
+    else
+      stop_service playground
+      stop_service docs
+    fi
+    ;;
+
+  status)
+    for name in playground docs; do
+      if is_running "$name"; then
+        pid=$(cat "$PIDS_DIR/$name.pid")
+        echo -e "${GREEN}●${NC} $name  (pid $pid)"
+      else
+        echo -e "${RED}○${NC} $name  (not running)"
+      fi
+    done
+    ;;
+
+  logs)
+    TARGET="${2:-}"
+    if [[ -n "$TARGET" ]]; then
+      [[ -f "$LOGS_DIR/$TARGET.log" ]] || die "No log found for $TARGET"
+      tail -f "$LOGS_DIR/$TARGET.log"
+    else
+      # Interleave both logs with a prefix using tail -f on multiple files
+      tail -f "$LOGS_DIR"/playground.log "$LOGS_DIR"/docs.log 2>/dev/null \
+        || die "No logs found. Run ./dev.sh all first."
+    fi
     ;;
 
   docs:build)
     info "Building docs..."
     pnpm --filter docs build
     success "Docs built → docs/.vitepress/dist/"
-    ;;
-
-  all)
-    info "Starting playground + docs in parallel..."
-    info "Press Ctrl+C to stop both"
-    echo ""
-    pnpm --filter playground dev &
-    PLAYGROUND_PID=$!
-    pnpm --filter docs dev &
-    DOCS_PID=$!
-    trap "kill $PLAYGROUND_PID $DOCS_PID 2>/dev/null" INT TERM
-    wait
     ;;
 
   test)
@@ -98,16 +169,19 @@ case "$MODE" in
     ;;
 
   *)
-    echo "Usage: ./dev.sh [dev|docs|docs:build|all|test|test:watch|build|ci]"
+    echo "Usage: ./dev.sh [command] [target]"
     echo ""
-    echo "  dev         start playground dev server (default)"
-    echo "  docs        start docs dev server"
-    echo "  docs:build  build the docs site"
-    echo "  all         start playground + docs in parallel"
-    echo "  test        run tests once"
-    echo "  test:watch  run tests in watch mode"
-    echo "  build       build the library"
-    echo "  ci          test + build library + build playground"
+    echo "  all              start playground + docs in background (default)"
+    echo "  dev              start playground only"
+    echo "  docs             start docs only"
+    echo "  stop [name]      stop all servers, or a specific one"
+    echo "  status           show which servers are running"
+    echo "  logs [name]      tail logs for all servers, or a specific one"
+    echo "  docs:build       build the docs site"
+    echo "  test             run tests once"
+    echo "  test:watch       run tests in watch mode"
+    echo "  build            build the library"
+    echo "  ci               test + build library + build playground"
     exit 1
     ;;
 esac
