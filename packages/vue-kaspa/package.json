@@ -1,0 +1,43 @@
+{
+  "name": "vue-kaspa",
+  "version": "0.1.0",
+  "type": "module",
+  "exports": {
+    ".": {
+      "import": "./dist/vue-kaspa.es.js",
+      "require": "./dist/vue-kaspa.umd.cjs",
+      "types": "./dist/index.d.ts"
+    }
+  },
+  "main": "./dist/vue-kaspa.umd.cjs",
+  "module": "./dist/vue-kaspa.es.js",
+  "types": "./dist/index.d.ts",
+  "sideEffects": false,
+  "scripts": {
+    "build": "vite build",
+    "typecheck": "vue-tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest"
+  },
+  "peerDependencies": {
+    "vue": ">=3.4.0",
+    "kaspa-wasm": ">=1.1.0"
+  },
+  "dependencies": {
+    "@vue/devtools-api": "^8.1.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.5",
+    "@vue/test-utils": "^2.4.6",
+    "happy-dom": "^20.8.9",
+    "kaspa-wasm": "workspace:*",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3",
+    "vite-plugin-dts": "^4.5.4",
+    "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-wasm": "^3.6.0",
+    "vitest": "^4.1.2",
+    "vue": "^3.5.31",
+    "vue-tsc": "^2.2.8"
+  }
+}

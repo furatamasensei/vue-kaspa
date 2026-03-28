@@ -1,0 +1,243 @@
+import { vi } from 'vitest'
+
+// ─── WASM init ──────────────────────────────────────────────────────────────
+
+export const mockWasmInit = vi.fn().mockResolvedValue(undefined)
+export const initConsolePanicHook = vi.fn()
+export const initBrowserPanicHook = vi.fn()
+
+export default mockWasmInit
+
+// ─── RpcClient ──────────────────────────────────────────────────────────────
+
+export function createRpcClientMock() {
+  return {
+    connect: vi.fn().mockResolvedValue(undefined),
+    disconnect: vi.fn().mockResolvedValue(undefined),
+    url: 'ws://mock-node:17110',
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    subscribeVirtualDaaScoreChanged: vi.fn().mockResolvedValue(undefined),
+    subscribeBlockAdded: vi.fn().mockResolvedValue(undefined),
+    subscribeUtxosChanged: vi.fn().mockResolvedValue(undefined),
+    unsubscribeUtxosChanged: vi.fn().mockResolvedValue(undefined),
+    getServerInfo: vi.fn().mockResolvedValue({
+      isUtxoIndexEnabled: true,
+      isSynced: true,
+      hasNotifyCommand: true,
+      hasMessageId: true,
+      serverVersion: '1.1.0',
+      networkId: 'kaspa-mainnet',
+    }),
+    getInfo: vi.fn().mockResolvedValue({
+      isUtxoIndexEnabled: true,
+      isSynced: true,
+      hasNotifyCommand: true,
+      hasMessageId: true,
+      serverVersion: '1.1.0',
+      networkId: 'kaspa-mainnet',
+    }),
+    getBlock: vi.fn().mockResolvedValue({
+      block: { verboseData: { hash: 'mock-hash', timestamp: '1000000', blueScore: '100' }, transactions: [] },
+    }),
+    getBlockCount: vi.fn().mockResolvedValue({ blockCount: 1000n, headerCount: 1000n }),
+    getBalanceByAddress: vi.fn().mockResolvedValue({ balance: 1_000_000_000n }),
+    getBalancesByAddresses: vi.fn().mockResolvedValue({ balances: [] }),
+    getUtxosByAddresses: vi.fn().mockResolvedValue({ entries: [] }),
+    getMempoolEntries: vi.fn().mockResolvedValue({ mempoolEntries: [] }),
+    getMempoolEntriesByAddresses: vi.fn().mockResolvedValue({ addressEntries: [] }),
+    getFeeEstimate: vi.fn().mockResolvedValue({
+      estimate: {
+        priorityBucket: { feerate: 1.0, estimatedSeconds: 10 },
+        normalBuckets: [],
+        lowBuckets: [],
+      },
+    }),
+    submitTransaction: vi.fn().mockResolvedValue({ transactionId: 'mock-txid-0000' }),
+    getCoinSupply: vi.fn().mockResolvedValue({
+      circulatingCoinSupply: 20_000_000_000n,
+      maxCoinSupply: 28_700_000_000n,
+    }),
+    ping: vi.fn().mockResolvedValue(undefined),
+  }
+}
+
+export const RpcClient = vi.fn(function RpcClientImpl() { return createRpcClientMock() })
+
+// ─── Resolver ──────────────────────────────────────────────────────────────
+
+export const Resolver = vi.fn(function ResolverImpl() { return {} })
+
+// ─── Wallet ─────────────────────────────────────────────────────────────────
+
+export function createWalletMock() {
+  return {
+    connect: vi.fn().mockResolvedValue(undefined),
+    disconnect: vi.fn().mockResolvedValue(undefined),
+    start: vi.fn().mockResolvedValue(undefined),
+    stop: vi.fn().mockResolvedValue(undefined),
+    addEventListener: vi.fn(),
+    removeEventListener: vi.fn(),
+    exists: vi.fn().mockResolvedValue(true),
+    walletCreate: vi.fn().mockResolvedValue({ walletDescriptor: { title: 'Mock Wallet', filename: 'mock' } }),
+    walletOpen: vi.fn().mockResolvedValue({ accountDescriptors: [] }),
+    walletClose: vi.fn().mockResolvedValue(undefined),
+    accountsEnumerate: vi.fn().mockResolvedValue({ accountDescriptors: [] }),
+    accountsActivate: vi.fn().mockResolvedValue(undefined),
+    accountsCreate: vi.fn().mockResolvedValue({
+      accountDescriptor: {
+        accountId: 'mock-account-id',
+        accountName: 'Default',
+        receiveAddress: { toString: () => 'kaspa:qrmockaddress' },
+        changeAddress: { toString: () => 'kaspa:qrmockchange' },
+      },
+    }),
+    accountsEnsureDefault: vi.fn().mockResolvedValue({
+      accountDescriptor: {
+        accountId: 'mock-account-id',
+        accountName: 'Default',
+        receiveAddress: { toString: () => 'kaspa:qrmockaddress' },
+        changeAddress: { toString: () => 'kaspa:qrmockchange' },
+      },
+    }),
+    accountsSend: vi.fn().mockResolvedValue({ generatorSummary: { finalTransactionId: 'mock-txid' } }),
+    accountsTransfer: vi.fn().mockResolvedValue({ generatorSummary: {} }),
+    transactionsDataGet: vi.fn().mockResolvedValue({ transactions: [], total: 0 }),
+  }
+}
+
+export const Wallet = vi.fn(function WalletImpl() { return createWalletMock() })
+
+// ─── Cryptography ──────────────────────────────────────────────────────────
+
+export const PrivateKey = vi.fn(function PrivateKeyImpl(hex: string) { return {
+  toKeypair: vi.fn().mockReturnValue({
+    toAddress: vi.fn().mockReturnValue({ toString: () => 'kaspa:qrmockaddressfromkey' }),
+    publicKey: 'mock-public-key-hex',
+  }),
+  toPublicKey: vi.fn().mockReturnValue({
+    toString: () => 'mock-public-key-hex',
+    toAddress: vi.fn().mockReturnValue({ toString: () => 'kaspa:qrmockaddressfrompubkey' }),
+  }),
+  toString: () => hex,
+}})
+
+export const PublicKey = vi.fn(function PublicKeyImpl(hex: string) { return {
+  toAddress: vi.fn().mockReturnValue({ toString: () => 'kaspa:qrmockaddressfrompubkey' }),
+  toString: () => hex,
+}})
+
+export const Keypair = vi.fn()
+
+// v1.1.0: Mnemonic.toSeed() returns a hex string
+export const Mnemonic = vi.fn(function MnemonicImpl(phrase: string) {
+  return {
+    phrase,
+    toSeed: vi.fn().mockReturnValue('a'.repeat(128)), // 64 bytes as hex string
+  }
+}) as unknown as {
+  new(phrase: string): { phrase: string; toSeed: () => string }
+  random(wordCount?: number | null): { phrase: string; entropy: string; toSeed: () => string }
+}
+;(Mnemonic as unknown as { random: ReturnType<typeof vi.fn> }).random = vi.fn().mockReturnValue({
+  phrase: 'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about',
+  entropy: 'mock-entropy',
+  toSeed: vi.fn().mockReturnValue('a'.repeat(128)),
+})
+
+export const PublicKeyGenerator = {
+  fromMasterXPrv: vi.fn().mockResolvedValue({
+    receivePubkeys: vi.fn().mockResolvedValue(
+      Array.from({ length: 10 }, (_, i) => `mock-pubkey-receive-${i}`),
+    ),
+    changePubkeys: vi.fn().mockResolvedValue(
+      Array.from({ length: 10 }, (_, i) => `mock-pubkey-change-${i}`),
+    ),
+  }),
+}
+
+export const createAddress = vi.fn().mockReturnValue({
+  toString: () => 'kaspa:qrmockcreatedaddress',
+})
+
+// v1.1.0: Address is a class with constructor + static validate()
+export const Address = vi.fn(function AddressImpl(address: string) {
+  return {
+    toString: () => address,
+    prefix: 'kaspa',
+    payload: 'qrmockpayload',
+    version: 'PubKey',
+  }
+}) as unknown as {
+  new(address: string): { toString(): string; prefix: string; payload: string; version: string }
+  validate(address: string): boolean
+}
+;(Address as unknown as { validate: ReturnType<typeof vi.fn> }).validate = vi.fn().mockImplementation(
+  (addr: string) => typeof addr === 'string' && addr.startsWith('kaspa:')
+)
+
+export const addressFromScriptPublicKey = vi.fn().mockReturnValue({
+  toString: () => 'kaspa:qrmockscriptaddress',
+})
+
+export const ScriptBuilder = vi.fn().mockImplementation(() => ({
+  addOp: vi.fn().mockReturnThis(),
+  addData: vi.fn().mockReturnThis(),
+  build: vi.fn().mockReturnValue('mock-script'),
+}))
+
+export const Opcodes = {
+  OpTrue: 0x51,
+  OpFalse: 0x00,
+  OpCheckSig: 0xac,
+  OpCheckMultiSig: 0xae,
+}
+
+// v1.1.0: signMessage/verifyMessage take object arguments
+export const signMessage = vi.fn().mockImplementation(
+  (_args: { message: string; privateKey: string }) => 'mock-signature-hex'
+)
+export const verifyMessage = vi.fn().mockImplementation(
+  (_args: { message: string; signature: string; publicKey: string }) => true
+)
+
+// ─── Unit conversion ───────────────────────────────────────────────────────
+
+// v1.1.0: kaspaToSompi returns bigint | undefined
+export const kaspaToSompi = vi.fn().mockImplementation((kas: string) => {
+  const n = parseFloat(kas)
+  if (isNaN(n)) return undefined
+  return BigInt(Math.round(n * 1_000_000_000))
+})
+
+export const sompiToKaspaString = vi.fn().mockImplementation((sompi: bigint) => {
+  return (Number(sompi) / 1_000_000_000).toFixed(8)
+})
+
+export const sompiToKaspaStringWithSuffix = vi.fn().mockImplementation((sompi: bigint) => {
+  return (Number(sompi) / 1_000_000_000).toFixed(8) + ' KAS'
+})
+
+// ─── Hashing ───────────────────────────────────────────────────────────────
+
+export const sha256FromText = vi.fn().mockReturnValue('mock-sha256-hash')
+export const sha256dFromText = vi.fn().mockReturnValue('mock-sha256d-hash')
+
+// ─── NetworkType / NetworkId / Encoding ──────────────────────────────────
+
+export enum NetworkType {
+  Mainnet = 0,
+  Testnet = 1,
+  Devnet = 2,
+  Simnet = 3,
+}
+
+export const NetworkId = vi.fn().mockImplementation((id: string) => ({
+  id,
+  toString: () => id,
+}))
+
+export enum Encoding {
+  Borsh = 0,
+  SerdeJson = 1,
+}
