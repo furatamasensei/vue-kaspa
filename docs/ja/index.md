@@ -11,10 +11,16 @@ hero:
     - theme: brand
       text: はじめる
       link: /ja/guide/introduction
+    - theme: brand
+      text: CLI を試す
+      link: /ja/guide/installation#quick-setup
     - theme: alt
       text: コンポーザブル
       link: /ja/composables/use-kaspa
 features:
+  - icon: 🚀
+    title: CLI スキャフォールディング
+    details: npx vue-kaspa-cli を実行するだけで、WASM・CORS ヘッダー・KaspaStatus コンポーネントがすべて設定済みの Vue 3 または Nuxt 4 スターターを即座に作成できます。
   - icon: ⚡
     title: デフォルトでリアクティブ
     details: WASM のステータス、接続状態、UTXO、残高はすべて Vue のリアクティブ ref です — 手動での配線は不要です。

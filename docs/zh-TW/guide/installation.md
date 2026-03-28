@@ -1,5 +1,34 @@
 # 安裝
 
+## 快速設定
+
+最快的起始方式是使用 CLI——它會自動建立包含 WASM、CORS 標頭與可運行的 `KaspaStatus` 元件的完整專案，一切皆已預先配置：
+
+```bash
+npx vue-kaspa-cli
+```
+
+依提示輸入專案名稱並選擇框架（Vue 3 或 Nuxt 4）：
+
+```
+  vue-kaspa-cli — scaffold a Kaspa-connected Vue/Nuxt app
+
+? Project name: kaspa-app
+? Framework: Vue
+```
+
+接著執行：
+
+```bash
+cd kaspa-app
+npm install
+npm run dev
+```
+
+::: tip 手動設定
+要將 vue-kaspa 加入**現有專案**？請繼續閱讀以下步驟。
+:::
+
 ## 前置條件
 
 - Node.js 18+

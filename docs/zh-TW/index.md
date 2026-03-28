@@ -11,10 +11,16 @@ hero:
     - theme: brand
       text: 快速開始
       link: /zh-TW/guide/introduction
+    - theme: brand
+      text: 試用 CLI
+      link: /zh-TW/guide/installation#quick-setup
     - theme: alt
       text: 可組合函式
       link: /zh-TW/composables/use-kaspa
 features:
+  - icon: 🚀
+    title: CLI 腳手架
+    details: 執行 npx vue-kaspa-cli，立即產生已預設 WASM、CORS 標頭與 KaspaStatus 元件的 Vue 3 或 Nuxt 4 起始專案。零設定。
   - icon: ⚡
     title: 預設響應式
     details: WASM 狀態、連線狀態、UTXO 與餘額皆為 Vue 響應式 ref，無需手動接線。

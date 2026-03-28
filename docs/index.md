@@ -11,11 +11,17 @@ hero:
     - theme: brand
       text: Get Started
       link: /guide/introduction
+    - theme: brand
+      text: Try the CLI
+      link: /guide/installation#quick-setup
     - theme: alt
       text: Composables
       link: /composables/use-kaspa
 
 features:
+  - icon: 🚀
+    title: CLI scaffolding
+    details: Run npx vue-kaspa-cli to scaffold a Vue 3 or Nuxt 4 starter project pre-wired with WASM, CORS headers, and a live KaspaStatus component. Zero config.
   - icon: ⚡
     title: Reactive by default
     details: WASM status, connection state, UTXOs, and balances are Vue reactive refs — no manual wiring needed.

@@ -17,7 +17,17 @@ VKAS wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/ka
 - **Nuxt 3 module** — auto-imports, client-only plugin, SSR-safe out of the box
 - **Vue DevTools** — inspector panel and event timeline
 
-## Install
+## Quick setup with CLI
+
+The fastest way to start a new project:
+
+```bash
+npx vue-kaspa-cli
+```
+
+Prompts for a project name and framework (Vue 3 or Nuxt 4), then generates a fully configured starter with WASM, CORS headers, and a live `KaspaStatus` component.
+
+## Manual install
 
 ```bash
 npm install vue-kaspa @vue-kaspa/kaspa-wasm

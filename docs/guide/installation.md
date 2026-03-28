@@ -1,5 +1,34 @@
 # Installation
 
+## Quick Setup
+
+The fastest way to start is with the CLI — it scaffolds a complete project with WASM, CORS headers, and a working `KaspaStatus` component, all pre-configured:
+
+```bash
+npx vue-kaspa-cli
+```
+
+You'll be prompted for a project name and your framework of choice (Vue 3 or Nuxt 4):
+
+```
+  vue-kaspa-cli — scaffold a Kaspa-connected Vue/Nuxt app
+
+? Project name: kaspa-app
+? Framework: Vue
+```
+
+Then:
+
+```bash
+cd kaspa-app
+npm install
+npm run dev
+```
+
+::: tip Manual setup
+Adding vue-kaspa to an **existing** project? Continue with the steps below.
+:::
+
 ## Prerequisites
 
 - Node.js 18+
