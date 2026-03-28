@@ -3,7 +3,7 @@ layout: home
 hero:
   name: VKAS
   text: The Fastest Chain Meets Great DX 
-  tagline: Kaspa is fast! But setting up WASM might not for everyone. This plugin simplifies that.
+  tagline: Kaspa is fast! But making it works on Vue was a nightmare. This plugin simplifies that.
   image:
     src: /logo.png
     alt: VKAS
