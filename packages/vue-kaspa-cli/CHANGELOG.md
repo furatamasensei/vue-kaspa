@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.2...vue-kaspa-cli-v0.1.3) (2026-03-28)
+
+
+### Bug Fixes
+
+* **nuxt:** wire WASM support fully in the Nuxt module ([6ff8217](https://github.com/furatamasensei/vue-kaspa/commit/6ff8217b2b72a3658c23a4c4e636ddae2be6e872))
+
 ## [0.1.2](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.1...vue-kaspa-cli-v0.1.2) (2026-03-28)
 
 

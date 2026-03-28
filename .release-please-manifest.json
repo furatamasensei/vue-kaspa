@@ -1,5 +1,5 @@
 {
-  "packages/vue-kaspa": "0.1.4",
+  "packages/vue-kaspa": "0.1.5",
   "vendor/kaspa-wasm": "1.2.2",
-  "packages/vue-kaspa-cli": "0.1.2"
+  "packages/vue-kaspa-cli": "0.1.3"
 }
