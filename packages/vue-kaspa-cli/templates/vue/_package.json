@@ -10,9 +10,9 @@
     "typecheck": "vue-tsc --noEmit"
   },
   "dependencies": {
-    "@vue-kaspa/kaspa-wasm": "^1.2.0",
+    "@vue-kaspa/kaspa-wasm": "^1.2.2",
     "vue": "^3.5.0",
-    "vue-kaspa": "^0.1.0"
+    "vue-kaspa": "^0.1.6"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.0",

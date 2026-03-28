@@ -9,9 +9,9 @@
     "generate": "nuxt generate"
   },
   "dependencies": {
-    "@vue-kaspa/kaspa-wasm": "^1.2.0",
+    "@vue-kaspa/kaspa-wasm": "^1.2.2",
     "nuxt": "^4.4.2",
-    "vue-kaspa": "^0.1.0"
+    "vue-kaspa": "^0.1.6"
   },
   "devDependencies": {
     "vite-plugin-wasm": "^3.6.0"
