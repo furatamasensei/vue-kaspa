@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { onMounted } from 'vue'
-import { RouterView, RouterLink, useRoute } from 'vue-router'
-import { useKaspa, useRpc } from 'vue-kaspa'
 import {
   Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent,
   SidebarGroupLabel, SidebarHeader, SidebarInset, SidebarMenu,
   SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger,
 } from '@/components/ui/sidebar'
+import { useKaspa, useRpc } from 'vkas'
+import { onMounted } from 'vue'
+import { RouterLink, RouterView, useRoute } from 'vue-router'
 
 const kaspa = useKaspa()
 const rpc = useRpc()
 const route = useRoute()
 
 onMounted(() => {
-  kaspa.init().then(() => rpc.connect()).catch(() => {/* connection state handles errors */})
+  kaspa.init().then(() => rpc.connect()).catch(() => {/* connection state handles errors */ })
 })
 
 const navGroups = [
@@ -66,7 +66,7 @@ const navGroups = [
   <SidebarProvider>
     <Sidebar>
       <SidebarHeader class="px-4 py-3">
-        <span class="text-lg font-bold text-sidebar-primary">⬡ vue-kaspa</span>
+        <span class="text-lg font-bold text-sidebar-primary">⬡ vkas</span>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup v-for="group in navGroups" :key="group.label">

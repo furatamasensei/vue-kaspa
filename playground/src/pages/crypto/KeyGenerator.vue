@@ -1,15 +1,15 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useCrypto, useNetwork, type KeypairInfo, type MnemonicInfo } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { useCrypto, useNetwork, type KeypairInfo, type MnemonicInfo } from 'vkas'
+import { computed, ref } from 'vue'
+import CodeExample from '../../components/CodeExample.vue'
 
 const crypto = useCrypto()
 const network = useNetwork()
 
-const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vue-kaspa'
+const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vkas'
 
 const crypto = useCrypto()
 const { currentNetwork } = useNetwork()
@@ -67,16 +67,10 @@ function copy(text: string) {
           <CardContent class="pt-6 space-y-3">
             <div class="flex items-center gap-3">
               <span class="text-sm text-muted-foreground">Word count:</span>
-              <Button
-                :variant="wordCount === 12 ? 'default' : 'secondary'"
-                size="sm"
-                @click="wordCount = 12"
-              >12</Button>
-              <Button
-                :variant="wordCount === 24 ? 'default' : 'secondary'"
-                size="sm"
-                @click="wordCount = 24"
-              >24</Button>
+              <Button :variant="wordCount === 12 ? 'default' : 'secondary'" size="sm"
+                @click="wordCount = 12">12</Button>
+              <Button :variant="wordCount === 24 ? 'default' : 'secondary'" size="sm"
+                @click="wordCount = 24">24</Button>
             </div>
             <Button @click="generateMnemonic">Generate Mnemonic</Button>
           </CardContent>
@@ -89,11 +83,8 @@ function copy(text: string) {
           <CardContent class="space-y-3">
             <div class="rounded-md bg-muted/30 p-3">
               <div class="flex flex-wrap gap-1.5">
-                <span
-                  v-for="(word, i) in mnemonic.phrase.split(' ')"
-                  :key="i"
-                  class="rounded bg-muted px-2 py-1 text-sm"
-                >
+                <span v-for="(word, i) in mnemonic.phrase.split(' ')" :key="i"
+                  class="rounded bg-muted px-2 py-1 text-sm">
                   <span class="text-muted-foreground mr-1 text-xs">{{ i + 1 }}</span>{{ word }}
                 </span>
               </div>
@@ -112,7 +103,8 @@ function copy(text: string) {
           <CardContent class="space-y-3">
             <div>
               <p class="text-xs text-muted-foreground mb-1">Address</p>
-              <p class="font-mono text-sm text-primary break-all cursor-pointer hover:opacity-80" @click="copy(derivedKeypair.address)">
+              <p class="font-mono text-sm text-primary break-all cursor-pointer hover:opacity-80"
+                @click="copy(derivedKeypair.address)">
                 {{ derivedKeypair.address }}
               </p>
             </div>
@@ -122,10 +114,8 @@ function copy(text: string) {
             </div>
             <div>
               <p class="text-xs text-destructive mb-1">Private Key (handle with care)</p>
-              <p
-                class="font-mono text-xs break-all text-destructive blur-sm hover:blur-none transition-all cursor-pointer"
-                @click="copy(derivedKeypair.privateKeyHex)"
-              >{{ derivedKeypair.privateKeyHex }}</p>
+              <p class="font-mono text-xs break-all text-destructive blur-sm hover:blur-none transition-all cursor-pointer"
+                @click="copy(derivedKeypair.privateKeyHex)">{{ derivedKeypair.privateKeyHex }}</p>
             </div>
           </CardContent>
         </Card>
@@ -146,7 +136,8 @@ function copy(text: string) {
           <CardContent class="space-y-3">
             <div>
               <p class="text-xs text-muted-foreground mb-1">Address</p>
-              <p class="font-mono text-sm text-primary break-all cursor-pointer hover:opacity-80" @click="copy(keypair.address)">
+              <p class="font-mono text-sm text-primary break-all cursor-pointer hover:opacity-80"
+                @click="copy(keypair.address)">
                 {{ keypair.address }}
               </p>
             </div>
@@ -156,10 +147,8 @@ function copy(text: string) {
             </div>
             <div>
               <p class="text-xs text-destructive mb-1">Private Key</p>
-              <p
-                class="font-mono text-xs break-all text-destructive blur-sm hover:blur-none transition-all cursor-pointer"
-                @click="copy(keypair.privateKeyHex)"
-              >{{ keypair.privateKeyHex }}</p>
+              <p class="font-mono text-xs break-all text-destructive blur-sm hover:blur-none transition-all cursor-pointer"
+                @click="copy(keypair.privateKeyHex)">{{ keypair.privateKeyHex }}</p>
             </div>
           </CardContent>
         </Card>

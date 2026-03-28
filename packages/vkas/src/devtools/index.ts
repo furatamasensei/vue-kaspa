@@ -1,20 +1,20 @@
+import { setupDevtoolsPlugin } from '@vue/devtools-api'
 import type { App } from 'vue'
 import { watch } from 'vue'
-import { setupDevtoolsPlugin } from '@vue/devtools-api'
-import { setupInspector, INSPECTOR_ID } from './inspector'
-import { setupTimeline, postTimelineEvent } from './timeline'
 import { getRpcManager } from '../internal/rpc-manager'
 import { getWasmState } from '../internal/wasm-loader'
+import { INSPECTOR_ID, setupInspector } from './inspector'
+import { postTimelineEvent, setupTimeline } from './timeline'
 
 export function setupDevtools(app: App): void {
   if (typeof window === 'undefined') return
 
   setupDevtoolsPlugin(
     {
-      id: 'vue-kaspa',
+      id: 'vkas',
       label: 'Kaspa SDK',
-      packageName: 'vue-kaspa',
-      homepage: 'https://github.com/kaspanet/vue-kaspa',
+      packageName: 'vkas',
+      homepage: 'https://github.com/kaspanet/vkas',
       app,
       settings: {},
       enableEarlyProxy: true,

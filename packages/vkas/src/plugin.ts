@@ -1,6 +1,6 @@
 import type { App } from 'vue'
+import { KASPA_INSTALLED_KEY, KASPA_OPTIONS_KEY } from './symbols'
 import type { KaspaPluginOptions } from './types'
-import { KASPA_OPTIONS_KEY, KASPA_INSTALLED_KEY } from './symbols'
 
 function resolveOptions(options: KaspaPluginOptions): KaspaPluginOptions {
   return {
@@ -17,7 +17,7 @@ function resolveOptions(options: KaspaPluginOptions): KaspaPluginOptions {
 export const KaspaPlugin = {
   install(app: App, options: KaspaPluginOptions = {}): void {
     if (app._context.provides[KASPA_INSTALLED_KEY as unknown as string]) {
-      console.warn('[vue-kaspa] Plugin already installed.')
+      console.warn('[vkas] Plugin already installed.')
       return
     }
 

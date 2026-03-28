@@ -5,13 +5,13 @@ VKAS ships a first-class Nuxt 3 module. It registers a client-only plugin, auto-
 ## Setup
 
 ```bash
-npm install vue-kaspa kaspa-wasm
+npm install vkas kaspa-wasm
 ```
 
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['vue-kaspa/nuxt'],
+  modules: ['vkas/nuxt'],
 
   kaspa: {
     network: 'mainnet',
@@ -74,7 +74,7 @@ Composables called in SSR context return safe empty state (e.g., `wasmStatus: 'i
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['vue-kaspa/nuxt'],
+  modules: ['vkas/nuxt'],
   kaspa: {
     network: 'testnet-10',
     url: 'ws://your-node.example.com:17210',

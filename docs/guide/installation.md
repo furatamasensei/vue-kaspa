@@ -9,16 +9,16 @@
 
 ```bash
 # npm
-npm install vue-kaspa kaspa-wasm
+npm install vkas kaspa-wasm
 
 # pnpm
-pnpm add vue-kaspa kaspa-wasm
+pnpm add vkas kaspa-wasm
 
 # yarn
-yarn add vue-kaspa kaspa-wasm
+yarn add vkas kaspa-wasm
 ```
 
-Both `vue-kaspa` and `kaspa-wasm` are required. `kaspa-wasm` provides the underlying WASM bindings; `vue-kaspa` wraps them with Vue reactivity.
+Both `vkas` and `kaspa-wasm` are required. `kaspa-wasm` provides the underlying WASM bindings; `vkas` wraps them with Vue reactivity.
 
 ## Vite WASM configuration
 

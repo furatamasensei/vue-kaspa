@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { useKaspa, useRpc, useNetwork } from 'vue-kaspa'
-import CodeExample from '../components/CodeExample.vue'
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useKaspa, useNetwork, useRpc } from 'vkas'
+import CodeExample from '../components/CodeExample.vue'
 
 const EXAMPLE = `import { createApp } from 'vue'
-import { KaspaPlugin, useKaspa, useRpc } from 'vue-kaspa'
+import { KaspaPlugin, useKaspa, useRpc } from 'vkas'
 
 // Install the plugin
 const app = createApp(App)
@@ -128,12 +128,10 @@ async function handleDisconnect() {
         </div>
 
         <div class="flex gap-2 pt-1">
-          <Button
-            v-if="!rpc.isConnected.value"
-            :disabled="rpc.connectionState.value === 'connecting'"
-            @click="initAndConnect"
-          >
-            {{ rpc.connectionState.value === 'connecting' ? 'Connecting...' : `Connect to ${network.currentNetwork.value}` }}
+          <Button v-if="!rpc.isConnected.value" :disabled="rpc.connectionState.value === 'connecting'"
+            @click="initAndConnect">
+            {{ rpc.connectionState.value === 'connecting' ? 'Connecting...' : `Connect to
+            ${network.currentNetwork.value}` }}
           </Button>
           <Button v-else variant="secondary" @click="handleDisconnect">Disconnect</Button>
         </div>
@@ -146,21 +144,15 @@ async function handleDisconnect() {
         <CardTitle class="text-base">Network</CardTitle>
       </CardHeader>
       <CardContent class="space-y-2">
-        <p
-          v-if="rpc.connectionState.value === 'reconnecting' || rpc.connectionState.value === 'connecting'"
-          class="text-sm text-yellow-400"
-        >
+        <p v-if="rpc.connectionState.value === 'reconnecting' || rpc.connectionState.value === 'connecting'"
+          class="text-sm text-yellow-400">
           Switching network...
         </p>
-        <div
-          v-for="n in network.availableNetworks"
-          :key="n"
-          class="flex items-center gap-3 rounded-md border px-3 py-2.5 transition-colors cursor-pointer"
-          :class="n === network.currentNetwork.value
+        <div v-for="n in network.availableNetworks" :key="n"
+          class="flex items-center gap-3 rounded-md border px-3 py-2.5 transition-colors cursor-pointer" :class="n === network.currentNetwork.value
             ? 'border-primary/50 bg-primary/5'
             : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'"
-          @click="n !== network.currentNetwork.value && network.switchNetwork(n)"
-        >
+          @click="n !== network.currentNetwork.value && network.switchNetwork(n)">
           <Badge :variant="n === network.currentNetwork.value ? 'default' : 'secondary'">{{ n }}</Badge>
           <span class="text-sm text-muted-foreground">{{ networkDescriptions[n] ?? n }}</span>
           <span v-if="n === network.currentNetwork.value" class="ml-auto text-xs text-primary">current</span>

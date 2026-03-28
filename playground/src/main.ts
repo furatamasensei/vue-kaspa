@@ -1,8 +1,8 @@
-import './assets/index.css'
+import { KaspaPlugin } from 'vkas'
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
-import { KaspaPlugin } from 'vue-kaspa'
 import App from './App.vue'
+import './assets/index.css'
 
 const router = createRouter({
   history: createWebHashHistory(),

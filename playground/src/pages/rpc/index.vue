@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
-import { useRpc } from 'vue-kaspa'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useRpc } from 'vkas'
+import { RouterLink } from 'vue-router'
 
 const rpc = useRpc()
 
@@ -32,19 +32,15 @@ const connVariant: Record<string, BadgeVariant> = {
     </Card>
 
     <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
-      <RouterLink
-        v-for="item in [
-          { label: 'Node Info', to: '/rpc/info' },
-          { label: 'Get Block', to: '/rpc/block' },
-          { label: 'Balance Checker', to: '/rpc/balance' },
-          { label: 'Mempool Viewer', to: '/rpc/mempool' },
-          { label: 'Fee Estimate', to: '/rpc/fees' },
-          { label: 'Live Event Log', to: '/rpc/events' },
-        ]"
-        :key="item.to"
-        :to="item.to"
-        class="flex items-center justify-center rounded-lg border border-border bg-card px-4 py-5 text-sm font-medium text-card-foreground transition-colors hover:border-primary/50 hover:text-primary no-underline text-center"
-      >
+      <RouterLink v-for="item in [
+        { label: 'Node Info', to: '/rpc/info' },
+        { label: 'Get Block', to: '/rpc/block' },
+        { label: 'Balance Checker', to: '/rpc/balance' },
+        { label: 'Mempool Viewer', to: '/rpc/mempool' },
+        { label: 'Fee Estimate', to: '/rpc/fees' },
+        { label: 'Live Event Log', to: '/rpc/events' },
+      ]" :key="item.to" :to="item.to"
+        class="flex items-center justify-center rounded-lg border border-border bg-card px-4 py-5 text-sm font-medium text-card-foreground transition-colors hover:border-primary/50 hover:text-primary no-underline text-center">
         {{ item.label }}
       </RouterLink>
     </div>

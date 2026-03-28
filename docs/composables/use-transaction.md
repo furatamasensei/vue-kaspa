@@ -5,7 +5,7 @@ Builds, signs, and submits Kaspa transactions. Wraps `kaspa-wasm`'s `createTrans
 ## Import
 
 ```ts
-import { useTransaction } from 'vue-kaspa'
+import { useTransaction } from 'vkas'
 ```
 
 ## Return type
@@ -43,7 +43,7 @@ interface UseTransactionReturn {
 The simplest way to send KAS:
 
 ```ts
-import { useUtxo, useTransaction, useCrypto } from 'vue-kaspa'
+import { useUtxo, useTransaction, useCrypto } from 'vkas'
 
 const utxo = useUtxo()
 const tx = useTransaction()

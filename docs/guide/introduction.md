@@ -40,19 +40,19 @@ The internal singletons are module-level — there is **one RPC connection** and
 
 ```ts
 // Plugin
-import { KaspaPlugin } from 'vue-kaspa'
+import { KaspaPlugin } from 'vkas'
 
 // Composables
-import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
+import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vkas'
 
 // Error classes
-import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'
+import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vkas'
 
 // Types (TypeScript)
-import type { KaspaPluginOptions, KaspaNetwork, UtxoEntry, PendingTx, /* ... */ } from 'vue-kaspa'
+import type { KaspaPluginOptions, KaspaNetwork, UtxoEntry, PendingTx, /* ... */ } from 'vkas'
 
 // Constants
-import { AVAILABLE_NETWORKS } from 'vue-kaspa'
+import { AVAILABLE_NETWORKS } from 'vkas'
 ```
 
 ## Peer dependencies

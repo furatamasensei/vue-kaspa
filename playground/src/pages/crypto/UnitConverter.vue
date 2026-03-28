@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import { useCrypto } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { useCrypto } from 'vkas'
+import { computed, ref, watch } from 'vue'
+import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useCrypto } from 'vue-kaspa'
+const EXAMPLE = `import { useCrypto } from 'vkas'
 
 const crypto = useCrypto()
 
@@ -81,7 +81,8 @@ const examples = [
 <template>
   <div class="space-y-4">
     <h1 class="text-2xl font-bold text-primary">Unit Converter</h1>
-    <p class="text-sm text-muted-foreground">1 KAS = 1,000,000,000 sompi (10⁹). This converter works without WASM initialization.</p>
+    <p class="text-sm text-muted-foreground">1 KAS = 1,000,000,000 sompi (10⁹). This converter works without WASM
+      initialization.</p>
 
     <Card>
       <CardContent class="pt-6">
@@ -105,13 +106,8 @@ const examples = [
       </CardHeader>
       <CardContent>
         <div class="flex flex-wrap gap-2">
-          <Button
-            v-for="ex in examples"
-            :key="ex.kas"
-            variant="secondary"
-            size="sm"
-            @click="kasValue = ex.kas"
-          >{{ ex.label }}</Button>
+          <Button v-for="ex in examples" :key="ex.kas" variant="secondary" size="sm" @click="kasValue = ex.kas">{{
+            ex.label }}</Button>
         </div>
       </CardContent>
     </Card>

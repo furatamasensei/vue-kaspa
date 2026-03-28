@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
-import type { TransactionSummary, PendingTx } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Badge } from '@/components/ui/badge'
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import type { PendingTx, TransactionSummary } from 'vkas'
+import { useCrypto, useNetwork, useTransaction, useUtxo } from 'vkas'
+import { computed, ref } from 'vue'
+import CodeExample from '../../components/CodeExample.vue'
 
 const network = useNetwork()
 const utxo = useUtxo()
@@ -17,7 +17,7 @@ const crypto = useCrypto()
 
 const addrPrefix = computed(() => network.isTestnet.value ? 'kaspatest' : 'kaspa')
 
-const EXAMPLE = computed(() => `import { useUtxo, useTransaction } from 'vue-kaspa'
+const EXAMPLE = computed(() => `import { useUtxo, useTransaction } from 'vkas'
 
 const utxo = useUtxo()
 const tx = useTransaction()
@@ -151,12 +151,8 @@ async function signAndSubmit() {
         <Card>
           <CardContent class="pt-6 space-y-3">
             <div class="flex gap-2">
-              <Input
-                v-model="trackAddr"
-                :placeholder="`${addrPrefix}:qr...`"
-                class="font-mono text-sm"
-                @keyup.enter="track"
-              />
+              <Input v-model="trackAddr" :placeholder="`${addrPrefix}:qr...`" class="font-mono text-sm"
+                @keyup.enter="track" />
               <Button :disabled="!trackAddr.trim()" @click="track">Track</Button>
             </div>
             <Alert v-if="trackError" variant="destructive">
@@ -211,15 +207,11 @@ async function signAndSubmit() {
             </div>
 
             <div class="flex gap-2 pt-1">
-              <Button
-                variant="secondary"
+              <Button variant="secondary"
                 :disabled="loading || !amountSompi || !toAddress || !changeAddress || !utxo.entries.value.length"
-                @click="runEstimate"
-              >Estimate Fees</Button>
-              <Button
-                :disabled="loading || !amountSompi || !toAddress || !changeAddress || !utxo.entries.value.length"
-                @click="buildTx"
-              >Build Transaction</Button>
+                @click="runEstimate">Estimate Fees</Button>
+              <Button :disabled="loading || !amountSompi || !toAddress || !changeAddress || !utxo.entries.value.length"
+                @click="buildTx">Build Transaction</Button>
             </div>
           </CardContent>
         </Card>
@@ -236,7 +228,8 @@ async function signAndSubmit() {
           <CardContent class="space-y-1.5 text-sm">
             <div class="flex gap-2">
               <span class="text-muted-foreground w-32">Fees</span>
-              <span class="font-mono">{{ estimate.fees }} sompi ({{ crypto.sompiToKaspaString(estimate.fees) }} KAS)</span>
+              <span class="font-mono">{{ estimate.fees }} sompi ({{ crypto.sompiToKaspaString(estimate.fees) }}
+                KAS)</span>
             </div>
             <div class="flex gap-2">
               <span class="text-muted-foreground w-32">Mass</span>
@@ -256,7 +249,8 @@ async function signAndSubmit() {
           </CardHeader>
           <CardContent class="space-y-3">
             <p class="text-sm text-muted-foreground">
-              {{ pendingTxs.length }} transaction{{ pendingTxs.length > 1 ? 's' : '' }} ready. Sign with your private key.
+              {{ pendingTxs.length }} transaction{{ pendingTxs.length > 1 ? 's' : '' }} ready. Sign with your private
+              key.
             </p>
             <div class="space-y-1">
               <label class="text-sm text-muted-foreground">Private Key (hex)</label>

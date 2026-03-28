@@ -5,7 +5,7 @@ Controls the lifecycle of the `kaspa-wasm` WebAssembly module. The WASM module m
 ## Import
 
 ```ts
-import { useKaspa } from 'vue-kaspa'
+import { useKaspa } from 'vkas'
 ```
 
 ## Return type
@@ -58,7 +58,7 @@ The WASM state is **module-level** — shared across all component instances. Ca
 
 ```vue
 <script setup lang="ts">
-import { useKaspa } from 'vue-kaspa'
+import { useKaspa } from 'vkas'
 import { onMounted } from 'vue'
 
 const kaspa = useKaspa()

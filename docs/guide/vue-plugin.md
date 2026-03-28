@@ -5,7 +5,7 @@
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { KaspaPlugin } from 'vue-kaspa'
+import { KaspaPlugin } from 'vkas'
 import App from './App.vue'
 
 const app = createApp(App)
@@ -62,7 +62,7 @@ Then initialize manually in a component — for example, after a user interactio
 
 ```vue
 <script setup lang="ts">
-import { useKaspa, useRpc } from 'vue-kaspa'
+import { useKaspa, useRpc } from 'vkas'
 
 const kaspa = useKaspa()
 const rpc = useRpc()

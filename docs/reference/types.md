@@ -1,13 +1,13 @@
 # TypeScript Types
 
-All types are exported from `vue-kaspa` and available for import:
+All types are exported from `vkas` and available for import:
 
 ```ts
 import type {
   KaspaPluginOptions,
   KaspaNetwork,
   // ...
-} from 'vue-kaspa'
+} from 'vkas'
 ```
 
 ---

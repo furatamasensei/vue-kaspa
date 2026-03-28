@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { useRpc, type RpcEventType } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
-import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { useRpc, type RpcEventType } from 'vkas'
+import { computed, ref } from 'vue'
+import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useRpc } from 'vue-kaspa'
+const EXAMPLE = `import { useRpc } from 'vkas'
 
 const rpc = useRpc()
 
@@ -67,14 +67,8 @@ function safeJson(v: unknown): string {
       <CardContent class="pt-6">
         <div class="flex flex-wrap gap-2 items-center">
           <span class="text-sm text-muted-foreground">Filter:</span>
-          <Button
-            v-for="t in allTypes"
-            :key="t"
-            :variant="filter === t ? 'default' : 'secondary'"
-            size="sm"
-            class="text-xs h-7"
-            @click="filter = t"
-          >{{ t }}</Button>
+          <Button v-for="t in allTypes" :key="t" :variant="filter === t ? 'default' : 'secondary'" size="sm"
+            class="text-xs h-7" @click="filter = t">{{ t }}</Button>
           <Button variant="outline" size="sm" class="ml-auto text-xs h-7" @click="rpc.clearEventLog()">
             Clear
           </Button>
@@ -92,16 +86,14 @@ function safeJson(v: unknown): string {
             <div v-if="filtered.length === 0" class="py-8 text-center text-sm text-muted-foreground">
               No events yet. Connect to a node and subscribe to see live events.
             </div>
-            <div
-              v-for="(event, i) in filtered.slice().reverse().slice(0, 100)"
-              :key="i"
-              class="flex gap-3 items-start py-2 border-b border-border/50 last:border-0"
-            >
+            <div v-for="(event, i) in filtered.slice().reverse().slice(0, 100)" :key="i"
+              class="flex gap-3 items-start py-2 border-b border-border/50 last:border-0">
               <span class="font-mono text-xs text-muted-foreground whitespace-nowrap pt-0.5">
                 {{ new Date(event.timestamp).toLocaleTimeString() }}
               </span>
               <Badge :variant="variantFor(event.type)" class="shrink-0 text-xs">{{ event.type }}</Badge>
-              <pre class="font-mono text-xs text-muted-foreground overflow-hidden text-ellipsis whitespace-nowrap max-w-xs">{{ safeJson(event.data) }}</pre>
+              <pre
+                class="font-mono text-xs text-muted-foreground overflow-hidden text-ellipsis whitespace-nowrap max-w-xs">{{ safeJson(event.data) }}</pre>
             </div>
           </div>
         </ScrollArea>

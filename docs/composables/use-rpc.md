@@ -5,7 +5,7 @@ Manages the WebSocket RPC connection to a Kaspa node. Provides reactive connecti
 ## Import
 
 ```ts
-import { useRpc } from 'vue-kaspa'
+import { useRpc } from 'vkas'
 ```
 
 ## Signature
@@ -230,7 +230,7 @@ The log persists across route changes and component remounts.
 
 ```vue
 <script setup lang="ts">
-import { useRpc, useCrypto } from 'vue-kaspa'
+import { useRpc, useCrypto } from 'vkas'
 
 const rpc = useRpc()
 const crypto = useCrypto()

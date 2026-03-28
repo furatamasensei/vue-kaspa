@@ -1,18 +1,18 @@
 <script setup lang="ts">
-import { ref, watch, computed } from 'vue'
-import { useCrypto, useNetwork, type DerivedKey, type KaspaNetwork } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import { Textarea } from '@/components/ui/textarea'
+import { useCrypto, useNetwork, type DerivedKey, type KaspaNetwork } from 'vkas'
+import { computed, ref, watch } from 'vue'
+import CodeExample from '../../components/CodeExample.vue'
 
 const crypto = useCrypto()
 const globalNetwork = useNetwork()
 
-const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vue-kaspa'
+const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vkas'
 
 const crypto = useCrypto()
 const { currentNetwork } = useNetwork()

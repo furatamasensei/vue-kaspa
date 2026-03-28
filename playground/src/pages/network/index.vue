@@ -1,10 +1,10 @@
 <script setup lang="ts">
-import { useNetwork, useRpc, type KaspaNetwork } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useNetwork, useRpc, type KaspaNetwork } from 'vkas'
+import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useNetwork } from 'vue-kaspa'
+const EXAMPLE = `import { useNetwork } from 'vkas'
 
 const network = useNetwork()
 
@@ -58,19 +58,12 @@ async function select(n: KaspaNetwork) {
         <CardTitle class="text-base">Available Networks</CardTitle>
       </CardHeader>
       <CardContent class="space-y-2">
-        <div
-          v-for="n in network.availableNetworks"
-          :key="n"
-          class="flex items-center gap-3 rounded-md border px-3 py-3 transition-colors cursor-pointer"
-          :class="n === network.currentNetwork.value
+        <div v-for="n in network.availableNetworks" :key="n"
+          class="flex items-center gap-3 rounded-md border px-3 py-3 transition-colors cursor-pointer" :class="n === network.currentNetwork.value
             ? 'border-primary/50 bg-primary/5'
-            : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'"
-          @click="select(n)"
-        >
-          <Badge
-            :variant="n === network.currentNetwork.value ? 'default' : 'secondary'"
-            class="min-w-[100px] justify-center"
-          >{{ n }}</Badge>
+            : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'" @click="select(n)">
+          <Badge :variant="n === network.currentNetwork.value ? 'default' : 'secondary'"
+            class="min-w-[100px] justify-center">{{ n }}</Badge>
           <span class="text-sm text-muted-foreground">{{ networkDescriptions[n] ?? n }}</span>
         </div>
       </CardContent>

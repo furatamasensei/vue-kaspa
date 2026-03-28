@@ -1,11 +1,11 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRpc, useCrypto, useNetwork } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
+import { useCrypto, useNetwork, useRpc } from 'vkas'
+import { computed, ref } from 'vue'
+import CodeExample from '../../components/CodeExample.vue'
 
 const rpc = useRpc()
 const crypto = useCrypto()
@@ -13,7 +13,7 @@ const network = useNetwork()
 
 const addrPrefix = computed(() => network.isTestnet.value ? 'kaspatest' : 'kaspa')
 
-const EXAMPLE = computed(() => `import { useRpc, useCrypto } from 'vue-kaspa'
+const EXAMPLE = computed(() => `import { useRpc, useCrypto } from 'vkas'
 
 const rpc = useRpc()
 const crypto = useCrypto()

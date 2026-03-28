@@ -1,19 +1,19 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useUtxo, useCrypto, useNetwork } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { useCrypto, useNetwork, useUtxo } from 'vkas'
+import { computed, ref } from 'vue'
+import CodeExample from '../../components/CodeExample.vue'
 
 const network = useNetwork()
 const utxo = useUtxo()
 const crypto = useCrypto()
 
-const EXAMPLE = computed(() => `import { useUtxo, useRpc } from 'vue-kaspa'
+const EXAMPLE = computed(() => `import { useUtxo, useRpc } from 'vkas'
 
 const utxo = useUtxo()
 
@@ -73,33 +73,21 @@ const totalBalance = computed(() => utxo.balance.value.mature + utxo.balance.val
       </CardHeader>
       <CardContent class="space-y-3">
         <div class="flex gap-2">
-          <Input
-            v-model="addrInput"
-            :placeholder="`${network.isTestnet.value ? 'kaspatest' : 'kaspa'}:qr...`"
-            class="font-mono text-sm"
-            @keyup.enter="track"
-          />
+          <Input v-model="addrInput" :placeholder="`${network.isTestnet.value ? 'kaspatest' : 'kaspa'}:qr...`"
+            class="font-mono text-sm" @keyup.enter="track" />
           <Button :disabled="!addrInput.trim()" @click="track">Track</Button>
         </div>
 
         <div v-if="utxo.trackedAddresses.value.length" class="space-y-1">
           <p class="text-xs text-muted-foreground">Tracked addresses</p>
-          <div
-            v-for="addr in utxo.trackedAddresses.value"
-            :key="addr"
-            class="flex items-center gap-2 rounded-md bg-muted/30 px-3 py-1.5"
-          >
+          <div v-for="addr in utxo.trackedAddresses.value" :key="addr"
+            class="flex items-center gap-2 rounded-md bg-muted/30 px-3 py-1.5">
             <span class="font-mono text-xs flex-1 truncate">{{ addr }}</span>
             <button class="text-xs text-muted-foreground hover:text-destructive" @click="untrack(addr)">remove</button>
           </div>
         </div>
 
-        <Button
-          v-if="utxo.isTracking.value"
-          variant="secondary"
-          size="sm"
-          @click="refresh"
-        >Refresh</Button>
+        <Button v-if="utxo.isTracking.value" variant="secondary" size="sm" @click="refresh">Refresh</Button>
       </CardContent>
     </Card>
 
@@ -138,11 +126,8 @@ const totalBalance = computed(() => utxo.balance.value.mature + utxo.balance.val
       <CardContent class="p-0">
         <ScrollArea class="h-72">
           <div class="px-6 pb-4 space-y-0">
-            <div
-              v-for="(entry, i) in utxo.entries.value"
-              :key="i"
-              class="py-2.5 border-b border-border last:border-0 space-y-1"
-            >
+            <div v-for="(entry, i) in utxo.entries.value" :key="i"
+              class="py-2.5 border-b border-border last:border-0 space-y-1">
               <div class="flex items-center gap-2">
                 <span class="font-mono text-xs text-primary">
                   {{ crypto.sompiToKaspaString(entry.amount) }} KAS

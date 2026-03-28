@@ -1,13 +1,13 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRpc, useCrypto, type FeeEstimate } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { useCrypto, useRpc, type FeeEstimate } from 'vkas'
+import { ref } from 'vue'
+import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useRpc } from 'vue-kaspa'
+const EXAMPLE = `import { useRpc } from 'vkas'
 
 const rpc = useRpc()
 

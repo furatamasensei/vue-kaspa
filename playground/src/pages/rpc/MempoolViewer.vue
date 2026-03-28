@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRpc, useCrypto, type MempoolEntry } from 'vue-kaspa'
-import CodeExample from '../../components/CodeExample.vue'
-import { Button } from '@/components/ui/button'
-import { Badge } from '@/components/ui/badge'
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
+import { useCrypto, useRpc, type MempoolEntry } from 'vkas'
+import { ref } from 'vue'
+import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useRpc } from 'vue-kaspa'
+const EXAMPLE = `import { useRpc } from 'vkas'
 
 const rpc = useRpc()
 
@@ -66,11 +66,8 @@ async function fetch() {
       <CardContent class="p-0">
         <ScrollArea class="h-[480px]">
           <div class="px-6 pb-4 space-y-0">
-            <div
-              v-for="(entry, i) in entries.slice(0, 20)"
-              :key="i"
-              class="py-3 border-b border-border last:border-0 space-y-1.5"
-            >
+            <div v-for="(entry, i) in entries.slice(0, 20)" :key="i"
+              class="py-3 border-b border-border last:border-0 space-y-1.5">
               <div class="flex items-center gap-2">
                 <span class="text-xs text-muted-foreground shrink-0">TX ID</span>
                 <span class="font-mono text-xs text-muted-foreground truncate" :title="entry.transaction.id">
@@ -80,7 +77,8 @@ async function fetch() {
               <div class="flex items-center gap-4">
                 <div class="flex items-center gap-2">
                   <span class="text-xs text-muted-foreground">Fee</span>
-                  <span class="font-mono text-xs">{{ entry.fee }} sompi ({{ crypto.sompiToKaspaString(entry.fee) }} KAS)</span>
+                  <span class="font-mono text-xs">{{ entry.fee }} sompi ({{ crypto.sompiToKaspaString(entry.fee) }}
+                    KAS)</span>
                 </div>
                 <div class="flex items-center gap-2">
                   <span class="text-xs text-muted-foreground">Orphan</span>

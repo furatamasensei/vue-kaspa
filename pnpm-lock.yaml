@@ -99,12 +99,12 @@ importers:
       tailwindcss:
         specifier: ^4.2.2
         version: 4.2.2
+      vkas:
+        specifier: workspace:*
+        version: link:../packages/vue-kaspa
       vue:
         specifier: ^3.5.31
         version: 3.5.31(typescript@6.0.2)
-      vue-kaspa:
-        specifier: workspace:*
-        version: link:../packages/vue-kaspa
       vue-router:
         specifier: ^5.0.4
         version: 5.0.4(@vue/compiler-sfc@3.5.31)(vue@3.5.31(typescript@6.0.2))

@@ -5,7 +5,7 @@ Tracks UTXOs for one or more addresses in real time. Subscribes to the node's UT
 ## Import
 
 ```ts
-import { useUtxo } from 'vue-kaspa'
+import { useUtxo } from 'vkas'
 ```
 
 ## Return type
@@ -59,7 +59,7 @@ interface UtxoBalance {
 
 ```vue
 <script setup lang="ts">
-import { useUtxo, useCrypto } from 'vue-kaspa'
+import { useUtxo, useCrypto } from 'vkas'
 
 const utxo = useUtxo()
 const crypto = useCrypto()

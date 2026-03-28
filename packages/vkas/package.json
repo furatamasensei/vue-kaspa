@@ -1,11 +1,11 @@
 {
-  "name": "vue-kaspa",
+  "name": "vkas",
   "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/vue-kaspa.es.js",
-      "require": "./dist/vue-kaspa.umd.cjs",
+      "import": "./dist/vkas.es.js",
+      "require": "./dist/vkas.umd.cjs",
       "types": "./dist/index.d.ts"
     },
     "./nuxt": {
@@ -13,8 +13,8 @@
       "types": "./dist/nuxt.d.ts"
     }
   },
-  "main": "./dist/vue-kaspa.umd.cjs",
-  "module": "./dist/vue-kaspa.es.js",
+  "main": "./dist/vkas.umd.cjs",
+  "module": "./dist/vkas.es.js",
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {

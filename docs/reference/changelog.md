@@ -8,7 +8,7 @@ Initial release.
 
 **Vue Plugin + Nuxt Module**
 - `KaspaPlugin` for Vue 3 with full `KaspaPluginOptions` configuration
-- Nuxt 3 module (`vue-kaspa/nuxt`) with auto-imports and SSR safety
+- Nuxt 3 module (`vkas/nuxt`) with auto-imports and SSR safety
 - Vue DevTools integration — inspector panel and event timeline
 
 **Composables**

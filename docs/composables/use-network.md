@@ -5,7 +5,7 @@ Manages the currently active network. Switching networks disconnects the current
 ## Import
 
 ```ts
-import { useNetwork } from 'vue-kaspa'
+import { useNetwork } from 'vkas'
 ```
 
 ## Return type
@@ -53,7 +53,7 @@ interface UseNetworkReturn {
 
 ```vue
 <script setup lang="ts">
-import { useNetwork } from 'vue-kaspa'
+import { useNetwork } from 'vkas'
 
 const network = useNetwork()
 </script>

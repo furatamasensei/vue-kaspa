@@ -7,7 +7,7 @@ All methods are synchronous and return plain values — there are no reactive re
 ## Import
 
 ```ts
-import { useCrypto } from 'vue-kaspa'
+import { useCrypto } from 'vkas'
 ```
 
 ## Method reference

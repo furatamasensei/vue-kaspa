@@ -13,7 +13,7 @@ Error
     └── KaspaCryptoError         Cryptographic operation failed
 ```
 
-All errors are exported from `vue-kaspa`:
+All errors are exported from `vkas`:
 
 ```ts
 import {
@@ -22,7 +22,7 @@ import {
   KaspaRpcError,
   KaspaWalletError,
   KaspaCryptoError,
-} from 'vue-kaspa'
+} from 'vkas'
 ```
 
 ## KaspaError (base)
@@ -45,7 +45,7 @@ try {
 Thrown when a composable method is called before the WASM module has been initialized.
 
 ```ts
-import { KaspaNotReadyError } from 'vue-kaspa'
+import { KaspaNotReadyError } from 'vkas'
 
 try {
   await rpc.connect()
@@ -65,7 +65,7 @@ Typically you won't encounter this with `autoConnect: true` (the default).
 Thrown when an RPC query or connection attempt fails.
 
 ```ts
-import { KaspaRpcError } from 'vue-kaspa'
+import { KaspaRpcError } from 'vkas'
 
 try {
   const info = await rpc.getInfo()
@@ -87,7 +87,7 @@ Common causes:
 Thrown by `useCrypto()` methods on invalid input.
 
 ```ts
-import { KaspaCryptoError } from 'vue-kaspa'
+import { KaspaCryptoError } from 'vkas'
 
 try {
   const keypair = crypto.mnemonicToKeypair('not a valid phrase', 'mainnet')
