@@ -14,6 +14,10 @@ on:
         description: 'Publish @vue-kaspa/kaspa-wasm to npm'
         type: boolean
         default: false
+      publish_vue_kaspa_cli:
+        description: 'Publish vue-kaspa-cli to npm'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
@@ -27,6 +31,7 @@ jobs:
     outputs:
       vue_kaspa_released: ${{ steps.release.outputs['packages/vue-kaspa--release_created'] }}
       kaspa_wasm_released: ${{ steps.release.outputs['vendor/kaspa-wasm--release_created'] }}
+      vue_kaspa_cli_released: ${{ steps.release.outputs['packages/vue-kaspa-cli--release_created'] }}
     steps:
       - uses: googleapis/release-please-action@v4
         id: release
@@ -63,6 +68,34 @@ jobs:
       - run: pnpm --filter vue-kaspa test
       - name: Publish vue-kaspa to npm (Trusted Publishing)
         working-directory: packages/vue-kaspa
+        run: npm publish --provenance --access public
+
+  publish-vue-kaspa-cli:
+    needs: [release-please]
+    if: |
+      always() && (
+        (needs.release-please.result == 'success' && needs.release-please.outputs.vue_kaspa_cli_released == 'true') ||
+        (github.event_name == 'workflow_dispatch' && inputs.publish_vue_kaspa_cli == true)
+      )
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          # No registry-url: same reason as above.
+          cache: 'pnpm'
+      - run: npm install -g npm@latest
+      - run: pnpm install --frozen-lockfile
+      - name: Publish vue-kaspa-cli to npm (Trusted Publishing)
+        working-directory: packages/vue-kaspa-cli
         run: npm publish --provenance --access public
 
   publish-kaspa-wasm:
