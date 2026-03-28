@@ -4,13 +4,25 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+    inputs:
+      publish_vue_kaspa:
+        description: 'Publish vue-kaspa to npm'
+        type: boolean
+        default: false
+      publish_kaspa_wasm:
+        description: 'Publish @vue-kaspa/kaspa-wasm to npm'
+        type: boolean
+        default: false
 
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 
 jobs:
   release-please:
+    if: github.event_name == 'push'
     runs-on: ubuntu-latest
     outputs:
       vue_kaspa_released: ${{ steps.release.outputs['packages/vue-kaspa--release_created'] }}
@@ -23,8 +35,12 @@ jobs:
           manifest-file: .release-please-manifest.json
 
   publish-vue-kaspa:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.vue_kaspa_released == 'true' }}
+    needs: [release-please]
+    if: |
+      always() && (
+        (needs.release-please.result == 'success' && needs.release-please.outputs.vue_kaspa_released == 'true') ||
+        (github.event_name == 'workflow_dispatch' && inputs.publish_vue_kaspa == true)
+      )
     runs-on: ubuntu-latest
     environment: npm
     permissions:
@@ -49,8 +65,12 @@ jobs:
         run: npm publish --provenance --access public
 
   publish-kaspa-wasm:
-    needs: release-please
-    if: ${{ needs.release-please.outputs.kaspa_wasm_released == 'true' }}
+    needs: [release-please]
+    if: |
+      always() && (
+        (needs.release-please.result == 'success' && needs.release-please.outputs.kaspa_wasm_released == 'true') ||
+        (github.event_name == 'workflow_dispatch' && inputs.publish_kaspa_wasm == true)
+      )
     runs-on: ubuntu-latest
     environment: npm
     permissions:
