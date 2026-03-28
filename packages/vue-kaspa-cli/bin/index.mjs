@@ -1,6 +1,5 @@
 #!/usr/bin/env node
-import { createInterface } from 'node:readline/promises'
-import { stdin as input, stdout as output } from 'node:process'
+import { createPromptModule } from 'inquirer'
 import { existsSync, mkdirSync, readdirSync, statSync, readFileSync, writeFileSync } from 'node:fs'
 import { join, dirname } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -15,22 +14,6 @@ const RENAMES = {
   '_package.json': 'package.json',
 }
 
-const rl = createInterface({ input, output })
-
-async function ask(question, fallback) {
-  const answer = (await rl.question(question)).trim()
-  return answer || fallback
-}
-
-async function choose(question, choices) {
-  output.write(`${question}\n${choices.map((c, i) => `  ${i + 1}) ${c}`).join('\n')}\n`)
-  while (true) {
-    const n = parseInt((await rl.question('  Enter number: ')).trim(), 10) - 1
-    if (n >= 0 && n < choices.length) return choices[n]
-    output.write(`  Please enter 1–${choices.length}.\n`)
-  }
-}
-
 function copyDir(src, dest) {
   mkdirSync(dest, { recursive: true })
   for (const entry of readdirSync(src)) {
@@ -42,17 +25,32 @@ function copyDir(src, dest) {
   }
 }
 
+const prompt = createPromptModule()
+
 async function main() {
-  output.write('\n  vue-kaspa-cli — scaffold a Kaspa-connected Vue/Nuxt app\n\n')
+  console.log('\n  vue-kaspa-cli — scaffold a Kaspa-connected Vue/Nuxt app\n')
 
-  const name = await ask('  Project name (kaspa-app): ', 'kaspa-app')
-  const framework = await choose('\n  Framework:', ['Vue', 'Nuxt'])
-  rl.close()
+  const answers = await prompt([
+    {
+      type: 'input',
+      name: 'projectName',
+      message: 'Project name:',
+      default: 'kaspa-app',
+    },
+    {
+      type: 'list',
+      name: 'framework',
+      message: 'Framework:',
+      choices: ['Vue', 'Nuxt'],
+    },
+  ])
 
+  const { projectName, framework } = answers
+  const name = projectName.trim() || 'kaspa-app'
   const targetDir = join(process.cwd(), name)
 
   if (existsSync(targetDir) && readdirSync(targetDir).length > 0) {
-    output.write(`\n  "${name}" already exists and is not empty.\n\n`)
+    console.error(`\n  "${name}" already exists and is not empty.\n`)
     process.exit(1)
   }
 
@@ -63,14 +61,18 @@ async function main() {
   pkg.name = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
   writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
 
-  output.write(`
+  const editHint = framework === 'Nuxt'
+    ? 'app/components/KaspaStatus.vue'
+    : 'src/components/KaspaStatus.vue'
+
+  console.log(`
   Done!
 
   cd ${name}
   npm install
   npm run dev
 
-  Edit src/components/KaspaStatus.vue to start building.
+  Edit ${editHint} to start building.
   Docs → https://furatamasensei.github.io/vue-kaspa
 
 `)

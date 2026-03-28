@@ -1,5 +1,5 @@
 export default defineNuxtConfig({
-  compatibilityDate: '2025-01-01',
+  compatibilityDate: '2024-11-01',
   modules: ['vue-kaspa/nuxt'],
   kaspa: {
     network: 'mainnet',

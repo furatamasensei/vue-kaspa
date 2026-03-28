@@ -11,5 +11,8 @@
   },
   "bin": { "vue-kaspa-cli": "bin/index.mjs" },
   "files": ["bin", "templates"],
+  "dependencies": {
+    "inquirer": "^12.0.0"
+  },
   "engines": { "node": ">=18.0.0" }
 }
