@@ -1,15 +1,4 @@
-import {
-  kaspaToSompi as sdkKaspaToSompi,
-  sompiToKaspaString as sdkSompiToKaspaString,
-  PrivateKey,
-  Mnemonic,
-  XPrv,
-  PrivateKeyGenerator,
-  createAddress,
-  Address,
-  signMessage as sdkSignMessage,
-  verifyMessage as sdkVerifyMessage,
-} from '@vue-kaspa/kaspa-wasm'
+import { getKaspa } from '../internal/kaspa'
 import type { KaspaNetwork, UseCryptoReturn, KeypairInfo, MnemonicInfo, DerivedKey } from '../types'
 import { KaspaCryptoError } from '../errors'
 
@@ -17,6 +6,7 @@ export function useCrypto(): UseCryptoReturn {
   return {
     generateMnemonic(wordCount: 12 | 24 = 24): MnemonicInfo {
       try {
+        const { Mnemonic } = getKaspa()
         const mnemonic = Mnemonic.random(wordCount)
         return { phrase: mnemonic.phrase, wordCount }
       } catch (err) {
@@ -26,6 +16,7 @@ export function useCrypto(): UseCryptoReturn {
 
     mnemonicToKeypair(phrase: string, network: KaspaNetwork): KeypairInfo {
       try {
+        const { Mnemonic, PrivateKey } = getKaspa()
         const m = new Mnemonic(phrase)
         // toSeed() returns a hex string in v1.1.0
         const seedHex = m.toSeed()
@@ -45,6 +36,7 @@ export function useCrypto(): UseCryptoReturn {
 
     generateKeypair(network: KaspaNetwork): KeypairInfo {
       try {
+        const { Mnemonic } = getKaspa()
         const mnemonic = Mnemonic.random(24)
         return useCrypto().mnemonicToKeypair(mnemonic.phrase, network)
       } catch (err) {
@@ -59,6 +51,7 @@ export function useCrypto(): UseCryptoReturn {
       changeCount = 10,
     ): { receive: DerivedKey[]; change: DerivedKey[] } {
       try {
+        const { Mnemonic, XPrv, PrivateKeyGenerator } = getKaspa()
         const m = new Mnemonic(phrase)
         const seedHex = m.toSeed()
         const xprv = new XPrv(seedHex)
@@ -82,6 +75,7 @@ export function useCrypto(): UseCryptoReturn {
 
     createAddress(publicKeyHex: string, network: KaspaNetwork): string {
       try {
+        const { createAddress } = getKaspa()
         const addr = createAddress(publicKeyHex, network)
         return addr.toString()
       } catch (err) {
@@ -91,11 +85,13 @@ export function useCrypto(): UseCryptoReturn {
 
     isValidAddress(address: string): boolean {
       if (!address) return false
+      const { Address } = getKaspa()
       return Address.validate(address)
     },
 
     signMessage(message: string, privateKeyHex: string): string {
       try {
+        const { signMessage: sdkSignMessage } = getKaspa()
         return sdkSignMessage({ message, privateKey: privateKeyHex })
       } catch (err) {
         throw new KaspaCryptoError('signMessage', err)
@@ -104,6 +100,7 @@ export function useCrypto(): UseCryptoReturn {
 
     verifyMessage(message: string, signature: string, publicKeyHex: string): boolean {
       try {
+        const { verifyMessage: sdkVerifyMessage } = getKaspa()
         return sdkVerifyMessage({ message, signature, publicKey: publicKeyHex })
       } catch (err) {
         throw new KaspaCryptoError('verifyMessage', err)
@@ -111,15 +108,18 @@ export function useCrypto(): UseCryptoReturn {
     },
 
     kaspaToSompi(kas: string | number): bigint {
+      const { kaspaToSompi: sdkKaspaToSompi } = getKaspa()
       const result = sdkKaspaToSompi(String(kas))
       return result ?? 0n
     },
 
     sompiToKaspa(sompi: bigint): string {
+      const { sompiToKaspaString: sdkSompiToKaspaString } = getKaspa()
       return sdkSompiToKaspaString(sompi)
     },
 
     sompiToKaspaString(sompi: bigint, decimals = 8): string {
+      const { sompiToKaspaString: sdkSompiToKaspaString } = getKaspa()
       const str = sdkSompiToKaspaString(sompi)
       if (decimals < 8) {
         const parts = str.split('.')

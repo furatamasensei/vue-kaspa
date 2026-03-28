@@ -2,6 +2,7 @@ import { shallowReactive, ref } from 'vue'
 import type { RpcConnectionState, RpcOptions, RpcEvent, RpcEventType } from '../types'
 import { KaspaRpcError } from '../errors'
 import { EventBridge } from './event-bridge'
+import { getKaspa } from './kaspa'
 
 const BASE_RECONNECT_DELAY_MS = 1_000
 const MAX_RECONNECT_DELAY_MS = 30_000
@@ -68,7 +69,7 @@ export class RpcManager {
     this.state.error = null
 
     try {
-      const { RpcClient, Resolver, Encoding } = await import('@vue-kaspa/kaspa-wasm')
+      const { RpcClient, Resolver, Encoding } = getKaspa()
 
       const config: Record<string, unknown> = {
         networkId: options.network ?? 'mainnet',

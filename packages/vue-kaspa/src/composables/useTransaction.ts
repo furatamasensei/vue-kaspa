@@ -1,5 +1,6 @@
 import { getRpcManager } from '../internal/rpc-manager'
 import { ensureWasmInit } from '../internal/wasm-loader'
+import { getKaspa } from '../internal/kaspa'
 import { inject } from 'vue'
 import { KASPA_OPTIONS_KEY } from '../symbols'
 import type { KaspaPluginOptions, CreateTransactionSettings, TransactionSummary, PendingTx, UseTransactionReturn } from '../types'
@@ -75,14 +76,14 @@ export function useTransaction(): UseTransactionReturn {
 
   async function estimate(settings: CreateTransactionSettings): Promise<TransactionSummary> {
     await ensureWasmInit(pluginOptions)
-    const { estimateTransactions } = await import('@vue-kaspa/kaspa-wasm')
+    const { estimateTransactions } = getKaspa()
     const summary = await estimateTransactions(toGeneratorSettings(settings) as unknown as Parameters<typeof estimateTransactions>[0])
     return mapSummary(summary as AnySummary)
   }
 
   async function create(settings: CreateTransactionSettings): Promise<{ transactions: PendingTx[]; summary: TransactionSummary }> {
     await ensureWasmInit(pluginOptions)
-    const { createTransactions } = await import('@vue-kaspa/kaspa-wasm')
+    const { createTransactions } = getKaspa()
     const result = await createTransactions(toGeneratorSettings(settings) as unknown as Parameters<typeof createTransactions>[0])
     const r = result as { transactions: AnyPendingTx[]; summary: AnySummary }
     return {

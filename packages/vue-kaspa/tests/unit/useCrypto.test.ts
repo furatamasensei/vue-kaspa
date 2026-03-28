@@ -4,6 +4,7 @@ import { defineComponent } from 'vue'
 import { KaspaPlugin } from '../../src/plugin'
 import { useCrypto } from '../../src/composables/useCrypto'
 import { resetWasm } from '../../src/internal/wasm-loader'
+import { loadKaspa } from '../../src/internal/kaspa'
 
 function mountUseCrypto(pluginOptions = {}) {
   let result: ReturnType<typeof useCrypto>
@@ -21,8 +22,9 @@ function mountUseCrypto(pluginOptions = {}) {
 }
 
 describe('useCrypto', () => {
-  beforeEach(() => {
+  beforeEach(async () => {
     resetWasm()
+    await loadKaspa()
   })
 
   describe('unit conversions (pure, no WASM needed)', () => {

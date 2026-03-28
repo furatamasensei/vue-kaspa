@@ -1,5 +1,6 @@
 import { shallowReactive } from 'vue'
 import type { KaspaPluginOptions, WasmStatus } from '../types'
+import { loadKaspa, resetKaspa } from './kaspa'
 
 interface WasmState {
   status: WasmStatus
@@ -25,7 +26,7 @@ export async function ensureWasmInit(options: KaspaPluginOptions): Promise<void>
   state.error = null
 
   initPromise = (async () => {
-    const mod = await import('@vue-kaspa/kaspa-wasm')
+    const mod = await loadKaspa()
     await mod.default()
 
     if (options.panicHook === 'browser') {
@@ -49,4 +50,5 @@ export function resetWasm(): void {
   state.status = 'idle'
   state.error = null
   initPromise = null
+  resetKaspa()
 }
