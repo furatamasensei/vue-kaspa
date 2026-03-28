@@ -1,0 +1,381 @@
+# vue-kaspa — Full API Reference
+
+> Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by kaspa-wasm.
+
+Package: vue-kaspa
+Version: 0.1.0
+Peer deps: vue >= 3.4.0, kaspa-wasm >= 1.1.0, @nuxt/kit ^3.0.0 (optional)
+Types: ./dist/index.d.ts
+Nuxt entry: vue-kaspa/nuxt
+
+---
+
+## Installation
+
+```bash
+npm install vue-kaspa kaspa-wasm
+```
+
+Vite config (required):
+```ts
+import wasm from 'vite-plugin-wasm'
+import topLevelAwait from 'vite-plugin-top-level-await'
+plugins: [vue(), wasm(), topLevelAwait()]
+server.headers: { 'Cross-Origin-Embedder-Policy': 'require-corp', 'Cross-Origin-Opener-Policy': 'same-origin' }
+optimizeDeps.exclude: ['kaspa-wasm']
+```
+
+---
+
+## Vue Plugin Setup
+
+```ts
+import { KaspaPlugin } from 'vue-kaspa'
+app.use(KaspaPlugin, { network: 'mainnet', autoConnect: true })
+```
+
+## Nuxt Setup
+
+```ts
+// nuxt.config.ts
+modules: ['vue-kaspa/nuxt']
+kaspa: { network: 'mainnet', autoConnect: true, panicHook: 'browser' }
+// composables are auto-imported — no explicit imports in .vue files
+```
+
+---
+
+## KaspaPluginOptions
+
+```ts
+interface KaspaPluginOptions {
+  network?: KaspaNetwork         // default: 'mainnet'
+  url?: string                   // custom node WS URL
+  resolver?: boolean             // default: true (public resolver)
+  encoding?: RpcEncoding         // default: 'Borsh'
+  autoConnect?: boolean          // default: true
+  devtools?: boolean             // default: true in dev
+  panicHook?: 'console' | 'browser' | false  // default: 'console'
+}
+```
+
+---
+
+## useKaspa() — WasmStatus lifecycle
+
+```ts
+const kaspa = useKaspa()
+// kaspa.wasmStatus: Readonly<Ref<'idle'|'loading'|'ready'|'error'>>
+// kaspa.wasmError:  Readonly<Ref<Error|null>>
+// kaspa.isReady:    ComputedRef<boolean>
+// kaspa.init():     Promise<void>  — idempotent, shared promise
+// kaspa.reset():    void           — back to 'idle'
+
+await kaspa.init()  // load WASM; not needed if autoConnect: true
+```
+
+States: idle → loading → ready | error (retry with init())
+Singleton: all components share the same WasmStatus ref.
+
+---
+
+## useRpc(options?) — RPC connection
+
+```ts
+const rpc = useRpc()
+
+// Reactive state (all readonly refs):
+rpc.connectionState  // 'disconnected'|'connecting'|'connected'|'reconnecting'|'error'
+rpc.isConnected      // ComputedRef<boolean>
+rpc.url              // Ref<string|null>
+rpc.networkId        // Ref<string|null>
+rpc.serverVersion    // Ref<string|null>
+rpc.isSynced         // Ref<boolean>
+rpc.virtualDaaScore  // Ref<bigint>
+rpc.error            // Ref<Error|null>
+rpc.eventLog         // Ref<RpcEvent[]>  — ring buffer, last 200
+
+// Connection:
+await rpc.connect(options?)    // options: { url?, resolver?, network?, encoding? }
+await rpc.disconnect()
+await rpc.reconnect()
+
+// Queries (all throw KaspaRpcError on failure):
+await rpc.getInfo()                              // → ServerInfo
+await rpc.getBlock(hash: string)                 // → BlockInfo
+await rpc.getBlockCount()                        // → { blockCount: bigint, headerCount: bigint }
+await rpc.getBalanceByAddress(addr)              // → { address, balance: bigint }
+await rpc.getBalancesByAddresses(addrs[])        // → BalanceResult[]
+await rpc.getUtxosByAddresses(addrs[])           // → UtxoEntry[]
+await rpc.getMempoolEntries(includeOrphans?)     // → MempoolEntry[]
+await rpc.getMempoolEntriesByAddresses(addrs[]) // → MempoolEntry[]
+await rpc.getFeeEstimate()                       // → FeeEstimate
+await rpc.getCoinSupply()                        // → { circulatingCoinSupply, maxCoinSupply }
+await rpc.ping()                                 // → void
+await rpc.submitTransaction(tx)                  // → txId string
+await rpc.subscribeUtxosChanged(addrs[])
+await rpc.unsubscribeUtxosChanged(addrs[])
+
+// Events:
+rpc.on('block-added', (event: RpcEvent) => { ... })
+rpc.off('block-added', handler)
+rpc.clearEventLog()
+// Handlers inside <script setup> auto-removed on onUnmounted
+```
+
+RpcEventType values: 'connect' | 'disconnect' | 'block-added' | 'virtual-chain-changed' |
+'utxos-changed' | 'finality-conflict' | 'finality-conflict-resolved' |
+'sink-blue-score-changed' | 'virtual-daa-score-changed' | 'new-block-template' |
+'pruning-point-utxo-set-override'
+
+Auto-reconnect: exponential backoff 1s → 2s → 4s ... max 30s.
+Singleton: one RPC connection per app.
+
+---
+
+## useUtxo() — UTXO tracking
+
+```ts
+const utxo = useUtxo()
+
+utxo.entries          // Readonly<Ref<UtxoEntry[]>>
+utxo.balance          // ComputedRef<{ mature: bigint, pending: bigint, outgoing: bigint }>
+utxo.trackedAddresses // Readonly<Ref<string[]>>
+utxo.isTracking       // ComputedRef<boolean>
+
+await utxo.track(['kaspa:qr...'])     // subscribe + fetch UTXOs
+await utxo.untrack(['kaspa:qr...'])   // unsubscribe + remove entries
+await utxo.refresh()                  // re-fetch all tracked addresses
+await utxo.clear()                    // remove all entries, unsubscribe all
+
+// balance.mature  = confirmed spendable (non-coinbase)
+// balance.pending = coinbase maturity delay
+// balance.outgoing = always 0n (reserved)
+```
+
+Auto-cleanup: clear() called on onUnmounted when used inside a component.
+Pinia stores: call utxo.clear() manually.
+
+UtxoEntry shape:
+```ts
+{
+  address?: string
+  outpoint: { transactionId: string; index: number }
+  amount: bigint
+  scriptPublicKey: { version: number; script: string }
+  blockDaaScore: bigint
+  isCoinbase: boolean
+}
+```
+
+---
+
+## useTransaction() — build and send transactions
+
+```ts
+const tx = useTransaction()
+
+// Estimate fees (dry run):
+const summary = await tx.estimate({ entries, outputs, changeAddress, priorityFee?, feeRate?, payload?, networkId? })
+// summary: { fees: bigint, mass: bigint, transactions: number }
+
+// Build unsigned transactions:
+const { transactions, summary } = await tx.create(settings)
+// transactions: PendingTx[]
+// Multiple when UTXO compounding needed — submit in order
+
+// Build, sign, and submit:
+const txIds = await tx.send({ ...settings, privateKeys: string[] })
+// Returns string[] of submitted transaction IDs
+```
+
+CreateTransactionSettings:
+```ts
+{
+  entries: UtxoEntry[]        // from useUtxo().entries.value
+  outputs?: PaymentOutput[]   // [{ address, amount: bigint }] — omit for self-compound
+  changeAddress: string
+  priorityFee?: bigint        // sompi
+  feeRate?: number            // sompi per gram
+  payload?: string            // hex data
+  networkId?: string          // 'mainnet', 'testnet-10', etc.
+}
+```
+
+PendingTx interface:
+```ts
+pending.sign(privateKeys: string[]): void
+pending.submit(): Promise<string>   // returns txId
+pending.serialize(): unknown
+pending.addresses(): string[]       // input addresses for key selection
+```
+
+Example — quick send 10 KAS:
+```ts
+await utxo.track(['kaspa:qrsrc...'])
+const txIds = await tx.send({
+  entries: utxo.entries.value,
+  outputs: [{ address: 'kaspa:qrdest...', amount: 1_000_000_000n }],
+  changeAddress: 'kaspa:qrsrc...',
+  priorityFee: 1000n,
+  networkId: 'mainnet',
+  privateKeys: ['64-char-hex-private-key'],
+})
+```
+
+---
+
+## useCrypto() — cryptographic utilities (synchronous)
+
+```ts
+const crypto = useCrypto()
+
+// Mnemonic (BIP-39):
+const { phrase, wordCount } = crypto.generateMnemonic(24)  // 12 | 24 words
+
+// Keypair from mnemonic:
+const { address, publicKeyHex, privateKeyHex } = crypto.mnemonicToKeypair(phrase, 'mainnet')
+
+// Random keypair:
+const keypair = crypto.generateKeypair('mainnet')
+
+// BIP-32 HD derivation:
+const { receive, change } = crypto.derivePublicKeys(phrase, 'mainnet', 10, 10)
+// receive[i]: { index: number, publicKeyHex: string, address: string }
+// change[i]:  { index: number, publicKeyHex: string, address: string }
+
+// Address utilities:
+const addr = crypto.createAddress(publicKeyHex, 'mainnet')
+const valid = crypto.isValidAddress('kaspa:qr...')  // boolean
+
+// Message signing:
+const sig  = crypto.signMessage('hello', privateKeyHex)    // → hex string
+const ok   = crypto.verifyMessage('hello', sig, publicKeyHex)  // boolean
+
+// Unit conversion (1 KAS = 100_000_000 sompi):
+const sompi = crypto.kaspaToSompi('1.5')              // 150_000_000n
+const kas   = crypto.sompiToKaspa(150_000_000n)       // '1.5'
+const str   = crypto.sompiToKaspaString(150_000_000n, 2)  // '1.50'
+```
+
+Address prefixes: mainnet='kaspa:', testnet-10/11='kaspatest:', simnet='kassim:', devnet='kaspadev:'
+
+---
+
+## useNetwork() — network switching
+
+```ts
+const network = useNetwork()
+
+network.currentNetwork  // Readonly<Ref<KaspaNetwork>>
+network.networkId       // Readonly<Ref<string|null>>  — from node
+network.isMainnet       // ComputedRef<boolean>
+network.isTestnet       // ComputedRef<boolean>  (testnet-10 or testnet-11)
+network.daaScore        // Readonly<Ref<bigint>>
+network.availableNetworks  // readonly KaspaNetwork[]
+
+await network.switchNetwork('testnet-10')
+// disconnects RPC, updates currentNetwork, reconnects on new network
+```
+
+AVAILABLE_NETWORKS = ['mainnet', 'testnet-10', 'testnet-11', 'simnet', 'devnet']
+Singleton: changing currentNetwork affects all composable instances.
+
+---
+
+## Error Classes
+
+```ts
+import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'
+
+// Hierarchy:
+// Error
+// └── KaspaError (.cause chain)
+//     ├── KaspaNotReadyError  — WASM not initialized
+//     ├── KaspaRpcError       — RPC method failed
+//     ├── KaspaWalletError    — wallet operation failed
+//     └── KaspaCryptoError    — crypto operation failed
+
+try {
+  await rpc.getInfo()
+} catch (err) {
+  if (err instanceof KaspaRpcError) { /* handle */ }
+}
+```
+
+---
+
+## TypeScript Types Reference
+
+```ts
+type KaspaNetwork = 'mainnet' | 'testnet-10' | 'testnet-11' | 'simnet' | 'devnet'
+type RpcEncoding = 'Borsh' | 'SerdeJson'
+type WasmStatus = 'idle' | 'loading' | 'ready' | 'error'
+type RpcConnectionState = 'disconnected' | 'connecting' | 'connected' | 'reconnecting' | 'error'
+
+interface RpcOptions { url?, resolver?, network?, encoding? }
+interface ServerInfo { isUtxoIndexEnabled, isSynced, hasNotifyCommand, hasMessageId, serverVersion, networkId }
+interface BlockInfo { hash, timestamp, blueScore: bigint, transactions: string[] }
+interface UtxoBalance { mature: bigint, pending: bigint, outgoing: bigint }
+interface BalanceResult { address: string, balance: bigint }
+interface PaymentOutput { address: string, amount: bigint }
+interface KeypairInfo { privateKeyHex: string, publicKeyHex: string, address: string }
+interface MnemonicInfo { phrase: string, wordCount: 12 | 24 }
+interface DerivedKey { index: number, publicKeyHex: string, address: string }
+interface FeeEstimate {
+  priorityBucket: { feerate: number, estimatedSeconds: number }
+  normalBuckets: Array<{ feerate: number, estimatedSeconds: number }>
+  lowBuckets: Array<{ feerate: number, estimatedSeconds: number }>
+}
+interface TransactionSummary { fees: bigint, mass: bigint, transactions: number, finalTransactionId?, finalAmount? }
+interface RpcEvent<T> { type: RpcEventType, data: T, timestamp: number }
+const AVAILABLE_NETWORKS: readonly KaspaNetwork[]
+```
+
+---
+
+## End-to-end Example
+
+```ts
+import { createApp } from 'vue'
+import { KaspaPlugin, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
+
+// 1. Install plugin
+const app = createApp(App)
+app.use(KaspaPlugin, { network: 'mainnet', autoConnect: true })
+
+// 2. In a component:
+const rpc = useRpc()
+const utxo = useUtxo()
+const tx = useTransaction()
+const crypto = useCrypto()
+const network = useNetwork()
+
+// 3. Wait for connection (or watch rpc.isConnected)
+await rpc.connect()
+
+// 4. Track address UTXOs
+await utxo.track(['kaspa:qrsrc...'])
+console.log('Balance:', crypto.sompiToKaspaString(utxo.balance.value.mature), 'KAS')
+
+// 5. Estimate fees
+const summary = await tx.estimate({
+  entries: utxo.entries.value,
+  outputs: [{ address: 'kaspa:qrdest...', amount: crypto.kaspaToSompi('5') }],
+  changeAddress: 'kaspa:qrsrc...',
+  priorityFee: 1000n,
+  networkId: network.currentNetwork.value,
+})
+console.log('Fees:', summary.fees, 'sompi')
+
+// 6. Send
+const txIds = await tx.send({
+  entries: utxo.entries.value,
+  outputs: [{ address: 'kaspa:qrdest...', amount: crypto.kaspaToSompi('5') }],
+  changeAddress: 'kaspa:qrsrc...',
+  priorityFee: 1000n,
+  networkId: network.currentNetwork.value,
+  privateKeys: ['your-private-key-hex'],
+})
+console.log('Sent:', txIds)
+```

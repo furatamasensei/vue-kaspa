@@ -6,7 +6,10 @@
     "test": "pnpm --filter vue-kaspa test:watch",
     "test:run": "pnpm --filter vue-kaspa test",
     "playground": "pnpm --filter playground dev",
-    "typecheck": "pnpm -r typecheck"
+    "typecheck": "pnpm -r typecheck",
+    "docs:dev": "pnpm --filter docs dev",
+    "docs:build": "pnpm --filter docs build",
+    "docs:preview": "pnpm --filter docs preview"
   },
   "devDependencies": {
     "typescript": "^6.0.2",

@@ -1,0 +1,34 @@
+# vue-kaspa
+
+> Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by kaspa-wasm.
+
+vue-kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 6 composables: useKaspa (WASM lifecycle), useRpc (WebSocket RPC connection, queries, events), useUtxo (real-time UTXO tracking, reactive balance), useTransaction (transaction building, signing, submitting), useCrypto (key generation, BIP-32 HD derivation, message signing, unit conversion), useNetwork (network switching). Also ships a Nuxt 3 module with auto-imports.
+
+## Docs
+
+- [Introduction](/guide/introduction): Architecture overview, package exports, peer dependencies, design principles
+- [Installation](/guide/installation): npm/pnpm install, Vite WASM plugin config, CORS headers, TypeScript requirements
+- [Vue Plugin](/guide/vue-plugin): KaspaPlugin setup, all KaspaPluginOptions fields, custom node, manual init
+- [Nuxt Module](/guide/nuxt-module): nuxt.config.ts setup, auto-imported composables, SSR behavior
+- [Vue DevTools](/guide/devtools): Inspector panel (WASM, RPC, Network nodes), event timeline layer
+- [Error Handling](/guide/error-handling): KaspaError hierarchy, try/catch patterns, error refs on composables
+- [useKaspa](/composables/use-kaspa): WasmStatus lifecycle, init(), reset(), singleton note, panic hook
+- [useRpc](/composables/use-rpc): Connection state machine, all 12 query methods, event subscriptions, all 11 RpcEventType values, auto-reconnect
+- [useUtxo](/composables/use-utxo): track/untrack/refresh/clear, UtxoBalance (mature/pending/outgoing), auto-cleanup, passing entries to useTransaction
+- [useTransaction](/composables/use-transaction): estimate/create/send, CreateTransactionSettings, PendingTx interface, UTXO compounding, hardware wallet pattern
+- [useCrypto](/composables/use-crypto): generateMnemonic, mnemonicToKeypair, derivePublicKeys (BIP-32), address utilities, signMessage/verifyMessage, kaspaToSompi/sompiToKaspa
+- [useNetwork](/composables/use-network): switchNetwork, available networks, network-aware addresses, singleton warning
+- [TypeScript Types](/reference/types): All 23 exported interfaces and union types with field tables
+- [Constants](/reference/constants): AVAILABLE_NETWORKS, WasmStatus/RpcConnectionState/RpcEventType value tables
+- [AI & LLMs](/llms/): Prompt cookbook, key facts, llms.txt usage, claude-mem skills
+
+## Key Facts
+
+- Amounts: always `bigint` in sompi. 1 KAS = 100_000_000n sompi. Use `useCrypto().kaspaToSompi()` for user input.
+- Singleton state: one RPC connection and WASM instance per app — `useRpc()` from 10 components all share the same reactive refs.
+- Auto-cleanup: `useRpc().on()` handlers and `useUtxo()` tracking auto-cleanup on component unmount. Call `clear()` manually in Pinia stores.
+- autoConnect: with `autoConnect: true` (default), WASM loads and RPC connects on plugin install — no manual `init()` needed.
+- Network: `useNetwork().switchNetwork()` disconnects and reconnects RPC automatically. `currentNetwork` is module-level (affects whole app).
+- Nuxt: kaspa-wasm is auto-excluded from SSR bundle; all composables are auto-imported; plugin is client-only.
+- WASM config: Vite needs `vite-plugin-wasm` + CORS headers (`Cross-Origin-Embedder-Policy: require-corp`).
+- Error types: `KaspaError` (base), `KaspaNotReadyError`, `KaspaRpcError`, `KaspaWalletError`, `KaspaCryptoError`.
