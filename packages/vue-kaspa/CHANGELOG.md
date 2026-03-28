@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.2](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.1...vue-kaspa-v0.1.2) (2026-03-28)
+
+
+### Bug Fixes
+
+* mark @vue-kaspa/kaspa-wasm as external in vite build ([c40523b](https://github.com/furatamasensei/vue-kaspa/commit/c40523bcda0323dc82a15b758160cd0f48a8eb86))
+
 ## [0.1.1](https://github.com/furatamasensei/vkas/compare/vue-kaspa-v0.1.0...vue-kaspa-v0.1.1) (2026-03-28)
 
 
