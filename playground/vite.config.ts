@@ -16,6 +16,15 @@ export default defineConfig({
   optimizeDeps: {
     exclude: ['@vue-kaspa/kaspa-wasm'],
   },
+  build: {
+    rollupOptions: {
+      output: {
+        manualChunks(id) {
+          if (id.includes('kaspa-wasm')) return 'kaspa-wasm'
+        },
+      },
+    },
+  },
   server: {
     headers: {
       'Cross-Origin-Embedder-Policy': 'require-corp',
