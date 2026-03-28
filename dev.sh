@@ -19,6 +19,7 @@ needs_install() {
   [[ ! -d "$ROOT/node_modules" ]] && return 0
   [[ ! -d "$ROOT/packages/vue-kaspa/node_modules" ]] && return 0
   [[ ! -d "$ROOT/playground/node_modules" ]] && return 0
+  [[ ! -d "$ROOT/docs/node_modules" ]] && return 0
   [[ "$ROOT/pnpm-lock.yaml" -nt "$ROOT/node_modules/.modules.yaml" ]] && return 0
   return 1
 }
@@ -39,6 +40,31 @@ case "$MODE" in
     info "Press Ctrl+C to stop"
     echo ""
     pnpm --filter playground dev
+    ;;
+
+  docs)
+    info "Starting docs dev server..."
+    info "Press Ctrl+C to stop"
+    echo ""
+    pnpm --filter docs dev
+    ;;
+
+  docs:build)
+    info "Building docs..."
+    pnpm --filter docs build
+    success "Docs built → docs/.vitepress/dist/"
+    ;;
+
+  all)
+    info "Starting playground + docs in parallel..."
+    info "Press Ctrl+C to stop both"
+    echo ""
+    pnpm --filter playground dev &
+    PLAYGROUND_PID=$!
+    pnpm --filter docs dev &
+    DOCS_PID=$!
+    trap "kill $PLAYGROUND_PID $DOCS_PID 2>/dev/null" INT TERM
+    wait
     ;;
 
   test)
@@ -72,9 +98,12 @@ case "$MODE" in
     ;;
 
   *)
-    echo "Usage: ./dev.sh [dev|test|test:watch|build|ci]"
+    echo "Usage: ./dev.sh [dev|docs|docs:build|all|test|test:watch|build|ci]"
     echo ""
     echo "  dev         start playground dev server (default)"
+    echo "  docs        start docs dev server"
+    echo "  docs:build  build the docs site"
+    echo "  all         start playground + docs in parallel"
     echo "  test        run tests once"
     echo "  test:watch  run tests in watch mode"
     echo "  build       build the library"
