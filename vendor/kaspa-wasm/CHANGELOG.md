@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.2](https://github.com/furatamasensei/vue-kaspa/compare/kaspa-wasm-v1.2.1...kaspa-wasm-v1.2.2) (2026-03-28)
+
+
+### Bug Fixes
+
+* update kaspa-wasm repository url to match provenance attestation ([27565f1](https://github.com/furatamasensei/vue-kaspa/commit/27565f1bec9abe0f030a087977ac0d1e034f831c))
+
 ## [1.2.1](https://github.com/furatamasensei/vue-kaspa/compare/kaspa-wasm-v1.2.0...kaspa-wasm-v1.2.1) (2026-03-28)
 
 
