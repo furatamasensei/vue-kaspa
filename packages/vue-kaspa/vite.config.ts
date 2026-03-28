@@ -22,11 +22,11 @@ export default defineConfig({
       fileName: (format) => `vue-kaspa.${format === 'es' ? 'es.js' : 'umd.cjs'}`,
     },
     rollupOptions: {
-      external: ['vue', 'kaspa-wasm', '@vue/devtools-api'],
+      external: ['vue', '@vue-kaspa/kaspa-wasm', '@vue/devtools-api'],
       output: {
         globals: {
           vue: 'Vue',
-          'kaspa-wasm': 'KaspaWasm',
+          '@vue-kaspa/kaspa-wasm': 'KaspaWasm',
           '@vue/devtools-api': 'VueDevtoolsApi',
         },
         exports: 'named',
