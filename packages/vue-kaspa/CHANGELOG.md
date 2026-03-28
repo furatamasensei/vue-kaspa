@@ -1,0 +1,18 @@
+# Changelog
+
+## [0.1.1](https://github.com/furatamasensei/vkas/compare/vue-kaspa-v0.1.0...vue-kaspa-v0.1.1) (2026-03-28)
+
+
+### Features
+
+* add Nuxt module support (vue-kaspa/nuxt) ([bd0aa3b](https://github.com/furatamasensei/vkas/commit/bd0aa3bdc7afe830518bae87adf5b8e0e6307723))
+* initial vue-kaspa plugin with playground ([a9e8efd](https://github.com/furatamasensei/vkas/commit/a9e8efda4ea27436bb4c3010c95e060ece67ecec))
+* rename to vue-kaspa, add @vue-kaspa/kaspa-wasm, release workflow ([731310f](https://github.com/furatamasensei/vkas/commit/731310fdb0b48042c23383c590dd9bdc80fd24fd))
+* replace useWallet with useUtxo + useTransaction for cross-platform support ([3a23927](https://github.com/furatamasensei/vkas/commit/3a23927c54646f60afb234376f1cf8ad3e835113))
+* rewrite playground with shadcn-vue + Tailwind CSS v4 ([e7cfde4](https://github.com/furatamasensei/vkas/commit/e7cfde4e6fab6311177b8019bd5e4dd7903668f5))
+
+
+### Bug Fixes
+
+* address review feedback across playground and plugin ([6149d80](https://github.com/furatamasensei/vkas/commit/6149d80129ded8c1d6e6421665b9caa254cf8c81))
+* resolve TypeScript errors in nuxt.ts ([7f9c2d5](https://github.com/furatamasensei/vkas/commit/7f9c2d594547016dbdd1b4fc5104f1d4a02e2d5c))
