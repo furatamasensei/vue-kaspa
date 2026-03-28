@@ -1,8 +1,8 @@
-# vue-kaspa
+# VKAS
 
 > Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by kaspa-wasm.
 
-vue-kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 6 composables: useKaspa (WASM lifecycle), useRpc (WebSocket RPC connection, queries, events), useUtxo (real-time UTXO tracking, reactive balance), useTransaction (transaction building, signing, submitting), useCrypto (key generation, BIP-32 HD derivation, message signing, unit conversion), useNetwork (network switching). Also ships a Nuxt 3 module with auto-imports.
+VKAS wraps kaspa-wasm with Vue 3 reactivity and exposes 6 composables: useKaspa (WASM lifecycle), useRpc (WebSocket RPC connection, queries, events), useUtxo (real-time UTXO tracking, reactive balance), useTransaction (transaction building, signing, submitting), useCrypto (key generation, BIP-32 HD derivation, message signing, unit conversion), useNetwork (network switching). Also ships a Nuxt 3 module with auto-imports.
 
 ## Docs
 

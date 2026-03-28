@@ -1,4 +1,4 @@
-# vue-kaspa — Full API Reference
+# VKAS — Full API Reference
 
 > Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by kaspa-wasm.
 

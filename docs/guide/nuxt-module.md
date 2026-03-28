@@ -1,6 +1,6 @@
 # Nuxt Module
 
-vue-kaspa ships a first-class Nuxt 3 module. It registers a client-only plugin, auto-imports all composables, and excludes `kaspa-wasm` from the server bundle automatically.
+VKAS ships a first-class Nuxt 3 module. It registers a client-only plugin, auto-imports all composables, and excludes `kaspa-wasm` from the server bundle automatically.
 
 ## Setup
 

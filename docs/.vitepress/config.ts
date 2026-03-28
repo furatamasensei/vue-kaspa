@@ -2,14 +2,14 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   lang: 'en-US',
-  title: 'vue-kaspa',
+  title: 'VKAS',
   description: 'Vue 3 composables and Nuxt module for the Kaspa blockchain',
 
   head: [
-    ['link', { rel: 'icon', href: '/logo.svg', type: 'image/svg+xml' }],
+    ['link', { rel: 'icon', href: '/logo.png', type: 'image/svg+xml' }],
     ['meta', { name: 'theme-color', content: '#70C7BA' }],
     ['meta', { property: 'og:type', content: 'website' }],
-    ['meta', { property: 'og:title', content: 'vue-kaspa' }],
+    ['meta', { property: 'og:title', content: 'VKAS' }],
     ['meta', {
       property: 'og:description',
       content: 'Vue 3 composables and Nuxt module for the Kaspa blockchain',
@@ -17,8 +17,8 @@ export default defineConfig({
   ],
 
   themeConfig: {
-    logo: '/logo.svg',
-    siteTitle: 'vue-kaspa',
+    logo: '/logo.png',
+    siteTitle: 'VKAS',
 
     nav: [
       { text: 'Guide', link: '/guide/introduction', activeMatch: '/guide/' },
@@ -29,7 +29,7 @@ export default defineConfig({
         text: 'v0.1.0',
         items: [
           { text: 'Changelog', link: '/reference/changelog' },
-          { text: 'GitHub', link: 'https://github.com/kaspanet/vue-kaspa' },
+          { text: 'GitHub', link: 'https://github.com/furatamasensei/vkas' },
         ],
       },
     ],
@@ -87,7 +87,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/kaspanet/vue-kaspa' },
+      { icon: 'github', link: 'https://github.com/furatamasensei/vkas' },
     ],
 
     search: {

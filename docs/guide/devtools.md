@@ -1,6 +1,6 @@
 # Vue DevTools
 
-vue-kaspa integrates with [Vue DevTools](https://devtools.vuejs.org) to give you live visibility into WASM status, RPC state, and blockchain events — without console.log.
+VKAS integrates with [Vue DevTools](https://devtools.vuejs.org) to give you live visibility into WASM status, RPC state, and blockchain events — without console.log.
 
 DevTools integration is enabled automatically in development and disabled in production.
 
@@ -68,4 +68,4 @@ The DevTools integration code is dynamically imported. When `devtools: false`, i
 ## Requirements
 
 - [Vue DevTools browser extension](https://devtools.vuejs.org/guide/installation) or the standalone Electron app
-- Vue DevTools API v8 (bundled with `@vue/devtools-api ^8.1.1`, included as a dependency of vue-kaspa)
+- Vue DevTools API v8 (bundled with `@vue/devtools-api ^8.1.1`, included as a dependency of VKAS)

@@ -1,12 +1,12 @@
 ---
 layout: home
 hero:
-  name: vue-kaspa
-  text: Kaspa for Vue 3
+  name: VKAS
+  text: The Fastest Chain Meets Great DX 
   tagline: Reactive composables and a Nuxt module for the Kaspa blockchain — powered by WASM.
   image:
-    src: /logo.svg
-    alt: vue-kaspa
+    src: /logo.png
+    alt: VKAS
   actions:
     - theme: brand
       text: Get Started

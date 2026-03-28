@@ -1,6 +1,6 @@
 # AI & LLMs
 
-vue-kaspa is designed to be LLM-friendly. All APIs are fully TypeScript-typed, composables have explicit return type interfaces, and machine-readable reference files are available for AI tools.
+VKAS is designed to be LLM-friendly. All APIs are fully TypeScript-typed, composables have explicit return type interfaces, and machine-readable reference files are available for AI tools.
 
 ## Quick reference
 
@@ -26,7 +26,7 @@ These files follow the [llmstxt.org](https://llmstxt.org) convention and can be 
 
 ## Key facts for LLMs
 
-When generating code that uses vue-kaspa, keep these facts in mind:
+When generating code that uses VKAS, keep these facts in mind:
 
 **Amounts are always `bigint` in sompi**
 ```ts
@@ -79,7 +79,7 @@ const rpc = useRpc()
 
 ## Prompt cookbook
 
-Copy these prompts to ask an LLM about vue-kaspa:
+Copy these prompts to ask an LLM about VKAS:
 
 ### Send KAS to an address
 
@@ -123,4 +123,4 @@ If you have [claude-mem](https://github.com/badass-courses/claude-mem) configure
 | `do` | Execute plans via subagents |
 | `mem-search` | Search cross-session memory for prior work on this project |
 
-These skills let an LLM navigate and modify the vue-kaspa codebase efficiently without loading entire files into context.
+These skills let an LLM navigate and modify the VKAS codebase efficiently without loading entire files into context.

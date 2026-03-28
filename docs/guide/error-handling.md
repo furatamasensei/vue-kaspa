@@ -1,12 +1,12 @@
 # Error Handling
 
-vue-kaspa uses a structured error hierarchy so you can catch and handle errors by type.
+VKAS uses a structured error hierarchy so you can catch and handle errors by type.
 
 ## Error hierarchy
 
 ```
 Error
-└── KaspaError                  (base — all vue-kaspa errors extend this)
+└── KaspaError                  (base — all VKAS errors extend this)
     ├── KaspaNotReadyError       WASM not yet initialized
     ├── KaspaRpcError            RPC method call failed
     ├── KaspaWalletError         Wallet operation failed
@@ -27,7 +27,7 @@ import {
 
 ## KaspaError (base)
 
-All vue-kaspa errors extend `KaspaError`. It carries an optional `.cause` for the underlying error from `kaspa-wasm`.
+All VKAS errors extend `KaspaError`. It carries an optional `.cause` for the underlying error from `kaspa-wasm`.
 
 ```ts
 try {
