@@ -1,0 +1,9 @@
+{
+  "extends": "../../tsconfig.base.json",
+  "compilerOptions": {
+    "baseUrl": ".",
+    "rootDir": "src"
+  },
+  "include": ["src/nuxt.ts"],
+  "exclude": ["node_modules", "dist"]
+}

@@ -7,6 +7,10 @@
       "import": "./dist/vue-kaspa.es.js",
       "require": "./dist/vue-kaspa.umd.cjs",
       "types": "./dist/index.d.ts"
+    },
+    "./nuxt": {
+      "import": "./dist/nuxt.mjs",
+      "types": "./dist/nuxt.d.ts"
     }
   },
   "main": "./dist/vue-kaspa.umd.cjs",
@@ -14,19 +18,27 @@
   "types": "./dist/index.d.ts",
   "sideEffects": false,
   "scripts": {
-    "build": "vite build",
+    "build": "vite build && vite build --config vite.nuxt.config.ts",
     "typecheck": "vue-tsc --noEmit",
     "test": "vitest run",
     "test:watch": "vitest"
   },
   "peerDependencies": {
-    "vue": ">=3.4.0",
-    "kaspa-wasm": ">=1.1.0"
+    "@nuxt/kit": "^3.0.0",
+    "kaspa-wasm": ">=1.1.0",
+    "vue": ">=3.4.0"
+  },
+  "peerDependenciesMeta": {
+    "@nuxt/kit": {
+      "optional": true
+    }
   },
   "dependencies": {
     "@vue/devtools-api": "^8.1.1"
   },
   "devDependencies": {
+    "@nuxt/kit": "^4.4.2",
+    "@nuxt/schema": "^4.4.2",
     "@vitejs/plugin-vue": "^6.0.5",
     "@vue/test-utils": "^2.4.6",
     "happy-dom": "^20.8.9",

@@ -7,10 +7,11 @@ export default defineConfig({
   plugins: [
     vue(),
     dts({
-      rollupTypes: true,
-      insertTypesEntry: true,
+      rollupTypes: false,
       include: ['src/**/*.ts'],
-      exclude: ['src/**/*.test.ts', 'tests/**'],
+      exclude: ['src/**/*.test.ts', 'tests/**', 'src/nuxt.ts'],
+      tsconfigPath: './tsconfig.build.json',
+      entryRoot: 'src',
     }),
   ],
   build: {

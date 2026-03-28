@@ -30,9 +30,9 @@ export function setupDevtools(app: App): void {
 
       // Bridge all RPC events to the DevTools timeline
       const allEvents = [
-        'blockAdded', 'virtualChainChanged', 'utxosChanged',
-        'finalityConflict', 'finalityConflictResolved', 'sinkBlueScoreChanged',
-        'virtualDaaScoreChanged', 'newBlockTemplate', 'syncStateChanged',
+        'block-added', 'virtual-chain-changed', 'utxos-changed',
+        'finality-conflict', 'finality-conflict-resolved', 'sink-blue-score-changed',
+        'virtual-daa-score-changed', 'new-block-template',
         'connect', 'disconnect',
       ] as const
 

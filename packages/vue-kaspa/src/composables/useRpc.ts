@@ -34,12 +34,16 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
   })
 
   function mergeOptions(override?: RpcOptions): RpcOptions {
-    return {
-      url: override?.url ?? rpcOptions?.url ?? pluginOptions.url,
-      resolver: override?.resolver ?? rpcOptions?.resolver ?? pluginOptions.resolver,
-      network: override?.network ?? rpcOptions?.network ?? pluginOptions.network,
-      encoding: override?.encoding ?? rpcOptions?.encoding ?? pluginOptions.encoding,
-    }
+    const opts: RpcOptions = {}
+    const url = override?.url ?? rpcOptions?.url ?? pluginOptions.url
+    const resolver = override?.resolver ?? rpcOptions?.resolver ?? pluginOptions.resolver
+    const network = override?.network ?? rpcOptions?.network ?? pluginOptions.network
+    const encoding = override?.encoding ?? rpcOptions?.encoding ?? pluginOptions.encoding
+    if (url !== undefined) opts.url = url
+    if (resolver !== undefined) opts.resolver = resolver
+    if (network !== undefined) opts.network = network
+    if (encoding !== undefined) opts.encoding = encoding
+    return opts
   }
 
   function getClient() {
@@ -96,7 +100,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getInfo(): Promise<ServerInfo> {
       try {
-        const result = await (getClient() as { getInfo: () => Promise<ServerInfo> }).getInfo()
+        const result = await (getClient() as unknown as { getInfo: () => Promise<ServerInfo> }).getInfo()
         return result
       } catch (err) {
         throw new KaspaRpcError('getInfo', err)
@@ -105,7 +109,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getBlock(hash: string): Promise<BlockInfo> {
       try {
-        const client = getClient() as { getBlock: (req: unknown) => Promise<{ block: { verboseData: { hash: string; timestamp: string; blueScore: string }; transactions: unknown[] } }> }
+        const client = getClient() as unknown as { getBlock: (req: unknown) => Promise<{ block: { verboseData: { hash: string; timestamp: string; blueScore: string }; transactions: unknown[] } }> }
         const result = await client.getBlock({ hash, includeTransactions: false })
         const { block } = result
         return {
@@ -123,7 +127,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getBlockCount(): Promise<{ blockCount: bigint; headerCount: bigint }> {
       try {
-        return await (getClient() as { getBlockCount: () => Promise<{ blockCount: bigint; headerCount: bigint }> }).getBlockCount()
+        return await (getClient() as unknown as { getBlockCount: () => Promise<{ blockCount: bigint; headerCount: bigint }> }).getBlockCount()
       } catch (err) {
         throw new KaspaRpcError('getBlockCount', err)
       }
@@ -131,7 +135,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getBalanceByAddress(address: string): Promise<BalanceResult> {
       try {
-        const client = getClient() as { getBalanceByAddress: (req: unknown) => Promise<{ balance: bigint }> }
+        const client = getClient() as unknown as { getBalanceByAddress: (req: unknown) => Promise<{ balance: bigint }> }
         const result = await client.getBalanceByAddress({ address })
         return { address, balance: result.balance }
       } catch (err) {
@@ -141,7 +145,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getBalancesByAddresses(addresses: string[]): Promise<BalanceResult[]> {
       try {
-        const client = getClient() as { getBalancesByAddresses: (req: unknown) => Promise<{ balances: Array<{ address: string; balance: bigint }> }> }
+        const client = getClient() as unknown as { getBalancesByAddresses: (req: unknown) => Promise<{ balances: Array<{ address: string; balance: bigint }> }> }
         const result = await client.getBalancesByAddresses({ addresses })
         return result.balances.map((b) => ({ address: b.address, balance: b.balance }))
       } catch (err) {
@@ -151,7 +155,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getUtxosByAddresses(addresses: string[]): Promise<UtxoEntry[]> {
       try {
-        const client = getClient() as { getUtxosByAddresses: (req: unknown) => Promise<{ entries: UtxoEntry[] }> }
+        const client = getClient() as unknown as { getUtxosByAddresses: (req: unknown) => Promise<{ entries: UtxoEntry[] }> }
         const result = await client.getUtxosByAddresses({ addresses })
         return result.entries
       } catch (err) {
@@ -161,7 +165,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getMempoolEntries(includeOrphanPool = false): Promise<MempoolEntry[]> {
       try {
-        const client = getClient() as { getMempoolEntries: (req: unknown) => Promise<{ mempoolEntries: MempoolEntry[] }> }
+        const client = getClient() as unknown as { getMempoolEntries: (req: unknown) => Promise<{ mempoolEntries: MempoolEntry[] }> }
         const result = await client.getMempoolEntries({ filterTransactionPool: false, includeOrphanPool })
         return result.mempoolEntries
       } catch (err) {
@@ -171,7 +175,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getMempoolEntriesByAddresses(addresses: string[]): Promise<MempoolEntry[]> {
       try {
-        const client = getClient() as { getMempoolEntriesByAddresses: (req: unknown) => Promise<{ addressEntries: Array<{ sending: MempoolEntry[]; receiving: MempoolEntry[] }> }> }
+        const client = getClient() as unknown as { getMempoolEntriesByAddresses: (req: unknown) => Promise<{ addressEntries: Array<{ sending: MempoolEntry[]; receiving: MempoolEntry[] }> }> }
         const result = await client.getMempoolEntriesByAddresses({ addresses, filterTransactionPool: false, includeOrphanPool: false })
         return result.addressEntries.flatMap((e) => [...e.sending, ...e.receiving])
       } catch (err) {
@@ -181,7 +185,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getFeeEstimate(): Promise<FeeEstimate> {
       try {
-        const client = getClient() as { getFeeEstimate: () => Promise<{ estimate: FeeEstimate }> }
+        const client = getClient() as unknown as { getFeeEstimate: () => Promise<{ estimate: FeeEstimate }> }
         const result = await client.getFeeEstimate()
         return result.estimate
       } catch (err) {
@@ -191,7 +195,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async submitTransaction(tx: unknown): Promise<string> {
       try {
-        const client = getClient() as { submitTransaction: (req: unknown) => Promise<{ transactionId: string }> }
+        const client = getClient() as unknown as { submitTransaction: (req: unknown) => Promise<{ transactionId: string }> }
         const result = await client.submitTransaction({ transaction: tx, allowOrphan: false })
         return result.transactionId
       } catch (err) {
@@ -201,7 +205,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async getCoinSupply(): Promise<{ circulatingCoinSupply: bigint; maxCoinSupply: bigint }> {
       try {
-        return await (getClient() as { getCoinSupply: () => Promise<{ circulatingCoinSupply: bigint; maxCoinSupply: bigint }> }).getCoinSupply()
+        return await (getClient() as unknown as { getCoinSupply: () => Promise<{ circulatingCoinSupply: bigint; maxCoinSupply: bigint }> }).getCoinSupply()
       } catch (err) {
         throw new KaspaRpcError('getCoinSupply', err)
       }
@@ -209,7 +213,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async ping(): Promise<void> {
       try {
-        await (getClient() as { ping: () => Promise<void> }).ping()
+        await (getClient() as unknown as { ping: () => Promise<void> }).ping()
       } catch (err) {
         throw new KaspaRpcError('ping', err)
       }
@@ -217,7 +221,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async subscribeUtxosChanged(addresses: string[]): Promise<void> {
       try {
-        await (getClient() as { subscribeUtxosChanged: (a: string[]) => Promise<void> }).subscribeUtxosChanged(addresses)
+        await (getClient() as unknown as { subscribeUtxosChanged: (a: string[]) => Promise<void> }).subscribeUtxosChanged(addresses)
       } catch (err) {
         throw new KaspaRpcError('subscribeUtxosChanged', err)
       }
@@ -225,7 +229,7 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
 
     async unsubscribeUtxosChanged(addresses: string[]): Promise<void> {
       try {
-        await (getClient() as { unsubscribeUtxosChanged: (a: string[]) => Promise<void> }).unsubscribeUtxosChanged(addresses)
+        await (getClient() as unknown as { unsubscribeUtxosChanged: (a: string[]) => Promise<void> }).unsubscribeUtxosChanged(addresses)
       } catch (err) {
         throw new KaspaRpcError('unsubscribeUtxosChanged', err)
       }

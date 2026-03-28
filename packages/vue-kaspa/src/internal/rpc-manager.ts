@@ -84,7 +84,7 @@ export class RpcManager {
         config.encoding = Encoding.SerdeJson
       }
 
-      this.client = new RpcClient(config) as AnyRpcClient
+      this.client = new RpcClient(config) as unknown as AnyRpcClient
 
       // DAA score updates
       this.bridge.on('virtual-daa-score-changed', (event) => {
@@ -117,7 +117,7 @@ export class RpcManager {
       this.reconnectAttempts = 0
 
       // Pipe events to the log
-      const logEvents: (typeof import('../types').RpcEventType)[] = [
+      const logEvents: RpcEventType[] = [
         'block-added',
         'virtual-chain-changed',
         'utxos-changed',

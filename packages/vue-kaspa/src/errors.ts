@@ -2,8 +2,9 @@ export class KaspaError extends Error {
   constructor(message: string, public readonly cause?: unknown) {
     super(message)
     this.name = 'KaspaError'
-    if (Error.captureStackTrace) {
-      Error.captureStackTrace(this, this.constructor)
+    const E = Error as typeof Error & { captureStackTrace?: (t: object, c: Function) => void }
+    if (E.captureStackTrace) {
+      E.captureStackTrace(this, this.constructor)
     }
   }
 }

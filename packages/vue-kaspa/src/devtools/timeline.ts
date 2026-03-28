@@ -1,9 +1,13 @@
-import type { DevtoolsPluginApi } from '@vue/devtools-api'
 import type { RpcEvent } from '../types'
 
 export const TIMELINE_LAYER_ID = 'kaspa-events'
 
-export function setupTimeline(api: DevtoolsPluginApi<Record<string, unknown>>): void {
+// Use `any` for the api type — @vue/devtools-api v8 changed its public API
+// surface but still provides runtime backwards-compatibility for plugin setup.
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type DevtoolsApi = any
+
+export function setupTimeline(api: DevtoolsApi): void {
   api.addTimelineLayer({
     id: TIMELINE_LAYER_ID,
     label: 'Kaspa Events',
@@ -12,11 +16,11 @@ export function setupTimeline(api: DevtoolsPluginApi<Record<string, unknown>>): 
 }
 
 export function postTimelineEvent(
-  api: DevtoolsPluginApi<Record<string, unknown>>,
+  api: DevtoolsApi,
   event: RpcEvent,
 ): void {
   const logType =
-    event.type === 'finalityConflict' ? 'warning'
+    event.type === 'finality-conflict' ? 'warning'
     : event.type === 'disconnect' ? 'error'
     : 'default'
 
@@ -36,14 +40,14 @@ export function postTimelineEvent(
 function summarize(event: RpcEvent): string {
   const data = event.data as Record<string, unknown> | null
   if (!data) return ''
-  if (event.type === 'blockAdded') {
+  if (event.type === 'block-added') {
     const block = data.block as { verboseData?: { hash?: string } } | undefined
     return block?.verboseData?.hash ? `hash: ${block.verboseData.hash.slice(0, 12)}...` : ''
   }
-  if (event.type === 'virtualDaaScoreChanged') {
+  if (event.type === 'virtual-daa-score-changed') {
     return `score: ${String(data.virtualDaaScore ?? '')}`
   }
-  if (event.type === 'sinkBlueScoreChanged') {
+  if (event.type === 'sink-blue-score-changed') {
     return `blue score: ${String(data.sinkBlueScore ?? '')}`
   }
   return ''

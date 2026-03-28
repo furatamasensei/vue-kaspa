@@ -19,13 +19,14 @@ type AnySummary = {
 }
 
 function mapSummary(s: AnySummary): TransactionSummary {
-  return {
+  const result: TransactionSummary = {
     fees: s.fees,
     mass: s.mass,
     transactions: s.transactions,
-    finalTransactionId: s.finalTransactionId,
-    finalAmount: s.finalAmount,
   }
+  if (s.finalTransactionId !== undefined) result.finalTransactionId = s.finalTransactionId
+  if (s.finalAmount !== undefined) result.finalAmount = s.finalAmount
+  return result
 }
 
 function wrapPending(pending: AnyPendingTx, manager: ReturnType<typeof getRpcManager>): PendingTx {
@@ -75,14 +76,14 @@ export function useTransaction(): UseTransactionReturn {
   async function estimate(settings: CreateTransactionSettings): Promise<TransactionSummary> {
     await ensureWasmInit(pluginOptions)
     const { estimateTransactions } = await import('kaspa-wasm')
-    const summary = await estimateTransactions(toGeneratorSettings(settings) as Parameters<typeof estimateTransactions>[0])
+    const summary = await estimateTransactions(toGeneratorSettings(settings) as unknown as Parameters<typeof estimateTransactions>[0])
     return mapSummary(summary as AnySummary)
   }
 
   async function create(settings: CreateTransactionSettings): Promise<{ transactions: PendingTx[]; summary: TransactionSummary }> {
     await ensureWasmInit(pluginOptions)
     const { createTransactions } = await import('kaspa-wasm')
-    const result = await createTransactions(toGeneratorSettings(settings) as Parameters<typeof createTransactions>[0])
+    const result = await createTransactions(toGeneratorSettings(settings) as unknown as Parameters<typeof createTransactions>[0])
     const r = result as { transactions: AnyPendingTx[]; summary: AnySummary }
     return {
       transactions: r.transactions.map((p) => wrapPending(p, manager)),
