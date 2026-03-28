@@ -1,25 +1,29 @@
 /**
  * Single access point for @vue-kaspa/kaspa-wasm.
  *
- * Keeping all imports through one dynamic import prevents bundlers (Rolldown/Vite 8)
- * from creating multiple evaluations of the WASM module, which would cause class
- * identity mismatches (e.g. `instanceof Resolver` failing across chunks).
+ * Uses globalThis as the backing store so the singleton survives across
+ * chunk boundaries. When the bundler duplicates this module into multiple
+ * chunks (rpc-manager, main entry, etc.), all copies share the same
+ * reference via globalThis, preventing class identity mismatches.
  */
 
 type KaspaModule = typeof import('@vue-kaspa/kaspa-wasm')
 
-let _mod: KaspaModule | null = null
+const KASPA_KEY = '__vue_kaspa_wasm__'
 
 export async function loadKaspa(): Promise<KaspaModule> {
-  if (!_mod) _mod = await import('@vue-kaspa/kaspa-wasm')
-  return _mod
+  if (!(globalThis as Record<string, unknown>)[KASPA_KEY]) {
+    ;(globalThis as Record<string, unknown>)[KASPA_KEY] = await import('@vue-kaspa/kaspa-wasm')
+  }
+  return (globalThis as Record<string, unknown>)[KASPA_KEY] as KaspaModule
 }
 
 export function getKaspa(): KaspaModule {
-  if (!_mod) throw new Error('kaspa-wasm is not loaded yet. Call ensureWasmInit() first.')
-  return _mod
+  const mod = (globalThis as Record<string, unknown>)[KASPA_KEY]
+  if (!mod) throw new Error('kaspa-wasm is not loaded yet. Call ensureWasmInit() first.')
+  return mod as KaspaModule
 }
 
 export function resetKaspa(): void {
-  _mod = null
+  delete (globalThis as Record<string, unknown>)[KASPA_KEY]
 }
