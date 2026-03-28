@@ -74,7 +74,7 @@ command -v pnpm &>/dev/null || die "pnpm not found. Run: npm install -g pnpm"
 # ── auto-install if node_modules is missing or lock file is newer ─────────────
 needs_install() {
   [[ ! -d "$ROOT/node_modules" ]] && return 0
-  [[ ! -d "$ROOT/packages/vue-kaspa/node_modules" ]] && return 0
+  [[ ! -d "$ROOT/packages/vkas/node_modules" ]] && return 0
   [[ ! -d "$ROOT/playground/node_modules" ]] && return 0
   [[ ! -d "$ROOT/docs/node_modules" ]] && return 0
   [[ "$ROOT/pnpm-lock.yaml" -nt "$ROOT/node_modules/.modules.yaml" ]] && return 0
@@ -140,6 +140,21 @@ case "$MODE" in
     fi
     ;;
 
+  rebuild)
+    info "Stopping servers..."
+    stop_service playground
+    stop_service docs
+    info "Rebuilding vkas library..."
+    pnpm --filter vkas build
+    success "Library rebuilt → packages/vkas/dist/"
+    info "Restarting servers..."
+    start_service playground pnpm --filter playground dev
+    start_service docs pnpm --filter docs dev
+    echo ""
+    info "Tail logs  → ./dev.sh logs"
+    info "Stop all   → ./dev.sh stop"
+    ;;
+
   docs:build)
     info "Building docs..."
     pnpm --filter docs build
@@ -148,28 +163,28 @@ case "$MODE" in
 
   test)
     info "Running tests..."
-    pnpm --filter vue-kaspa test
+    pnpm --filter vkas test
     success "All tests passed."
     ;;
 
   test:watch)
     info "Tests in watch mode (Ctrl+C to exit)..."
-    pnpm --filter vue-kaspa test:watch
+    pnpm --filter vkas test:watch
     ;;
 
   build)
-    info "Building vue-kaspa library..."
-    pnpm --filter vue-kaspa build
-    success "Built → packages/vue-kaspa/dist/"
+    info "Building vkas library..."
+    pnpm --filter vkas build
+    success "Built → packages/vkas/dist/"
     ;;
 
   ci)
     # Full pipeline: test → build → playground build (no server)
     info "Running tests..."
-    pnpm --filter vue-kaspa test
+    pnpm --filter vkas test
     success "Tests passed."
     info "Building library..."
-    pnpm --filter vue-kaspa build
+    pnpm --filter vkas build
     success "Library built."
     info "Building playground..."
     pnpm --filter playground build
@@ -182,6 +197,7 @@ case "$MODE" in
     echo "  all              start playground + docs in background (default)"
     echo "  dev              start playground only"
     echo "  docs             start docs only"
+    echo "  rebuild          rebuild library and restart all servers"
     echo "  stop [name]      stop all servers, or a specific one"
     echo "  status           show which servers are running"
     echo "  logs [name]      tail logs for all servers, or a specific one"
