@@ -1,1 +1,1 @@
-<!--@include: ../../../packages/vue-kaspa/CHANGELOG.md-->
+<!--@include: ../../packages/vue-kaspa/CHANGELOG.md-->
