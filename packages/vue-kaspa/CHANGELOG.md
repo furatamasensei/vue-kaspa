@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.6...vue-kaspa-v0.1.7) (2026-03-28)
+
+
+### Bug Fixes
+
+* **cli:** bump scaffolded project deps to latest stable ([276d5ec](https://github.com/furatamasensei/vue-kaspa/commit/276d5ece580992f943de59b2aedef2dc27552f71))
+
 ## [0.1.6](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.5...vue-kaspa-v0.1.6) (2026-03-28)
 
 

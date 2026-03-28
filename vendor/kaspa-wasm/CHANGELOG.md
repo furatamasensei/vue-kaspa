@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.2.3](https://github.com/furatamasensei/vue-kaspa/compare/kaspa-wasm-v1.2.2...kaspa-wasm-v1.2.3) (2026-03-28)
+
+
+### Bug Fixes
+
+* **cli:** bump scaffolded project deps to latest stable ([276d5ec](https://github.com/furatamasensei/vue-kaspa/commit/276d5ece580992f943de59b2aedef2dc27552f71))
+
 ## [1.2.2](https://github.com/furatamasensei/vue-kaspa/compare/kaspa-wasm-v1.2.1...kaspa-wasm-v1.2.2) (2026-03-28)
 
 
