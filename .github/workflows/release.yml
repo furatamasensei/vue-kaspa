@@ -8,6 +8,7 @@ on:
 permissions:
   contents: write
   pull-requests: write
+  id-token: write
 
 jobs:
   release-please:
@@ -43,9 +44,11 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter vue-kaspa build
       - run: pnpm --filter vue-kaspa test
-      - name: Publish vue-kaspa to npm (Trusted Publishing)
+      - name: Publish vue-kaspa to npm
         working-directory: packages/vue-kaspa
         run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
   publish-kaspa-wasm:
     needs: release-please
@@ -66,6 +69,8 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
-      - name: Publish @vue-kaspa/kaspa-wasm to npm (Trusted Publishing)
+      - name: Publish @vue-kaspa/kaspa-wasm to npm
         working-directory: vendor/kaspa-wasm
         run: npm publish --provenance --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
