@@ -17,7 +17,7 @@
   "module": "./dist/vue-kaspa.es.js",
   "types": "./dist/index.d.ts",
   "description": "Vue 3 composables and Nuxt module for the Kaspa blockchain — powered by WASM",
-  "homepage": "https://furatamasensei.github.io/vue-kaspa",
+  "homepage": "https://vue-kaspa.vercel.app",
   "repository": {
     "type": "git",
     "url": "https://github.com/furatamasensei/vue-kaspa.git",

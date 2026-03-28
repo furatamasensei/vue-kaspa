@@ -70,6 +70,8 @@ importers:
         specifier: ^2.2.8
         version: 2.2.12(typescript@6.0.2)
 
+  packages/vue-kaspa-cli: {}
+
   playground:
     dependencies:
       '@tailwindcss/vite':

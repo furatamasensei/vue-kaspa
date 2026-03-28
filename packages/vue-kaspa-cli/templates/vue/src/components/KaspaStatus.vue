@@ -59,7 +59,7 @@ const daaScore = computed(() =>
     </div>
 
     <footer class="card__footer">
-      <a href="https://furatamasensei.github.io/vue-kaspa" target="_blank" rel="noopener">Docs</a>
+      <a href="https://vue-kaspa.vercel.app" target="_blank" rel="noopener">Docs</a>
       <span>·</span>
       <a href="https://github.com/furatamasensei/vue-kaspa" target="_blank" rel="noopener">GitHub</a>
     </footer>

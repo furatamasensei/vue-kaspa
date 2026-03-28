@@ -61,7 +61,7 @@ const daaScore = computed(() =>
     </div>
 
     <footer style="display:flex;align-items:center;gap:.5rem;font-size:.85rem;border-top:1px solid #e2e8f0;padding-top:1rem;">
-      <a href="https://furatamasensei.github.io/vue-kaspa" target="_blank" rel="noopener" style="color:#374151;text-decoration:none;">Docs</a>
+      <a href="https://vue-kaspa.vercel.app" target="_blank" rel="noopener" style="color:#374151;text-decoration:none;">Docs</a>
       <span>·</span>
       <a href="https://github.com/furatamasensei/vue-kaspa" target="_blank" rel="noopener" style="color:#374151;text-decoration:none;">GitHub</a>
     </footer>

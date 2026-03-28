@@ -73,7 +73,7 @@ async function main() {
   npm run dev
 
   Edit ${editHint} to start building.
-  Docs → https://furatamasensei.github.io/vue-kaspa
+  Docs → https://vue-kaspa.vercel.app
 
 `)
 }

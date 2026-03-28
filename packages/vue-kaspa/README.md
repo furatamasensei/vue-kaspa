@@ -96,16 +96,16 @@ export default defineConfig({
 
 ## Documentation
 
-Full docs at **[furatamasensei.github.io/vue-kaspa](https://furatamasensei.github.io/vue-kaspa)**
+Full docs at **[vue-kaspa.vercel.app](https://vue-kaspa.vercel.app)**
 
-- [Installation](https://furatamasensei.github.io/vue-kaspa/guide/installation)
-- [Vue Plugin](https://furatamasensei.github.io/vue-kaspa/guide/vue-plugin)
-- [Nuxt Module](https://furatamasensei.github.io/vue-kaspa/guide/nuxt-module)
-- [useRpc](https://furatamasensei.github.io/vue-kaspa/composables/use-rpc)
-- [useUtxo](https://furatamasensei.github.io/vue-kaspa/composables/use-utxo)
-- [useTransaction](https://furatamasensei.github.io/vue-kaspa/composables/use-transaction)
-- [useCrypto](https://furatamasensei.github.io/vue-kaspa/composables/use-crypto)
-- [TypeScript Types](https://furatamasensei.github.io/vue-kaspa/reference/types)
+- [Installation](https://vue-kaspa.vercel.app/guide/installation)
+- [Vue Plugin](https://vue-kaspa.vercel.app/guide/vue-plugin)
+- [Nuxt Module](https://vue-kaspa.vercel.app/guide/nuxt-module)
+- [useRpc](https://vue-kaspa.vercel.app/composables/use-rpc)
+- [useUtxo](https://vue-kaspa.vercel.app/composables/use-utxo)
+- [useTransaction](https://vue-kaspa.vercel.app/composables/use-transaction)
+- [useCrypto](https://vue-kaspa.vercel.app/composables/use-crypto)
+- [TypeScript Types](https://vue-kaspa.vercel.app/reference/types)
 
 ## Peer dependencies
 
