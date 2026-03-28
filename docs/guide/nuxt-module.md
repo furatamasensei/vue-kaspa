@@ -1,6 +1,6 @@
 # Nuxt Module
 
-VKAS ships a first-class Nuxt 3 module. It registers a client-only plugin, auto-imports all composables, and excludes `@vue-kaspa/kaspa-wasm` from the server bundle automatically.
+VKAS ships a first-class Nuxt module compatible with **Nuxt 3 and Nuxt 4**. It registers a client-only plugin, auto-imports all composables, and handles all WASM configuration automatically — no manual Vite setup needed.
 
 ## Setup
 
@@ -11,6 +11,7 @@ npm install vue-kaspa @vue-kaspa/kaspa-wasm
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
   modules: ['vue-kaspa/nuxt'],
 
   kaspa: {
@@ -62,18 +63,34 @@ const utxo = useUtxo()
 
 ## SSR behavior
 
-`@vue-kaspa/kaspa-wasm` is a browser-only WASM package. The Nuxt module handles this in two ways:
+`@vue-kaspa/kaspa-wasm` is a browser-only WASM package. The module handles every aspect of this automatically:
 
 1. **Client-only plugin** — `KaspaPlugin` is registered as a Nuxt client plugin. It never runs during server-side rendering.
-2. **SSR external** — `@vue-kaspa/kaspa-wasm` is added to `vite.ssr.external`, preventing Vite from trying to bundle or evaluate it on the server.
+2. **SSR external** — `@vue-kaspa/kaspa-wasm` is added to `vite.ssr.external`, preventing Vite from bundling or evaluating it on the server.
+3. **WASM plugin** — `vite-plugin-wasm` is added to the Vite config so WASM modules instantiate correctly in both dev and production builds.
+4. **COOP/COEP headers** — `Cross-Origin-Embedder-Policy: require-corp` and `Cross-Origin-Opener-Policy: same-origin` are set on the Vite dev server and via Nitro route rules for production. These are required for `SharedArrayBuffer`, which `kaspa-wasm` uses internally.
+5. **optimizeDeps** — `@vue-kaspa/kaspa-wasm` is excluded from Vite's dependency pre-bundling.
 
-Composables called in SSR context return safe empty state (e.g., `wasmStatus: 'idle'`, `connectionState: 'disconnected'`) without throwing.
+Composables called in SSR context return safe empty state (e.g. `wasmStatus: 'idle'`, `connectionState: 'disconnected'`) without throwing.
+
+::: tip Wrap WASM components in `<ClientOnly>`
+Components that use WASM-dependent composables (`useRpc`, `useKaspa`, `useUtxo`, etc.) only have live state after the client plugin initialises. Wrap them in `<ClientOnly>` to prevent SSR rendering:
+
+```vue
+<template>
+  <ClientOnly>
+    <WalletCard />
+  </ClientOnly>
+</template>
+```
+:::
 
 ## Custom node on Nuxt
 
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
+  compatibilityDate: '2024-11-01',
   modules: ['vue-kaspa/nuxt'],
   kaspa: {
     network: 'testnet-10',

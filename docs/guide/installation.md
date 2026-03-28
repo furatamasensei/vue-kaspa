@@ -121,7 +121,7 @@ Ensure your `tsconfig.json` targets ES2020 or later (required for `BigInt`):
 
 ## SSR / Nuxt
 
-The [Nuxt module](/guide/nuxt-module) handles all WASM/SSR configuration automatically — no manual Vite config needed. `@vue-kaspa/kaspa-wasm` is excluded from the server bundle and composables are auto-imported.
+The [Nuxt module](/guide/nuxt-module) handles all WASM/SSR configuration automatically — no manual Vite config needed. This includes `vite-plugin-wasm`, COOP/COEP headers (dev and production), `optimizeDeps.exclude`, and SSR externals. Composables are auto-imported.
 
 For custom SSR setups (non-Nuxt), exclude `@vue-kaspa/kaspa-wasm` from the server bundle:
 

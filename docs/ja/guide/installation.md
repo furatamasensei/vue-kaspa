@@ -121,7 +121,7 @@ export default defineConfig({
 
 ## SSR / Nuxt
 
-[Nuxt モジュール](/ja/guide/nuxt-module)は WASM/SSR の設定をすべて自動で処理します — 手動での Vite 設定は不要です。`@vue-kaspa/kaspa-wasm` はサーバーバンドルから除外され、コンポーザブルは自動インポートされます。
+[Nuxt モジュール](/ja/guide/nuxt-module)は WASM/SSR の設定をすべて自動で処理します — 手動での Vite 設定は不要です。`vite-plugin-wasm`、COOP/COEP ヘッダー（開発・本番）、`optimizeDeps.exclude`、SSR 外部化がすべて含まれます。コンポーザブルは自動インポートされます。
 
 カスタム SSR セットアップ (Nuxt 以外) の場合は、`@vue-kaspa/kaspa-wasm` をサーバーバンドルから除外してください:
 

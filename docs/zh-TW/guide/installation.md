@@ -121,7 +121,7 @@ export default defineConfig({
 
 ## SSR / Nuxt
 
-[Nuxt 模組](/guide/nuxt-module)會自動處理所有 WASM/SSR 設定——無需手動設定 Vite。`@vue-kaspa/kaspa-wasm` 會從伺服器套件中排除，且可組合函式會自動匯入。
+[Nuxt 模組](/zh-TW/guide/nuxt-module)會自動處理所有 WASM/SSR 設定——無需手動設定 Vite。這包括 `vite-plugin-wasm`、COOP/COEP 標頭（開發與正式環境）、`optimizeDeps.exclude` 及 SSR 外部化。可組合函式會自動匯入。
 
 對於自訂 SSR 設定（非 Nuxt），請將 `@vue-kaspa/kaspa-wasm` 從伺服器套件中排除：
 

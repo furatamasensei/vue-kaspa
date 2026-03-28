@@ -121,7 +121,7 @@ Pastikan `tsconfig.json` Anda menargetkan ES2020 atau lebih baru (diperlukan unt
 
 ## SSR / Nuxt
 
-[Modul Nuxt](/guide/nuxt-module) menangani semua konfigurasi WASM/SSR secara otomatis — tidak perlu konfigurasi Vite manual. `@vue-kaspa/kaspa-wasm` dikecualikan dari bundle server dan composable di-auto-import.
+[Modul Nuxt](/id/guide/nuxt-module) menangani semua konfigurasi WASM/SSR secara otomatis — tidak perlu konfigurasi Vite manual. Ini mencakup `vite-plugin-wasm`, header COOP/COEP (dev dan produksi), `optimizeDeps.exclude`, dan SSR external. Composable di-auto-import.
 
 Untuk setup SSR kustom (non-Nuxt), kecualikan `@vue-kaspa/kaspa-wasm` dari bundle server:
 
