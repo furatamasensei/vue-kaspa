@@ -1,8 +1,21 @@
-import { addImports, addPluginTemplate, defineNuxtModule } from '@nuxt/kit'
+import {
+  addImports,
+  addPluginTemplate,
+  addVitePlugin,
+  defineNuxtModule,
+  extendRouteRules,
+} from '@nuxt/kit'
 import type { Nuxt } from '@nuxt/schema'
 import type { KaspaPluginOptions } from 'vue-kaspa'
+import wasm from 'vite-plugin-wasm'
 
 export interface ModuleOptions extends KaspaPluginOptions { }
+
+// Required for SharedArrayBuffer which kaspa-wasm uses internally.
+const COOP_COEP = {
+  'Cross-Origin-Embedder-Policy': 'require-corp',
+  'Cross-Origin-Opener-Policy': 'same-origin',
+} as const
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
@@ -16,8 +29,20 @@ export default defineNuxtModule<ModuleOptions>({
     panicHook: 'browser',
   },
   setup(options, nuxt: Nuxt) {
-    // Prevent kaspa-wasm from being bundled or evaluated on the server —
-    // WASM only runs in browser environments.
+    // Enable proper WASM instantiation in both dev and prod builds.
+    addVitePlugin(wasm())
+
+    // Dev server: COOP/COEP headers so SharedArrayBuffer is available in the browser.
+    nuxt.options.vite.server ??= {}
+    nuxt.options.vite.server.headers = {
+      ...COOP_COEP,
+      ...(nuxt.options.vite.server.headers ?? {}),
+    }
+
+    // Production: set the same headers via Nitro route rules.
+    extendRouteRules('/**', { headers: { ...COOP_COEP } })
+
+    // Prevent kaspa-wasm from being bundled or evaluated on the server.
     nuxt.options.vite.ssr ??= {}
     const existing = nuxt.options.vite.ssr.external
     if (Array.isArray(existing)) {
@@ -26,9 +51,12 @@ export default defineNuxtModule<ModuleOptions>({
       nuxt.options.vite.ssr.external = ['@vue-kaspa/kaspa-wasm']
     }
 
+    // Prevent Vite from pre-bundling kaspa-wasm (incompatible with Vite optimizeDeps).
+    nuxt.options.vite.optimizeDeps ??= {}
+    nuxt.options.vite.optimizeDeps.exclude ??= []
+    nuxt.options.vite.optimizeDeps.exclude.push('@vue-kaspa/kaspa-wasm')
+
     // Inject a client-only plugin that installs KaspaPlugin with the resolved options.
-    // Using addPluginTemplate lets us inline the options at module build time without
-    // needing a separate runtime plugin file.
     addPluginTemplate({
       filename: 'vue-kaspa.client.mjs',
       mode: 'client',

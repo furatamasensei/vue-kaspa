@@ -31,6 +31,7 @@ export default defineConfig({
         'vue-kaspa',
         '@vue/devtools-api',
         '@nuxt/kit',
+        'vite-plugin-wasm',
         /^@nuxt\//,
         /^nuxt/,
       ],
