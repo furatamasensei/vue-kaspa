@@ -1,0 +1,15 @@
+{
+  "name": "vue-kaspa-cli",
+  "version": "0.1.0",
+  "type": "module",
+  "description": "Scaffold a Vue 3 or Nuxt app wired to the Kaspa blockchain",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/furatamasensei/vue-kaspa.git",
+    "directory": "packages/vue-kaspa-cli"
+  },
+  "bin": { "vue-kaspa-cli": "bin/index.mjs" },
+  "files": ["bin", "templates"],
+  "engines": { "node": ">=18.0.0" }
+}

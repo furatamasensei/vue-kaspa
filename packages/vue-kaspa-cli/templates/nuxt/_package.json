@@ -1,0 +1,15 @@
+{
+  "name": "my-kaspa-nuxt-app",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "nuxt dev",
+    "build": "nuxt build",
+    "preview": "nuxt preview"
+  },
+  "dependencies": {
+    "@vue-kaspa/kaspa-wasm": "^1.2.0",
+    "nuxt": "^3.17.0",
+    "vue-kaspa": "^0.1.0"
+  }
+}
