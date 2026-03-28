@@ -5,7 +5,6 @@ import { setupInspector, INSPECTOR_ID } from './inspector'
 import { setupTimeline, postTimelineEvent } from './timeline'
 import { getRpcManager } from '../internal/rpc-manager'
 import { getWasmState } from '../internal/wasm-loader'
-import { getWalletManager } from '../internal/wallet-manager'
 
 export function setupDevtools(app: App): void {
   if (typeof window === 'undefined') return
@@ -22,13 +21,11 @@ export function setupDevtools(app: App): void {
     },
     (api) => {
       const rpcManager = getRpcManager()
-      const walletManager = getWalletManager()
 
       setupTimeline(api)
       setupInspector(api, () => ({
         wasmStatus: getWasmState().status,
         rpc: rpcManager.state,
-        wallet: walletManager.state,
       }))
 
       // Bridge all RPC events to the DevTools timeline
@@ -48,14 +45,6 @@ export function setupDevtools(app: App): void {
       // Refresh inspector when state changes
       watch(
         () => rpcManager.state.connectionState,
-        () => {
-          api.sendInspectorState(INSPECTOR_ID)
-          api.sendInspectorTree(INSPECTOR_ID)
-        },
-      )
-
-      watch(
-        () => walletManager.state.walletStatus,
         () => {
           api.sendInspectorState(INSPECTOR_ID)
           api.sendInspectorTree(INSPECTOR_ID)

@@ -68,45 +68,30 @@ export const RpcClient = vi.fn(function RpcClientImpl() { return createRpcClient
 
 export const Resolver = vi.fn(function ResolverImpl() { return {} })
 
-// ─── Wallet ─────────────────────────────────────────────────────────────────
+// ─── Transaction building ────────────────────────────────────────────────────
 
-export function createWalletMock() {
+export function createPendingTxMock(txId = 'mock-txid') {
   return {
-    connect: vi.fn().mockResolvedValue(undefined),
-    disconnect: vi.fn().mockResolvedValue(undefined),
-    start: vi.fn().mockResolvedValue(undefined),
-    stop: vi.fn().mockResolvedValue(undefined),
-    addEventListener: vi.fn(),
-    removeEventListener: vi.fn(),
-    exists: vi.fn().mockResolvedValue(true),
-    walletCreate: vi.fn().mockResolvedValue({ walletDescriptor: { title: 'Mock Wallet', filename: 'mock' } }),
-    walletOpen: vi.fn().mockResolvedValue({ accountDescriptors: [] }),
-    walletClose: vi.fn().mockResolvedValue(undefined),
-    accountsEnumerate: vi.fn().mockResolvedValue({ accountDescriptors: [] }),
-    accountsActivate: vi.fn().mockResolvedValue(undefined),
-    accountsCreate: vi.fn().mockResolvedValue({
-      accountDescriptor: {
-        accountId: 'mock-account-id',
-        accountName: 'Default',
-        receiveAddress: { toString: () => 'kaspa:qrmockaddress' },
-        changeAddress: { toString: () => 'kaspa:qrmockchange' },
-      },
-    }),
-    accountsEnsureDefault: vi.fn().mockResolvedValue({
-      accountDescriptor: {
-        accountId: 'mock-account-id',
-        accountName: 'Default',
-        receiveAddress: { toString: () => 'kaspa:qrmockaddress' },
-        changeAddress: { toString: () => 'kaspa:qrmockchange' },
-      },
-    }),
-    accountsSend: vi.fn().mockResolvedValue({ generatorSummary: { finalTransactionId: 'mock-txid' } }),
-    accountsTransfer: vi.fn().mockResolvedValue({ generatorSummary: {} }),
-    transactionsDataGet: vi.fn().mockResolvedValue({ transactions: [], total: 0 }),
+    sign: vi.fn(),
+    serializeToObject: vi.fn().mockReturnValue({ version: 0, inputs: [], outputs: [] }),
+    addresses: vi.fn().mockReturnValue([{ toString: () => 'kaspa:qrmockaddress' }]),
   }
 }
 
-export const Wallet = vi.fn(function WalletImpl() { return createWalletMock() })
+export const mockGeneratorSummary = {
+  fees: 1000n,
+  mass: 2036n,
+  transactions: 1,
+  finalTransactionId: undefined,
+  finalAmount: undefined,
+}
+
+export const createTransactions = vi.fn().mockResolvedValue({
+  transactions: [createPendingTxMock()],
+  summary: mockGeneratorSummary,
+})
+
+export const estimateTransactions = vi.fn().mockResolvedValue(mockGeneratorSummary)
 
 // ─── Cryptography ──────────────────────────────────────────────────────────
 

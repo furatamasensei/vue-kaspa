@@ -69,15 +69,14 @@ export interface BlockInfo {
   transactions: string[]
 }
 
+/** Flat UTXO entry — matches kaspa-wasm IUtxoEntry; safe to pass directly to createTransactions() */
 export interface UtxoEntry {
-  address: string | null
+  address?: string
   outpoint: { transactionId: string; index: number }
-  utxoEntry: {
-    amount: bigint
-    scriptPublicKey: { version: number; script: string }
-    blockDaaScore: bigint
-    isCoinbase: boolean
-  }
+  amount: bigint
+  scriptPublicKey: { version: number; script: string }
+  blockDaaScore: bigint
+  isCoinbase: boolean
 }
 
 export interface MempoolEntry {
@@ -122,65 +121,67 @@ export interface RpcEvent<T = unknown> {
   timestamp: number
 }
 
-// ─── Wallet ────────────────────────────────────────────────────────────────
+// ─── UTXO ──────────────────────────────────────────────────────────────────
 
-export type WalletStatus = 'uninitialized' | 'closed' | 'opening' | 'open' | 'error'
-
-export interface WalletBalance {
+export interface UtxoBalance {
+  /** Confirmed, spendable balance in sompi */
   mature: bigint
+  /** Unconfirmed incoming balance in sompi */
   pending: bigint
+  /** Outgoing balance currently in-flight */
   outgoing: bigint
 }
 
-export interface AccountInfo {
-  id: string
-  name: string
-  receiveAddress: string
-  changeAddress: string
-  balance: WalletBalance
-}
+// ─── Transactions ───────────────────────────────────────────────────────────
 
-export interface SendParams {
-  accountId: string
+export interface PaymentOutput {
   address: string
   amount: bigint
+}
+
+export interface TransactionSummary {
+  /** Total fees paid across all generated transactions */
+  fees: bigint
+  /** Total mass of all generated transactions */
+  mass: bigint
+  /** Number of transactions generated (may be >1 for UTXO compounding) */
+  transactions: number
+  /** Transaction ID of the final transaction (set after submission) */
+  finalTransactionId?: string
+  /** Final output amount after fees */
+  finalAmount?: bigint
+}
+
+export interface CreateTransactionSettings {
+  /** UTXO entries — pass `utxo.entries.value` from useUtxo() */
+  entries: UtxoEntry[]
+  /** Payment outputs. Omit for a self-compound (UTXO consolidation). */
+  outputs?: PaymentOutput[]
+  /** Address to receive change */
+  changeAddress: string
+  /** Priority fee in sompi. Required when outputs are provided. */
   priorityFee?: bigint
-  password: string
+  /** Fee rate in sompi per gram of mass (alternative to priorityFee) */
+  feeRate?: number
+  /** Optional data payload (hex) */
+  payload?: string
+  /**
+   * Network ID — required when entries is a plain array (not UtxoContext).
+   * E.g. 'mainnet', 'testnet-10'
+   */
+  networkId?: string
 }
 
-export interface TransferParams {
-  fromAccountId: string
-  toAccountId: string
-  amount: bigint
-  priorityFee?: bigint
-  password: string
-}
-
-export interface WalletCreateParams {
-  walletSecret: string
-  walletName?: string
-  accountName?: string
-}
-
-export interface WalletOpenParams {
-  walletSecret: string
-}
-
-export interface TransactionCursor {
-  start: number
-  end: number
-}
-
-export interface TransactionRecord {
-  id: string
-  type: 'incoming' | 'outgoing' | 'transfer-incoming' | 'transfer-outgoing' | 'batch' | 'reorg'
-  value: bigint
-  timestamp?: number
-}
-
-export interface TransactionPage {
-  transactions: TransactionRecord[]
-  total: number
+/** A signed-or-unsigned transaction ready for signing and submission */
+export interface PendingTx {
+  /** Sign with one or more private keys (hex strings) */
+  sign(privateKeys: string[]): void
+  /** Submit to the network. Requires sign() to have been called first. */
+  submit(): Promise<string>
+  /** Serialize to a plain object (for inspection or manual submission) */
+  serialize(): unknown
+  /** Addresses of all inputs — useful for selecting required private keys */
+  addresses(): string[]
 }
 
 // ─── Crypto ────────────────────────────────────────────────────────────────
@@ -242,29 +243,51 @@ export interface UseRpcReturn {
   submitTransaction(tx: unknown): Promise<string>
   getCoinSupply(): Promise<{ circulatingCoinSupply: bigint; maxCoinSupply: bigint }>
   ping(): Promise<void>
+  /** Subscribe node to UTXO change notifications for the given addresses */
+  subscribeUtxosChanged(addresses: string[]): Promise<void>
+  /** Unsubscribe node from UTXO change notifications for the given addresses */
+  unsubscribeUtxosChanged(addresses: string[]): Promise<void>
   on<T = unknown>(event: RpcEventType, handler: (event: RpcEvent<T>) => void): void
   off<T = unknown>(event: RpcEventType, handler: (event: RpcEvent<T>) => void): void
   eventLog: Readonly<Ref<RpcEvent[]>>
   clearEventLog(): void
 }
 
-export interface UseWalletReturn {
-  walletStatus: Readonly<Ref<WalletStatus>>
-  isOpen: ComputedRef<boolean>
-  accounts: Readonly<Ref<AccountInfo[]>>
-  activeAccount: Readonly<Ref<AccountInfo | null>>
-  isSyncing: Readonly<Ref<boolean>>
-  error: Readonly<Ref<Error | null>>
-  create(params: WalletCreateParams): Promise<void>
-  open(params: WalletOpenParams): Promise<void>
-  close(): Promise<void>
-  exists(): Promise<boolean>
-  createAccount(name?: string, password?: string): Promise<AccountInfo>
-  setActiveAccount(accountId: string): void
-  send(params: SendParams): Promise<string>
-  transfer(params: TransferParams): Promise<string>
-  getTransactions(accountId: string, cursor?: TransactionCursor): Promise<TransactionPage>
-  getBalance(accountId?: string): ComputedRef<WalletBalance>
+export interface UseUtxoReturn {
+  /** Raw UTXO entries — pass directly to createTransactions() / useTransaction() */
+  entries: Readonly<Ref<UtxoEntry[]>>
+  /** Reactive balance computed from tracked entries */
+  balance: ComputedRef<UtxoBalance>
+  /** Addresses currently being tracked */
+  trackedAddresses: Readonly<Ref<string[]>>
+  /** True when at least one address is tracked */
+  isTracking: ComputedRef<boolean>
+  /** Subscribe to UTXO changes and fetch initial entries for the given addresses */
+  track(addresses: string[]): Promise<void>
+  /** Unsubscribe and remove entries for the given addresses */
+  untrack(addresses: string[]): Promise<void>
+  /** Re-fetch entries for all currently tracked addresses */
+  refresh(): Promise<void>
+  /** Remove all entries and unsubscribe from all addresses */
+  clear(): Promise<void>
+}
+
+export interface UseTransactionReturn {
+  /**
+   * Estimate fees without building real transactions.
+   * Returns a summary with total fees, mass, and transaction count.
+   */
+  estimate(settings: CreateTransactionSettings): Promise<TransactionSummary>
+  /**
+   * Build one or more unsigned transactions.
+   * Multiple transactions are generated when UTXOs need compounding.
+   */
+  create(settings: CreateTransactionSettings): Promise<{ transactions: PendingTx[]; summary: TransactionSummary }>
+  /**
+   * Build, sign, and submit all transactions in one call.
+   * Returns an array of submitted transaction IDs.
+   */
+  send(settings: CreateTransactionSettings & { privateKeys: string[] }): Promise<string[]>
 }
 
 export interface UseCryptoReturn {

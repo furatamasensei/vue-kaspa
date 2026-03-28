@@ -1,26 +1,28 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useCrypto, type KeypairInfo, type MnemonicInfo } from 'vue-kaspa'
+import { ref, computed } from 'vue'
+import { useCrypto, useNetwork, type KeypairInfo, type MnemonicInfo } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 
-const EXAMPLE = `import { useCrypto } from 'vue-kaspa'
+const crypto = useCrypto()
+const network = useNetwork()
+
+const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vue-kaspa'
 
 const crypto = useCrypto()
+const { currentNetwork } = useNetwork()
 
 // Generate a BIP-39 mnemonic
 const { phrase, wordCount } = crypto.generateMnemonic(24)  // or 12
 
-// Derive keypair from mnemonic
+// Derive keypair from mnemonic (uses active network)
 const { address, publicKeyHex, privateKeyHex } =
-  crypto.mnemonicToKeypair(phrase, 'mainnet')
+  crypto.mnemonicToKeypair(phrase, currentNetwork.value)  // '${network.currentNetwork.value}'
 
 // Or generate a random keypair directly (no mnemonic)
-const keypair = crypto.generateKeypair('mainnet')`
-
-const crypto = useCrypto()
+const keypair = crypto.generateKeypair(currentNetwork.value)`)
 
 // Mnemonic tab
 const wordCount = ref<12 | 24>(24)
@@ -34,14 +36,14 @@ function generateMnemonic() {
 
 function deriveFromMnemonic() {
   if (!mnemonic.value) return
-  derivedKeypair.value = crypto.mnemonicToKeypair(mnemonic.value.phrase, 'mainnet')
+  derivedKeypair.value = crypto.mnemonicToKeypair(mnemonic.value.phrase, network.currentNetwork.value)
 }
 
 // Random keypair tab
 const keypair = ref<KeypairInfo | null>(null)
 
 function generateRandom() {
-  keypair.value = crypto.generateKeypair('mainnet')
+  keypair.value = crypto.generateKeypair(network.currentNetwork.value)
 }
 
 function copy(text: string) {
@@ -164,6 +166,6 @@ function copy(text: string) {
       </TabsContent>
     </Tabs>
 
-    <CodeExample :code="EXAMPLE" title="useCrypto — mnemonic & keypair generation" />
+    <CodeExample :code="EXAMPLE" title="useCrypto — mnemonic & keypair generation (network-aware)" />
   </div>
 </template>

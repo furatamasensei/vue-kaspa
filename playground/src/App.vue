@@ -36,14 +36,11 @@ const navGroups = [
     ],
   },
   {
-    label: 'Wallet',
+    label: 'UTXO & Transactions',
     items: [
-      { label: 'Overview', to: '/wallet' },
-      { label: 'Create', to: '/wallet/create' },
-      { label: 'Open', to: '/wallet/open' },
-      { label: 'Accounts', to: '/wallet/accounts' },
-      { label: 'Send', to: '/wallet/send' },
-      { label: 'History', to: '/wallet/history' },
+      { label: 'Overview', to: '/utxo' },
+      { label: 'UTXO Tracker', to: '/utxo/tracker' },
+      { label: 'Transaction Builder', to: '/utxo/send' },
     ],
   },
   {

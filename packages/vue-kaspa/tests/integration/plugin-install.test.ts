@@ -2,19 +2,17 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { defineComponent, inject } from 'vue'
 import {
-  KaspaPlugin, useKaspa, useRpc, useWallet, useCrypto, useNetwork,
+  KaspaPlugin, useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork,
   KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, AVAILABLE_NETWORKS,
 } from '../../src/index'
 import { KASPA_OPTIONS_KEY } from '../../src/symbols'
 import { resetRpcManager } from '../../src/internal/rpc-manager'
 import { resetWasm } from '../../src/internal/wasm-loader'
-import { resetWalletManager } from '../../src/internal/wallet-manager'
 
 describe('Plugin install integration', () => {
   beforeEach(() => {
     resetRpcManager()
     resetWasm()
-    resetWalletManager()
   })
 
   it('all composables are accessible after plugin install', () => {
@@ -23,7 +21,8 @@ describe('Plugin install integration', () => {
       setup() {
         results.kaspa = useKaspa()
         results.rpc = useRpc()
-        results.wallet = useWallet()
+        results.utxo = useUtxo()
+        results.transaction = useTransaction()
         results.crypto = useCrypto()
         results.network = useNetwork()
         return () => null
@@ -34,7 +33,8 @@ describe('Plugin install integration', () => {
     })
     expect(results.kaspa).toBeDefined()
     expect(results.rpc).toBeDefined()
-    expect(results.wallet).toBeDefined()
+    expect(results.utxo).toBeDefined()
+    expect(results.transaction).toBeDefined()
     expect(results.crypto).toBeDefined()
     expect(results.network).toBeDefined()
   })
@@ -111,7 +111,8 @@ describe('Plugin install integration', () => {
     expect(typeof KaspaPlugin.install).toBe('function')
     expect(typeof useKaspa).toBe('function')
     expect(typeof useRpc).toBe('function')
-    expect(typeof useWallet).toBe('function')
+    expect(typeof useUtxo).toBe('function')
+    expect(typeof useTransaction).toBe('function')
     expect(typeof useCrypto).toBe('function')
     expect(typeof useNetwork).toBe('function')
     expect(typeof KaspaError).toBe('function')

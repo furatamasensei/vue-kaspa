@@ -1,26 +1,29 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useRpc, useCrypto } from 'vue-kaspa'
+import { ref, computed } from 'vue'
+import { useRpc, useCrypto, useNetwork } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 
-const EXAMPLE = `import { useRpc, useCrypto } from 'vue-kaspa'
+const rpc = useRpc()
+const crypto = useCrypto()
+const network = useNetwork()
+
+const addrPrefix = computed(() => network.isTestnet.value ? 'kaspatest' : 'kaspa')
+
+const EXAMPLE = computed(() => `import { useRpc, useCrypto } from 'vue-kaspa'
 
 const rpc = useRpc()
 const crypto = useCrypto()
 
-const { balance } = await rpc.getBalanceByAddress('kaspa:qr...')
+const { balance } = await rpc.getBalanceByAddress('${addrPrefix.value}:qr...')
 console.log(crypto.sompiToKaspaString(balance), 'KAS')
 
 // Batch multiple addresses
-const results = await rpc.getBalancesByAddresses(['kaspa:qr...', 'kaspa:qq...'])
-// results[].address, results[].balance (BigInt sompi)`
-
-const rpc = useRpc()
-const crypto = useCrypto()
+const results = await rpc.getBalancesByAddresses(['${addrPrefix.value}:qr...', '${addrPrefix.value}:qq...'])
+// results[].address, results[].balance (BigInt sompi)`)
 const address = ref('')
 const balance = ref<bigint | null>(null)
 const loading = ref(false)
@@ -51,7 +54,7 @@ async function check() {
       <CardContent class="pt-6 space-y-3">
         <div class="space-y-1">
           <label class="text-sm text-muted-foreground">Kaspa Address</label>
-          <Input v-model="address" placeholder="kaspa:qr..." @keyup.enter="check" />
+          <Input v-model="address" :placeholder="`${addrPrefix}:qr...`" @keyup.enter="check" />
         </div>
         <Button :disabled="loading || !address.trim()" @click="check">
           {{ loading ? 'Checking...' : 'Get Balance' }}

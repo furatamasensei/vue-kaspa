@@ -214,5 +214,21 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
         throw new KaspaRpcError('ping', err)
       }
     },
+
+    async subscribeUtxosChanged(addresses: string[]): Promise<void> {
+      try {
+        await (getClient() as { subscribeUtxosChanged: (a: string[]) => Promise<void> }).subscribeUtxosChanged(addresses)
+      } catch (err) {
+        throw new KaspaRpcError('subscribeUtxosChanged', err)
+      }
+    },
+
+    async unsubscribeUtxosChanged(addresses: string[]): Promise<void> {
+      try {
+        await (getClient() as { unsubscribeUtxosChanged: (a: string[]) => Promise<void> }).unsubscribeUtxosChanged(addresses)
+      } catch (err) {
+        throw new KaspaRpcError('unsubscribeUtxosChanged', err)
+      }
+    },
   }
 }

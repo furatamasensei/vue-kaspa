@@ -4,7 +4,6 @@ import { KaspaPlugin } from '../../src/plugin'
 import { KASPA_OPTIONS_KEY, KASPA_INSTALLED_KEY } from '../../src/symbols'
 import { resetRpcManager } from '../../src/internal/rpc-manager'
 import { resetWasm } from '../../src/internal/wasm-loader'
-import { resetWalletManager } from '../../src/internal/wallet-manager'
 
 function createTestApp(options = {}) {
   const app = createApp({ template: '<div />' })
@@ -16,7 +15,6 @@ describe('KaspaPlugin', () => {
   beforeEach(() => {
     resetRpcManager()
     resetWasm()
-    resetWalletManager()
   })
 
   it('provides KASPA_OPTIONS_KEY with defaults', () => {

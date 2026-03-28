@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref } from 'vue'
-import { useCrypto, type DerivedKey } from 'vue-kaspa'
+import { ref, watch, computed } from 'vue'
+import { useCrypto, useNetwork, type DerivedKey, type KaspaNetwork } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
@@ -9,26 +9,32 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Alert, AlertDescription } from '@/components/ui/alert'
 
-const EXAMPLE = `import { useCrypto } from 'vue-kaspa'
+const crypto = useCrypto()
+const globalNetwork = useNetwork()
+
+const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vue-kaspa'
 
 const crypto = useCrypto()
+const { currentNetwork } = useNetwork()
 
-// BIP-32 HD derivation from mnemonic
+// BIP-32 HD derivation from mnemonic (uses active network)
 const { receive, change } = crypto.derivePublicKeys(
-  phrase,       // 12 or 24 word mnemonic
-  'mainnet',    // network
-  5,            // receive address count
-  5             // change address count
+  phrase,                    // 12 or 24 word mnemonic
+  currentNetwork.value,      // '${globalNetwork.currentNetwork.value}'
+  5,                         // receive address count
+  5                          // change address count
 )
 
 // receive[i].index   — derivation index
-// receive[i].address — 'kaspa:q...'
-// change[i].index / change[i].address`
+// receive[i].address — '${globalNetwork.isTestnet.value ? 'kaspatest' : 'kaspa'}:q...'
+// change[i].index / change[i].address`)
 
-const crypto = useCrypto()
 const phrase = ref('')
-const network = ref<'mainnet' | 'testnet-10' | 'testnet-11'>('mainnet')
+const network = ref<KaspaNetwork>(globalNetwork.currentNetwork.value)
 const count = ref(5)
+
+// Keep in sync when global network changes
+watch(globalNetwork.currentNetwork, (n) => { network.value = n })
 const keys = ref<{ receive: DerivedKey[]; change: DerivedKey[] } | null>(null)
 const error = ref<string | null>(null)
 
@@ -61,9 +67,7 @@ function derive() {
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                <SelectItem value="mainnet">mainnet</SelectItem>
-                <SelectItem value="testnet-10">testnet-10</SelectItem>
-                <SelectItem value="testnet-11">testnet-11</SelectItem>
+                <SelectItem v-for="n in globalNetwork.availableNetworks" :key="n" :value="n">{{ n }}</SelectItem>
               </SelectContent>
             </Select>
           </div>
