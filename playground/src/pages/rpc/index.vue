@@ -1,33 +1,52 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { useRpc } from 'vue-kaspa'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 const rpc = useRpc()
+
+type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline'
+const connVariant: Record<string, BadgeVariant> = {
+  disconnected: 'secondary',
+  connecting: 'outline',
+  connected: 'default',
+  reconnecting: 'outline',
+  error: 'destructive',
+}
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">RPC API</h1>
-    <div class="card">
-      <h2>Status</h2>
-      <p style="color:#94a3b8;margin-bottom:12px">Connection: {{ rpc.connectionState.value }}</p>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">
-      <RouterLink to="/rpc/info" class="nav-card">Node Info</RouterLink>
-      <RouterLink to="/rpc/block" class="nav-card">Get Block</RouterLink>
-      <RouterLink to="/rpc/balance" class="nav-card">Balance Checker</RouterLink>
-      <RouterLink to="/rpc/mempool" class="nav-card">Mempool Viewer</RouterLink>
-      <RouterLink to="/rpc/fees" class="nav-card">Fee Estimate</RouterLink>
-      <RouterLink to="/rpc/events" class="nav-card">Live Event Log</RouterLink>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">RPC API</h1>
+
+    <Card>
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Status</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Badge :variant="connVariant[rpc.connectionState.value] ?? 'secondary'">
+          {{ rpc.connectionState.value }}
+        </Badge>
+      </CardContent>
+    </Card>
+
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      <RouterLink
+        v-for="item in [
+          { label: 'Node Info', to: '/rpc/info' },
+          { label: 'Get Block', to: '/rpc/block' },
+          { label: 'Balance Checker', to: '/rpc/balance' },
+          { label: 'Mempool Viewer', to: '/rpc/mempool' },
+          { label: 'Fee Estimate', to: '/rpc/fees' },
+          { label: 'Live Event Log', to: '/rpc/events' },
+        ]"
+        :key="item.to"
+        :to="item.to"
+        class="flex items-center justify-center rounded-lg border border-border bg-card px-4 py-5 text-sm font-medium text-card-foreground transition-colors hover:border-primary/50 hover:text-primary no-underline text-center"
+      >
+        {{ item.label }}
+      </RouterLink>
     </div>
   </div>
 </template>
-
-<style scoped>
-.nav-card {
-  display:block;background:#1e293b;border:1px solid #334155;border-radius:8px;
-  padding:20px;text-decoration:none;color:#e2e8f0;font-size:14px;font-weight:500;
-  text-align:center;transition:all 0.15s;
-}
-.nav-card:hover { border-color:#70c7ba;color:#70c7ba; }
-</style>

@@ -1,5 +1,19 @@
 <script setup lang="ts">
 import { useNetwork, useRpc, type KaspaNetwork } from 'vue-kaspa'
+import CodeExample from '../../components/CodeExample.vue'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+const EXAMPLE = `import { useNetwork } from 'vue-kaspa'
+
+const network = useNetwork()
+
+network.currentNetwork.value   // 'mainnet' | 'testnet-10' | 'testnet-11' | ...
+network.availableNetworks      // string[] of all supported networks
+network.daaScore.value         // BigInt — live DAA score (reactive)
+
+// Switch network — reconnects RPC automatically
+await network.switchNetwork('testnet-10')`
 
 const network = useNetwork()
 const rpc = useRpc()
@@ -18,40 +32,50 @@ async function select(n: KaspaNetwork) {
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Network Switcher</h1>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Network Switcher</h1>
 
-    <div class="card">
-      <h2>Current Network</h2>
-      <div class="row" style="margin-bottom:12px">
-        <span class="badge badge-green" style="font-size:14px;padding:6px 12px">{{ network.currentNetwork.value }}</span>
-        <span v-if="rpc.networkId.value" class="label" style="margin-left:8px">
-          ID: {{ rpc.networkId.value }}
-        </span>
-      </div>
-      <div class="row">
-        <span class="label">DAA Score:</span>
-        <span class="value mono">{{ network.daaScore.value.toString() }}</span>
-      </div>
-    </div>
+    <Card>
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Current Network</CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-2">
+        <div class="flex items-center gap-3">
+          <Badge variant="default" class="text-sm px-3 py-1">{{ network.currentNetwork.value }}</Badge>
+          <span v-if="rpc.networkId.value" class="text-sm text-muted-foreground">
+            ID: {{ rpc.networkId.value }}
+          </span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground">DAA Score:</span>
+          <span class="font-mono text-sm">{{ network.daaScore.value.toString() }}</span>
+        </div>
+      </CardContent>
+    </Card>
 
-    <div class="card">
-      <h2>Available Networks</h2>
-      <div style="display:flex;flex-direction:column;gap:8px">
+    <Card>
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Available Networks</CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-2">
         <div
           v-for="n in network.availableNetworks"
           :key="n"
-          style="display:flex;align-items:center;gap:12px;padding:12px;background:#0f172a;border-radius:6px;cursor:pointer;border:1px solid transparent;transition:all 0.15s"
-          :style="{ borderColor: n === network.currentNetwork.value ? '#70c7ba' : 'transparent' }"
+          class="flex items-center gap-3 rounded-md border px-3 py-3 transition-colors cursor-pointer"
+          :class="n === network.currentNetwork.value
+            ? 'border-primary/50 bg-primary/5'
+            : 'border-border hover:border-muted-foreground/30 hover:bg-muted/30'"
           @click="select(n)"
         >
-          <span
-            :class="['badge', n === network.currentNetwork.value ? 'badge-green' : 'badge-gray']"
-            style="min-width:100px;justify-content:center"
-          >{{ n }}</span>
-          <span style="color:#64748b;font-size:13px">{{ networkDescriptions[n] }}</span>
+          <Badge
+            :variant="n === network.currentNetwork.value ? 'default' : 'secondary'"
+            class="min-w-[100px] justify-center"
+          >{{ n }}</Badge>
+          <span class="text-sm text-muted-foreground">{{ networkDescriptions[n] ?? n }}</span>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
+
+    <CodeExample :code="EXAMPLE" title="useNetwork — switch networks" />
   </div>
 </template>

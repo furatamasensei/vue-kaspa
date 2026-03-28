@@ -2,6 +2,10 @@
 import { ref } from 'vue'
 import { useWallet } from 'vue-kaspa'
 import { useRouter } from 'vue-router'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 const wallet = useWallet()
 const router = useRouter()
@@ -29,19 +33,33 @@ async function close() {
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Open Wallet</h1>
-    <div v-if="wallet.isOpen.value" class="card" style="border-color:#22c55e">
-      <p style="color:#4ade80;margin-bottom:12px">✓ Wallet is open</p>
-      <button class="btn btn-secondary" @click="close">Close Wallet</button>
-    </div>
-    <div v-else class="card">
-      <div class="label">Password</div>
-      <input v-model="password" class="input" type="password" placeholder="Wallet password" @keyup.enter="open" />
-      <button class="btn btn-primary" :disabled="loading || !password" @click="open">
-        {{ loading ? 'Opening...' : 'Open Wallet' }}
-      </button>
-    </div>
-    <div v-if="error" class="card" style="border-color:#ef4444"><p style="color:#f87171">{{ error }}</p></div>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Open Wallet</h1>
+
+    <Card v-if="wallet.isOpen.value">
+      <CardContent class="pt-6 space-y-3">
+        <p class="text-sm text-green-400">Wallet is open</p>
+        <Button variant="secondary" @click="close">Close Wallet</Button>
+      </CardContent>
+    </Card>
+
+    <Card v-else>
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Unlock Wallet</CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-3">
+        <div class="space-y-1">
+          <label class="text-sm text-muted-foreground">Password</label>
+          <Input v-model="password" type="password" placeholder="Wallet password" @keyup.enter="open" />
+        </div>
+        <Button :disabled="loading || !password" @click="open">
+          {{ loading ? 'Opening...' : 'Open Wallet' }}
+        </Button>
+      </CardContent>
+    </Card>
+
+    <Alert v-if="error" variant="destructive">
+      <AlertDescription>{{ error }}</AlertDescription>
+    </Alert>
   </div>
 </template>

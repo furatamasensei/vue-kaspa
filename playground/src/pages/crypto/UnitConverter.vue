@@ -1,6 +1,24 @@
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { ref, watch, computed } from 'vue'
 import { useCrypto } from 'vue-kaspa'
+import CodeExample from '../../components/CodeExample.vue'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+
+const EXAMPLE = `import { useCrypto } from 'vue-kaspa'
+
+const crypto = useCrypto()
+
+// KAS string → sompi (BigInt)
+const sompi: bigint = crypto.kaspaToSompi('1.5')    // 1_500_000_000n
+const sompi2: bigint = crypto.kaspaToSompi('0.001') // 1_000_000n
+
+// sompi → KAS display string
+const kas: string = crypto.sompiToKaspaString(1_500_000_000n)  // '1.5'
+const kas2: string = crypto.sompiToKaspaString(100n)           // '0.0000001'
+
+// 1 KAS = 1,000,000,000 sompi (10⁹)`
 
 const crypto = useCrypto()
 
@@ -36,8 +54,21 @@ watch(sompiValue, (val) => {
   updating.value = false
 })
 
-// Initialize
-sompiValue.value = crypto.kaspaToSompi('1').toString()
+// Initialize (guard against WASM not yet loaded)
+try {
+  sompiValue.value = crypto.kaspaToSompi('1').toString()
+} catch {
+  sompiValue.value = '100000000'
+}
+
+const formattedKas = computed(() => {
+  if (!sompiValue.value) return '-'
+  try {
+    return crypto.sompiToKaspaString(BigInt(sompiValue.value))
+  } catch {
+    return '-'
+  }
+})
 
 const examples = [
   { label: '1 KAS', kas: '1' },
@@ -48,46 +79,55 @@ const examples = [
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Unit Converter</h1>
-    <p style="color:#64748b;margin-bottom:16px;font-size:14px">
-      1 KAS = 1,000,000,000 sompi (10⁹). This converter works without WASM initialization.
-    </p>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Unit Converter</h1>
+    <p class="text-sm text-muted-foreground">1 KAS = 1,000,000,000 sompi (10⁹). This converter works without WASM initialization.</p>
 
-    <div class="card">
-      <div style="display:grid;grid-template-columns:1fr auto 1fr;gap:12px;align-items:center">
-        <div>
-          <div class="label">KAS</div>
-          <input v-model="kasValue" class="input" type="number" step="any" placeholder="0" />
+    <Card>
+      <CardContent class="pt-6">
+        <div class="grid grid-cols-[1fr_auto_1fr] gap-3 items-end">
+          <div class="space-y-1">
+            <label class="text-sm text-muted-foreground">KAS</label>
+            <Input v-model="kasValue" type="number" step="any" placeholder="0" />
+          </div>
+          <div class="text-muted-foreground text-xl pb-2">=</div>
+          <div class="space-y-1">
+            <label class="text-sm text-muted-foreground">Sompi</label>
+            <Input v-model="sompiValue" type="text" placeholder="0" />
+          </div>
         </div>
-        <div style="color:#64748b;font-size:20px;padding-top:20px">=</div>
-        <div>
-          <div class="label">Sompi</div>
-          <input v-model="sompiValue" class="input" type="text" placeholder="0" />
-        </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
 
-    <div class="card">
-      <h2>Quick Examples</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:8px">
-        <button
-          v-for="ex in examples"
-          :key="ex.kas"
-          class="btn btn-secondary"
-          @click="kasValue = ex.kas"
-        >{{ ex.label }}</button>
-      </div>
-    </div>
-
-    <div class="card">
-      <h2>Formatted</h2>
-      <div v-if="sompiValue">
-        <div class="label">sompiToKaspaString()</div>
-        <div class="value mono" style="font-size:18px;color:#70c7ba">
-          {{ sompiValue ? crypto.sompiToKaspaString(BigInt(sompiValue)) : '-' }} KAS
+    <Card>
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Quick Examples</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div class="flex flex-wrap gap-2">
+          <Button
+            v-for="ex in examples"
+            :key="ex.kas"
+            variant="secondary"
+            size="sm"
+            @click="kasValue = ex.kas"
+          >{{ ex.label }}</Button>
         </div>
-      </div>
-    </div>
+      </CardContent>
+    </Card>
+
+    <Card>
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Formatted</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div v-if="sompiValue" class="space-y-1">
+          <p class="text-xs text-muted-foreground">sompiToKaspaString()</p>
+          <p class="font-mono text-2xl text-primary">{{ formattedKas }} KAS</p>
+        </div>
+      </CardContent>
+    </Card>
+
+    <CodeExample :code="EXAMPLE" title="useCrypto — kaspaToSompi / sompiToKaspaString" />
   </div>
 </template>

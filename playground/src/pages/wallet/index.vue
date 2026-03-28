@@ -1,39 +1,51 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import { useWallet } from 'vue-kaspa'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 
 const wallet = useWallet()
+
+type BadgeVariant = 'default' | 'secondary' | 'destructive' | 'outline'
+const walletVariant: Record<string, BadgeVariant> = {
+  open: 'default',
+  opening: 'outline',
+  closed: 'secondary',
+  uninitialized: 'secondary',
+  error: 'destructive',
+}
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Wallet API</h1>
-    <div class="card">
-      <h2>Status</h2>
-      <div class="row">
-        <span class="badge" :class="{
-          'badge-green': wallet.walletStatus.value === 'open',
-          'badge-yellow': wallet.walletStatus.value === 'opening',
-          'badge-gray': wallet.walletStatus.value === 'closed' || wallet.walletStatus.value === 'uninitialized',
-          'badge-red': wallet.walletStatus.value === 'error',
-        }">{{ wallet.walletStatus.value }}</span>
-      </div>
-    </div>
-    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:12px">
-      <RouterLink to="/wallet/create" class="nav-card">Create Wallet</RouterLink>
-      <RouterLink to="/wallet/open" class="nav-card">Open Wallet</RouterLink>
-      <RouterLink to="/wallet/accounts" class="nav-card">Accounts</RouterLink>
-      <RouterLink to="/wallet/send" class="nav-card">Send</RouterLink>
-      <RouterLink to="/wallet/history" class="nav-card">History</RouterLink>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Wallet API</h1>
+
+    <Card>
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Status</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <Badge :variant="walletVariant[wallet.walletStatus.value] ?? 'secondary'">
+          {{ wallet.walletStatus.value }}
+        </Badge>
+      </CardContent>
+    </Card>
+
+    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3">
+      <RouterLink
+        v-for="item in [
+          { label: 'Create Wallet', to: '/wallet/create' },
+          { label: 'Open Wallet', to: '/wallet/open' },
+          { label: 'Accounts', to: '/wallet/accounts' },
+          { label: 'Send', to: '/wallet/send' },
+          { label: 'History', to: '/wallet/history' },
+        ]"
+        :key="item.to"
+        :to="item.to"
+        class="flex items-center justify-center rounded-lg border border-border bg-card px-4 py-5 text-sm font-medium text-card-foreground transition-colors hover:border-primary/50 hover:text-primary no-underline text-center"
+      >
+        {{ item.label }}
+      </RouterLink>
     </div>
   </div>
 </template>
-
-<style scoped>
-.nav-card {
-  display:block;background:#1e293b;border:1px solid #334155;border-radius:8px;
-  padding:20px;text-decoration:none;color:#e2e8f0;font-size:14px;font-weight:500;
-  text-align:center;transition:all 0.15s;
-}
-.nav-card:hover { border-color:#70c7ba;color:#70c7ba; }
-</style>

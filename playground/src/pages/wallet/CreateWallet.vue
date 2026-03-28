@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useWallet } from 'vue-kaspa'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 const wallet = useWallet()
 const password = ref('')
@@ -25,22 +29,34 @@ async function create() {
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Create Wallet</h1>
-    <div v-if="created" class="card" style="border-color:#22c55e">
-      <p style="color:#4ade80">✓ Wallet created successfully. Go to Open Wallet to access it.</p>
-    </div>
-    <div v-else class="card">
-      <div class="label">Wallet Name</div>
-      <input v-model="walletName" class="input" placeholder="my-wallet" />
-      <div class="label">Password</div>
-      <input v-model="password" class="input" type="password" placeholder="Enter a strong password" />
-      <button class="btn btn-primary" :disabled="loading || !password" @click="create">
-        {{ loading ? 'Creating...' : 'Create Wallet' }}
-      </button>
-    </div>
-    <div v-if="error" class="card" style="border-color:#ef4444">
-      <p style="color:#f87171">{{ error }}</p>
-    </div>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Create Wallet</h1>
+
+    <Alert v-if="created" class="border-green-600/40 text-green-400 bg-green-950/20">
+      <AlertDescription>Wallet created successfully. Go to Open Wallet to access it.</AlertDescription>
+    </Alert>
+
+    <Card v-else>
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">New Wallet</CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-3">
+        <div class="space-y-1">
+          <label class="text-sm text-muted-foreground">Wallet Name</label>
+          <Input v-model="walletName" placeholder="my-wallet" />
+        </div>
+        <div class="space-y-1">
+          <label class="text-sm text-muted-foreground">Password</label>
+          <Input v-model="password" type="password" placeholder="Enter a strong password" />
+        </div>
+        <Button :disabled="loading || !password" @click="create">
+          {{ loading ? 'Creating...' : 'Create Wallet' }}
+        </Button>
+      </CardContent>
+    </Card>
+
+    <Alert v-if="error" variant="destructive">
+      <AlertDescription>{{ error }}</AlertDescription>
+    </Alert>
   </div>
 </template>

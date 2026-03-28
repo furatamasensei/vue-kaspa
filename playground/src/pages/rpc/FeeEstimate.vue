@@ -1,6 +1,24 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRpc, useCrypto, type FeeEstimate } from 'vue-kaspa'
+import CodeExample from '../../components/CodeExample.vue'
+import { Button } from '@/components/ui/button'
+import { Badge } from '@/components/ui/badge'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+
+const EXAMPLE = `import { useRpc } from 'vue-kaspa'
+
+const rpc = useRpc()
+
+const estimate = await rpc.getFeeEstimate()
+// estimate.priorityBucket.feerate        — sompi per gram
+// estimate.priorityBucket.estimatedSeconds
+// estimate.normalBuckets[]               — array of fee tiers
+// estimate.lowBuckets[]
+
+// Convert feerate → minimum fee for a standard tx (~2036 mass):
+const minFeeSompi = Math.ceil(estimate.priorityBucket.feerate * 2036)`
 
 const rpc = useRpc()
 const crypto = useCrypto()
@@ -29,56 +47,87 @@ async function fetch() {
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Fee Estimate</h1>
-    <div class="card">
-      <button class="btn btn-primary" :disabled="loading" @click="fetch">
-        {{ loading ? 'Loading...' : 'Fetch getFeeEstimate()' }}
-      </button>
-    </div>
-    <div v-if="error" class="card" style="border-color:#ef4444"><p style="color:#f87171">{{ error }}</p></div>
-    <div v-if="estimate" class="card">
-      <h2>Fee Estimate</h2>
-      <div style="margin-bottom:12px">
-        <div class="label" style="color:#fbbf24;margin-bottom:4px">Priority</div>
-        <div class="row">
-          <span class="label">Feerate:</span>
-          <span class="value mono">{{ estimate.priorityBucket.feerate }}</span>
-          <span class="badge badge-yellow" style="margin-left:auto">~{{ estimate.priorityBucket.estimatedSeconds }}s</span>
-        </div>
-        <div class="row">
-          <span class="label">Min Fee:</span>
-          <span class="value mono">{{ fmtFee(estimate.priorityBucket.feerate) }}</span>
-        </div>
-      </div>
-      <div v-if="estimate.normalBuckets.length" style="margin-bottom:12px">
-        <div class="label" style="margin-bottom:4px">Normal Buckets</div>
-        <div v-for="(b, i) in estimate.normalBuckets" :key="i" style="margin-bottom:6px">
-          <div class="row">
-            <span class="label">{{ i + 1 }} feerate:</span>
-            <span class="value mono">{{ b.feerate }}</span>
-            <span class="badge badge-gray" style="margin-left:auto">~{{ b.estimatedSeconds }}s</span>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Fee Estimate</h1>
+
+    <Card>
+      <CardContent class="pt-6">
+        <Button :disabled="loading" @click="fetch">
+          {{ loading ? 'Loading...' : 'Fetch getFeeEstimate()' }}
+        </Button>
+      </CardContent>
+    </Card>
+
+    <Alert v-if="error" variant="destructive">
+      <AlertDescription>{{ error }}</AlertDescription>
+    </Alert>
+
+    <template v-if="estimate">
+      <!-- Priority bucket -->
+      <Card>
+        <CardHeader class="pb-2">
+          <CardTitle class="text-base flex items-center gap-2">
+            Priority
+            <Badge variant="outline">~{{ estimate.priorityBucket.estimatedSeconds }}s</Badge>
+          </CardTitle>
+        </CardHeader>
+        <CardContent class="space-y-1">
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-muted-foreground w-24">Feerate</span>
+            <span class="font-mono text-sm">{{ estimate.priorityBucket.feerate }}</span>
           </div>
-          <div class="row">
-            <span class="label">{{ i + 1 }} min fee:</span>
-            <span class="value mono">{{ fmtFee(b.feerate) }}</span>
+          <div class="flex items-center gap-2">
+            <span class="text-sm text-muted-foreground w-24">Min Fee</span>
+            <span class="font-mono text-sm">{{ fmtFee(estimate.priorityBucket.feerate) }}</span>
           </div>
-        </div>
-      </div>
-      <div v-if="estimate.lowBuckets && estimate.lowBuckets.length">
-        <div class="label" style="margin-bottom:4px">Low Buckets</div>
-        <div v-for="(b, i) in estimate.lowBuckets" :key="i" style="margin-bottom:6px">
-          <div class="row">
-            <span class="label">{{ i + 1 }} feerate:</span>
-            <span class="value mono">{{ b.feerate }}</span>
-            <span class="badge badge-gray" style="margin-left:auto">~{{ b.estimatedSeconds }}s</span>
+        </CardContent>
+      </Card>
+
+      <!-- Normal buckets -->
+      <Card v-if="estimate.normalBuckets.length">
+        <CardHeader class="pb-2">
+          <CardTitle class="text-base">Normal Buckets</CardTitle>
+        </CardHeader>
+        <CardContent class="space-y-3">
+          <div v-for="(b, i) in estimate.normalBuckets" :key="i" class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-muted-foreground w-6">{{ i + 1 }}</span>
+              <span class="text-sm text-muted-foreground w-20">Feerate</span>
+              <span class="font-mono text-sm">{{ b.feerate }}</span>
+              <Badge variant="secondary" class="ml-auto text-xs">~{{ b.estimatedSeconds }}s</Badge>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-muted-foreground w-6"></span>
+              <span class="text-sm text-muted-foreground w-20">Min Fee</span>
+              <span class="font-mono text-sm">{{ fmtFee(b.feerate) }}</span>
+            </div>
           </div>
-          <div class="row">
-            <span class="label">{{ i + 1 }} min fee:</span>
-            <span class="value mono">{{ fmtFee(b.feerate) }}</span>
+        </CardContent>
+      </Card>
+
+      <!-- Low buckets -->
+      <Card v-if="estimate.lowBuckets && estimate.lowBuckets.length">
+        <CardHeader class="pb-2">
+          <CardTitle class="text-base">Low Buckets</CardTitle>
+        </CardHeader>
+        <CardContent class="space-y-3">
+          <div v-for="(b, i) in estimate.lowBuckets" :key="i" class="space-y-1">
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-muted-foreground w-6">{{ i + 1 }}</span>
+              <span class="text-sm text-muted-foreground w-20">Feerate</span>
+              <span class="font-mono text-sm">{{ b.feerate }}</span>
+              <Badge variant="secondary" class="ml-auto text-xs">~{{ b.estimatedSeconds }}s</Badge>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs text-muted-foreground w-6"></span>
+              <span class="text-sm text-muted-foreground w-20">Min Fee</span>
+              <span class="font-mono text-sm">{{ fmtFee(b.feerate) }}</span>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
+        </CardContent>
+      </Card>
+    </template>
+
+    <CodeExample :code="EXAMPLE" title="useRpc — getFeeEstimate()" />
   </div>
 </template>

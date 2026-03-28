@@ -1,9 +1,26 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useCrypto, type KeypairInfo, type MnemonicInfo } from 'vue-kaspa'
+import CodeExample from '../../components/CodeExample.vue'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+
+const EXAMPLE = `import { useCrypto } from 'vue-kaspa'
 
 const crypto = useCrypto()
-const tab = ref<'mnemonic' | 'random'>('mnemonic')
+
+// Generate a BIP-39 mnemonic
+const { phrase, wordCount } = crypto.generateMnemonic(24)  // or 12
+
+// Derive keypair from mnemonic
+const { address, publicKeyHex, privateKeyHex } =
+  crypto.mnemonicToKeypair(phrase, 'mainnet')
+
+// Or generate a random keypair directly (no mnemonic)
+const keypair = crypto.generateKeypair('mainnet')`
+
+const crypto = useCrypto()
 
 // Mnemonic tab
 const wordCount = ref<12 | 24>(24)
@@ -33,75 +50,120 @@ function copy(text: string) {
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Key Generator</h1>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Key Generator</h1>
 
-    <div class="card" style="margin-bottom:8px">
-      <div style="display:flex;gap:8px">
-        <button :class="['btn', tab === 'mnemonic' ? 'btn-primary' : 'btn-secondary']" @click="tab = 'mnemonic'">Mnemonic</button>
-        <button :class="['btn', tab === 'random' ? 'btn-primary' : 'btn-secondary']" @click="tab = 'random'">Random Keypair</button>
-      </div>
-    </div>
+    <Tabs default-value="mnemonic">
+      <TabsList class="w-full">
+        <TabsTrigger value="mnemonic" class="flex-1">Mnemonic</TabsTrigger>
+        <TabsTrigger value="random" class="flex-1">Random Keypair</TabsTrigger>
+      </TabsList>
 
-    <!-- Mnemonic tab -->
-    <div v-if="tab === 'mnemonic'">
-      <div class="card">
-        <div style="display:flex;gap:8px;margin-bottom:12px;align-items:center">
-          <span class="label" style="margin-bottom:0">Word count:</span>
-          <button :class="['btn', wordCount === 12 ? 'btn-primary' : 'btn-secondary']" style="padding:4px 8px" @click="wordCount = 12">12</button>
-          <button :class="['btn', wordCount === 24 ? 'btn-primary' : 'btn-secondary']" style="padding:4px 8px" @click="wordCount = 24">24</button>
-        </div>
-        <button class="btn btn-primary" @click="generateMnemonic">Generate Mnemonic</button>
-      </div>
+      <!-- Mnemonic tab -->
+      <TabsContent value="mnemonic" class="space-y-4 mt-4">
+        <Card>
+          <CardContent class="pt-6 space-y-3">
+            <div class="flex items-center gap-3">
+              <span class="text-sm text-muted-foreground">Word count:</span>
+              <Button
+                :variant="wordCount === 12 ? 'default' : 'secondary'"
+                size="sm"
+                @click="wordCount = 12"
+              >12</Button>
+              <Button
+                :variant="wordCount === 24 ? 'default' : 'secondary'"
+                size="sm"
+                @click="wordCount = 24"
+              >24</Button>
+            </div>
+            <Button @click="generateMnemonic">Generate Mnemonic</Button>
+          </CardContent>
+        </Card>
 
-      <div v-if="mnemonic" class="card">
-        <h2>Mnemonic Phrase</h2>
-        <div style="background:#0f172a;padding:12px;border-radius:6px;margin-bottom:12px">
-          <div style="display:flex;flex-wrap:wrap;gap:6px">
-            <span
-              v-for="(word, i) in mnemonic.phrase.split(' ')"
-              :key="i"
-              style="background:#1e293b;padding:4px 8px;border-radius:4px;font-size:13px"
-            >
-              <span style="color:#475569;margin-right:4px">{{ i + 1 }}</span>{{ word }}
-            </span>
-          </div>
-        </div>
-        <div style="display:flex;gap:8px">
-          <button class="btn btn-secondary" @click="copy(mnemonic.phrase)">Copy Phrase</button>
-          <button class="btn btn-primary" @click="deriveFromMnemonic">Derive Keypair →</button>
-        </div>
-      </div>
+        <Card v-if="mnemonic">
+          <CardHeader class="pb-2">
+            <CardTitle class="text-base">Mnemonic Phrase</CardTitle>
+          </CardHeader>
+          <CardContent class="space-y-3">
+            <div class="rounded-md bg-muted/30 p-3">
+              <div class="flex flex-wrap gap-1.5">
+                <span
+                  v-for="(word, i) in mnemonic.phrase.split(' ')"
+                  :key="i"
+                  class="rounded bg-muted px-2 py-1 text-sm"
+                >
+                  <span class="text-muted-foreground mr-1 text-xs">{{ i + 1 }}</span>{{ word }}
+                </span>
+              </div>
+            </div>
+            <div class="flex gap-2">
+              <Button variant="secondary" size="sm" @click="copy(mnemonic.phrase)">Copy Phrase</Button>
+              <Button size="sm" @click="deriveFromMnemonic">Derive Keypair →</Button>
+            </div>
+          </CardContent>
+        </Card>
 
-      <div v-if="derivedKeypair" class="card">
-        <h2>Derived Keypair</h2>
-        <div class="label">Address</div>
-        <div class="value mono" style="color:#70c7ba;margin-bottom:8px;cursor:pointer" @click="copy(derivedKeypair.address)">
-          {{ derivedKeypair.address }}
-        </div>
-        <div class="label">Public Key</div>
-        <div class="value mono" style="margin-bottom:8px;font-size:12px">{{ derivedKeypair.publicKeyHex }}</div>
-        <div class="label" style="color:#f87171">Private Key (handle with care)</div>
-        <div class="value mono" style="font-size:12px;color:#ef4444;filter:blur(4px)" @mouseenter="($event.target as HTMLElement).style.filter='none'" @mouseleave="($event.target as HTMLElement).style.filter='blur(4px)'">
-          {{ derivedKeypair.privateKeyHex }}
-        </div>
-      </div>
-    </div>
+        <Card v-if="derivedKeypair">
+          <CardHeader class="pb-2">
+            <CardTitle class="text-base">Derived Keypair</CardTitle>
+          </CardHeader>
+          <CardContent class="space-y-3">
+            <div>
+              <p class="text-xs text-muted-foreground mb-1">Address</p>
+              <p class="font-mono text-sm text-primary break-all cursor-pointer hover:opacity-80" @click="copy(derivedKeypair.address)">
+                {{ derivedKeypair.address }}
+              </p>
+            </div>
+            <div>
+              <p class="text-xs text-muted-foreground mb-1">Public Key</p>
+              <p class="font-mono text-xs break-all">{{ derivedKeypair.publicKeyHex }}</p>
+            </div>
+            <div>
+              <p class="text-xs text-destructive mb-1">Private Key (handle with care)</p>
+              <p
+                class="font-mono text-xs break-all text-destructive blur-sm hover:blur-none transition-all cursor-pointer"
+                @click="copy(derivedKeypair.privateKeyHex)"
+              >{{ derivedKeypair.privateKeyHex }}</p>
+            </div>
+          </CardContent>
+        </Card>
+      </TabsContent>
 
-    <!-- Random tab -->
-    <div v-if="tab === 'random'">
-      <div class="card">
-        <button class="btn btn-primary" @click="generateRandom">Generate Random Keypair</button>
-      </div>
-      <div v-if="keypair" class="card">
-        <h2>Keypair</h2>
-        <div class="label">Address</div>
-        <div class="value mono" style="color:#70c7ba;margin-bottom:8px;cursor:pointer" @click="copy(keypair.address)">{{ keypair.address }}</div>
-        <div class="label">Public Key</div>
-        <div class="value mono" style="font-size:12px;margin-bottom:8px">{{ keypair.publicKeyHex }}</div>
-        <div class="label" style="color:#f87171">Private Key</div>
-        <div class="value mono" style="font-size:12px;color:#ef4444;filter:blur(4px)" @mouseenter="($event.target as HTMLElement).style.filter='none'" @mouseleave="($event.target as HTMLElement).style.filter='blur(4px)'">{{ keypair.privateKeyHex }}</div>
-      </div>
-    </div>
+      <!-- Random tab -->
+      <TabsContent value="random" class="space-y-4 mt-4">
+        <Card>
+          <CardContent class="pt-6">
+            <Button @click="generateRandom">Generate Random Keypair</Button>
+          </CardContent>
+        </Card>
+
+        <Card v-if="keypair">
+          <CardHeader class="pb-2">
+            <CardTitle class="text-base">Keypair</CardTitle>
+          </CardHeader>
+          <CardContent class="space-y-3">
+            <div>
+              <p class="text-xs text-muted-foreground mb-1">Address</p>
+              <p class="font-mono text-sm text-primary break-all cursor-pointer hover:opacity-80" @click="copy(keypair.address)">
+                {{ keypair.address }}
+              </p>
+            </div>
+            <div>
+              <p class="text-xs text-muted-foreground mb-1">Public Key</p>
+              <p class="font-mono text-xs break-all">{{ keypair.publicKeyHex }}</p>
+            </div>
+            <div>
+              <p class="text-xs text-destructive mb-1">Private Key</p>
+              <p
+                class="font-mono text-xs break-all text-destructive blur-sm hover:blur-none transition-all cursor-pointer"
+                @click="copy(keypair.privateKeyHex)"
+              >{{ keypair.privateKeyHex }}</p>
+            </div>
+          </CardContent>
+        </Card>
+      </TabsContent>
+    </Tabs>
+
+    <CodeExample :code="EXAMPLE" title="useCrypto — mnemonic & keypair generation" />
   </div>
 </template>

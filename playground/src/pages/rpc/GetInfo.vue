@@ -1,6 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRpc, type ServerInfo } from 'vue-kaspa'
+import CodeExample from '../../components/CodeExample.vue'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+
+const EXAMPLE = `import { useRpc } from 'vue-kaspa'
+
+const rpc = useRpc()
+
+const info = await rpc.getInfo()
+// info.networkId       — 'mainnet' | 'testnet-10' | ...
+// info.serverVersion   — e.g. '0.14.1'
+// info.isSynced        — boolean
+// info.isUtxoIndexEnabled — boolean`
 
 const rpc = useRpc()
 const info = ref<ServerInfo | null>(null)
@@ -30,39 +45,53 @@ async function fetch() {
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Node Info</h1>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Node Info</h1>
 
-    <div class="card">
-      <button class="btn btn-primary" :disabled="loading" @click="fetch">
-        {{ loading ? 'Loading...' : 'Fetch getServerInfo()' }}
-      </button>
-    </div>
+    <Card>
+      <CardContent class="pt-6">
+        <Button :disabled="loading" @click="fetch">
+          {{ loading ? 'Loading...' : 'Fetch getServerInfo()' }}
+        </Button>
+      </CardContent>
+    </Card>
 
-    <div v-if="error" class="card" style="border-color:#ef4444">
-      <p style="color:#f87171">{{ error }}</p>
-    </div>
+    <Alert v-if="error" variant="destructive">
+      <AlertDescription>{{ error }}</AlertDescription>
+    </Alert>
 
-    <div v-if="info" class="card">
-      <h2>Response</h2>
-      <div class="row"><span class="label">Network ID:</span><span class="value">{{ fmt(info.networkId) }}</span></div>
-      <div class="row"><span class="label">Server Version:</span><span class="value">{{ fmt(info.serverVersion) }}</span></div>
-      <div class="row">
-        <span class="label">Synced:</span>
-        <span :class="['badge', info.isSynced ? 'badge-green' : 'badge-yellow']">{{ fmt(info.isSynced) }}</span>
-      </div>
-      <div class="row">
-        <span class="label">UTXO Index:</span>
-        <span :class="['badge', info.isUtxoIndexEnabled ? 'badge-green' : 'badge-gray']">{{ fmt(info.isUtxoIndexEnabled) }}</span>
-      </div>
-      <div class="row">
-        <span class="label">Has Notify Command:</span>
-        <span :class="['badge', info.hasNotifyCommand ? 'badge-green' : 'badge-gray']">{{ fmt(info.hasNotifyCommand) }}</span>
-      </div>
-      <div class="row">
-        <span class="label">Has Message ID:</span>
-        <span :class="['badge', info.hasMessageId ? 'badge-green' : 'badge-gray']">{{ fmt(info.hasMessageId) }}</span>
-      </div>
-    </div>
+    <Card v-if="info">
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Response</CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-2">
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground w-40">Network ID</span>
+          <span class="text-sm">{{ fmt(info.networkId) }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground w-40">Server Version</span>
+          <span class="text-sm">{{ fmt(info.serverVersion) }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground w-40">Synced</span>
+          <Badge :variant="info.isSynced ? 'default' : 'outline'">{{ fmt(info.isSynced) }}</Badge>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground w-40">UTXO Index</span>
+          <Badge :variant="info.isUtxoIndexEnabled ? 'default' : 'secondary'">{{ fmt(info.isUtxoIndexEnabled) }}</Badge>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground w-40">Has Notify Command</span>
+          <Badge :variant="info.hasNotifyCommand ? 'default' : 'secondary'">{{ fmt(info.hasNotifyCommand) }}</Badge>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground w-40">Has Message ID</span>
+          <Badge :variant="info.hasMessageId ? 'default' : 'secondary'">{{ fmt(info.hasMessageId) }}</Badge>
+        </div>
+      </CardContent>
+    </Card>
+
+    <CodeExample :code="EXAMPLE" title="useRpc — getInfo()" />
   </div>
 </template>

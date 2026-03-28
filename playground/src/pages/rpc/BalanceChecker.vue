@@ -1,6 +1,23 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRpc, useCrypto } from 'vue-kaspa'
+import CodeExample from '../../components/CodeExample.vue'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+
+const EXAMPLE = `import { useRpc, useCrypto } from 'vue-kaspa'
+
+const rpc = useRpc()
+const crypto = useCrypto()
+
+const { balance } = await rpc.getBalanceByAddress('kaspa:qr...')
+console.log(crypto.sompiToKaspaString(balance), 'KAS')
+
+// Batch multiple addresses
+const results = await rpc.getBalancesByAddresses(['kaspa:qr...', 'kaspa:qq...'])
+// results[].address, results[].balance (BigInt sompi)`
 
 const rpc = useRpc()
 const crypto = useCrypto()
@@ -27,30 +44,41 @@ async function check() {
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Balance Checker</h1>
-    <div class="card">
-      <div class="label">Kaspa Address</div>
-      <input v-model="address" class="input" placeholder="kaspa:qr..." @keyup.enter="check" />
-      <button class="btn btn-primary" :disabled="loading || !address.trim()" @click="check">
-        {{ loading ? 'Checking...' : 'Get Balance' }}
-      </button>
-    </div>
-    <div v-if="error" class="card" style="border-color:#ef4444">
-      <p style="color:#f87171">{{ error }}</p>
-    </div>
-    <div v-if="balance !== null" class="card">
-      <h2>Balance</h2>
-      <div class="row">
-        <span class="label">KAS:</span>
-        <span class="value mono" style="font-size:20px;color:#70c7ba">
-          {{ crypto.sompiToKaspaString(balance) }}
-        </span>
-      </div>
-      <div class="row">
-        <span class="label">Sompi:</span>
-        <span class="value mono">{{ balance.toString() }}</span>
-      </div>
-    </div>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Balance Checker</h1>
+
+    <Card>
+      <CardContent class="pt-6 space-y-3">
+        <div class="space-y-1">
+          <label class="text-sm text-muted-foreground">Kaspa Address</label>
+          <Input v-model="address" placeholder="kaspa:qr..." @keyup.enter="check" />
+        </div>
+        <Button :disabled="loading || !address.trim()" @click="check">
+          {{ loading ? 'Checking...' : 'Get Balance' }}
+        </Button>
+      </CardContent>
+    </Card>
+
+    <Alert v-if="error" variant="destructive">
+      <AlertDescription>{{ error }}</AlertDescription>
+    </Alert>
+
+    <Card v-if="balance !== null">
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Balance</CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-3">
+        <div>
+          <p class="text-sm text-muted-foreground mb-1">KAS</p>
+          <p class="font-mono text-2xl text-primary">{{ crypto.sompiToKaspaString(balance) }}</p>
+        </div>
+        <div>
+          <p class="text-sm text-muted-foreground mb-1">Sompi</p>
+          <p class="font-mono text-sm">{{ balance.toString() }}</p>
+        </div>
+      </CardContent>
+    </Card>
+
+    <CodeExample :code="EXAMPLE" title="useRpc — getBalanceByAddress()" />
   </div>
 </template>

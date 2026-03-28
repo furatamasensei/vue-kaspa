@@ -1,3 +1,4 @@
+import './assets/index.css'
 import { createApp } from 'vue'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import { KaspaPlugin } from 'vue-kaspa'
@@ -33,7 +34,7 @@ const app = createApp(App)
 app.use(router)
 app.use(KaspaPlugin, {
   network: 'mainnet',
-  autoConnect: false, // user connects manually via playground UI
+  autoConnect: true,
   devtools: true,
 })
 app.mount('#app')

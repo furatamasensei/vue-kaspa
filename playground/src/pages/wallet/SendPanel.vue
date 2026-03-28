@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue'
 import { useWallet, useCrypto } from 'vue-kaspa'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
 
 const wallet = useWallet()
 const crypto = useCrypto()
@@ -42,51 +46,64 @@ async function send() {
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Send KAS</h1>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Send KAS</h1>
 
-    <div v-if="!wallet.isOpen.value" class="card">
-      <p style="color:#64748b">Open your wallet first.</p>
-    </div>
+    <Card v-if="!wallet.isOpen.value">
+      <CardContent class="pt-6">
+        <p class="text-sm text-muted-foreground">Open your wallet first.</p>
+      </CardContent>
+    </Card>
 
-    <div v-else class="card">
-      <div v-if="wallet.activeAccount.value" style="margin-bottom:16px;padding:12px;background:#0f172a;border-radius:6px">
-        <div class="label">From Account</div>
-        <div class="value">{{ wallet.activeAccount.value.name }}</div>
-        <div class="mono" style="color:#70c7ba;font-size:12px">{{ wallet.activeAccount.value.receiveAddress }}</div>
-      </div>
+    <Card v-else>
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Send Transaction</CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-3">
+        <div v-if="wallet.activeAccount.value" class="rounded-md bg-muted/40 px-3 py-2 space-y-0.5">
+          <p class="text-xs text-muted-foreground">From Account</p>
+          <p class="text-sm font-medium">{{ wallet.activeAccount.value.name }}</p>
+          <p class="font-mono text-xs text-primary">{{ wallet.activeAccount.value.receiveAddress }}</p>
+        </div>
 
-      <div class="label">To Address</div>
-      <input
-        v-model="toAddress"
-        class="input"
-        placeholder="kaspa:qr..."
-        :style="{ borderColor: toAddress && !isValidAddr ? '#ef4444' : '' }"
-      />
-      <p v-if="toAddress && !isValidAddr" style="color:#f87171;font-size:12px;margin-bottom:8px">Invalid address</p>
+        <div class="space-y-1">
+          <label class="text-sm text-muted-foreground">To Address</label>
+          <Input
+            v-model="toAddress"
+            placeholder="kaspa:qr..."
+            :class="toAddress && !isValidAddr ? 'border-destructive' : ''"
+          />
+          <p v-if="toAddress && !isValidAddr" class="text-xs text-destructive">Invalid address</p>
+        </div>
 
-      <div class="label">Amount (KAS)</div>
-      <input v-model="amountKas" class="input" type="number" placeholder="0.00" step="0.001" />
-      <div v-if="amountSompi > 0n" class="label" style="margin-top:-4px;margin-bottom:8px">
-        = {{ amountSompi.toString() }} sompi
-      </div>
+        <div class="space-y-1">
+          <label class="text-sm text-muted-foreground">Amount (KAS)</label>
+          <Input v-model="amountKas" type="number" placeholder="0.00" step="0.001" />
+          <p v-if="amountSompi > 0n" class="text-xs text-muted-foreground">= {{ amountSompi.toString() }} sompi</p>
+        </div>
 
-      <div class="label">Wallet Password</div>
-      <input v-model="password" class="input" type="password" placeholder="Password" />
+        <div class="space-y-1">
+          <label class="text-sm text-muted-foreground">Wallet Password</label>
+          <Input v-model="password" type="password" placeholder="Password" />
+        </div>
 
-      <button
-        class="btn btn-primary"
-        :disabled="loading || !toAddress || !amountKas || !password || !isValidAddr"
-        @click="send"
-      >{{ loading ? 'Sending...' : 'Send' }}</button>
-    </div>
+        <Button
+          :disabled="loading || !toAddress || !amountKas || !password || !isValidAddr"
+          @click="send"
+        >{{ loading ? 'Sending...' : 'Send' }}</Button>
+      </CardContent>
+    </Card>
 
-    <div v-if="txid" class="card" style="border-color:#22c55e">
-      <p style="color:#4ade80;margin-bottom:8px">✓ Transaction submitted</p>
-      <div class="label">Transaction ID</div>
-      <div class="value mono">{{ txid }}</div>
-    </div>
+    <Alert v-if="txid" class="border-green-600/40 text-green-400 bg-green-950/20">
+      <AlertDescription>
+        <p class="mb-1">Transaction submitted</p>
+        <p class="text-xs text-muted-foreground mb-0.5">Transaction ID</p>
+        <p class="font-mono text-xs break-all">{{ txid }}</p>
+      </AlertDescription>
+    </Alert>
 
-    <div v-if="error" class="card" style="border-color:#ef4444"><p style="color:#f87171">{{ error }}</p></div>
+    <Alert v-if="error" variant="destructive">
+      <AlertDescription>{{ error }}</AlertDescription>
+    </Alert>
   </div>
 </template>

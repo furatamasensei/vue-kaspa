@@ -33,13 +33,13 @@ export function useWallet(): UseWalletReturn {
 
     async create(params: WalletCreateParams): Promise<void> {
       await ensureWasmInit(pluginOptions)
-      await manager.init(inject<KaspaPluginOptions>(KASPA_OPTIONS_KEY)?.network ?? 'mainnet')
+      await manager.init(pluginOptions.network ?? 'mainnet')
       await manager.create(params)
     },
 
     async open(params: WalletOpenParams): Promise<void> {
       await ensureWasmInit(pluginOptions)
-      await manager.init(inject<KaspaPluginOptions>(KASPA_OPTIONS_KEY)?.network ?? 'mainnet')
+      await manager.init(pluginOptions.network ?? 'mainnet')
       await manager.open(params)
     },
 
@@ -49,7 +49,7 @@ export function useWallet(): UseWalletReturn {
 
     async exists(): Promise<boolean> {
       await ensureWasmInit(pluginOptions)
-      await manager.init(inject<KaspaPluginOptions>(KASPA_OPTIONS_KEY)?.network ?? 'mainnet')
+      await manager.init(pluginOptions.network ?? 'mainnet')
       return manager.exists()
     },
 

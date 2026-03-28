@@ -1,6 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 import { useRpc, type BlockInfo } from 'vue-kaspa'
+import CodeExample from '../../components/CodeExample.vue'
+import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
+import { Alert, AlertDescription } from '@/components/ui/alert'
+
+const EXAMPLE = `import { useRpc } from 'vue-kaspa'
+
+const rpc = useRpc()
+
+const block = await rpc.getBlock(hash)
+// block.hash           — hex string
+// block.blueScore      — BigInt
+// block.timestamp      — ms since epoch (number)
+// block.transactions   — string[] of tx IDs`
 
 const rpc = useRpc()
 const hash = ref('')
@@ -31,24 +46,49 @@ async function fetch() {
 </script>
 
 <template>
-  <div>
-    <h1 style="font-size:24px;font-weight:700;margin-bottom:20px;color:#70c7ba">Get Block</h1>
-    <div class="card">
-      <div class="label">Block Hash</div>
-      <input v-model="hash" class="input" placeholder="Enter block hash..." @keyup.enter="fetch" />
-      <button class="btn btn-primary" :disabled="loading || !hash.trim()" @click="fetch">
-        {{ loading ? 'Loading...' : 'Fetch getBlock()' }}
-      </button>
-    </div>
-    <div v-if="error" class="card" style="border-color:#ef4444">
-      <p style="color:#f87171">{{ error }}</p>
-    </div>
-    <div v-if="block" class="card">
-      <h2>Block</h2>
-      <div class="row"><span class="label">Hash:</span><span class="value mono">{{ block.hash }}</span></div>
-      <div class="row"><span class="label">Blue Score:</span><span class="value mono">{{ block.blueScore.toString() }}</span></div>
-      <div class="row"><span class="label">Timestamp:</span><span class="value">{{ fmtDate(block.timestamp) }}</span></div>
-      <div class="row"><span class="label">Transactions:</span><span class="value">{{ block.transactions.length }}</span></div>
-    </div>
+  <div class="space-y-4">
+    <h1 class="text-2xl font-bold text-primary">Get Block</h1>
+
+    <Card>
+      <CardContent class="pt-6 space-y-3">
+        <div class="space-y-1">
+          <label class="text-sm text-muted-foreground">Block Hash</label>
+          <Input v-model="hash" placeholder="Enter block hash..." @keyup.enter="fetch" />
+        </div>
+        <Button :disabled="loading || !hash.trim()" @click="fetch">
+          {{ loading ? 'Loading...' : 'Fetch getBlock()' }}
+        </Button>
+      </CardContent>
+    </Card>
+
+    <Alert v-if="error" variant="destructive">
+      <AlertDescription>{{ error }}</AlertDescription>
+    </Alert>
+
+    <Card v-if="block">
+      <CardHeader class="pb-2">
+        <CardTitle class="text-base">Block</CardTitle>
+      </CardHeader>
+      <CardContent class="space-y-2">
+        <div class="flex items-start gap-2">
+          <span class="text-sm text-muted-foreground w-32 shrink-0">Hash</span>
+          <span class="font-mono text-sm break-all">{{ block.hash }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground w-32">Blue Score</span>
+          <span class="font-mono text-sm">{{ block.blueScore.toString() }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground w-32">Timestamp</span>
+          <span class="text-sm">{{ fmtDate(block.timestamp) }}</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground w-32">Transactions</span>
+          <span class="text-sm">{{ block.transactions.length }}</span>
+        </div>
+      </CardContent>
+    </Card>
+
+    <CodeExample :code="EXAMPLE" title="useRpc — getBlock()" />
   </div>
 </template>
