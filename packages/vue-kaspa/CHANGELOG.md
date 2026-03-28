@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.3](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.2...vue-kaspa-v0.1.3) (2026-03-28)
+
+
+### Bug Fixes
+
+* centralize kaspa-wasm access via single dynamic import to prevent Rolldown chunk duplication ([40b2452](https://github.com/furatamasensei/vue-kaspa/commit/40b2452a06c2d7bf2c0308efb7bd52fa09d859aa))
+* use globalThis to store kaspa-wasm singleton across chunk boundaries ([89f6983](https://github.com/furatamasensei/vue-kaspa/commit/89f6983a57cd323b9db2a2ef188c437f1e595e2c))
+
 ## [0.1.2](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.1...vue-kaspa-v0.1.2) (2026-03-28)
 
 
