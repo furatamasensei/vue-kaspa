@@ -9,20 +9,20 @@
 
 ```bash
 # npm
-npm install vkas kaspa-wasm
+npm install vue-kaspa @vue-kaspa/kaspa-wasm
 
 # pnpm
-pnpm add vkas kaspa-wasm
+pnpm add vue-kaspa @vue-kaspa/kaspa-wasm
 
 # yarn
-yarn add vkas kaspa-wasm
+yarn add vue-kaspa @vue-kaspa/kaspa-wasm
 ```
 
-Both `vkas` and `kaspa-wasm` are required. `kaspa-wasm` provides the underlying WASM bindings; `vkas` wraps them with Vue reactivity.
+Both `vue-kaspa` and `@vue-kaspa/kaspa-wasm` are required. `@vue-kaspa/kaspa-wasm` provides the underlying WASM bindings; `vue-kaspa` wraps them with Vue reactivity.
 
 ## Vite WASM configuration
 
-`kaspa-wasm` uses top-level `await` and WebAssembly instantiation. Vite needs two plugins to handle this:
+`@vue-kaspa/kaspa-wasm` uses top-level `await` and WebAssembly instantiation. Vite needs two plugins to handle this:
 
 ```bash
 npm install -D vite-plugin-wasm vite-plugin-top-level-await
@@ -47,13 +47,13 @@ export default defineConfig({
   },
 
   optimizeDeps: {
-    exclude: ['kaspa-wasm'],
+    exclude: ['@vue-kaspa/kaspa-wasm'],
   },
 })
 ```
 
 ::: tip CORS headers
-The `Cross-Origin-Embedder-Policy` and `Cross-Origin-Opener-Policy` headers are required for `SharedArrayBuffer` support used internally by `kaspa-wasm`. Without them, WASM initialization will fail in the browser.
+The `Cross-Origin-Embedder-Policy` and `Cross-Origin-Opener-Policy` headers are required for `SharedArrayBuffer` support used internally by `@vue-kaspa/kaspa-wasm`. Without them, WASM initialization will fail in the browser.
 :::
 
 ## TypeScript configuration
@@ -72,15 +72,15 @@ Ensure your `tsconfig.json` targets ES2020 or later (required for `BigInt`):
 
 ## SSR / Nuxt
 
-The [Nuxt module](/guide/nuxt-module) handles all WASM/SSR configuration automatically — no manual Vite config needed. `kaspa-wasm` is excluded from the server bundle and composables are auto-imported.
+The [Nuxt module](/guide/nuxt-module) handles all WASM/SSR configuration automatically — no manual Vite config needed. `@vue-kaspa/kaspa-wasm` is excluded from the server bundle and composables are auto-imported.
 
-For custom SSR setups (non-Nuxt), exclude `kaspa-wasm` from the server bundle:
+For custom SSR setups (non-Nuxt), exclude `@vue-kaspa/kaspa-wasm` from the server bundle:
 
 ```ts
 // vite.config.ts (SSR)
 export default defineConfig({
   ssr: {
-    external: ['kaspa-wasm'],
+    external: ['@vue-kaspa/kaspa-wasm'],
   },
 })
 ```

@@ -2,9 +2,9 @@
   "name": "kaspa-vue-monorepo",
   "private": true,
   "scripts": {
-    "build": "pnpm -r --filter vkas build",
-    "test": "pnpm --filter vkas test:watch",
-    "test:run": "pnpm --filter vkas test",
+    "build": "pnpm -r --filter vue-kaspa build",
+    "test": "pnpm --filter vue-kaspa test:watch",
+    "test:run": "pnpm --filter vue-kaspa test",
     "playground": "pnpm --filter playground dev",
     "typecheck": "pnpm -r typecheck",
     "docs:dev": "pnpm --filter docs dev",

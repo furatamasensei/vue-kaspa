@@ -17,7 +17,7 @@ function resolveOptions(options: KaspaPluginOptions): KaspaPluginOptions {
 export const KaspaPlugin = {
   install(app: App, options: KaspaPluginOptions = {}): void {
     if (app._context.provides[KASPA_INSTALLED_KEY as unknown as string]) {
-      console.warn('[vkas] Plugin already installed.')
+      console.warn('[vue-kaspa] Plugin already installed.')
       return
     }
 

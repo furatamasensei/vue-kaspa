@@ -1,5 +1,5 @@
 {
-  "name": "kaspa-wasm",
+  "name": "@vue-kaspa/kaspa-wasm",
   "type": "module",
   "collaborators": [
     "Kaspa developers"

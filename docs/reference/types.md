@@ -1,13 +1,13 @@
 # TypeScript Types
 
-All types are exported from `vkas` and available for import:
+All types are exported from `vue-kaspa` and available for import:
 
 ```ts
 import type {
   KaspaPluginOptions,
   KaspaNetwork,
   // ...
-} from 'vkas'
+} from 'vue-kaspa'
 ```
 
 ---
@@ -138,7 +138,7 @@ interface BlockInfo {
 
 ## UtxoEntry
 
-A single UTXO output. Compatible with `kaspa-wasm`'s `IUtxoEntry` — safe to pass directly to `createTransactions()`.
+A single UTXO output. Compatible with `@vue-kaspa/kaspa-wasm`'s `IUtxoEntry` — safe to pass directly to `createTransactions()`.
 
 ```ts
 interface UtxoEntry {

@@ -2,14 +2,14 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { useCrypto, useNetwork, type KeypairInfo, type MnemonicInfo } from 'vkas'
 import { computed, ref } from 'vue'
+import { useCrypto, useNetwork, type KeypairInfo, type MnemonicInfo } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
 const crypto = useCrypto()
 const network = useNetwork()
 
-const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vkas'
+const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vue-kaspa'
 
 const crypto = useCrypto()
 const { currentNetwork } = useNetwork()

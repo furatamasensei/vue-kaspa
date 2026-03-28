@@ -5,10 +5,10 @@ Thank you for your interest in contributing! This guide covers everything you ne
 ## Repository layout
 
 ```
-packages/vkas/        # The library (published to npm as "vkas")
+packages/vue-kaspa/        # The library (published to npm as "vue-kaspa")
 playground/           # Interactive demo app (Vite + Vue 3)
 docs/                 # Documentation site (VitePress)
-vendor/               # Local kaspa-wasm build
+vendor/               # Local @vue-kaspa/kaspa-wasm build
 dev.sh                # One-command dev environment
 ```
 
@@ -20,8 +20,8 @@ dev.sh                # One-command dev environment
 ## Setup
 
 ```bash
-git clone https://github.com/furatamasensei/vkas.git
-cd vkas
+git clone https://github.com/furatamasensei/vue-kaspa.git
+cd vue-kaspa
 pnpm install
 ```
 
@@ -63,7 +63,7 @@ pnpm install
 ## Project structure
 
 ```
-packages/vkas/
+packages/vue-kaspa/
 ├── src/
 │   ├── composables/     # useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork
 │   ├── devtools/        # Vue DevTools inspector + timeline
@@ -86,16 +86,16 @@ packages/vkas/
 ./dev.sh test:watch    # watch mode
 ```
 
-Tests use [Vitest](https://vitest.dev) with `happy-dom`. The `kaspa-wasm` module is mocked in `tests/mocks/kaspa-wasm.ts`.
+Tests use [Vitest](https://vitest.dev) with `happy-dom`. The `@vue-kaspa/kaspa-wasm` module is mocked in `tests/mocks/@vue-kaspa/kaspa-wasm.ts`.
 
 When adding a new feature:
-1. Add unit tests in `packages/vkas/tests/unit/`
+1. Add unit tests in `packages/vue-kaspa/tests/unit/`
 2. If the feature touches plugin installation, add integration tests in `tests/integration/`
 3. All tests must pass before a PR can be merged
 
 ## Adding a composable
 
-1. Create `packages/vkas/src/composables/useYourComposable.ts`
+1. Create `packages/vue-kaspa/src/composables/useYourComposable.ts`
 2. Add the return type interface to `src/types.ts`
 3. Export from `src/index.ts`
 4. Register for auto-import in `src/nuxt.ts`

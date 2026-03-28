@@ -1,0 +1,19 @@
+{
+  "$schema": "https://raw.githubusercontent.com/googleapis/release-please/main/schemas/config.json",
+  "packages": {
+    "packages/vue-kaspa": {
+      "release-type": "node",
+      "package-name": "vue-kaspa",
+      "changelog-path": "CHANGELOG.md",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true
+    },
+    "vendor/kaspa-wasm": {
+      "release-type": "node",
+      "package-name": "@vue-kaspa/kaspa-wasm",
+      "changelog-path": "CHANGELOG.md",
+      "bump-minor-pre-major": true,
+      "bump-patch-for-minor-pre-major": true
+    }
+  }
+}

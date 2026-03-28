@@ -1,11 +1,11 @@
 # useKaspa
 
-Controls the lifecycle of the `kaspa-wasm` WebAssembly module. The WASM module must be initialized before any RPC connections or cryptographic operations can be performed.
+Controls the lifecycle of the `@vue-kaspa/kaspa-wasm` WebAssembly module. The WASM module must be initialized before any RPC connections or cryptographic operations can be performed.
 
 ## Import
 
 ```ts
-import { useKaspa } from 'vkas'
+import { useKaspa } from 'vue-kaspa'
 ```
 
 ## Return type
@@ -58,7 +58,7 @@ The WASM state is **module-level** — shared across all component instances. Ca
 
 ```vue
 <script setup lang="ts">
-import { useKaspa } from 'vkas'
+import { useKaspa } from 'vue-kaspa'
 import { onMounted } from 'vue'
 
 const kaspa = useKaspa()

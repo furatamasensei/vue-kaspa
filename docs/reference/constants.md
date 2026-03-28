@@ -3,7 +3,7 @@
 ## AVAILABLE_NETWORKS
 
 ```ts
-import { AVAILABLE_NETWORKS } from 'vkas'
+import { AVAILABLE_NETWORKS } from 'vue-kaspa'
 ```
 
 A readonly array of all valid `KaspaNetwork` values:
@@ -22,7 +22,7 @@ const AVAILABLE_NETWORKS: readonly KaspaNetwork[] = [
 
 ```vue
 <script setup lang="ts">
-import { AVAILABLE_NETWORKS, useNetwork } from 'vkas'
+import { AVAILABLE_NETWORKS, useNetwork } from 'vue-kaspa'
 
 const network = useNetwork()
 </script>

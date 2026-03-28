@@ -11,10 +11,10 @@ export function setupDevtools(app: App): void {
 
   setupDevtoolsPlugin(
     {
-      id: 'vkas',
+      id: 'vue-kaspa',
       label: 'Kaspa SDK',
-      packageName: 'vkas',
-      homepage: 'https://github.com/kaspanet/vkas',
+      packageName: 'vue-kaspa',
+      homepage: 'https://github.com/kaspanet/vue-kaspa',
       app,
       settings: {},
       enableEarlyProxy: true,

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useRpc } from 'vkas'
+import { useRpc } from 'vue-kaspa'
 import { RouterLink } from 'vue-router'
 
 const rpc = useRpc()

@@ -5,11 +5,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import { Textarea } from '@/components/ui/textarea'
-import { useCrypto } from 'vkas'
 import { ref } from 'vue'
+import { useCrypto } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useCrypto } from 'vkas'
+const EXAMPLE = `import { useCrypto } from 'vue-kaspa'
 
 const crypto = useCrypto()
 

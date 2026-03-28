@@ -1,0 +1,69 @@
+name: Release
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    outputs:
+      vue_kaspa_released: ${{ steps.release.outputs['packages/vue-kaspa--release_created'] }}
+      kaspa_wasm_released: ${{ steps.release.outputs['vendor/kaspa-wasm--release_created'] }}
+    steps:
+      - uses: googleapis/release-please-action@v4
+        id: release
+        with:
+          config-file: release-please-config.json
+          manifest-file: .release-please-manifest.json
+
+  publish-vue-kaspa:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.vue_kaspa_released == 'true' }}
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm --filter vue-kaspa build
+      - run: pnpm --filter vue-kaspa test
+      - name: Publish vue-kaspa to npm (Trusted Publishing)
+        run: pnpm publish --filter vue-kaspa --provenance --no-git-checks --access public
+
+  publish-kaspa-wasm:
+    needs: release-please
+    if: ${{ needs.release-please.outputs.kaspa_wasm_released == 'true' }}
+    runs-on: ubuntu-latest
+    environment: npm
+    permissions:
+      contents: read
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 10
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          registry-url: 'https://registry.npmjs.org'
+          cache: 'pnpm'
+      - run: pnpm install --frozen-lockfile
+      - name: Publish @vue-kaspa/kaspa-wasm to npm (Trusted Publishing)
+        run: pnpm publish --filter @vue-kaspa/kaspa-wasm --provenance --no-git-checks --access public

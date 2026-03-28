@@ -1,17 +1,17 @@
 # Nuxt Module
 
-VKAS ships a first-class Nuxt 3 module. It registers a client-only plugin, auto-imports all composables, and excludes `kaspa-wasm` from the server bundle automatically.
+VKAS ships a first-class Nuxt 3 module. It registers a client-only plugin, auto-imports all composables, and excludes `@vue-kaspa/kaspa-wasm` from the server bundle automatically.
 
 ## Setup
 
 ```bash
-npm install vkas kaspa-wasm
+npm install vue-kaspa @vue-kaspa/kaspa-wasm
 ```
 
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['vkas/nuxt'],
+  modules: ['vue-kaspa/nuxt'],
 
   kaspa: {
     network: 'mainnet',
@@ -62,10 +62,10 @@ const utxo = useUtxo()
 
 ## SSR behavior
 
-`kaspa-wasm` is a browser-only WASM package. The Nuxt module handles this in two ways:
+`@vue-kaspa/kaspa-wasm` is a browser-only WASM package. The Nuxt module handles this in two ways:
 
 1. **Client-only plugin** — `KaspaPlugin` is registered as a Nuxt client plugin. It never runs during server-side rendering.
-2. **SSR external** — `kaspa-wasm` is added to `vite.ssr.external`, preventing Vite from trying to bundle or evaluate it on the server.
+2. **SSR external** — `@vue-kaspa/kaspa-wasm` is added to `vite.ssr.external`, preventing Vite from trying to bundle or evaluate it on the server.
 
 Composables called in SSR context return safe empty state (e.g., `wasmStatus: 'idle'`, `connectionState: 'disconnected'`) without throwing.
 
@@ -74,7 +74,7 @@ Composables called in SSR context return safe empty state (e.g., `wasmStatus: 'i
 ```ts
 // nuxt.config.ts
 export default defineNuxtConfig({
-  modules: ['vkas/nuxt'],
+  modules: ['vue-kaspa/nuxt'],
   kaspa: {
     network: 'testnet-10',
     url: 'ws://your-node.example.com:17210',

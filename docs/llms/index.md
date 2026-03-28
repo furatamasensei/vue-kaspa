@@ -5,12 +5,12 @@ VKAS is designed to be LLM-friendly. All APIs are fully TypeScript-typed, compos
 ## Quick reference
 
 ```
-Package:       vkas
+Package:       vue-kaspa
 Version:       0.1.0
-npm:           https://www.npmjs.com/package/vkas
-Peer deps:     vue >= 3.4.0, kaspa-wasm >= 1.1.0
+npm:           https://www.npmjs.com/package/vue-kaspa
+Peer deps:     vue >= 3.4.0, @vue-kaspa/kaspa-wasm >= 1.1.0
 Types entry:   ./dist/index.d.ts
-Nuxt entry:    vkas/nuxt
+Nuxt entry:    vue-kaspa/nuxt
 ```
 
 **Exports:** `KaspaPlugin`, `useKaspa`, `useRpc`, `useUtxo`, `useTransaction`, `useCrypto`, `useNetwork`, error classes, 23 TypeScript types, `AVAILABLE_NETWORKS`
@@ -83,25 +83,25 @@ Copy these prompts to ask an LLM about VKAS:
 
 ### Send KAS to an address
 
-> I'm using vkas. How do I send 10 KAS from `kaspa:qrsrc...` to `kaspa:qrdest...`? I have the private key hex.
+> I'm using vue-kaspa. How do I send 10 KAS from `kaspa:qrsrc...` to `kaspa:qrdest...`? I have the private key hex.
 
 Expected: uses `useUtxo().track()`, `useTransaction().send()`, `useCrypto().kaspaToSompi()`, passes `networkId: 'mainnet'`.
 
 ### Derive HD wallet addresses
 
-> Using vkas's `useCrypto()`, derive the first 10 receive addresses and 5 change addresses from a 24-word BIP-39 mnemonic on mainnet. Show the index and address for each.
+> Using vue-kaspa's `useCrypto()`, derive the first 10 receive addresses and 5 change addresses from a 24-word BIP-39 mnemonic on mainnet. Show the index and address for each.
 
 Expected: calls `derivePublicKeys(phrase, 'mainnet', 10, 5)`, iterates `receive` and `change` arrays.
 
 ### Subscribe to real-time events
 
-> I want to react to new blocks and UTXO changes on my address using vkas's `useRpc()`. Show me how to subscribe and clean up on component unmount.
+> I want to react to new blocks and UTXO changes on my address using vue-kaspa's `useRpc()`. Show me how to subscribe and clean up on component unmount.
 
 Expected: `rpc.on('block-added', ...)`, `rpc.on('utxos-changed', ...)`, notes auto-cleanup inside `<script setup>`.
 
 ### Check fee before sending
 
-> Before sending a transaction with vkas, I want to show the user the estimated fee. How do I use `useTransaction().estimate()` and what does `TransactionSummary` contain?
+> Before sending a transaction with vue-kaspa, I want to show the user the estimated fee. How do I use `useTransaction().estimate()` and what does `TransactionSummary` contain?
 
 Expected: calls `tx.estimate(settings)`, explains `fees`, `mass`, `transactions` fields.
 

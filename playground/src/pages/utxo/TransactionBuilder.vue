@@ -5,9 +5,9 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import type { PendingTx, TransactionSummary } from 'vkas'
-import { useCrypto, useNetwork, useTransaction, useUtxo } from 'vkas'
 import { computed, ref } from 'vue'
+import type { PendingTx, TransactionSummary } from 'vue-kaspa'
+import { useCrypto, useNetwork, useTransaction, useUtxo } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
 const network = useNetwork()
@@ -17,7 +17,7 @@ const crypto = useCrypto()
 
 const addrPrefix = computed(() => network.isTestnet.value ? 'kaspatest' : 'kaspa')
 
-const EXAMPLE = computed(() => `import { useUtxo, useTransaction } from 'vkas'
+const EXAMPLE = computed(() => `import { useUtxo, useTransaction } from 'vue-kaspa'
 
 const utxo = useUtxo()
 const tx = useTransaction()

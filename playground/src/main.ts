@@ -1,5 +1,5 @@
-import { KaspaPlugin } from 'vkas'
 import { createApp } from 'vue'
+import { KaspaPlugin } from 'vue-kaspa'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
 import './assets/index.css'

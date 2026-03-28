@@ -13,7 +13,7 @@ Error
     └── KaspaCryptoError         Cryptographic operation failed
 ```
 
-All errors are exported from `vkas`:
+All errors are exported from `vue-kaspa`:
 
 ```ts
 import {
@@ -22,12 +22,12 @@ import {
   KaspaRpcError,
   KaspaWalletError,
   KaspaCryptoError,
-} from 'vkas'
+} from 'vue-kaspa'
 ```
 
 ## KaspaError (base)
 
-All VKAS errors extend `KaspaError`. It carries an optional `.cause` for the underlying error from `kaspa-wasm`.
+All VKAS errors extend `KaspaError`. It carries an optional `.cause` for the underlying error from `@vue-kaspa/kaspa-wasm`.
 
 ```ts
 try {
@@ -35,7 +35,7 @@ try {
 } catch (err) {
   if (err instanceof KaspaError) {
     console.error(err.message)     // human-readable message
-    console.error(err.cause)       // underlying kaspa-wasm error (if any)
+    console.error(err.cause)       // underlying @vue-kaspa/kaspa-wasm error (if any)
   }
 }
 ```
@@ -45,7 +45,7 @@ try {
 Thrown when a composable method is called before the WASM module has been initialized.
 
 ```ts
-import { KaspaNotReadyError } from 'vkas'
+import { KaspaNotReadyError } from 'vue-kaspa'
 
 try {
   await rpc.connect()
@@ -65,14 +65,14 @@ Typically you won't encounter this with `autoConnect: true` (the default).
 Thrown when an RPC query or connection attempt fails.
 
 ```ts
-import { KaspaRpcError } from 'vkas'
+import { KaspaRpcError } from 'vue-kaspa'
 
 try {
   const info = await rpc.getInfo()
 } catch (err) {
   if (err instanceof KaspaRpcError) {
     console.error('RPC call failed:', err.message)
-    // err.cause contains the raw kaspa-wasm RPC error
+    // err.cause contains the raw @vue-kaspa/kaspa-wasm RPC error
   }
 }
 ```
@@ -87,7 +87,7 @@ Common causes:
 Thrown by `useCrypto()` methods on invalid input.
 
 ```ts
-import { KaspaCryptoError } from 'vkas'
+import { KaspaCryptoError } from 'vue-kaspa'
 
 try {
   const keypair = crypto.mnemonicToKeypair('not a valid phrase', 'mainnet')

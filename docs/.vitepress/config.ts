@@ -29,7 +29,7 @@ export default defineConfig({
         text: 'v0.1.0',
         items: [
           { text: 'Changelog', link: '/reference/changelog' },
-          { text: 'GitHub', link: 'https://github.com/furatamasensei/vkas' },
+          { text: 'GitHub', link: 'https://github.com/furatamasensei/vue-kaspa' },
         ],
       },
     ],
@@ -87,7 +87,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/furatamasensei/vkas' },
+      { icon: 'github', link: 'https://github.com/furatamasensei/vue-kaspa' },
     ],
 
     search: {

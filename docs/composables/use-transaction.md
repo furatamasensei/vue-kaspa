@@ -1,11 +1,11 @@
 # useTransaction
 
-Builds, signs, and submits Kaspa transactions. Wraps `kaspa-wasm`'s `createTransactions()` and `estimateTransactions()` and handles UTXO compounding automatically.
+Builds, signs, and submits Kaspa transactions. Wraps `@vue-kaspa/kaspa-wasm`'s `createTransactions()` and `estimateTransactions()` and handles UTXO compounding automatically.
 
 ## Import
 
 ```ts
-import { useTransaction } from 'vkas'
+import { useTransaction } from 'vue-kaspa'
 ```
 
 ## Return type
@@ -43,7 +43,7 @@ interface UseTransactionReturn {
 The simplest way to send KAS:
 
 ```ts
-import { useUtxo, useTransaction, useCrypto } from 'vkas'
+import { useUtxo, useTransaction, useCrypto } from 'vue-kaspa'
 
 const utxo = useUtxo()
 const tx = useTransaction()

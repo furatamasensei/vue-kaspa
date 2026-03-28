@@ -2,11 +2,11 @@
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { useCrypto } from 'vkas'
 import { computed, ref, watch } from 'vue'
+import { useCrypto } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useCrypto } from 'vkas'
+const EXAMPLE = `import { useCrypto } from 'vue-kaspa'
 
 const crypto = useCrypto()
 

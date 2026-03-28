@@ -75,14 +75,14 @@ export function useTransaction(): UseTransactionReturn {
 
   async function estimate(settings: CreateTransactionSettings): Promise<TransactionSummary> {
     await ensureWasmInit(pluginOptions)
-    const { estimateTransactions } = await import('kaspa-wasm')
+    const { estimateTransactions } = await import('@vue-kaspa/kaspa-wasm')
     const summary = await estimateTransactions(toGeneratorSettings(settings) as unknown as Parameters<typeof estimateTransactions>[0])
     return mapSummary(summary as AnySummary)
   }
 
   async function create(settings: CreateTransactionSettings): Promise<{ transactions: PendingTx[]; summary: TransactionSummary }> {
     await ensureWasmInit(pluginOptions)
-    const { createTransactions } = await import('kaspa-wasm')
+    const { createTransactions } = await import('@vue-kaspa/kaspa-wasm')
     const result = await createTransactions(toGeneratorSettings(settings) as unknown as Parameters<typeof createTransactions>[0])
     const r = result as { transactions: AnyPendingTx[]; summary: AnySummary }
     return {

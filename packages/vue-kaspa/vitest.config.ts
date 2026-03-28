@@ -5,7 +5,7 @@ import { defineConfig } from 'vitest/config'
 export default defineConfig({
   plugins: [vue()],
   test: {
-    name: 'vkas',
+    name: 'vue-kaspa',
     environment: 'happy-dom',
     globals: true,
     setupFiles: ['./tests/setup.ts'],
@@ -19,7 +19,7 @@ export default defineConfig({
   },
   resolve: {
     alias: {
-      'kaspa-wasm': resolve(__dirname, './tests/mocks/kaspa-wasm.ts'),
+      '@vue-kaspa/kaspa-wasm': resolve(__dirname, './tests/mocks/kaspa-wasm.ts'),
     },
   },
   define: {

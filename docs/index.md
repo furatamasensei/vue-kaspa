@@ -3,7 +3,7 @@ layout: home
 hero:
   name: VKAS
   text: The Fastest Chain Meets Great DX 
-  tagline: Reactive composables and a Nuxt module for the Kaspa blockchain — powered by WASM.
+  tagline: Kaspa is fast! But setting up WASM might not for everyone. This plugin simplifies that.
   image:
     src: /logo.png
     alt: VKAS

@@ -4,8 +4,8 @@ import {
   SidebarGroupLabel, SidebarHeader, SidebarInset, SidebarMenu,
   SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { useKaspa, useRpc } from 'vkas'
 import { onMounted } from 'vue'
+import { useKaspa, useRpc } from 'vue-kaspa'
 import { RouterLink, RouterView, useRoute } from 'vue-router'
 
 const kaspa = useKaspa()
@@ -66,7 +66,7 @@ const navGroups = [
   <SidebarProvider>
     <Sidebar>
       <SidebarHeader class="px-4 py-3">
-        <span class="text-lg font-bold text-sidebar-primary">⬡ vkas</span>
+        <span class="text-lg font-bold text-sidebar-primary">⬡ vue-kaspa</span>
       </SidebarHeader>
       <SidebarContent>
         <SidebarGroup v-for="group in navGroups" :key="group.label">

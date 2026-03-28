@@ -5,14 +5,14 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Textarea } from '@/components/ui/textarea'
-import { useCrypto, useNetwork, type DerivedKey, type KaspaNetwork } from 'vkas'
 import { computed, ref, watch } from 'vue'
+import { useCrypto, useNetwork, type DerivedKey, type KaspaNetwork } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
 const crypto = useCrypto()
 const globalNetwork = useNetwork()
 
-const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vkas'
+const EXAMPLE = computed(() => `import { useCrypto, useNetwork } from 'vue-kaspa'
 
 const crypto = useCrypto()
 const { currentNetwork } = useNetwork()

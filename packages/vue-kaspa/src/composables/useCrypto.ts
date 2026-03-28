@@ -9,7 +9,7 @@ import {
   Address,
   signMessage as sdkSignMessage,
   verifyMessage as sdkVerifyMessage,
-} from 'kaspa-wasm'
+} from '@vue-kaspa/kaspa-wasm'
 import type { KaspaNetwork, UseCryptoReturn, KeypairInfo, MnemonicInfo, DerivedKey } from '../types'
 import { KaspaCryptoError } from '../errors'
 

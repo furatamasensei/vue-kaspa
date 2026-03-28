@@ -1,7 +1,7 @@
 import type { RpcManagerState } from '../internal/rpc-manager'
 import type { WasmStatus } from '../types'
 
-export const INSPECTOR_ID = 'vkas'
+export const INSPECTOR_ID = 'vue-kaspa'
 
 interface GlobalState {
   wasmStatus: WasmStatus

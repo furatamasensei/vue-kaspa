@@ -19,7 +19,7 @@ export default defineConfig({
       entry: resolve(__dirname, 'src/index.ts'),
       name: 'VueKaspa',
       formats: ['es', 'umd'],
-      fileName: (format) => `vkas.${format === 'es' ? 'es.js' : 'umd.cjs'}`,
+      fileName: (format) => `vue-kaspa.${format === 'es' ? 'es.js' : 'umd.cjs'}`,
     },
     rollupOptions: {
       external: ['vue', 'kaspa-wasm', '@vue/devtools-api'],

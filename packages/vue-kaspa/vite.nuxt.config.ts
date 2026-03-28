@@ -5,7 +5,7 @@ import dts from 'vite-plugin-dts'
 /**
  * Secondary build that produces the Nuxt module entry (dist/nuxt.mjs).
  * Run after the main build so dist/index.d.ts already exists when
- * vite-plugin-dts resolves the 'vkas' self-import for types.
+ * vite-plugin-dts resolves the 'vue-kaspa' self-import for types.
  */
 export default defineConfig({
   plugins: [
@@ -28,7 +28,7 @@ export default defineConfig({
     rollupOptions: {
       external: [
         'vue',
-        'vkas',
+        'vue-kaspa',
         '@vue/devtools-api',
         '@nuxt/kit',
         /^@nuxt\//,

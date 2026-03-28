@@ -2,11 +2,11 @@
 import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useKaspa, useNetwork, useRpc } from 'vkas'
+import { useKaspa, useNetwork, useRpc } from 'vue-kaspa'
 import CodeExample from '../components/CodeExample.vue'
 
 const EXAMPLE = `import { createApp } from 'vue'
-import { KaspaPlugin, useKaspa, useRpc } from 'vkas'
+import { KaspaPlugin, useKaspa, useRpc } from 'vue-kaspa'
 
 // Install the plugin
 const app = createApp(App)

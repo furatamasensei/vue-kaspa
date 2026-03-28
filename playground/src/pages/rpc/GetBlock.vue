@@ -3,11 +3,11 @@ import { Alert, AlertDescription } from '@/components/ui/alert'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
-import { useRpc, type BlockInfo } from 'vkas'
 import { ref } from 'vue'
+import { useRpc, type BlockInfo } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useRpc } from 'vkas'
+const EXAMPLE = `import { useRpc } from 'vue-kaspa'
 
 const rpc = useRpc()
 

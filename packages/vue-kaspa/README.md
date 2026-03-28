@@ -1,11 +1,11 @@
-# VKAS
+# vue-kaspa
 
 > Vue 3 composables and Nuxt module for the Kaspa blockchain — powered by WASM.
 
 [![npm](https://img.shields.io/npm/v/vue-kaspa)](https://www.npmjs.com/package/vue-kaspa)
-[![license](https://img.shields.io/github/license/furatamasensei/vue-kaspa)](./LICENSE)
+[![license](https://img.shields.io/github/license/furatamasensei/vue-kaspa)](https://github.com/furatamasensei/vue-kaspa/blob/main/LICENSE)
 
-VKAS wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) with Vue 3 reactivity, giving you idiomatic composables to connect, query, track balances, build transactions, and manage keys — with full TypeScript support.
+vue-kaspa wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) with Vue 3 reactivity, giving you idiomatic composables to connect, query, track balances, build transactions, and manage keys — with full TypeScript support.
 
 ## Features
 
@@ -115,21 +115,6 @@ Full docs at **[furatamasensei.github.io/vue-kaspa](https://furatamasensei.githu
 | `@vue-kaspa/kaspa-wasm` | `>=1.1.0` |
 | `@nuxt/kit` | `^3.0.0` *(Nuxt module only)* |
 
-## Development
-
-```bash
-# Start playground + docs
-./dev.sh
-
-# Run tests
-./dev.sh test
-
-# Rebuild library and restart servers
-./dev.sh rebuild
-```
-
-See [CONTRIBUTING.md](./CONTRIBUTING.md) for full setup instructions.
-
 ## License
 
-[MIT](./LICENSE)
+[MIT](https://github.com/furatamasensei/vue-kaspa/blob/main/LICENSE)

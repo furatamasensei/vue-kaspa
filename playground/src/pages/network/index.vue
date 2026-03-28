@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import { Badge } from '@/components/ui/badge'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { useNetwork, useRpc, type KaspaNetwork } from 'vkas'
+import { useNetwork, useRpc, type KaspaNetwork } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useNetwork } from 'vkas'
+const EXAMPLE = `import { useNetwork } from 'vue-kaspa'
 
 const network = useNetwork()
 

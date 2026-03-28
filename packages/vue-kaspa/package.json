@@ -1,11 +1,11 @@
 {
-  "name": "vkas",
+  "name": "vue-kaspa",
   "version": "0.1.0",
   "type": "module",
   "exports": {
     ".": {
-      "import": "./dist/vkas.es.js",
-      "require": "./dist/vkas.umd.cjs",
+      "import": "./dist/vue-kaspa.es.js",
+      "require": "./dist/vue-kaspa.umd.cjs",
       "types": "./dist/index.d.ts"
     },
     "./nuxt": {
@@ -13,9 +13,30 @@
       "types": "./dist/nuxt.d.ts"
     }
   },
-  "main": "./dist/vkas.umd.cjs",
-  "module": "./dist/vkas.es.js",
+  "main": "./dist/vue-kaspa.umd.cjs",
+  "module": "./dist/vue-kaspa.es.js",
   "types": "./dist/index.d.ts",
+  "description": "Vue 3 composables and Nuxt module for the Kaspa blockchain — powered by WASM",
+  "homepage": "https://furatamasensei.github.io/vue-kaspa",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/furatamasensei/vue-kaspa.git",
+    "directory": "packages/vue-kaspa"
+  },
+  "bugs": {
+    "url": "https://github.com/furatamasensei/vue-kaspa/issues"
+  },
+  "keywords": [
+    "kaspa",
+    "blockchain",
+    "vue",
+    "vue3",
+    "nuxt",
+    "composables",
+    "wasm",
+    "crypto",
+    "web3"
+  ],
   "sideEffects": false,
   "scripts": {
     "build": "vite build && vite build --config vite.nuxt.config.ts",
@@ -25,7 +46,7 @@
   },
   "peerDependencies": {
     "@nuxt/kit": "^3.0.0",
-    "kaspa-wasm": ">=1.1.0",
+    "@vue-kaspa/kaspa-wasm": ">=1.1.0",
     "vue": ">=3.4.0"
   },
   "peerDependenciesMeta": {
@@ -42,7 +63,7 @@
     "@vitejs/plugin-vue": "^6.0.5",
     "@vue/test-utils": "^2.4.6",
     "happy-dom": "^20.8.9",
-    "kaspa-wasm": "workspace:*",
+    "@vue-kaspa/kaspa-wasm": "workspace:*",
     "typescript": "^6.0.2",
     "vite": "^8.0.3",
     "vite-plugin-dts": "^4.5.4",

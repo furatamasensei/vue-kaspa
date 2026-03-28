@@ -12,13 +12,13 @@
     "@vueuse/core": "^14.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "kaspa-wasm": "workspace:*",
+    "@vue-kaspa/kaspa-wasm": "workspace:*",
     "lucide-vue-next": "^1.0.0",
     "reka-ui": "^2.9.2",
     "tailwind-merge": "^3.5.0",
     "tailwindcss": "^4.2.2",
     "vue": "^3.5.31",
-    "vkas": "workspace:*",
+    "vue-kaspa": "workspace:*",
     "vue-router": "^5.0.4"
   },
   "devDependencies": {

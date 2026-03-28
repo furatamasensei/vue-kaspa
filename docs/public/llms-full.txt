@@ -2,18 +2,18 @@
 
 > Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by kaspa-wasm.
 
-Package: vkas
+Package: vue-kaspa
 Version: 0.1.0
 Peer deps: vue >= 3.4.0, kaspa-wasm >= 1.1.0, @nuxt/kit ^3.0.0 (optional)
 Types: ./dist/index.d.ts
-Nuxt entry: vkas/nuxt
+Nuxt entry: vue-kaspa/nuxt
 
 ---
 
 ## Installation
 
 ```bash
-npm install vkas kaspa-wasm
+npm install vue-kaspa kaspa-wasm
 ```
 
 Vite config (required):
@@ -30,7 +30,7 @@ optimizeDeps.exclude: ['kaspa-wasm']
 ## Vue Plugin Setup
 
 ```ts
-import { KaspaPlugin } from 'vkas'
+import { KaspaPlugin } from 'vue-kaspa'
 app.use(KaspaPlugin, { network: 'mainnet', autoConnect: true })
 ```
 
@@ -38,7 +38,7 @@ app.use(KaspaPlugin, { network: 'mainnet', autoConnect: true })
 
 ```ts
 // nuxt.config.ts
-modules: ['vkas/nuxt']
+modules: ['vue-kaspa/nuxt']
 kaspa: { network: 'mainnet', autoConnect: true, panicHook: 'browser' }
 // composables are auto-imported — no explicit imports in .vue files
 ```
@@ -286,7 +286,7 @@ Singleton: changing currentNetwork affects all composable instances.
 ## Error Classes
 
 ```ts
-import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vkas'
+import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'
 
 // Hierarchy:
 // Error
@@ -338,7 +338,7 @@ const AVAILABLE_NETWORKS: readonly KaspaNetwork[]
 
 ```ts
 import { createApp } from 'vue'
-import { KaspaPlugin, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vkas'
+import { KaspaPlugin, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
 
 // 1. Install plugin
 const app = createApp(App)

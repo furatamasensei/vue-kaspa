@@ -4,11 +4,11 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useCrypto, useRpc, type MempoolEntry } from 'vkas'
 import { ref } from 'vue'
+import { useCrypto, useRpc, type MempoolEntry } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
-const EXAMPLE = `import { useRpc } from 'vkas'
+const EXAMPLE = `import { useRpc } from 'vue-kaspa'
 
 const rpc = useRpc()
 

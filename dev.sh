@@ -74,7 +74,7 @@ command -v pnpm &>/dev/null || die "pnpm not found. Run: npm install -g pnpm"
 # ── auto-install if node_modules is missing or lock file is newer ─────────────
 needs_install() {
   [[ ! -d "$ROOT/node_modules" ]] && return 0
-  [[ ! -d "$ROOT/packages/vkas/node_modules" ]] && return 0
+  [[ ! -d "$ROOT/packages/vue-kaspa/node_modules" ]] && return 0
   [[ ! -d "$ROOT/playground/node_modules" ]] && return 0
   [[ ! -d "$ROOT/docs/node_modules" ]] && return 0
   [[ "$ROOT/pnpm-lock.yaml" -nt "$ROOT/node_modules/.modules.yaml" ]] && return 0
@@ -144,9 +144,9 @@ case "$MODE" in
     info "Stopping servers..."
     stop_service playground
     stop_service docs
-    info "Rebuilding vkas library..."
-    pnpm --filter vkas build
-    success "Library rebuilt → packages/vkas/dist/"
+    info "Rebuilding vue-kaspa library..."
+    pnpm --filter vue-kaspa build
+    success "Library rebuilt → packages/vue-kaspa/dist/"
     info "Restarting servers..."
     start_service playground pnpm --filter playground dev
     start_service docs pnpm --filter docs dev
@@ -163,28 +163,28 @@ case "$MODE" in
 
   test)
     info "Running tests..."
-    pnpm --filter vkas test
+    pnpm --filter vue-kaspa test
     success "All tests passed."
     ;;
 
   test:watch)
     info "Tests in watch mode (Ctrl+C to exit)..."
-    pnpm --filter vkas test:watch
+    pnpm --filter vue-kaspa test:watch
     ;;
 
   build)
-    info "Building vkas library..."
-    pnpm --filter vkas build
-    success "Built → packages/vkas/dist/"
+    info "Building vue-kaspa library..."
+    pnpm --filter vue-kaspa build
+    success "Built → packages/vue-kaspa/dist/"
     ;;
 
   ci)
     # Full pipeline: test → build → playground build (no server)
     info "Running tests..."
-    pnpm --filter vkas test
+    pnpm --filter vue-kaspa test
     success "Tests passed."
     info "Building library..."
-    pnpm --filter vkas build
+    pnpm --filter vue-kaspa build
     success "Library built."
     info "Building playground..."
     pnpm --filter playground build

@@ -25,7 +25,7 @@ export async function ensureWasmInit(options: KaspaPluginOptions): Promise<void>
   state.error = null
 
   initPromise = (async () => {
-    const mod = await import('kaspa-wasm')
+    const mod = await import('@vue-kaspa/kaspa-wasm')
     await mod.default()
 
     if (options.panicHook === 'browser') {

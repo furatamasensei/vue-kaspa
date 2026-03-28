@@ -1,6 +1,6 @@
 # Introduction
 
-**VKAS** is a Vue 3 plugin that provides reactive composables for interacting with the [Kaspa](https://kaspa.org) blockchain. It wraps [`kaspa-wasm`](https://www.npmjs.com/package/kaspa-wasm) — the official WebAssembly SDK — and exposes its functionality through idiomatic Vue 3 APIs.
+**VKAS** is a Vue 3 plugin that provides reactive composables for interacting with the [Kaspa](https://kaspa.org) blockchain. It wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) — the official WebAssembly SDK — and exposes its functionality through idiomatic Vue 3 APIs.
 
 ## What you get
 
@@ -29,7 +29,7 @@ Six composables covering the full workflow:
 └──────────────────────┬──────────────────────────────┘
                        │ WASM calls
 ┌──────────────────────▼──────────────────────────────┐
-│  kaspa-wasm (WebAssembly)                           │
+│  @vue-kaspa/kaspa-wasm (WebAssembly)                           │
 │  RpcClient · PrivateKey · XPrv · createTransactions │
 └─────────────────────────────────────────────────────┘
 ```
@@ -40,19 +40,19 @@ The internal singletons are module-level — there is **one RPC connection** and
 
 ```ts
 // Plugin
-import { KaspaPlugin } from 'vkas'
+import { KaspaPlugin } from 'vue-kaspa'
 
 // Composables
-import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vkas'
+import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
 
 // Error classes
-import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vkas'
+import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'
 
 // Types (TypeScript)
-import type { KaspaPluginOptions, KaspaNetwork, UtxoEntry, PendingTx, /* ... */ } from 'vkas'
+import type { KaspaPluginOptions, KaspaNetwork, UtxoEntry, PendingTx, /* ... */ } from 'vue-kaspa'
 
 // Constants
-import { AVAILABLE_NETWORKS } from 'vkas'
+import { AVAILABLE_NETWORKS } from 'vue-kaspa'
 ```
 
 ## Peer dependencies
@@ -60,7 +60,7 @@ import { AVAILABLE_NETWORKS } from 'vkas'
 | Package | Version |
 |---|---|
 | `vue` | `>=3.4.0` |
-| `kaspa-wasm` | `>=1.1.0` |
+| `@vue-kaspa/kaspa-wasm` | `>=1.1.0` |
 | `@nuxt/kit` | `^3.0.0` *(optional — only needed for the Nuxt module)* |
 
 ## Design principles

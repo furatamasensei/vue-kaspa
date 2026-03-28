@@ -9,12 +9,12 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': resolve(__dirname, './src'),
-      // In dev, resolve vkas directly from source for instant HMR
-      'vkas': resolve(__dirname, '../packages/vkas/src/index.ts'),
+      // In dev, resolve vue-kaspa directly from source for instant HMR
+      'vue-kaspa': resolve(__dirname, '../packages/vue-kaspa/src/index.ts'),
     },
   },
   optimizeDeps: {
-    exclude: ['kaspa-wasm'],
+    exclude: ['@vue-kaspa/kaspa-wasm'],
   },
   server: {
     headers: {

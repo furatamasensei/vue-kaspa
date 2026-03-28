@@ -1,6 +1,6 @@
 import { vi } from 'vitest'
 
-// Global mock for kaspa-wasm is handled by vitest.config.ts resolve alias
+// Global mock for @vue-kaspa/kaspa-wasm is handled by vitest.config.ts resolve alias
 // Additional global setup can go here
 
 // Suppress console.error for expected Vue warnings in tests

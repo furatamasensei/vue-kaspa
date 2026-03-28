@@ -68,7 +68,7 @@ export class RpcManager {
     this.state.error = null
 
     try {
-      const { RpcClient, Resolver, Encoding } = await import('kaspa-wasm')
+      const { RpcClient, Resolver, Encoding } = await import('@vue-kaspa/kaspa-wasm')
 
       const config: Record<string, unknown> = {
         networkId: options.network ?? 'mainnet',

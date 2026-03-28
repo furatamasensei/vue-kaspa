@@ -5,15 +5,15 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useCrypto, useNetwork, useUtxo } from 'vkas'
 import { computed, ref } from 'vue'
+import { useCrypto, useNetwork, useUtxo } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
 const network = useNetwork()
 const utxo = useUtxo()
 const crypto = useCrypto()
 
-const EXAMPLE = computed(() => `import { useUtxo, useRpc } from 'vkas'
+const EXAMPLE = computed(() => `import { useUtxo, useRpc } from 'vue-kaspa'
 
 const utxo = useUtxo()
 
