@@ -6,7 +6,7 @@ VKAS is designed to be LLM-friendly. All APIs are fully TypeScript-typed, compos
 
 ```
 Package:       vue-kaspa
-Version:       0.1.0
+Version:       0.1.2
 npm:           https://www.npmjs.com/package/vue-kaspa
 Peer deps:     vue >= 3.4.0, @vue-kaspa/kaspa-wasm >= 1.1.0
 Types entry:   ./dist/index.d.ts

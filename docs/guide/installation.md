@@ -22,10 +22,10 @@ Both `vue-kaspa` and `@vue-kaspa/kaspa-wasm` are required. `@vue-kaspa/kaspa-was
 
 ## Vite WASM configuration
 
-`@vue-kaspa/kaspa-wasm` uses top-level `await` and WebAssembly instantiation. Vite needs two plugins to handle this:
+`@vue-kaspa/kaspa-wasm` uses WebAssembly instantiation. Add `vite-plugin-wasm` to your Vite config:
 
 ```bash
-npm install -D vite-plugin-wasm vite-plugin-top-level-await
+npm install -D vite-plugin-wasm
 ```
 
 ```ts
@@ -33,10 +33,9 @@ npm install -D vite-plugin-wasm vite-plugin-top-level-await
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import wasm from 'vite-plugin-wasm'
-import topLevelAwait from 'vite-plugin-top-level-await'
 
 export default defineConfig({
-  plugins: [vue(), wasm(), topLevelAwait()],
+  plugins: [vue(), wasm()],
 
   // Required for SharedArrayBuffer / WASM threading
   server: {
@@ -52,8 +51,29 @@ export default defineConfig({
 })
 ```
 
-::: tip CORS headers
+::: tip CORS headers in development
 The `Cross-Origin-Embedder-Policy` and `Cross-Origin-Opener-Policy` headers are required for `SharedArrayBuffer` support used internally by `@vue-kaspa/kaspa-wasm`. Without them, WASM initialization will fail in the browser.
+:::
+
+::: tip CORS headers in production
+The `server.headers` config only applies to the Vite dev server. For production deployments you must set these headers at the hosting layer.
+
+**Vercel** — create a `vercel.json` at the project root:
+```json
+{
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" },
+        { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
+      ]
+    }
+  ]
+}
+```
+
+Other hosts (Netlify, Cloudflare Pages, etc.) have equivalent `_headers` file or dashboard settings.
 :::
 
 ## TypeScript configuration

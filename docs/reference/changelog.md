@@ -1,5 +1,22 @@
 # Changelog
 
+## v0.1.2
+
+### Bug fixes
+
+- **WASM class name preservation** — `@vue-kaspa/kaspa-wasm` now works correctly in minified production builds. wasm-bindgen validates passed JS objects by checking `obj.constructor.name` at runtime; standard bundler minification was renaming all 76 WASM-backed classes to `class e`, causing `"object constructor 'e' does not match expected class 'Resolver'"` errors. The vendor package now calls `Object.defineProperty(ClassName, 'name', { value: 'ClassName' })` after each class definition — string literals survive minification and restore the correct name after class renaming. No user configuration required.
+
+---
+
+## v0.1.1
+
+### Bug fixes
+
+- **Centralized WASM singleton** — all internal modules now access `@vue-kaspa/kaspa-wasm` through a single `loadKaspa()` / `getKaspa()` helper stored on `globalThis`. This prevents class identity mismatches when a bundler emits the kaspa-wasm bindings into more than one chunk.
+- **Package rename** — underlying WASM bindings package renamed to `@vue-kaspa/kaspa-wasm` (scoped, matches the monorepo).
+
+---
+
 ## v0.1.0
 
 Initial release.
