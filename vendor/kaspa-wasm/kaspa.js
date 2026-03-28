@@ -1923,6 +1923,7 @@ export class Abortable {
         wasm.abortable_reset(this.__wbg_ptr);
     }
 }
+Object.defineProperty(Abortable, 'name', { value: 'Abortable' });
 
 const AbortedFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -1953,6 +1954,7 @@ export class Aborted {
         wasm.__wbg_aborted_free(ptr, 0);
     }
 }
+Object.defineProperty(Aborted, 'name', { value: 'Aborted' });
 
 const AccountKindFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2028,6 +2030,7 @@ export class AccountKind {
         }
     }
 }
+Object.defineProperty(AccountKind, 'name', { value: 'AccountKind' });
 
 const AddressFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2197,6 +2200,7 @@ export class Address {
         return ret !== 0;
     }
 }
+Object.defineProperty(Address, 'name', { value: 'Address' });
 
 const AgentConstructorOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2281,6 +2285,7 @@ export class AgentConstructorOptions {
         return ret;
     }
 }
+Object.defineProperty(AgentConstructorOptions, 'name', { value: 'AgentConstructorOptions' });
 
 const AppendFileOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2365,6 +2370,7 @@ export class AppendFileOptions {
         wasm.appendfileoptions_set_mode(this.__wbg_ptr, isLikeNone(value) ? 0x100000001 : (value) >>> 0);
     }
 }
+Object.defineProperty(AppendFileOptions, 'name', { value: 'AppendFileOptions' });
 
 const AssertionErrorOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2452,6 +2458,7 @@ export class AssertionErrorOptions {
         return takeObject(ret);
     }
 }
+Object.defineProperty(AssertionErrorOptions, 'name', { value: 'AssertionErrorOptions' });
 
 const BalanceFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2530,6 +2537,7 @@ export class Balance {
         return takeObject(ret);
     }
 }
+Object.defineProperty(Balance, 'name', { value: 'Balance' });
 
 const BalanceStringsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2602,6 +2610,7 @@ export class BalanceStrings {
         }
     }
 }
+Object.defineProperty(BalanceStrings, 'name', { value: 'BalanceStrings' });
 
 const CompressedParentsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2709,6 +2718,7 @@ export class CompressedParents {
         }
     }
 }
+Object.defineProperty(CompressedParents, 'name', { value: 'CompressedParents' });
 
 const ConsoleConstructorOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2823,6 +2833,7 @@ export class ConsoleConstructorOptions {
         return takeObject(ret);
     }
 }
+Object.defineProperty(ConsoleConstructorOptions, 'name', { value: 'ConsoleConstructorOptions' });
 
 const CreateHookCallbacksFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -2928,6 +2939,7 @@ export class CreateHookCallbacks {
         wasm.createhookcallbacks_set_after(this.__wbg_ptr, addHeapObject(value));
     }
 }
+Object.defineProperty(CreateHookCallbacks, 'name', { value: 'CreateHookCallbacks' });
 
 const CreateReadStreamOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -3102,6 +3114,7 @@ export class CreateReadStreamOptions {
         wasm.createreadstreamoptions_set_start(this.__wbg_ptr, !isLikeNone(value), isLikeNone(value) ? 0 : value);
     }
 }
+Object.defineProperty(CreateReadStreamOptions, 'name', { value: 'CreateReadStreamOptions' });
 
 const CreateWriteStreamOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -3234,6 +3247,7 @@ export class CreateWriteStreamOptions {
         wasm.createwritestreamoptions_set_start(this.__wbg_ptr, !isLikeNone(value), isLikeNone(value) ? 0 : value);
     }
 }
+Object.defineProperty(CreateWriteStreamOptions, 'name', { value: 'CreateWriteStreamOptions' });
 
 const CryptoBoxFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -3372,6 +3386,7 @@ export class CryptoBox {
         }
     }
 }
+Object.defineProperty(CryptoBox, 'name', { value: 'CryptoBox' });
 
 const CryptoBoxPrivateKeyFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -3420,6 +3435,7 @@ export class CryptoBoxPrivateKey {
         }
     }
 }
+Object.defineProperty(CryptoBoxPrivateKey, 'name', { value: 'CryptoBoxPrivateKey' });
 
 const CryptoBoxPublicKeyFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -3488,6 +3504,7 @@ export class CryptoBoxPublicKey {
         }
     }
 }
+Object.defineProperty(CryptoBoxPublicKey, 'name', { value: 'CryptoBoxPublicKey' });
 
 const DerivationPathFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -3605,6 +3622,7 @@ export class DerivationPath {
         return ret !== 0;
     }
 }
+Object.defineProperty(DerivationPath, 'name', { value: 'DerivationPath' });
 
 const FormatInputPathObjectFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -3717,6 +3735,7 @@ export class FormatInputPathObject {
         wasm.formatinputpathobject_set_root(this.__wbg_ptr, isLikeNone(value) ? 0 : addHeapObject(value));
     }
 }
+Object.defineProperty(FormatInputPathObject, 'name', { value: 'FormatInputPathObject' });
 
 const GeneratorFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -3821,6 +3840,7 @@ export class Generator {
         return takeObject(ret);
     }
 }
+Object.defineProperty(Generator, 'name', { value: 'Generator' });
 
 const GeneratorSummaryFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -3934,6 +3954,7 @@ export class GeneratorSummary {
         return ret >>> 0;
     }
 }
+Object.defineProperty(GeneratorSummary, 'name', { value: 'GeneratorSummary' });
 
 const GetNameOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -4024,6 +4045,7 @@ export class GetNameOptions {
         wasm.getnameoptions_set_port(this.__wbg_ptr, value);
     }
 }
+Object.defineProperty(GetNameOptions, 'name', { value: 'GetNameOptions' });
 
 const HashFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -4083,6 +4105,7 @@ export class Hash {
         }
     }
 }
+Object.defineProperty(Hash, 'name', { value: 'Hash' });
 
 const HeaderFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -4433,6 +4456,7 @@ export class Header {
         wasm.header_set_nonce(this.__wbg_ptr, nonce);
     }
 }
+Object.defineProperty(Header, 'name', { value: 'Header' });
 
 const KeypairFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -4613,6 +4637,7 @@ export class Keypair {
         }
     }
 }
+Object.defineProperty(Keypair, 'name', { value: 'Keypair' });
 
 const MkdtempSyncOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -4669,6 +4694,7 @@ export class MkdtempSyncOptions {
         return takeObject(ret);
     }
 }
+Object.defineProperty(MkdtempSyncOptions, 'name', { value: 'MkdtempSyncOptions' });
 
 const MnemonicFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -4840,6 +4866,7 @@ export class Mnemonic {
         return ret !== 0;
     }
 }
+Object.defineProperty(Mnemonic, 'name', { value: 'Mnemonic' });
 
 const NetServerOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -4889,6 +4916,7 @@ export class NetServerOptions {
         wasm.netserveroptions_set_allow_half_open(ptr, isLikeNone(value) ? 0xFFFFFF : value ? 1 : 0);
     }
 }
+Object.defineProperty(NetServerOptions, 'name', { value: 'NetServerOptions' });
 
 const NetworkIdFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -5038,6 +5066,7 @@ export class NetworkId {
         }
     }
 }
+Object.defineProperty(NetworkId, 'name', { value: 'NetworkId' });
 
 const NodeDescriptorFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -5140,6 +5169,7 @@ export class NodeDescriptor {
         wasm.__wbg_set_nodedescriptor_url(this.__wbg_ptr, ptr0, len0);
     }
 }
+Object.defineProperty(NodeDescriptor, 'name', { value: 'NodeDescriptor' });
 
 const OptionalHeaderFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -5388,6 +5418,7 @@ export class OptionalHeader {
         }
     }
 }
+Object.defineProperty(OptionalHeader, 'name', { value: 'OptionalHeader' });
 
 const PSKBFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -5540,6 +5571,7 @@ export class PSKB {
         }
     }
 }
+Object.defineProperty(PSKB, 'name', { value: 'PSKB' });
 
 const PSKTFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -5988,6 +6020,7 @@ export class PSKT {
         }
     }
 }
+Object.defineProperty(PSKT, 'name', { value: 'PSKT' });
 
 const PaymentOutputFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -6063,6 +6096,7 @@ export class PaymentOutput {
         wasm.__wbg_set_paymentoutput_amount(this.__wbg_ptr, arg0);
     }
 }
+Object.defineProperty(PaymentOutput, 'name', { value: 'PaymentOutput' });
 
 const PaymentOutputsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -6104,6 +6138,7 @@ export class PaymentOutputs {
         }
     }
 }
+Object.defineProperty(PaymentOutputs, 'name', { value: 'PaymentOutputs' });
 
 const PendingTransactionFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -6473,6 +6508,7 @@ export class PendingTransaction {
         return takeObject(ret);
     }
 }
+Object.defineProperty(PendingTransaction, 'name', { value: 'PendingTransaction' });
 
 const PipeOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -6516,6 +6552,7 @@ export class PipeOptions {
         wasm.pipeoptions_set_end(ptr, isLikeNone(value) ? 0xFFFFFF : value ? 1 : 0);
     }
 }
+Object.defineProperty(PipeOptions, 'name', { value: 'PipeOptions' });
 
 const PoWFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -6663,6 +6700,7 @@ export class PoW {
         }
     }
 }
+Object.defineProperty(PoW, 'name', { value: 'PoW' });
 
 const PrivateKeyFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -6821,6 +6859,7 @@ export class PrivateKey {
         }
     }
 }
+Object.defineProperty(PrivateKey, 'name', { value: 'PrivateKey' });
 
 const PrivateKeyGeneratorFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -6913,6 +6952,7 @@ export class PrivateKeyGenerator {
         }
     }
 }
+Object.defineProperty(PrivateKeyGenerator, 'name', { value: 'PrivateKeyGenerator' });
 
 const ProcessSendOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -6954,6 +6994,7 @@ export class ProcessSendOptions {
         return this;
     }
 }
+Object.defineProperty(ProcessSendOptions, 'name', { value: 'ProcessSendOptions' });
 
 const PrvKeyDataInfoFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -7026,6 +7067,7 @@ export class PrvKeyDataInfo {
         }
     }
 }
+Object.defineProperty(PrvKeyDataInfo, 'name', { value: 'PrvKeyDataInfo' });
 
 const PublicKeyFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -7161,6 +7203,7 @@ export class PublicKey {
         }
     }
 }
+Object.defineProperty(PublicKey, 'name', { value: 'PublicKey' });
 
 const PublicKeyGeneratorFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -7648,6 +7691,7 @@ export class PublicKeyGenerator {
         }
     }
 }
+Object.defineProperty(PublicKeyGenerator, 'name', { value: 'PublicKeyGenerator' });
 
 const ReadStreamFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -7787,6 +7831,7 @@ export class ReadStream {
         }
     }
 }
+Object.defineProperty(ReadStream, 'name', { value: 'ReadStream' });
 
 const ResolverFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -7917,6 +7962,7 @@ export class Resolver {
         return takeObject(ret);
     }
 }
+Object.defineProperty(Resolver, 'name', { value: 'Resolver' });
 
 const RpcClientFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -9162,6 +9208,7 @@ export class RpcClient {
         }
     }
 }
+Object.defineProperty(RpcClient, 'name', { value: 'RpcClient' });
 
 const ScriptBuilderFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -9455,6 +9502,7 @@ export class ScriptBuilder {
         }
     }
 }
+Object.defineProperty(ScriptBuilder, 'name', { value: 'ScriptBuilder' });
 
 const ScriptPublicKeyFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -9549,6 +9597,7 @@ export class ScriptPublicKey {
         wasm.__wbg_set_scriptpublickey_version(this.__wbg_ptr, arg0);
     }
 }
+Object.defineProperty(ScriptPublicKey, 'name', { value: 'ScriptPublicKey' });
 
 const SetAadOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -9618,6 +9667,7 @@ export class SetAadOptions {
         return takeObject(ret);
     }
 }
+Object.defineProperty(SetAadOptions, 'name', { value: 'SetAadOptions' });
 
 const SigHashTypeFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -9637,6 +9687,7 @@ export class SigHashType {
         wasm.__wbg_sighashtype_free(ptr, 0);
     }
 }
+Object.defineProperty(SigHashType, 'name', { value: 'SigHashType' });
 
 const StorageFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -9688,6 +9739,7 @@ export class Storage {
         }
     }
 }
+Object.defineProperty(Storage, 'name', { value: 'Storage' });
 
 const StreamTransformOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -9743,6 +9795,7 @@ export class StreamTransformOptions {
         return takeObject(ret);
     }
 }
+Object.defineProperty(StreamTransformOptions, 'name', { value: 'StreamTransformOptions' });
 
 const TransactionFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -10167,6 +10220,7 @@ export class Transaction {
         }
     }
 }
+Object.defineProperty(Transaction, 'name', { value: 'Transaction' });
 
 const TransactionInputFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -10324,6 +10378,7 @@ export class TransactionInput {
         return ret === 0 ? undefined : UtxoEntryReference.__wrap(ret);
     }
 }
+Object.defineProperty(TransactionInput, 'name', { value: 'TransactionInput' });
 
 const TransactionOutpointFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -10425,6 +10480,7 @@ export class TransactionOutpoint {
         }
     }
 }
+Object.defineProperty(TransactionOutpoint, 'name', { value: 'TransactionOutpoint' });
 
 const TransactionOutputFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -10505,6 +10561,7 @@ export class TransactionOutput {
         wasm.transactionoutput_set_value(this.__wbg_ptr, v);
     }
 }
+Object.defineProperty(TransactionOutput, 'name', { value: 'TransactionOutput' });
 
 const TransactionRecordFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -10744,6 +10801,7 @@ export class TransactionRecord {
         wasm.__wbg_set_transactionrecord_metadata(this.__wbg_ptr, ptr0, len0);
     }
 }
+Object.defineProperty(TransactionRecord, 'name', { value: 'TransactionRecord' });
 
 const TransactionRecordNotificationFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -10824,6 +10882,7 @@ export class TransactionRecordNotification {
         wasm.__wbg_set_transactionrecordnotification_data(this.__wbg_ptr, ptr0);
     }
 }
+Object.defineProperty(TransactionRecordNotification, 'name', { value: 'TransactionRecordNotification' });
 
 const TransactionSigningHashFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -10886,6 +10945,7 @@ export class TransactionSigningHash {
         }
     }
 }
+Object.defineProperty(TransactionSigningHash, 'name', { value: 'TransactionSigningHash' });
 
 const TransactionSigningHashECDSAFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -10948,6 +11008,7 @@ export class TransactionSigningHashECDSA {
         }
     }
 }
+Object.defineProperty(TransactionSigningHashECDSA, 'name', { value: 'TransactionSigningHashECDSA' });
 
 const TransactionUtxoEntryFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -11040,6 +11101,7 @@ export class TransactionUtxoEntry {
         wasm.__wbg_set_transactionutxoentry_isCoinbase(this.__wbg_ptr, arg0);
     }
 }
+Object.defineProperty(TransactionUtxoEntry, 'name', { value: 'TransactionUtxoEntry' });
 
 const UserInfoOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -11096,6 +11158,7 @@ export class UserInfoOptions {
         return takeObject(ret);
     }
 }
+Object.defineProperty(UserInfoOptions, 'name', { value: 'UserInfoOptions' });
 
 const UtxoContextFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -11327,6 +11390,7 @@ export class UtxoContext {
         }
     }
 }
+Object.defineProperty(UtxoContext, 'name', { value: 'UtxoContext' });
 
 const UtxoEntriesFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -11417,6 +11481,7 @@ export class UtxoEntries {
         }
     }
 }
+Object.defineProperty(UtxoEntries, 'name', { value: 'UtxoEntries' });
 
 const UtxoEntryFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -11568,6 +11633,7 @@ export class UtxoEntry {
         }
     }
 }
+Object.defineProperty(UtxoEntry, 'name', { value: 'UtxoEntry' });
 
 const UtxoEntryReferenceFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -11682,6 +11748,7 @@ export class UtxoEntryReference {
         return TransactionOutpoint.__wrap(ret);
     }
 }
+Object.defineProperty(UtxoEntryReference, 'name', { value: 'UtxoEntryReference' });
 
 const UtxoProcessorFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -11905,6 +11972,7 @@ export class UtxoProcessor {
         return ret !== 0;
     }
 }
+Object.defineProperty(UtxoProcessor, 'name', { value: 'UtxoProcessor' });
 
 const WalletFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -12534,6 +12602,7 @@ export class Wallet {
         return ret !== 0;
     }
 }
+Object.defineProperty(Wallet, 'name', { value: 'Wallet' });
 
 const WalletDescriptorFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -12628,6 +12697,7 @@ export class WalletDescriptor {
         wasm.__wbg_set_walletdescriptor_filename(this.__wbg_ptr, ptr0, len0);
     }
 }
+Object.defineProperty(WalletDescriptor, 'name', { value: 'WalletDescriptor' });
 
 const WasiOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -12729,6 +12799,7 @@ export class WasiOptions {
         wasm.wasioptions_set_args(this.__wbg_ptr, ptr0, len0);
     }
 }
+Object.defineProperty(WasiOptions, 'name', { value: 'WasiOptions' });
 
 const WriteFileSyncOptionsFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -12798,6 +12869,7 @@ export class WriteFileSyncOptions {
         wasm.writefilesyncoptions_set_mode(this.__wbg_ptr, isLikeNone(value) ? 0x100000001 : (value) >>> 0);
     }
 }
+Object.defineProperty(WriteFileSyncOptions, 'name', { value: 'WriteFileSyncOptions' });
 
 const WriteStreamFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -12937,6 +13009,7 @@ export class WriteStream {
         }
     }
 }
+Object.defineProperty(WriteStream, 'name', { value: 'WriteStream' });
 
 const XOnlyPublicKeyFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -13079,6 +13152,7 @@ export class XOnlyPublicKey {
         }
     }
 }
+Object.defineProperty(XOnlyPublicKey, 'name', { value: 'XOnlyPublicKey' });
 
 const XPrvFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -13405,6 +13479,7 @@ export class XPrv {
         }
     }
 }
+Object.defineProperty(XPrv, 'name', { value: 'XPrv' });
 
 const XPubFinalization = (typeof FinalizationRegistry === 'undefined')
     ? { register: () => {}, unregister: () => {} }
@@ -13635,6 +13710,7 @@ export class XPub {
         }
     }
 }
+Object.defineProperty(XPub, 'name', { value: 'XPub' });
 
 async function __wbg_load(module, imports) {
     if (typeof Response === 'function' && module instanceof Response) {

@@ -20,5 +20,8 @@
   "types": "kaspa.d.ts",
   "sideEffects": [
     "./snippets/*"
-  ]
+  ],
+  "scripts": {
+    "patch": "node patch-class-names.mjs"
+  }
 }

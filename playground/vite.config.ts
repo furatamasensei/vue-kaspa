@@ -29,15 +29,6 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      // kaspa-wasm (wasm-bindgen) embeds class names like "Resolver",
-      // "RpcClient" in the WASM binary and validates them via
-      // obj.constructor.name at runtime. Vite's minifier renames every
-      // unexported class to a single-letter identifier, causing the WASM
-      // type check to fail with "object constructor `e` does not match
-      // expected class `Resolver`". Disabling minification preserves the
-      // original class names. The playground is a demo app; bundle size
-      // is not a concern.
-      minify: false,
       rollupOptions: {
         output: {
           // Keep kaspa-wasm bindings in a single dedicated chunk so all
