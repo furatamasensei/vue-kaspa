@@ -44,7 +44,8 @@ jobs:
       - run: pnpm --filter vue-kaspa build
       - run: pnpm --filter vue-kaspa test
       - name: Publish vue-kaspa to npm (Trusted Publishing)
-        run: pnpm publish --filter vue-kaspa --provenance --no-git-checks --access public
+        working-directory: packages/vue-kaspa
+        run: npm publish --provenance --access public
 
   publish-kaspa-wasm:
     needs: release-please
@@ -66,4 +67,5 @@ jobs:
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Publish @vue-kaspa/kaspa-wasm to npm (Trusted Publishing)
-        run: pnpm publish --filter @vue-kaspa/kaspa-wasm --provenance --no-git-checks --access public
+        working-directory: vendor/kaspa-wasm
+        run: npm publish --provenance --access public
