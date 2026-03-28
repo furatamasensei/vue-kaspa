@@ -29,24 +29,26 @@ export default defineNuxtModule<ModuleOptions>({
     panicHook: 'browser',
   },
   setup(options, nuxt: Nuxt) {
-    // Enable proper WASM instantiation in both dev and prod builds.
+    // Enable proper WASM instantiation for browser builds.
     addVitePlugin(wasm())
 
     // Dev server: COOP/COEP headers so SharedArrayBuffer is available in the browser.
     nuxt.options.vite.server ??= {}
     nuxt.options.vite.server.headers = {
       ...COOP_COEP,
-      ...(nuxt.options.vite.server.headers ?? {}),
+      ...(nuxt.options.vite.server.headers as Record<string, string> ?? {}),
     }
 
-    // Production: set the same headers via Nitro route rules.
+    // Production: COOP/COEP headers via Nitro route rules.
     extendRouteRules('/**', { headers: { ...COOP_COEP } })
 
     // Prevent kaspa-wasm from being bundled or evaluated on the server.
     nuxt.options.vite.ssr ??= {}
     const existing = nuxt.options.vite.ssr.external
     if (Array.isArray(existing)) {
-      existing.push('@vue-kaspa/kaspa-wasm')
+      if (!existing.includes('@vue-kaspa/kaspa-wasm')) {
+        existing.push('@vue-kaspa/kaspa-wasm')
+      }
     } else {
       nuxt.options.vite.ssr.external = ['@vue-kaspa/kaspa-wasm']
     }
@@ -54,7 +56,9 @@ export default defineNuxtModule<ModuleOptions>({
     // Prevent Vite from pre-bundling kaspa-wasm (incompatible with Vite optimizeDeps).
     nuxt.options.vite.optimizeDeps ??= {}
     nuxt.options.vite.optimizeDeps.exclude ??= []
-    nuxt.options.vite.optimizeDeps.exclude.push('@vue-kaspa/kaspa-wasm')
+    if (!nuxt.options.vite.optimizeDeps.exclude.includes('@vue-kaspa/kaspa-wasm')) {
+      nuxt.options.vite.optimizeDeps.exclude.push('@vue-kaspa/kaspa-wasm')
+    }
 
     // Inject a client-only plugin that installs KaspaPlugin with the resolved options.
     addPluginTemplate({

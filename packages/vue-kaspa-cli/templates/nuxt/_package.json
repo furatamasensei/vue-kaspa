@@ -12,5 +12,8 @@
     "@vue-kaspa/kaspa-wasm": "^1.2.0",
     "nuxt": "^4.4.2",
     "vue-kaspa": "^0.1.0"
+  },
+  "devDependencies": {
+    "vite-plugin-wasm": "^3.6.0"
   }
 }
