@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.4](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.3...vue-kaspa-v0.1.4) (2026-03-28)
+
+
+### Bug Fixes
+
+* support Nuxt 4 in module and CLI template ([990007f](https://github.com/furatamasensei/vue-kaspa/commit/990007f63012854ef0d3bab8d0185c1be8e04e2c))
+
 ## [0.1.3](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.2...vue-kaspa-v0.1.3) (2026-03-28)
 
 
