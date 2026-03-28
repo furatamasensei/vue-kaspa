@@ -31,8 +31,22 @@ start_service() {
 
   # Start detached
   "$@" > "$log_file" 2>&1 &
-  echo $! > "$pid_file"
-  success "$name started (pid $!, log: .dev-logs/$name.log)"
+  local pid=$!
+  echo "$pid" > "$pid_file"
+
+  # Wait up to 10s for the server URL to appear in the log
+  local url="" elapsed=0
+  while [[ -z "$url" && $elapsed -lt 10 ]]; do
+    sleep 0.5
+    elapsed=$((elapsed + 1))
+    url=$(grep -o 'http://localhost:[0-9]*' "$log_file" 2>/dev/null | head -1)
+  done
+
+  if [[ -n "$url" ]]; then
+    success "$name → $url  (pid $pid, log: .dev-logs/$name.log)"
+  else
+    warn "$name started but URL not detected yet (pid $pid, log: .dev-logs/$name.log)"
+  fi
 }
 
 stop_service() {
@@ -79,22 +93,16 @@ MODE="${1:-all}"
 case "$MODE" in
   dev)
     start_service playground pnpm --filter playground dev
-    echo ""
-    info "Playground → http://localhost:5173  (tail: ./dev.sh logs playground)"
     ;;
 
   docs)
     start_service docs pnpm --filter docs dev
-    echo ""
-    info "Docs → http://localhost:5173  (tail: ./dev.sh logs docs)"
     ;;
 
   all)
     start_service playground pnpm --filter playground dev
     start_service docs pnpm --filter docs dev
     echo ""
-    info "Playground → http://localhost:5173"
-    info "Docs       → http://localhost:5174"
     info "Tail logs  → ./dev.sh logs"
     info "Stop all   → ./dev.sh stop"
     ;;
