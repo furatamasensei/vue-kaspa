@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.6](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.5...vue-kaspa-v0.1.6) (2026-03-28)
+
+
+### Bug Fixes
+
+* **nuxt:** ensure vite-plugin-wasm applies in Nuxt 4 ([7b25fde](https://github.com/furatamasensei/vue-kaspa/commit/7b25fde64334b193a5a2a7e0eeec2169cca64256))
+
 ## [0.1.5](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.4...vue-kaspa-v0.1.5) (2026-03-28)
 
 
