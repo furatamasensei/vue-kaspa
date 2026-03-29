@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.9](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.8...vue-kaspa-cli-v0.1.9) (2026-03-29)
+
+
+### Features
+
+* redesign KaspaStatus with Γ bento layout, shine effect, dark mode, and donate dialog ([06132dc](https://github.com/furatamasensei/vue-kaspa/commit/06132dc090d61cd7eb66e21ba8405f5242eac6e3))
+
 ## [0.1.8](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.7...vue-kaspa-cli-v0.1.8) (2026-03-29)
 
 
