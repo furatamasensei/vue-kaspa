@@ -1,12 +1,12 @@
 ---
 layout: home
 hero:
-  name: VKAS
+  name: Vue Kaspa
   text: 最速チェーンと優れた開発体験
   tagline: Kaspa は速い！でも Vue で動かすのは悪夢でした。このプラグインがそれを簡単にします。
   image:
     src: /logo.png
-    alt: VKAS
+    alt: Vue Kaspa
   actions:
     - theme: brand
       text: はじめる

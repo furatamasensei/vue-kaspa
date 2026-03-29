@@ -1,6 +1,6 @@
 # Modul Nuxt
 
-VKAS menyertakan modul Nuxt kelas satu yang kompatibel dengan **Nuxt 3 dan Nuxt 4**. Modul ini mendaftarkan plugin client-only, melakukan auto-import semua composable, dan menangani semua konfigurasi WASM secara otomatis — tanpa perlu pengaturan Vite manual.
+Vue Kaspa menyertakan modul Nuxt kelas satu yang kompatibel dengan **Nuxt 3 dan Nuxt 4**. Modul ini mendaftarkan plugin client-only, melakukan auto-import semua composable, dan menangani semua konfigurasi WASM secara otomatis — tanpa perlu pengaturan Vite manual.
 
 ## Pengaturan
 

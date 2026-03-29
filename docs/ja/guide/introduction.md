@@ -1,6 +1,6 @@
 # はじめに
 
-**VKAS** は [Kaspa](https://kaspa.org) ブロックチェーンと連携するためのリアクティブなコンポーザブルを提供する Vue 3 プラグインです。公式 WebAssembly SDK である [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) をラップし、その機能を Vue 3 らしい API として公開します。
+**Vue Kaspa** は [Kaspa](https://kaspa.org) ブロックチェーンと連携するためのリアクティブなコンポーザブルを提供する Vue 3 プラグインです。公式 WebAssembly SDK である [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) をラップし、その機能を Vue 3 らしい API として公開します。
 
 ## 提供される機能
 

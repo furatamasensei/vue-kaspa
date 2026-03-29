@@ -96,7 +96,7 @@ const sidebar = (locale: string) => {
 }
 
 export default defineConfig({
-  title: 'VKAS',
+  title: 'Vue Kaspa',
   description: 'Vue 3 composables and Nuxt module for the Kaspa blockchain',
 
   head: [
@@ -153,7 +153,7 @@ export default defineConfig({
 
   themeConfig: {
     logo: '/logo.png',
-    siteTitle: 'VKAS',
+    siteTitle: 'Vue Kaspa',
 
     socialLinks: [
       { icon: 'github', link: 'https://github.com/furatamasensei/vue-kaspa' },

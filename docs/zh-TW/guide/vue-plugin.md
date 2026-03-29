@@ -18,7 +18,7 @@ app.use(KaspaPlugin, {
 app.mount('#app')
 ```
 
-當 `autoConnect: true`（預設值）時，VKAS 會在插件安裝時自動初始化 WASM 模組並連線到 Kaspa 節點。你的元件中無需進行任何額外設定。
+當 `autoConnect: true`（預設值）時，Vue Kaspa 會在插件安裝時自動初始化 WASM 模組並連線到 Kaspa 節點。你的元件中無需進行任何額外設定。
 
 ## 插件選項
 

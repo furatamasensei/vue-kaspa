@@ -1,6 +1,6 @@
 # 簡介
 
-**VKAS** 是一個 Vue 3 插件，提供響應式可組合函式以與 [Kaspa](https://kaspa.org) 區塊鏈互動。它封裝了 [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm)——官方 WebAssembly SDK——並透過慣用的 Vue 3 API 公開其功能。
+**Vue Kaspa** 是一個 Vue 3 插件，提供響應式可組合函式以與 [Kaspa](https://kaspa.org) 區塊鏈互動。它封裝了 [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm)——官方 WebAssembly SDK——並透過慣用的 Vue 3 API 公開其功能。
 
 ## 你將獲得
 

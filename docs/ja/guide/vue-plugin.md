@@ -18,7 +18,7 @@ app.use(KaspaPlugin, {
 app.mount('#app')
 ```
 
-`autoConnect: true` (デフォルト) を指定すると、VKAS はプラグインのインストール時に WASM モジュールを自動的に初期化し、Kaspa ノードに接続します。コンポーネント内での追加セットアップは不要です。
+`autoConnect: true` (デフォルト) を指定すると、Vue Kaspa はプラグインのインストール時に WASM モジュールを自動的に初期化し、Kaspa ノードに接続します。コンポーネント内での追加セットアップは不要です。
 
 ## プラグインオプション
 

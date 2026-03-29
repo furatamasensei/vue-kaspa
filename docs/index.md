@@ -1,12 +1,12 @@
 ---
 layout: home
 hero:
-  name: VKAS
+  name: Vue Kaspa
   text: The Fastest Chain Meets Great DX 
   tagline: Kaspa is fast! But making it works on Vue was a nightmare. This plugin simplifies that.
   image:
     src: /logo.png
-    alt: VKAS
+    alt: Vue Kaspa
   actions:
     - theme: brand
       text: Get Started

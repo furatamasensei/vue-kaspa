@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { Droplet, BookOpen, Search, ArrowUpRight, Heart, Copy, Check } from 'lucide-vue-next'
+import { ArrowUpRight, BookOpen, Check, Copy, Droplet, Heart, Search } from 'lucide-vue-next'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 // useKaspa and useRpc are auto-imported by Nuxt.
 
 const kaspa = useKaspa()
@@ -41,12 +41,12 @@ const daaScore = computed(() =>
 )
 
 const links = [
-  { label: 'Faucet',   title: 'Testnet 10', desc: 'Get free test KAS',    icon: Droplet,    href: 'https://faucet-tn10.kaspanet.io/' },
-  { label: 'Faucet',   title: 'Testnet 12', desc: 'Get free test KAS',    icon: Droplet,    href: 'https://faucet-tn12.kaspanet.io/' },
-  { label: 'Docs',     title: 'VKAS',  desc: 'Read the full docs',   icon: BookOpen,   href: 'https://vue-kaspa.vercel.app/' },
-  { label: 'Explorer', title: 'Testnet 10', desc: 'Browse transactions',  icon: Search,     href: 'https://tn10.kaspa.stream/' },
-  { label: 'Explorer', title: 'Testnet 12', desc: 'Browse transactions',  icon: Search,     href: 'https://tn12.kaspa.stream/' },
-  { label: 'Explorer', title: 'Mainnet',    desc: 'Browse transactions',  icon: Search,     href: 'https://kaspa.stream/' },
+  { label: 'Faucet', title: 'Testnet 10', desc: 'Get free test KAS', icon: Droplet, href: 'https://faucet-tn10.kaspanet.io/' },
+  { label: 'Faucet', title: 'Testnet 12', desc: 'Get free test KAS', icon: Droplet, href: 'https://faucet-tn12.kaspanet.io/' },
+  { label: 'Docs', title: 'Vue Kaspa', desc: 'Read the full docs', icon: BookOpen, href: 'https://vue-kaspa.vercel.app/' },
+  { label: 'Explorer', title: 'Testnet 10', desc: 'Browse transactions', icon: Search, href: 'https://tn10.kaspa.stream/' },
+  { label: 'Explorer', title: 'Testnet 12', desc: 'Browse transactions', icon: Search, href: 'https://tn12.kaspa.stream/' },
+  { label: 'Explorer', title: 'Mainnet', desc: 'Browse transactions', icon: Search, href: 'https://kaspa.stream/' },
 ]
 
 function onMouseMove(e: MouseEvent) {
@@ -67,8 +67,9 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   <dialog ref="donateDialog" class="ks-dialog" @click.self="donateDialog?.close()">
     <div class="ks-dialog-inner">
       <button class="ks-dialog-close" @click="donateDialog?.close()">✕</button>
-      <p class="ks-dialog-title">Support VKAS ❤️</p>
-      <p class="ks-dialog-body">VKAS is free and open-source. If it saves you time, consider sending some KAS — every bit helps keep the project alive and maintained.</p>
+      <p class="ks-dialog-title">Support Vue Kaspa ❤️</p>
+      <p class="ks-dialog-body">Vue Kaspa is free and open-source. If it saves you time, consider sending some KAS —
+        every bit helps keep the project alive and maintained.</p>
       <div class="ks-copy-wrap">
         <code class="ks-dialog-addr">{{ KASPA_ADDRESS }}</code>
         <button class="ks-copy-btn" :class="{ copied }" @click="copyAddress">
@@ -85,18 +86,14 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 
     <!-- Header -->
     <header class="ks-header">
-      <img src="/logo.png" alt="VKAS" class="ks-header-logo" />
-      <span class="ks-header-brand">VKAS</span>
+      <img src="/logo.png" alt="Vue Kaspa" class="ks-header-logo" />
+      <span class="ks-header-brand">Vue Kaspa</span>
       <nav class="ks-header-nav">
-        <a
-          href="https://github.com/furatamasensei/vue-kaspa"
-          target="_blank"
-          rel="noopener"
-          class="ks-icon-btn"
-          title="GitHub"
-        >
+        <a href="https://github.com/furatamasensei/vue-kaspa" target="_blank" rel="noopener" class="ks-icon-btn"
+          title="GitHub">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+            <path
+              d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z" />
           </svg>
         </a>
         <button class="ks-icon-btn" title="Support this project" @click="donateDialog?.showModal()">
@@ -108,64 +105,53 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
     <!-- Bento grid -->
     <div ref="bento" class="ks-grid">
 
-        <!-- Network card: col 1–2, row 1–3 -->
-        <div data-shine class="ks-shine ks-net-shine">
-          <div class="ks-card ks-net-card">
-            <div class="ks-net-top">
-              <span class="ks-net-icon">⬡</span>
-              <span
-                class="ks-badge"
-                :style="`border-color:${badgeColor};color:${badgeColor}`"
-              >{{ stateLabel }}</span>
+      <!-- Network card: col 1–2, row 1–3 -->
+      <div data-shine class="ks-shine ks-net-shine">
+        <div class="ks-card ks-net-card">
+          <div class="ks-net-top">
+            <span class="ks-net-icon">⬡</span>
+            <span class="ks-badge" :style="`border-color:${badgeColor};color:${badgeColor}`">{{ stateLabel }}</span>
+          </div>
+          <div class="ks-stats">
+            <div class="ks-stat">
+              <span class="ks-stat-label">Network</span>
+              <span class="ks-stat-value">{{ rpc.networkId.value ?? '—' }}</span>
             </div>
-            <div class="ks-stats">
-              <div class="ks-stat">
-                <span class="ks-stat-label">Network</span>
-                <span class="ks-stat-value">{{ rpc.networkId.value ?? '—' }}</span>
-              </div>
-              <div class="ks-stat">
-                <span class="ks-stat-label">Server version</span>
-                <span class="ks-stat-value">{{ rpc.serverVersion.value ?? '—' }}</span>
-              </div>
-              <div class="ks-stat">
-                <span class="ks-stat-label">DAA Score</span>
-                <span class="ks-stat-value" style="font-family:monospace">{{ daaScore }}</span>
-              </div>
-              <div class="ks-stat">
-                <span class="ks-stat-label">Synced</span>
-                <span
-                  class="ks-stat-value"
-                  :style="`color:${rpc.isConnected.value ? (rpc.isSynced.value ? '#4caf50' : 'var(--ks-text)') : 'var(--ks-muted)'}`"
-                >{{ rpc.isConnected.value ? (rpc.isSynced.value ? 'Yes' : 'Syncing…') : '—' }}</span>
-              </div>
+            <div class="ks-stat">
+              <span class="ks-stat-label">Server version</span>
+              <span class="ks-stat-value">{{ rpc.serverVersion.value ?? '—' }}</span>
+            </div>
+            <div class="ks-stat">
+              <span class="ks-stat-label">DAA Score</span>
+              <span class="ks-stat-value" style="font-family:monospace">{{ daaScore }}</span>
+            </div>
+            <div class="ks-stat">
+              <span class="ks-stat-label">Synced</span>
+              <span class="ks-stat-value"
+                :style="`color:${rpc.isConnected.value ? (rpc.isSynced.value ? '#4caf50' : 'var(--ks-text)') : 'var(--ks-muted)'}`">{{
+                  rpc.isConnected.value ? (rpc.isSynced.value ? 'Yes' : 'Syncing…') : '—' }}</span>
             </div>
           </div>
         </div>
-
-        <!-- Link cards: auto-placed into Γ shape -->
-        <a
-          v-for="link in links"
-          :key="link.href"
-          data-shine
-          class="ks-shine ks-link-shine"
-          :href="link.href"
-          target="_blank"
-          rel="noopener"
-        >
-          <div class="ks-card ks-link-card">
-            <div class="ks-link-top">
-              <component :is="link.icon" :size="20" class="ks-link-icon" />
-              <ArrowUpRight :size="13" class="ks-link-arrow" />
-            </div>
-            <div>
-              <div class="ks-link-label">{{ link.label }}</div>
-              <div class="ks-link-title">{{ link.title }}</div>
-              <div class="ks-link-desc">{{ link.desc }}</div>
-            </div>
-          </div>
-        </a>
-
       </div>
+
+      <!-- Link cards: auto-placed into Γ shape -->
+      <a v-for="link in links" :key="link.href" data-shine class="ks-shine ks-link-shine" :href="link.href"
+        target="_blank" rel="noopener">
+        <div class="ks-card ks-link-card">
+          <div class="ks-link-top">
+            <component :is="link.icon" :size="20" class="ks-link-icon" />
+            <ArrowUpRight :size="13" class="ks-link-arrow" />
+          </div>
+          <div>
+            <div class="ks-link-label">{{ link.label }}</div>
+            <div class="ks-link-title">{{ link.title }}</div>
+            <div class="ks-link-desc">{{ link.desc }}</div>
+          </div>
+        </div>
+      </a>
+
+    </div>
   </div>
 </template>
 
@@ -178,10 +164,30 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 }
 
 /* Header */
-.ks-header { display: flex; align-items: center; gap: .6rem; margin-bottom: .75rem; }
-.ks-header-logo { width: 28px; height: 28px; object-fit: contain; }
-.ks-header-brand { font-size: 1rem; font-weight: 700; color: var(--ks-heading); flex: 1; }
-.ks-header-nav { display: flex; gap: .15rem; }
+.ks-header {
+  display: flex;
+  align-items: center;
+  gap: .6rem;
+  margin-bottom: .75rem;
+}
+
+.ks-header-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
+.ks-header-brand {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--ks-heading);
+  flex: 1;
+}
+
+.ks-header-nav {
+  display: flex;
+  gap: .15rem;
+}
 
 .ks-icon-btn {
   display: inline-flex;
@@ -197,7 +203,11 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   text-decoration: none;
   transition: color .15s, background .15s;
 }
-.ks-icon-btn:hover { color: var(--ks-heading); background: var(--ks-border); }
+
+.ks-icon-btn:hover {
+  color: var(--ks-heading);
+  background: var(--ks-border);
+}
 
 /* Grid */
 .ks-grid {
@@ -210,18 +220,24 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 .ks-shine {
   padding: 1px;
   border-radius: 14px;
-  background: radial-gradient(
-    350px circle at var(--x, -9999px) var(--y, -9999px),
-    var(--ks-shine),
-    var(--ks-border) 80%
-  );
+  background: radial-gradient(350px circle at var(--x, -9999px) var(--y, -9999px),
+      var(--ks-shine),
+      var(--ks-border) 80%);
   display: block;
   text-decoration: none;
 }
-.ks-net-shine { grid-column: 1 / span 2; grid-row: 1 / span 3; }
+
+.ks-net-shine {
+  grid-column: 1 / span 2;
+  grid-row: 1 / span 3;
+}
 
 /* Card base */
-.ks-card { border-radius: 13px; background: var(--ks-soft); height: 100%; }
+.ks-card {
+  border-radius: 13px;
+  background: var(--ks-soft);
+  height: 100%;
+}
 
 /* Network card */
 .ks-net-card {
@@ -231,8 +247,19 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   gap: 1.5rem;
   min-height: 320px;
 }
-.ks-net-top { display: flex; align-items: center; justify-content: space-between; }
-.ks-net-icon { font-size: 2.25rem; color: var(--ks-accent); line-height: 1; }
+
+.ks-net-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.ks-net-icon {
+  font-size: 2.25rem;
+  color: var(--ks-accent);
+  line-height: 1;
+}
+
 .ks-badge {
   font-size: .7rem;
   font-weight: 500;
@@ -241,10 +268,33 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   border: 1px solid;
   white-space: nowrap;
 }
-.ks-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
-.ks-stat { display: flex; flex-direction: column; gap: .25rem; }
-.ks-stat-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ks-muted); }
-.ks-stat-value { font-size: .95rem; color: var(--ks-heading); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.ks-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+}
+
+.ks-stat {
+  display: flex;
+  flex-direction: column;
+  gap: .25rem;
+}
+
+.ks-stat-label {
+  font-size: .65rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ks-muted);
+}
+
+.ks-stat-value {
+  font-size: .95rem;
+  color: var(--ks-heading);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 
 /* Link cards */
 .ks-link-card {
@@ -255,12 +305,40 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   gap: .5rem;
   min-height: 100px;
 }
-.ks-link-top { display: flex; justify-content: space-between; align-items: flex-start; }
-.ks-link-icon { color: var(--ks-accent); }
-.ks-link-arrow { color: var(--ks-muted); }
-.ks-link-label { font-size: .58rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ks-muted); margin-bottom: .1rem; }
-.ks-link-title { font-size: .875rem; font-weight: 600; color: var(--ks-heading); }
-.ks-link-desc { font-size: .75rem; color: var(--ks-muted); margin-top: .1rem; }
+
+.ks-link-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.ks-link-icon {
+  color: var(--ks-accent);
+}
+
+.ks-link-arrow {
+  color: var(--ks-muted);
+}
+
+.ks-link-label {
+  font-size: .58rem;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--ks-muted);
+  margin-bottom: .1rem;
+}
+
+.ks-link-title {
+  font-size: .875rem;
+  font-weight: 600;
+  color: var(--ks-heading);
+}
+
+.ks-link-desc {
+  font-size: .75rem;
+  color: var(--ks-muted);
+  margin-top: .1rem;
+}
 
 /* Dialog */
 .ks-dialog {
@@ -274,7 +352,12 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   color: var(--ks-text);
   box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
 }
-.ks-dialog-inner { padding: 2rem; position: relative; }
+
+.ks-dialog-inner {
+  padding: 2rem;
+  position: relative;
+}
+
 .ks-dialog-close {
   position: absolute;
   top: 1rem;
@@ -287,15 +370,31 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   padding: .25rem;
   line-height: 1;
 }
-.ks-dialog-close:hover { color: var(--ks-heading); }
-.ks-dialog-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; color: var(--ks-heading); }
-.ks-dialog-body { font-size: .875rem; color: var(--ks-muted); margin: 0 0 1.25rem; line-height: 1.65; }
+
+.ks-dialog-close:hover {
+  color: var(--ks-heading);
+}
+
+.ks-dialog-title {
+  margin: 0 0 .75rem;
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--ks-heading);
+}
+
+.ks-dialog-body {
+  font-size: .875rem;
+  color: var(--ks-muted);
+  margin: 0 0 1.25rem;
+  line-height: 1.65;
+}
 
 .ks-copy-wrap {
   display: flex;
   flex-direction: column;
   gap: .5rem;
 }
+
 .ks-dialog-addr {
   display: block;
   padding: .6em .85em;
@@ -308,6 +407,7 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   white-space: normal;
   color: var(--ks-text);
 }
+
 .ks-copy-btn {
   display: inline-flex;
   align-items: center;
@@ -322,10 +422,23 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   cursor: pointer;
   transition: color .15s, border-color .15s;
 }
-.ks-copy-btn:hover { color: var(--ks-heading); border-color: var(--ks-heading); }
-.ks-copy-btn.copied { color: #4caf50; border-color: #4caf50; }
 
-.ks-dialog-thanks { font-size: .8rem; color: var(--ks-muted); margin: .75rem 0 0; text-align: center; }
+.ks-copy-btn:hover {
+  color: var(--ks-heading);
+  border-color: var(--ks-heading);
+}
+
+.ks-copy-btn.copied {
+  color: #4caf50;
+  border-color: #4caf50;
+}
+
+.ks-dialog-thanks {
+  font-size: .8rem;
+  color: var(--ks-muted);
+  margin: .75rem 0 0;
+  text-align: center;
+}
 </style>
 
 <style>

@@ -1,11 +1,11 @@
-# VKAS
+# Vue Kaspa
 
 > Vue 3 composables and Nuxt module for the Kaspa blockchain — powered by WASM.
 
 [![npm](https://img.shields.io/npm/v/vue-kaspa)](https://www.npmjs.com/package/vue-kaspa)
 [![license](https://img.shields.io/github/license/furatamasensei/vue-kaspa)](./LICENSE)
 
-VKAS wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) with Vue 3 reactivity, giving you idiomatic composables to connect, query, track balances, build transactions, and manage keys — with full TypeScript support.
+Vue Kaspa wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) with Vue 3 reactivity, giving you idiomatic composables to connect, query, track balances, build transactions, and manage keys — with full TypeScript support.
 
 ## Features
 

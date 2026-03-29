@@ -18,7 +18,7 @@ app.use(KaspaPlugin, {
 app.mount('#app')
 ```
 
-Dengan `autoConnect: true` (default), VKAS secara otomatis menginisialisasi modul WASM dan terhubung ke node Kaspa saat plugin dipasang. Tidak diperlukan pengaturan tambahan di komponen Anda.
+Dengan `autoConnect: true` (default), Vue Kaspa secara otomatis menginisialisasi modul WASM dan terhubung ke node Kaspa saat plugin dipasang. Tidak diperlukan pengaturan tambahan di komponen Anda.
 
 ## Opsi plugin
 

@@ -1,12 +1,12 @@
 # エラーハンドリング
 
-VKAS は構造化されたエラー階層を使用しており、エラーの種類によって捕捉・処理できます。
+Vue Kaspa は構造化されたエラー階層を使用しており、エラーの種類によって捕捉・処理できます。
 
 ## エラー階層
 
 ```
 Error
-└── KaspaError                  (ベース — すべての VKAS エラーはこれを継承)
+└── KaspaError                  (ベース — すべての Vue Kaspa エラーはこれを継承)
     ├── KaspaNotReadyError       WASM がまだ初期化されていない
     ├── KaspaRpcError            RPC メソッド呼び出しが失敗した
     ├── KaspaWalletError         ウォレット操作が失敗した
@@ -27,7 +27,7 @@ import {
 
 ## KaspaError (ベース)
 
-すべての VKAS エラーは `KaspaError` を継承します。`@vue-kaspa/kaspa-wasm` からの基底エラーを保持するオプションの `.cause` を持ちます。
+すべての Vue Kaspa エラーは `KaspaError` を継承します。`@vue-kaspa/kaspa-wasm` からの基底エラーを保持するオプションの `.cause` を持ちます。
 
 ```ts
 try {

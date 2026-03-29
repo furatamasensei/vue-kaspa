@@ -1,6 +1,6 @@
 # Vue DevTools
 
-VKAS terintegrasi dengan [Vue DevTools](https://devtools.vuejs.org) untuk memberikan visibilitas langsung ke status WASM, state RPC, dan event blockchain — tanpa console.log.
+Vue Kaspa terintegrasi dengan [Vue DevTools](https://devtools.vuejs.org) untuk memberikan visibilitas langsung ke status WASM, state RPC, dan event blockchain — tanpa console.log.
 
 Integrasi DevTools diaktifkan secara otomatis dalam mode pengembangan dan dinonaktifkan di produksi.
 
@@ -68,4 +68,4 @@ Kode integrasi DevTools diimpor secara dinamis. Ketika `devtools: false`, kode t
 ## Persyaratan
 
 - [Ekstensi browser Vue DevTools](https://devtools.vuejs.org/guide/installation) atau aplikasi Electron standalone
-- Vue DevTools API v8 (dibundel dengan `@vue/devtools-api ^8.1.1`, disertakan sebagai dependensi VKAS)
+- Vue DevTools API v8 (dibundel dengan `@vue/devtools-api ^8.1.1`, disertakan sebagai dependensi Vue Kaspa)

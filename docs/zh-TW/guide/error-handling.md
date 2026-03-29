@@ -1,12 +1,12 @@
 # 錯誤處理
 
-VKAS 使用結構化的錯誤層級體系，讓你可以依型別捕捉並處理錯誤。
+Vue Kaspa 使用結構化的錯誤層級體系，讓你可以依型別捕捉並處理錯誤。
 
 ## 錯誤層級
 
 ```
 Error
-└── KaspaError                  (基礎類別——所有 VKAS 錯誤均繼承自此)
+└── KaspaError                  (基礎類別——所有 Vue Kaspa 錯誤均繼承自此)
     ├── KaspaNotReadyError       WASM 尚未初始化
     ├── KaspaRpcError            RPC 方法呼叫失敗
     ├── KaspaWalletError         錢包操作失敗
@@ -27,7 +27,7 @@ import {
 
 ## KaspaError（基礎類別）
 
-所有 VKAS 錯誤均繼承自 `KaspaError`。它攜帶一個選用的 `.cause`，用於存放來自 `@vue-kaspa/kaspa-wasm` 的底層錯誤。
+所有 Vue Kaspa 錯誤均繼承自 `KaspaError`。它攜帶一個選用的 `.cause`，用於存放來自 `@vue-kaspa/kaspa-wasm` 的底層錯誤。
 
 ```ts
 try {

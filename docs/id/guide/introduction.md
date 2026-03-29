@@ -1,6 +1,6 @@
 # Pengantar
 
-**VKAS** adalah plugin Vue 3 yang menyediakan composable reaktif untuk berinteraksi dengan blockchain [Kaspa](https://kaspa.org). Plugin ini membungkus [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) — SDK WebAssembly resmi — dan mengekspos fungsionalitasnya melalui API Vue 3 yang idiomatis.
+**Vue Kaspa** adalah plugin Vue 3 yang menyediakan composable reaktif untuk berinteraksi dengan blockchain [Kaspa](https://kaspa.org). Plugin ini membungkus [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) — SDK WebAssembly resmi — dan mengekspos fungsionalitasnya melalui API Vue 3 yang idiomatis.
 
 ## Apa yang Anda dapatkan
 

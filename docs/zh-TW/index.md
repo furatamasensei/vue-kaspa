@@ -1,12 +1,12 @@
 ---
 layout: home
 hero:
-  name: VKAS
+  name: Vue Kaspa
   text: 最快的區塊鏈，最佳的開發體驗
   tagline: Kaspa 速度飛快！但要讓它在 Vue 上運作曾是一場噩夢。這個插件讓一切變得簡單。
   image:
     src: /logo.png
-    alt: VKAS
+    alt: Vue Kaspa
   actions:
     - theme: brand
       text: 快速開始

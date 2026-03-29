@@ -1,12 +1,12 @@
 ---
 layout: home
 hero:
-  name: VKAS
+  name: Vue Kaspa
   text: Blockchain Tercepat Bertemu DX Terbaik
   tagline: Kaspa itu cepat! Tapi membuat Kaspa bekerja di Vue adalah mimpi buruk. Plugin ini menyederhanakan segalanya.
   image:
     src: /logo.png
-    alt: VKAS
+    alt: Vue Kaspa
   actions:
     - theme: brand
       text: Mulai

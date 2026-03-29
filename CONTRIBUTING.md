@@ -1,4 +1,4 @@
-# Contributing to VKAS
+# Contributing to Vue Kaspa
 
 Thank you for your interest in contributing! This guide covers everything you need to get started.
 

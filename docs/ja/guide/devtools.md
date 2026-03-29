@@ -1,6 +1,6 @@
 # Vue DevTools
 
-VKAS は [Vue DevTools](https://devtools.vuejs.org) と統合し、WASM のステータス、RPC の状態、ブロックチェーンイベントをリアルタイムで確認できます — console.log なしで。
+Vue Kaspa は [Vue DevTools](https://devtools.vuejs.org) と統合し、WASM のステータス、RPC の状態、ブロックチェーンイベントをリアルタイムで確認できます — console.log なしで。
 
 DevTools 統合は開発環境では自動的に有効化され、本番環境では無効化されます。
 
@@ -68,4 +68,4 @@ DevTools 統合のコードは動的インポートされます。`devtools: fal
 ## 要件
 
 - [Vue DevTools ブラウザ拡張機能](https://devtools.vuejs.org/guide/installation) またはスタンドアロンの Electron アプリ
-- Vue DevTools API v8 (VKAS の依存関係として含まれる `@vue/devtools-api ^8.1.1` にバンドル済み)
+- Vue DevTools API v8 (Vue Kaspa の依存関係として含まれる `@vue/devtools-api ^8.1.1` にバンドル済み)

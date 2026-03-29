@@ -1,6 +1,6 @@
 # Nuxt Module
 
-VKAS ships a first-class Nuxt module compatible with **Nuxt 3 and Nuxt 4**. It registers a client-only plugin, auto-imports all composables, and handles all WASM configuration automatically — no manual Vite setup needed.
+Vue Kaspa ships a first-class Nuxt module compatible with **Nuxt 3 and Nuxt 4**. It registers a client-only plugin, auto-imports all composables, and handles all WASM configuration automatically — no manual Vite setup needed.
 
 ## Setup
 

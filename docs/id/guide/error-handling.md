@@ -1,12 +1,12 @@
 # Penanganan Error
 
-VKAS menggunakan hierarki error terstruktur sehingga Anda dapat menangkap dan menangani error berdasarkan tipenya.
+Vue Kaspa menggunakan hierarki error terstruktur sehingga Anda dapat menangkap dan menangani error berdasarkan tipenya.
 
 ## Hierarki error
 
 ```
 Error
-└── KaspaError                  (dasar — semua error VKAS mewarisi ini)
+└── KaspaError                  (dasar — semua error Vue Kaspa mewarisi ini)
     ├── KaspaNotReadyError       WASM belum diinisialisasi
     ├── KaspaRpcError            Pemanggilan metode RPC gagal
     ├── KaspaWalletError         Operasi dompet gagal
@@ -27,7 +27,7 @@ import {
 
 ## KaspaError (dasar)
 
-Semua error VKAS mewarisi `KaspaError`. Error ini membawa `.cause` opsional untuk error yang mendasari dari `@vue-kaspa/kaspa-wasm`.
+Semua error Vue Kaspa mewarisi `KaspaError`. Error ini membawa `.cause` opsional untuk error yang mendasari dari `@vue-kaspa/kaspa-wasm`.
 
 ```ts
 try {
