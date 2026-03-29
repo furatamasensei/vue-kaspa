@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useKaspa, useRpc } from 'vue-kaspa'
 
 const kaspa = useKaspa()
 const rpc = useRpc()
+const bento = ref<HTMLElement | null>(null)
+const donateDialog = ref<HTMLDialogElement | null>(null)
 
 const stateLabel = computed(() => {
   if (kaspa.wasmStatus.value === 'loading') return 'Loading WASM…'
@@ -17,11 +19,11 @@ const stateLabel = computed(() => {
   } as Record<string, string>)[rpc.connectionState.value] ?? rpc.connectionState.value
 })
 
-const stateClass = computed(() => {
-  if (kaspa.wasmStatus.value !== 'ready') return 'badge--pending'
-  if (rpc.connectionState.value === 'connected') return 'badge--ok'
-  if (rpc.connectionState.value === 'error') return 'badge--error'
-  return 'badge--pending'
+const badgeColor = computed(() => {
+  if (kaspa.wasmStatus.value !== 'ready') return 'var(--ks-muted)'
+  if (rpc.connectionState.value === 'connected') return '#4caf50'
+  if (rpc.connectionState.value === 'error') return '#f44336'
+  return 'var(--ks-muted)'
 })
 
 const daaScore = computed(() =>
@@ -29,170 +31,224 @@ const daaScore = computed(() =>
 )
 
 const links = [
-  { label: 'Faucet', title: 'Testnet 10', href: 'https://faucet-tn10.kaspanet.io/' },
-  { label: 'Faucet', title: 'Testnet 12', href: 'https://faucet-tn12.kaspanet.io/' },
-  { label: 'Docs', title: 'vue-kaspa', href: 'https://vue-kaspa.vercel.app/' },
-  { label: 'Explorer', title: 'Testnet 10', href: 'https://tn10.kaspa.stream/' },
-  { label: 'Explorer', title: 'Testnet 12', href: 'https://tn12.kaspa.stream/' },
-  { label: 'Explorer', title: 'Mainnet', href: 'https://kaspa.stream/' },
+  { label: 'Faucet',   title: 'Testnet 10', desc: 'Get free test KAS',    icon: '💧', href: 'https://faucet-tn10.kaspanet.io/' },
+  { label: 'Faucet',   title: 'Testnet 12', desc: 'Get free test KAS',    icon: '💧', href: 'https://faucet-tn12.kaspanet.io/' },
+  { label: 'Docs',     title: 'vue-kaspa',  desc: 'Read the full docs',   icon: '📖', href: 'https://vue-kaspa.vercel.app/' },
+  { label: 'Explorer', title: 'Testnet 10', desc: 'Browse transactions',  icon: '🔍', href: 'https://tn10.kaspa.stream/' },
+  { label: 'Explorer', title: 'Testnet 12', desc: 'Browse transactions',  icon: '🔍', href: 'https://tn12.kaspa.stream/' },
+  { label: 'Explorer', title: 'Mainnet',    desc: 'Browse transactions',  icon: '🔍', href: 'https://kaspa.stream/' },
 ]
+
+function onMouseMove(e: MouseEvent) {
+  const cards = bento.value?.querySelectorAll<HTMLElement>('[data-shine]') ?? []
+  for (const card of cards) {
+    const r = card.getBoundingClientRect()
+    card.style.setProperty('--x', `${e.clientX - r.left}px`)
+    card.style.setProperty('--y', `${e.clientY - r.top}px`)
+  }
+}
+
+onMounted(() => window.addEventListener('mousemove', onMouseMove))
+onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 </script>
 
 <template>
-  <div class="bento">
+  <!-- Donation dialog -->
+  <dialog ref="donateDialog" class="dialog" @click.self="donateDialog?.close()">
+    <div class="dialog-inner">
+      <button class="dialog-close" @click="donateDialog?.close()">✕</button>
+      <p class="dialog-title">Support vue-kaspa ❤️</p>
+      <p class="dialog-body">vue-kaspa is free and open-source. If it saves you time, consider sending some KAS — every bit helps keep the project alive and maintained.</p>
+      <code class="dialog-addr">kaspa:qypr7ayn2g55fccyv9n6gf9zgrcnpepkfgjf9d8mtfp68ezv3mgqnggxqs902q4</code>
+      <p class="dialog-thanks">Thank you for your support 🙏</p>
+    </div>
+  </dialog>
 
-    <!-- Network status card (unchanged) -->
-    <div class="card">
-      <header class="card__header">
-        <span class="logo">⬡</span>
-        <h1 class="card__title">vue-kaspa</h1>
-        <span class="badge" :class="stateClass">{{ stateLabel }}</span>
-      </header>
+  <div class="root">
 
-      <div class="grid">
-        <div class="stat">
-          <span class="stat__label">Network</span>
-          <span class="stat__value">{{ rpc.networkId.value ?? '—' }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat__label">Server version</span>
-          <span class="stat__value">{{ rpc.serverVersion.value ?? '—' }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat__label">DAA Score</span>
-          <span class="stat__value mono">{{ daaScore }}</span>
-        </div>
-        <div class="stat">
-          <span class="stat__label">Synced</span>
-          <span class="stat__value" :class="{ ok: rpc.isSynced.value, muted: !rpc.isConnected.value }">
-            {{ rpc.isConnected.value ? (rpc.isSynced.value ? 'Yes' : 'Syncing…') : '—' }}
-          </span>
+    <!-- Header -->
+    <header class="header">
+      <img src="/logo.png" alt="vue-kaspa" class="header-logo" />
+      <span class="header-brand">vue-kaspa</span>
+      <nav class="header-nav">
+        <a
+          href="https://github.com/furatamasensei/vue-kaspa"
+          target="_blank"
+          rel="noopener"
+          class="icon-btn"
+          title="GitHub"
+        >
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.603-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0112 6.836c.85.004 1.705.114 2.504.337 1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.202 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.578.688.48C19.138 20.163 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+          </svg>
+        </a>
+        <button class="icon-btn" title="Support this project" @click="donateDialog?.showModal()">
+          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
+            <path d="M12 21.593c-.425-.396-8.8-8.044-8.8-12.593C3.2 5.796 7.192 3 12 3s8.8 2.796 8.8 6c0 4.549-8.375 12.197-8.8 12.593z"/>
+          </svg>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Bento grid — Γ layout: net card spans col 1–2 × row 1–3, links fill col 3 then bottom row -->
+    <div ref="bento" class="grid">
+
+      <!-- Network card -->
+      <div data-shine class="shine net-shine">
+        <div class="card net-card">
+          <div class="net-top">
+            <span class="net-icon">⬡</span>
+            <span
+              class="badge"
+              :style="`border-color:${badgeColor};color:${badgeColor}`"
+            >{{ stateLabel }}</span>
+          </div>
+          <div class="stats">
+            <div class="stat">
+              <span class="stat-label">Network</span>
+              <span class="stat-value">{{ rpc.networkId.value ?? '—' }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Server version</span>
+              <span class="stat-value">{{ rpc.serverVersion.value ?? '—' }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">DAA Score</span>
+              <span class="stat-value mono">{{ daaScore }}</span>
+            </div>
+            <div class="stat">
+              <span class="stat-label">Synced</span>
+              <span
+                class="stat-value"
+                :style="`color:${rpc.isConnected.value ? (rpc.isSynced.value ? '#4caf50' : 'var(--ks-text)') : 'var(--ks-muted)'}`"
+              >{{ rpc.isConnected.value ? (rpc.isSynced.value ? 'Yes' : 'Syncing…') : '—' }}</span>
+            </div>
+          </div>
         </div>
       </div>
 
-      <footer class="card__footer">
-        <a href="https://vue-kaspa.vercel.app" target="_blank" rel="noopener">Docs</a>
-        <span>·</span>
-        <a href="https://github.com/furatamasensei/vue-kaspa" target="_blank" rel="noopener">GitHub</a>
-      </footer>
-    </div>
-
-    <!-- Bento link cards -->
-    <div class="link-grid">
+      <!-- Link cards — auto-placed: first 3 fill col 3 rows 1–3, last 3 fill row 4 -->
       <a
         v-for="link in links"
         :key="link.href"
+        data-shine
+        class="shine link-shine"
         :href="link.href"
         target="_blank"
         rel="noopener"
-        class="link-card"
       >
-        <div class="link-card__top">
-          <span class="link-card__label">{{ link.label }}</span>
-          <span class="link-card__arrow">↗</span>
+        <div class="card link-card">
+          <div class="link-top">
+            <span class="link-icon">{{ link.icon }}</span>
+            <span class="link-arrow">↗</span>
+          </div>
+          <div>
+            <div class="link-label">{{ link.label }}</div>
+            <div class="link-title">{{ link.title }}</div>
+            <div class="link-desc">{{ link.desc }}</div>
+          </div>
         </div>
-        <span class="link-card__title">{{ link.title }}</span>
       </a>
-    </div>
 
+    </div>
   </div>
 </template>
 
 <style scoped>
-.bento {
+/* Root */
+.root {
   width: 100%;
-  max-width: 480px;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+  font-family: Inter, system-ui, -apple-system, sans-serif;
 }
-.card {
-  padding: 2rem;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  background: var(--color-background-soft);
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-}
-.card__header { display: flex; align-items: center; gap: .75rem; }
-.logo { font-size: 1.75rem; color: #49c5a3; line-height: 1; }
-.card__title { font-size: 1.25rem; font-weight: 600; color: var(--color-heading); flex: 1; margin: 0; }
-.badge {
-  font-size: .75rem;
-  font-weight: 500;
-  padding: .2em .65em;
-  border-radius: 999px;
-  border: 1px solid currentColor;
-  white-space: nowrap;
-}
-.badge--ok      { color: #4caf50; }
-.badge--pending { color: var(--color-muted, #888); }
-.badge--error   { color: #f44336; }
-.grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-.stat { display: flex; flex-direction: column; gap: .25rem; }
-.stat__label {
-  font-size: .7rem;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: var(--color-muted, #888);
-}
-.stat__value {
-  font-size: .95rem;
-  color: var(--color-heading);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.stat__value.mono  { font-family: monospace; }
-.stat__value.ok    { color: #4caf50; }
-.stat__value.muted { color: var(--color-muted, #888); }
-.card__footer {
-  display: flex;
-  align-items: center;
-  gap: .5rem;
-  font-size: .85rem;
-  border-top: 1px solid var(--color-border);
-  padding-top: 1rem;
-}
-.card__footer a { color: var(--color-text); text-decoration: none; }
-.card__footer a:hover { color: var(--color-heading); }
 
-/* Bento link grid */
-.link-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
-}
-.link-card {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 1rem;
-  border: 1px solid var(--color-border);
-  border-radius: 10px;
-  background: var(--color-background-soft);
-  text-decoration: none;
-  cursor: pointer;
-  transition: border-color 0.15s;
-}
-.link-card:hover { border-color: #49c5a3; }
-.link-card__top {
-  display: flex;
-  justify-content: space-between;
+/* Header */
+.header { display: flex; align-items: center; gap: .6rem; margin-bottom: .75rem; }
+.header-logo { width: 28px; height: 28px; object-fit: contain; }
+.header-brand { font-size: 1rem; font-weight: 700; color: var(--ks-heading); flex: 1; }
+.header-nav { display: flex; gap: .15rem; }
+
+.icon-btn {
+  display: inline-flex;
   align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 8px;
+  border: none;
+  background: transparent;
+  color: var(--ks-muted);
+  cursor: pointer;
+  text-decoration: none;
+  transition: color .15s, background .15s;
 }
-.link-card__label {
-  font-size: .65rem;
-  text-transform: uppercase;
-  letter-spacing: .05em;
-  color: var(--color-muted, #888);
+.icon-btn:hover { color: var(--ks-heading); background: var(--ks-border); }
+
+/* Grid */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: .75rem; }
+
+/* Shine wrapper — 1px padding reveals radial gradient as a glowing border */
+.shine {
+  padding: 1px;
+  border-radius: 14px;
+  background: radial-gradient(
+    350px circle at var(--x, -9999px) var(--y, -9999px),
+    var(--ks-shine),
+    var(--ks-border) 80%
+  );
+  display: block;
+  text-decoration: none;
 }
-.link-card__arrow { font-size: .75rem; color: var(--color-muted, #888); }
-.link-card__title {
-  font-size: .85rem;
-  font-weight: 600;
-  color: var(--color-heading);
+
+/* Network card occupies col 1–2, row 1–3 */
+.net-shine { grid-column: 1 / span 2; grid-row: 1 / span 3; }
+
+/* Card base */
+.card { border-radius: 13px; background: var(--ks-soft); height: 100%; }
+
+/* Network card */
+.net-card { padding: 1.75rem; display: flex; flex-direction: column; gap: 1.5rem; min-height: 320px; }
+.net-top { display: flex; align-items: center; justify-content: space-between; }
+.net-icon { font-size: 2.25rem; color: var(--ks-accent); line-height: 1; }
+.badge { font-size: .7rem; font-weight: 500; padding: .2em .6em; border-radius: 999px; border: 1px solid; white-space: nowrap; }
+.stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
+.stat { display: flex; flex-direction: column; gap: .25rem; }
+.stat-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ks-muted); }
+.stat-value { font-size: .95rem; color: var(--ks-heading); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mono { font-family: monospace; }
+
+/* Link cards */
+.link-card { padding: 1rem; display: flex; flex-direction: column; justify-content: space-between; gap: .5rem; min-height: 100px; }
+.link-top { display: flex; justify-content: space-between; align-items: flex-start; }
+.link-icon { font-size: 1.35rem; line-height: 1; }
+.link-arrow { font-size: .75rem; color: var(--ks-muted); }
+.link-label { font-size: .58rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ks-muted); margin-bottom: .1rem; }
+.link-title { font-size: .875rem; font-weight: 600; color: var(--ks-heading); }
+.link-desc { font-size: .75rem; color: var(--ks-muted); margin-top: .1rem; }
+
+/* Dialog */
+.dialog {
+  border: 1px solid var(--ks-border);
+  border-radius: 16px;
+  padding: 0;
+  max-width: 420px;
+  width: calc(100vw - 2rem);
+  background: var(--ks-surface);
+  color: var(--ks-text);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+}
+.dialog-inner { padding: 2rem; position: relative; }
+.dialog-close { position: absolute; top: 1rem; right: 1rem; background: none; border: none; font-size: .9rem; cursor: pointer; color: var(--ks-muted); padding: .25rem; line-height: 1; }
+.dialog-close:hover { color: var(--ks-heading); }
+.dialog-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; color: var(--ks-heading); }
+.dialog-body { font-size: .875rem; color: var(--ks-muted); margin: 0 0 1.25rem; line-height: 1.65; }
+.dialog-addr { display: block; padding: .6em .85em; border-radius: 8px; background: var(--ks-soft); border: 1px solid var(--ks-border); font-size: .7rem; word-break: break-all; color: var(--ks-text); }
+.dialog-thanks { font-size: .8rem; color: var(--ks-muted); margin: .75rem 0 0; text-align: center; }
+</style>
+
+<style>
+/* ::backdrop can't receive scoped attribute — must be global */
+.dialog::backdrop {
+  background: rgba(0, 0, 0, .5);
+  backdrop-filter: blur(4px);
 }
 </style>

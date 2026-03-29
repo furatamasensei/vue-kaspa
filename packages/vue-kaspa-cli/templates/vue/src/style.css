@@ -1,24 +1,25 @@
-*, *::before, *::after {
-  box-sizing: border-box;
-}
+*, *::before, *::after { box-sizing: border-box; }
 
 :root {
-  --color-background: #ffffff;
-  --color-background-soft: #f9f9f9;
-  --color-border: #e2e8f0;
-  --color-heading: #1a1a1a;
-  --color-text: #374151;
-  --color-muted: #9ca3af;
+  --ks-surface:  #ffffff;
+  --ks-soft:     #f4f4f5;
+  --ks-border:   #e4e4e7;
+  --ks-heading:  #18181b;
+  --ks-text:     #3f3f46;
+  --ks-muted:    #a1a1aa;
+  --ks-accent:   #49c5a3;
+  --ks-shine:    rgba(73, 197, 163, .55);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-background: #1a1a1a;
-    --color-background-soft: #242424;
-    --color-border: #2d2d2d;
-    --color-heading: #ffffff;
-    --color-text: #d1d5db;
-    --color-muted: #6b7280;
+    --ks-surface: #09090b;
+    --ks-soft:    #18181b;
+    --ks-border:  #27272a;
+    --ks-heading: #fafafa;
+    --ks-text:    #a1a1aa;
+    --ks-muted:   #52525b;
+    --ks-shine:   rgba(73, 197, 163, .40);
   }
 }
 
@@ -28,14 +29,13 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-background);
-  color: var(--color-text);
+  background: var(--ks-surface);
+  color: var(--ks-text);
   font-family: Inter, system-ui, -apple-system, sans-serif;
-  font-size: 16px;
+  padding: 2rem 1.5rem;
 }
 
 #app {
   width: 100%;
-  max-width: 600px;
-  padding: 1.5rem;
+  max-width: 720px;
 }
