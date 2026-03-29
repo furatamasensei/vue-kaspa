@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.10](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.9...vue-kaspa-cli-v0.1.10) (2026-03-29)
+
+
+### Features
+
+* lucide icons, U-shaped gradient backdrop, fixed donation dialog ([df9a421](https://github.com/furatamasensei/vue-kaspa/commit/df9a421d5f7740741e75ebb8e199e45490aa596e))
+
 ## [0.1.9](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.8...vue-kaspa-cli-v0.1.9) (2026-03-29)
 
 
