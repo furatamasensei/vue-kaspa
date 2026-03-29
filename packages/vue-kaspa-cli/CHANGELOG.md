@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.7...vue-kaspa-cli-v0.1.8) (2026-03-29)
+
+
+### Features
+
+* bento link cards, testnet-12, and donation section ([3e14f3e](https://github.com/furatamasensei/vue-kaspa/commit/3e14f3e94c0a8256ff4ac766c2aecf69caac265e))
+
 ## [0.1.7](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.6...vue-kaspa-cli-v0.1.7) (2026-03-29)
 
 
