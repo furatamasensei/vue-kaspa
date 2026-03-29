@@ -105,9 +105,8 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
       </nav>
     </header>
 
-    <!-- Gradient + bento grid -->
-    <div class="ks-grid-wrap">
-      <div ref="bento" class="ks-grid">
+    <!-- Bento grid -->
+    <div ref="bento" class="ks-grid">
 
         <!-- Network card: col 1–2, row 1–3 -->
         <div data-shine class="ks-shine ks-net-shine">
@@ -167,7 +166,6 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
         </a>
 
       </div>
-    </div>
   </div>
 </template>
 
@@ -201,29 +199,11 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 }
 .ks-icon-btn:hover { color: var(--ks-heading); background: var(--ks-border); }
 
-/* Grid wrap + U-shaped gradient backdrop */
-.ks-grid-wrap {
-  position: relative;
-}
-.ks-grid-wrap::before {
-  content: '';
-  position: absolute;
-  inset: 0 -20px -28px;
-  z-index: 0;
-  pointer-events: none;
-  background:
-    radial-gradient(ellipse 55% 65% at  8% 100%, rgba(73, 197, 163, .38) 0%, transparent 55%),
-    radial-gradient(ellipse 55% 65% at 92% 100%, rgba(73, 197, 163, .38) 0%, transparent 55%),
-    radial-gradient(ellipse 85% 30% at 50% 100%, rgba(73, 197, 163, .22) 0%, transparent 60%);
-}
-
 /* Grid */
 .ks-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: .75rem;
-  position: relative;
-  z-index: 1;
 }
 
 /* Shine wrapper */

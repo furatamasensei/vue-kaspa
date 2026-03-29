@@ -31,7 +31,12 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: var(--ks-surface);
+  background:
+    radial-gradient(ellipse 60% 55% at  8% 100%, rgba(73, 197, 163, .32) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 55% at 92% 100%, rgba(73, 197, 163, .32) 0%, transparent 55%),
+    radial-gradient(ellipse 80% 28% at 50% 100%, rgba(73, 197, 163, .18) 0%, transparent 60%),
+    var(--ks-surface);
+  background-attachment: fixed;
   color: var(--ks-text);
   font-family: Inter, system-ui, -apple-system, sans-serif;
 }
