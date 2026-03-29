@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
+import { ArrowUpRight, BookOpen, Check, Copy, Droplet, Heart, Search } from 'lucide-vue-next'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { useKaspa, useRpc } from 'vue-kaspa'
-import { Droplet, BookOpen, Search, ArrowUpRight, Heart, Copy, Check } from 'lucide-vue-next'
 
 const kaspa = useKaspa()
 const rpc = useRpc()
@@ -43,7 +43,7 @@ const daaScore = computed(() =>
 const links = [
   { label: 'Faucet',   title: 'Testnet 10', desc: 'Get free test KAS',    icon: Droplet,    href: 'https://faucet-tn10.kaspanet.io/' },
   { label: 'Faucet',   title: 'Testnet 12', desc: 'Get free test KAS',    icon: Droplet,    href: 'https://faucet-tn12.kaspanet.io/' },
-  { label: 'Docs',     title: 'vue-kaspa',  desc: 'Read the full docs',   icon: BookOpen,   href: 'https://vue-kaspa.vercel.app/' },
+  { label: 'Docs',     title: 'VKAS',  desc: 'Read the full docs',   icon: BookOpen,   href: 'https://vue-kaspa.vercel.app/' },
   { label: 'Explorer', title: 'Testnet 10', desc: 'Browse transactions',  icon: Search,     href: 'https://tn10.kaspa.stream/' },
   { label: 'Explorer', title: 'Testnet 12', desc: 'Browse transactions',  icon: Search,     href: 'https://tn12.kaspa.stream/' },
   { label: 'Explorer', title: 'Mainnet',    desc: 'Browse transactions',  icon: Search,     href: 'https://kaspa.stream/' },
@@ -67,8 +67,8 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   <dialog ref="donateDialog" class="dialog" @click.self="donateDialog?.close()">
     <div class="dialog-inner">
       <button class="dialog-close" @click="donateDialog?.close()">✕</button>
-      <p class="dialog-title">Support vue-kaspa ❤️</p>
-      <p class="dialog-body">vue-kaspa is free and open-source. If it saves you time, consider sending some KAS — every bit helps keep the project alive and maintained.</p>
+      <p class="dialog-title">Support VKAS ❤️</p>
+      <p class="dialog-body">VKAS is free and open-source. If it saves you time, consider sending some KAS — every bit helps keep the project alive and maintained.</p>
       <div class="copy-wrap">
         <code class="dialog-addr">{{ KASPA_ADDRESS }}</code>
         <button class="copy-btn" :class="{ copied }" @click="copyAddress">
@@ -85,8 +85,8 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 
     <!-- Header -->
     <header class="header">
-      <img src="/logo.png" alt="vue-kaspa" class="header-logo" />
-      <span class="header-brand">vue-kaspa</span>
+      <img src="/logo.png" alt="VKAS" class="header-logo" />
+      <span class="header-brand">VKAS</span>
       <nav class="header-nav">
         <a
           href="https://github.com/furatamasensei/vue-kaspa"

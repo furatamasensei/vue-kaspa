@@ -43,7 +43,7 @@ const daaScore = computed(() =>
 const links = [
   { label: 'Faucet',   title: 'Testnet 10', desc: 'Get free test KAS',    icon: Droplet,    href: 'https://faucet-tn10.kaspanet.io/' },
   { label: 'Faucet',   title: 'Testnet 12', desc: 'Get free test KAS',    icon: Droplet,    href: 'https://faucet-tn12.kaspanet.io/' },
-  { label: 'Docs',     title: 'vue-kaspa',  desc: 'Read the full docs',   icon: BookOpen,   href: 'https://vue-kaspa.vercel.app/' },
+  { label: 'Docs',     title: 'VKAS',  desc: 'Read the full docs',   icon: BookOpen,   href: 'https://vue-kaspa.vercel.app/' },
   { label: 'Explorer', title: 'Testnet 10', desc: 'Browse transactions',  icon: Search,     href: 'https://tn10.kaspa.stream/' },
   { label: 'Explorer', title: 'Testnet 12', desc: 'Browse transactions',  icon: Search,     href: 'https://tn12.kaspa.stream/' },
   { label: 'Explorer', title: 'Mainnet',    desc: 'Browse transactions',  icon: Search,     href: 'https://kaspa.stream/' },
@@ -67,8 +67,8 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   <dialog ref="donateDialog" class="ks-dialog" @click.self="donateDialog?.close()">
     <div class="ks-dialog-inner">
       <button class="ks-dialog-close" @click="donateDialog?.close()">✕</button>
-      <p class="ks-dialog-title">Support vue-kaspa ❤️</p>
-      <p class="ks-dialog-body">vue-kaspa is free and open-source. If it saves you time, consider sending some KAS — every bit helps keep the project alive and maintained.</p>
+      <p class="ks-dialog-title">Support VKAS ❤️</p>
+      <p class="ks-dialog-body">VKAS is free and open-source. If it saves you time, consider sending some KAS — every bit helps keep the project alive and maintained.</p>
       <div class="ks-copy-wrap">
         <code class="ks-dialog-addr">{{ KASPA_ADDRESS }}</code>
         <button class="ks-copy-btn" :class="{ copied }" @click="copyAddress">
@@ -85,8 +85,8 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 
     <!-- Header -->
     <header class="ks-header">
-      <img src="/logo.png" alt="vue-kaspa" class="ks-header-logo" />
-      <span class="ks-header-brand">vue-kaspa</span>
+      <img src="/logo.png" alt="VKAS" class="ks-header-logo" />
+      <span class="ks-header-brand">VKAS</span>
       <nav class="ks-header-nav">
         <a
           href="https://github.com/furatamasensei/vue-kaspa"
