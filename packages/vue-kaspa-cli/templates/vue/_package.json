@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@vue-kaspa/kaspa-wasm": "latest",
+    "lucide-vue-next": "latest",
     "vue": "latest",
     "vue-kaspa": "latest"
   },

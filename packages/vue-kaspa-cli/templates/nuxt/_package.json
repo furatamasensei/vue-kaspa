@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@vue-kaspa/kaspa-wasm": "latest",
+    "lucide-vue-next": "latest",
     "nuxt": "latest",
     "vue-kaspa": "latest"
   }

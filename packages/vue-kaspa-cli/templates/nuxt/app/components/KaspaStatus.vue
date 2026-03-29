@@ -1,11 +1,21 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-// useKaspa, useRpc, and computed are auto-imported by Nuxt.
+import { Droplet, BookOpen, Search, ArrowUpRight, Heart, Copy, Check } from 'lucide-vue-next'
+// useKaspa and useRpc are auto-imported by Nuxt.
 
 const kaspa = useKaspa()
 const rpc = useRpc()
 const bento = ref<HTMLElement | null>(null)
 const donateDialog = ref<HTMLDialogElement | null>(null)
+const copied = ref(false)
+
+const KASPA_ADDRESS = 'kaspa:qypr7ayn2g55fccyv9n6gf9zgrcnpepkfgjf9d8mtfp68ezv3mgqnggxqs902q4'
+
+async function copyAddress() {
+  await navigator.clipboard.writeText(KASPA_ADDRESS)
+  copied.value = true
+  setTimeout(() => { copied.value = false }, 2000)
+}
 
 const stateLabel = computed(() => {
   if (kaspa.wasmStatus.value === 'loading') return 'Loading WASM…'
@@ -31,12 +41,12 @@ const daaScore = computed(() =>
 )
 
 const links = [
-  { label: 'Faucet',   title: 'Testnet 10', desc: 'Get free test KAS',    icon: '💧', href: 'https://faucet-tn10.kaspanet.io/' },
-  { label: 'Faucet',   title: 'Testnet 12', desc: 'Get free test KAS',    icon: '💧', href: 'https://faucet-tn12.kaspanet.io/' },
-  { label: 'Docs',     title: 'vue-kaspa',  desc: 'Read the full docs',   icon: '📖', href: 'https://vue-kaspa.vercel.app/' },
-  { label: 'Explorer', title: 'Testnet 10', desc: 'Browse transactions',  icon: '🔍', href: 'https://tn10.kaspa.stream/' },
-  { label: 'Explorer', title: 'Testnet 12', desc: 'Browse transactions',  icon: '🔍', href: 'https://tn12.kaspa.stream/' },
-  { label: 'Explorer', title: 'Mainnet',    desc: 'Browse transactions',  icon: '🔍', href: 'https://kaspa.stream/' },
+  { label: 'Faucet',   title: 'Testnet 10', desc: 'Get free test KAS',    icon: Droplet,    href: 'https://faucet-tn10.kaspanet.io/' },
+  { label: 'Faucet',   title: 'Testnet 12', desc: 'Get free test KAS',    icon: Droplet,    href: 'https://faucet-tn12.kaspanet.io/' },
+  { label: 'Docs',     title: 'vue-kaspa',  desc: 'Read the full docs',   icon: BookOpen,   href: 'https://vue-kaspa.vercel.app/' },
+  { label: 'Explorer', title: 'Testnet 10', desc: 'Browse transactions',  icon: Search,     href: 'https://tn10.kaspa.stream/' },
+  { label: 'Explorer', title: 'Testnet 12', desc: 'Browse transactions',  icon: Search,     href: 'https://tn12.kaspa.stream/' },
+  { label: 'Explorer', title: 'Mainnet',    desc: 'Browse transactions',  icon: Search,     href: 'https://kaspa.stream/' },
 ]
 
 function onMouseMove(e: MouseEvent) {
@@ -59,7 +69,14 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
       <button class="ks-dialog-close" @click="donateDialog?.close()">✕</button>
       <p class="ks-dialog-title">Support vue-kaspa ❤️</p>
       <p class="ks-dialog-body">vue-kaspa is free and open-source. If it saves you time, consider sending some KAS — every bit helps keep the project alive and maintained.</p>
-      <code class="ks-dialog-addr">kaspa:qypr7ayn2g55fccyv9n6gf9zgrcnpepkfgjf9d8mtfp68ezv3mgqnggxqs902q4</code>
+      <div class="ks-copy-wrap">
+        <code class="ks-dialog-addr">{{ KASPA_ADDRESS }}</code>
+        <button class="ks-copy-btn" :class="{ copied }" @click="copyAddress">
+          <Check v-if="copied" :size="13" />
+          <Copy v-else :size="13" />
+          {{ copied ? 'Copied!' : 'Copy' }}
+        </button>
+      </div>
       <p class="ks-dialog-thanks">Thank you for your support 🙏</p>
     </div>
   </dialog>
@@ -83,73 +100,73 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
           </svg>
         </a>
         <button class="ks-icon-btn" title="Support this project" @click="donateDialog?.showModal()">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor">
-            <path d="M12 21.593c-.425-.396-8.8-8.044-8.8-12.593C3.2 5.796 7.192 3 12 3s8.8 2.796 8.8 6c0 4.549-8.375 12.197-8.8 12.593z"/>
-          </svg>
+          <Heart :size="18" />
         </button>
       </nav>
     </header>
 
-    <!-- Bento grid — Γ layout: net card spans col 1–2 × row 1–3, links fill col 3 then bottom row -->
-    <div ref="bento" class="ks-grid">
+    <!-- Gradient + bento grid -->
+    <div class="ks-grid-wrap">
+      <div ref="bento" class="ks-grid">
 
-      <!-- Network card -->
-      <div data-shine class="ks-shine ks-net-shine">
-        <div class="ks-card ks-net-card">
-          <div class="ks-net-top">
-            <span class="ks-net-icon">⬡</span>
-            <span
-              class="ks-badge"
-              :style="`border-color:${badgeColor};color:${badgeColor}`"
-            >{{ stateLabel }}</span>
-          </div>
-          <div class="ks-stats">
-            <div class="ks-stat">
-              <span class="ks-stat-label">Network</span>
-              <span class="ks-stat-value">{{ rpc.networkId.value ?? '—' }}</span>
-            </div>
-            <div class="ks-stat">
-              <span class="ks-stat-label">Server version</span>
-              <span class="ks-stat-value">{{ rpc.serverVersion.value ?? '—' }}</span>
-            </div>
-            <div class="ks-stat">
-              <span class="ks-stat-label">DAA Score</span>
-              <span class="ks-stat-value" style="font-family:monospace">{{ daaScore }}</span>
-            </div>
-            <div class="ks-stat">
-              <span class="ks-stat-label">Synced</span>
+        <!-- Network card: col 1–2, row 1–3 -->
+        <div data-shine class="ks-shine ks-net-shine">
+          <div class="ks-card ks-net-card">
+            <div class="ks-net-top">
+              <span class="ks-net-icon">⬡</span>
               <span
-                class="ks-stat-value"
-                :style="`color:${rpc.isConnected.value ? (rpc.isSynced.value ? '#4caf50' : 'var(--ks-text)') : 'var(--ks-muted)'}`"
-              >{{ rpc.isConnected.value ? (rpc.isSynced.value ? 'Yes' : 'Syncing…') : '—' }}</span>
+                class="ks-badge"
+                :style="`border-color:${badgeColor};color:${badgeColor}`"
+              >{{ stateLabel }}</span>
+            </div>
+            <div class="ks-stats">
+              <div class="ks-stat">
+                <span class="ks-stat-label">Network</span>
+                <span class="ks-stat-value">{{ rpc.networkId.value ?? '—' }}</span>
+              </div>
+              <div class="ks-stat">
+                <span class="ks-stat-label">Server version</span>
+                <span class="ks-stat-value">{{ rpc.serverVersion.value ?? '—' }}</span>
+              </div>
+              <div class="ks-stat">
+                <span class="ks-stat-label">DAA Score</span>
+                <span class="ks-stat-value" style="font-family:monospace">{{ daaScore }}</span>
+              </div>
+              <div class="ks-stat">
+                <span class="ks-stat-label">Synced</span>
+                <span
+                  class="ks-stat-value"
+                  :style="`color:${rpc.isConnected.value ? (rpc.isSynced.value ? '#4caf50' : 'var(--ks-text)') : 'var(--ks-muted)'}`"
+                >{{ rpc.isConnected.value ? (rpc.isSynced.value ? 'Yes' : 'Syncing…') : '—' }}</span>
+              </div>
             </div>
           </div>
         </div>
+
+        <!-- Link cards: auto-placed into Γ shape -->
+        <a
+          v-for="link in links"
+          :key="link.href"
+          data-shine
+          class="ks-shine ks-link-shine"
+          :href="link.href"
+          target="_blank"
+          rel="noopener"
+        >
+          <div class="ks-card ks-link-card">
+            <div class="ks-link-top">
+              <component :is="link.icon" :size="20" class="ks-link-icon" />
+              <ArrowUpRight :size="13" class="ks-link-arrow" />
+            </div>
+            <div>
+              <div class="ks-link-label">{{ link.label }}</div>
+              <div class="ks-link-title">{{ link.title }}</div>
+              <div class="ks-link-desc">{{ link.desc }}</div>
+            </div>
+          </div>
+        </a>
+
       </div>
-
-      <!-- Link cards — auto-placed: first 3 fill col 3 rows 1–3, last 3 fill row 4 -->
-      <a
-        v-for="link in links"
-        :key="link.href"
-        data-shine
-        class="ks-shine ks-link-shine"
-        :href="link.href"
-        target="_blank"
-        rel="noopener"
-      >
-        <div class="ks-card ks-link-card">
-          <div class="ks-link-top">
-            <span class="ks-link-icon">{{ link.icon }}</span>
-            <span class="ks-link-arrow">↗</span>
-          </div>
-          <div>
-            <div class="ks-link-label">{{ link.label }}</div>
-            <div class="ks-link-title">{{ link.title }}</div>
-            <div class="ks-link-desc">{{ link.desc }}</div>
-          </div>
-        </div>
-      </a>
-
     </div>
   </div>
 </template>
@@ -163,15 +180,10 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 }
 
 /* Header */
-.ks-header {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-  margin-bottom: 0.75rem;
-}
+.ks-header { display: flex; align-items: center; gap: .6rem; margin-bottom: .75rem; }
 .ks-header-logo { width: 28px; height: 28px; object-fit: contain; }
 .ks-header-brand { font-size: 1rem; font-weight: 700; color: var(--ks-heading); flex: 1; }
-.ks-header-nav { display: flex; gap: 0.15rem; }
+.ks-header-nav { display: flex; gap: .15rem; }
 
 .ks-icon-btn {
   display: inline-flex;
@@ -185,18 +197,36 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   color: var(--ks-muted);
   cursor: pointer;
   text-decoration: none;
-  transition: color 0.15s, background 0.15s;
+  transition: color .15s, background .15s;
 }
 .ks-icon-btn:hover { color: var(--ks-heading); background: var(--ks-border); }
+
+/* Grid wrap + U-shaped gradient backdrop */
+.ks-grid-wrap {
+  position: relative;
+}
+.ks-grid-wrap::before {
+  content: '';
+  position: absolute;
+  inset: 0 -20px -28px;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 55% 65% at  8% 100%, rgba(73, 197, 163, .38) 0%, transparent 55%),
+    radial-gradient(ellipse 55% 65% at 92% 100%, rgba(73, 197, 163, .38) 0%, transparent 55%),
+    radial-gradient(ellipse 85% 30% at 50% 100%, rgba(73, 197, 163, .22) 0%, transparent 60%);
+}
 
 /* Grid */
 .ks-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 0.75rem;
+  gap: .75rem;
+  position: relative;
+  z-index: 1;
 }
 
-/* Shine wrapper — 1px padding reveals radial gradient as a glowing border */
+/* Shine wrapper */
 .ks-shine {
   padding: 1px;
   border-radius: 14px;
@@ -208,19 +238,10 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   display: block;
   text-decoration: none;
 }
+.ks-net-shine { grid-column: 1 / span 2; grid-row: 1 / span 3; }
 
-/* Network card occupies col 1–2, row 1–3 */
-.ks-net-shine {
-  grid-column: 1 / span 2;
-  grid-row: 1 / span 3;
-}
-
-/* Card base — solid fill sits inside the 1px shine gap */
-.ks-card {
-  border-radius: 13px;
-  background: var(--ks-soft);
-  height: 100%;
-}
+/* Card base */
+.ks-card { border-radius: 13px; background: var(--ks-soft); height: 100%; }
 
 /* Network card */
 .ks-net-card {
@@ -242,19 +263,8 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 }
 .ks-stats { display: grid; grid-template-columns: 1fr 1fr; gap: 1.1rem; }
 .ks-stat { display: flex; flex-direction: column; gap: .25rem; }
-.ks-stat-label {
-  font-size: .65rem;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--ks-muted);
-}
-.ks-stat-value {
-  font-size: .95rem;
-  color: var(--ks-heading);
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
+.ks-stat-label { font-size: .65rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ks-muted); }
+.ks-stat-value { font-size: .95rem; color: var(--ks-heading); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
 /* Link cards */
 .ks-link-card {
@@ -262,19 +272,13 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 0.5rem;
+  gap: .5rem;
   min-height: 100px;
 }
 .ks-link-top { display: flex; justify-content: space-between; align-items: flex-start; }
-.ks-link-icon { font-size: 1.35rem; line-height: 1; }
-.ks-link-arrow { font-size: .75rem; color: var(--ks-muted); }
-.ks-link-label {
-  font-size: .58rem;
-  text-transform: uppercase;
-  letter-spacing: .06em;
-  color: var(--ks-muted);
-  margin-bottom: .1rem;
-}
+.ks-link-icon { color: var(--ks-accent); }
+.ks-link-arrow { color: var(--ks-muted); }
+.ks-link-label { font-size: .58rem; text-transform: uppercase; letter-spacing: .06em; color: var(--ks-muted); margin-bottom: .1rem; }
 .ks-link-title { font-size: .875rem; font-weight: 600; color: var(--ks-heading); }
 .ks-link-desc { font-size: .75rem; color: var(--ks-muted); margin-top: .1rem; }
 
@@ -283,8 +287,9 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   border: 1px solid var(--ks-border);
   border-radius: 16px;
   padding: 0;
-  max-width: 420px;
-  width: calc(100vw - 2rem);
+  width: min(440px, calc(100vw - 2rem));
+  max-width: none;
+  overflow: hidden;
   background: var(--ks-surface);
   color: var(--ks-text);
   box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
@@ -305,6 +310,12 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
 .ks-dialog-close:hover { color: var(--ks-heading); }
 .ks-dialog-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; color: var(--ks-heading); }
 .ks-dialog-body { font-size: .875rem; color: var(--ks-muted); margin: 0 0 1.25rem; line-height: 1.65; }
+
+.ks-copy-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
 .ks-dialog-addr {
   display: block;
   padding: .6em .85em;
@@ -313,13 +324,31 @@ onUnmounted(() => window.removeEventListener('mousemove', onMouseMove))
   border: 1px solid var(--ks-border);
   font-size: .7rem;
   word-break: break-all;
+  overflow-wrap: anywhere;
+  white-space: normal;
   color: var(--ks-text);
 }
+.ks-copy-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .3rem;
+  align-self: flex-end;
+  padding: .35em .75em;
+  border-radius: 6px;
+  border: 1px solid var(--ks-border);
+  background: var(--ks-soft);
+  color: var(--ks-muted);
+  font-size: .75rem;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.ks-copy-btn:hover { color: var(--ks-heading); border-color: var(--ks-heading); }
+.ks-copy-btn.copied { color: #4caf50; border-color: #4caf50; }
+
 .ks-dialog-thanks { font-size: .8rem; color: var(--ks-muted); margin: .75rem 0 0; text-align: center; }
 </style>
 
 <style>
-/* ::backdrop can't receive scoped attribute — must be global */
 .ks-dialog::backdrop {
   background: rgba(0, 0, 0, .5);
   backdrop-filter: blur(4px);
