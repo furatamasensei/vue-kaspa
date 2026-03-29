@@ -29,7 +29,7 @@ interface UseNetworkReturn {
 | `currentNetwork` | `Readonly<Ref<KaspaNetwork>>` | 目前選定的網路 |
 | `networkId` | `Readonly<Ref<string \| null>>` | 已連線節點回傳的網路 ID 字串（例如 `'mainnet'`）。未連線時為 `null`。 |
 | `isMainnet` | `ComputedRef<boolean>` | `currentNetwork === 'mainnet'` |
-| `isTestnet` | `ComputedRef<boolean>` | `currentNetwork === 'testnet-10'` 或 `'testnet-11'` |
+| `isTestnet` | `ComputedRef<boolean>` | `currentNetwork === 'testnet-10'` 或 `'testnet-12'` |
 | `daaScore` | `Readonly<Ref<bigint>>` | 即時 DAA 分數——與 `useRpc().virtualDaaScore` 相同的值 |
 | `availableNetworks` | `readonly KaspaNetwork[]` | 所有 5 個網路名稱（與 `AVAILABLE_NETWORKS` 常數相同） |
 
@@ -45,7 +45,7 @@ interface UseNetworkReturn {
 |---|---|
 | `'mainnet'` | Kaspa 生產網路 |
 | `'testnet-10'` | 公共測試網路（v10 共識） |
-| `'testnet-11'` | 公共測試網路（v11 共識，DAGKNIGHT） |
+| `'testnet-12'` | 公共測試網路（v11 共識，DAGKNIGHT） |
 | `'simnet'` | 用於測試的本機模擬網路 |
 | `'devnet'` | 本機開發網路 |
 
@@ -136,7 +136,7 @@ if (network.isMainnet.value) {
 }
 
 if (network.isTestnet.value) {
-  // testnet-10 or testnet-11
+  // testnet-10 or testnet-12
   console.log('Test KAS — free to experiment')
 }
 ```

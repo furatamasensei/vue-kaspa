@@ -29,7 +29,7 @@ interface UseNetworkReturn {
 | `currentNetwork` | `Readonly<Ref<KaspaNetwork>>` | Jaringan yang sedang dipilih |
 | `networkId` | `Readonly<Ref<string \| null>>` | String ID jaringan dari node yang terhubung (mis. `'mainnet'`). `null` saat terputus. |
 | `isMainnet` | `ComputedRef<boolean>` | `currentNetwork === 'mainnet'` |
-| `isTestnet` | `ComputedRef<boolean>` | `currentNetwork === 'testnet-10'` atau `'testnet-11'` |
+| `isTestnet` | `ComputedRef<boolean>` | `currentNetwork === 'testnet-10'` atau `'testnet-12'` |
 | `daaScore` | `Readonly<Ref<bigint>>` | Skor DAA langsung — nilai yang sama dengan `useRpc().virtualDaaScore` |
 | `availableNetworks` | `readonly KaspaNetwork[]` | Semua 5 nama jaringan (sama dengan konstanta `AVAILABLE_NETWORKS`) |
 
@@ -45,7 +45,7 @@ interface UseNetworkReturn {
 |---|---|
 | `'mainnet'` | Jaringan produksi Kaspa |
 | `'testnet-10'` | Jaringan uji publik (konsensus v10) |
-| `'testnet-11'` | Jaringan uji publik (konsensus v11, DAGKNIGHT) |
+| `'testnet-12'` | Jaringan uji publik (konsensus v11, DAGKNIGHT) |
 | `'simnet'` | Jaringan simulasi lokal untuk pengujian |
 | `'devnet'` | Jaringan pengembangan lokal |
 
@@ -136,7 +136,7 @@ if (network.isMainnet.value) {
 }
 
 if (network.isTestnet.value) {
-  // testnet-10 atau testnet-11
+  // testnet-10 atau testnet-12
   console.log('Test KAS — free to experiment')
 }
 ```

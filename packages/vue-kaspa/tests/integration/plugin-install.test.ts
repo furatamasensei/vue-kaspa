@@ -49,10 +49,10 @@ describe('Plugin install integration', () => {
     })
     mount(TestComponent, {
       global: {
-        plugins: [[KaspaPlugin, { network: 'testnet-11', url: 'ws://test:17110', autoConnect: false }]],
+        plugins: [[KaspaPlugin, { network: 'testnet-12', url: 'ws://test:17110', autoConnect: false }]],
       },
     })
-    expect((injectedOptions as Record<string, unknown>).network).toBe('testnet-11')
+    expect((injectedOptions as Record<string, unknown>).network).toBe('testnet-12')
     expect((injectedOptions as Record<string, unknown>).url).toBe('ws://test:17110')
   })
 
@@ -119,6 +119,6 @@ describe('Plugin install integration', () => {
     expect(typeof KaspaNotReadyError).toBe('function')
     expect(typeof KaspaRpcError).toBe('function')
     expect(typeof KaspaWalletError).toBe('function')
-    expect(AVAILABLE_NETWORKS).toEqual(['mainnet', 'testnet-10', 'testnet-11', 'simnet', 'devnet'])
+    expect(AVAILABLE_NETWORKS).toEqual(['mainnet', 'testnet-10', 'testnet-12', 'simnet', 'devnet'])
   })
 })

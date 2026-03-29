@@ -61,7 +61,7 @@ describe('useNetwork', () => {
 
   it('switchNetwork() updates currentNetwork', async () => {
     const { network } = mountUseNetwork({ network: 'mainnet' })
-    await network.switchNetwork('testnet-11')
-    expect(network.currentNetwork.value).toBe('testnet-11')
+    await network.switchNetwork('testnet-12')
+    expect(network.currentNetwork.value).toBe('testnet-12')
   })
 })

@@ -55,7 +55,7 @@ const connVariant: Record<string, BadgeVariant> = {
 const networkDescriptions: Record<string, string> = {
   'mainnet': 'Kaspa mainnet — production network',
   'testnet-10': 'Testnet v10 — public test network',
-  'testnet-11': 'Testnet v11 — newer public test network',
+  'testnet-12': 'Testnet v12 — newer public test network',
   'simnet': 'Simulation network — local testing',
   'devnet': 'Development network — local development',
 }

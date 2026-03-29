@@ -21,14 +21,14 @@ export interface KaspaPluginOptions {
 
 // ─── Network ───────────────────────────────────────────────────────────────
 
-export type KaspaNetwork = 'mainnet' | 'testnet-10' | 'testnet-11' | 'simnet' | 'devnet'
+export type KaspaNetwork = 'mainnet' | 'testnet-10' | 'testnet-12' | 'simnet' | 'devnet'
 
 export type RpcEncoding = 'Borsh' | 'SerdeJson'
 
 export const AVAILABLE_NETWORKS: readonly KaspaNetwork[] = [
   'mainnet',
   'testnet-10',
-  'testnet-11',
+  'testnet-12',
   'simnet',
   'devnet',
 ] as const

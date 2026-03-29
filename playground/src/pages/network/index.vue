@@ -8,7 +8,7 @@ const EXAMPLE = `import { useNetwork } from 'vue-kaspa'
 
 const network = useNetwork()
 
-network.currentNetwork.value   // 'mainnet' | 'testnet-10' | 'testnet-11' | ...
+network.currentNetwork.value   // 'mainnet' | 'testnet-10' | 'testnet-12' | ...
 network.availableNetworks      // string[] of all supported networks
 network.daaScore.value         // BigInt — live DAA score (reactive)
 
@@ -21,7 +21,7 @@ const rpc = useRpc()
 const networkDescriptions: Record<string, string> = {
   mainnet: 'Kaspa mainnet — production network (kaspa: prefix)',
   'testnet-10': 'Testnet v10 — public test network (kaspatest: prefix)',
-  'testnet-11': 'Testnet v11 — newer public test network (kaspatest: prefix)',
+  'testnet-12': 'Testnet v12 — newer public test network (kaspatest: prefix)',
   simnet: 'Simulation network — local testing',
   devnet: 'Development network — local development',
 }

@@ -29,7 +29,7 @@ interface UseNetworkReturn {
 | `currentNetwork` | `Readonly<Ref<KaspaNetwork>>` | 現在選択されているネットワーク |
 | `networkId` | `Readonly<Ref<string \| null>>` | 接続中のノードからのネットワーク ID 文字列 (例: `'mainnet'`)。切断時は `null`。 |
 | `isMainnet` | `ComputedRef<boolean>` | `currentNetwork === 'mainnet'` |
-| `isTestnet` | `ComputedRef<boolean>` | `currentNetwork === 'testnet-10'` または `'testnet-11'` |
+| `isTestnet` | `ComputedRef<boolean>` | `currentNetwork === 'testnet-10'` または `'testnet-12'` |
 | `daaScore` | `Readonly<Ref<bigint>>` | ライブ DAA スコア — `useRpc().virtualDaaScore` と同じ値 |
 | `availableNetworks` | `readonly KaspaNetwork[]` | 5 つのネットワーク名すべて (`AVAILABLE_NETWORKS` 定数と同じ) |
 
@@ -45,7 +45,7 @@ interface UseNetworkReturn {
 |---|---|
 | `'mainnet'` | Kaspa 本番ネットワーク |
 | `'testnet-10'` | 公開テストネットワーク (v10 コンセンサス) |
-| `'testnet-11'` | 公開テストネットワーク (v11 コンセンサス、DAGKNIGHT) |
+| `'testnet-12'` | 公開テストネットワーク (v11 コンセンサス、DAGKNIGHT) |
 | `'simnet'` | テスト用ローカルシミュレーションネットワーク |
 | `'devnet'` | ローカル開発ネットワーク |
 
@@ -136,7 +136,7 @@ if (network.isMainnet.value) {
 }
 
 if (network.isTestnet.value) {
-  // testnet-10 or testnet-11
+  // testnet-10 or testnet-12
   console.log('Test KAS — free to experiment')
 }
 ```

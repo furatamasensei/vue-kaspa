@@ -155,7 +155,7 @@ Kaspa 中的地址是網路特定的：
 | 網路 | 地址前綴 |
 |---|---|
 | `'mainnet'` | `kaspa:` |
-| `'testnet-10'`、`'testnet-11'` | `kaspatest:` |
+| `'testnet-10'`、`'testnet-12'` | `kaspatest:` |
 | `'simnet'` | `kassim:` |
 | `'devnet'` | `kaspadev:` |
 

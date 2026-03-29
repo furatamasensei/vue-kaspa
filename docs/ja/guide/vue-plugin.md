@@ -83,7 +83,7 @@ app.use(KaspaPlugin, {
 })
 ```
 
-利用可能なネットワーク: `'mainnet'` | `'testnet-10'` | `'testnet-11'` | `'simnet'` | `'devnet'`
+利用可能なネットワーク: `'mainnet'` | `'testnet-10'` | `'testnet-12'` | `'simnet'` | `'devnet'`
 
 ## プラグインのべき等性
 

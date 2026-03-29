@@ -22,7 +22,7 @@ export function useNetwork(): UseNetworkReturn {
     networkId: readonly(computed(() => manager.state.networkId)) as UseNetworkReturn['networkId'],
     isMainnet: computed(() => _currentNetwork.value === 'mainnet'),
     isTestnet: computed(() =>
-      _currentNetwork.value === 'testnet-10' || _currentNetwork.value === 'testnet-11',
+      _currentNetwork.value === 'testnet-10' || _currentNetwork.value === 'testnet-12',
     ),
     daaScore: readonly(computed(() => manager.state.virtualDaaScore)) as UseNetworkReturn['daaScore'],
 

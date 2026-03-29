@@ -29,7 +29,7 @@ interface UseNetworkReturn {
 | `currentNetwork` | `Readonly<Ref<KaspaNetwork>>` | Currently selected network |
 | `networkId` | `Readonly<Ref<string \| null>>` | Network ID string from the connected node (e.g. `'mainnet'`). `null` when disconnected. |
 | `isMainnet` | `ComputedRef<boolean>` | `currentNetwork === 'mainnet'` |
-| `isTestnet` | `ComputedRef<boolean>` | `currentNetwork === 'testnet-10'` or `'testnet-11'` |
+| `isTestnet` | `ComputedRef<boolean>` | `currentNetwork === 'testnet-10'` or `'testnet-12'` |
 | `daaScore` | `Readonly<Ref<bigint>>` | Live DAA score — same value as `useRpc().virtualDaaScore` |
 | `availableNetworks` | `readonly KaspaNetwork[]` | All 5 network names (same as `AVAILABLE_NETWORKS` constant) |
 
@@ -45,7 +45,7 @@ interface UseNetworkReturn {
 |---|---|
 | `'mainnet'` | Kaspa production network |
 | `'testnet-10'` | Public test network (v10 consensus) |
-| `'testnet-11'` | Public test network (v11 consensus, DAGKNIGHT) |
+| `'testnet-12'` | Public test network (v11 consensus, DAGKNIGHT) |
 | `'simnet'` | Local simulation network for testing |
 | `'devnet'` | Local development network |
 
@@ -136,7 +136,7 @@ if (network.isMainnet.value) {
 }
 
 if (network.isTestnet.value) {
-  // testnet-10 or testnet-11
+  // testnet-10 or testnet-12
   console.log('Test KAS — free to experiment')
 }
 ```

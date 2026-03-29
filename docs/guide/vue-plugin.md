@@ -83,7 +83,7 @@ app.use(KaspaPlugin, {
 })
 ```
 
-Available networks: `'mainnet'` | `'testnet-10'` | `'testnet-11'` | `'simnet'` | `'devnet'`
+Available networks: `'mainnet'` | `'testnet-10'` | `'testnet-12'` | `'simnet'` | `'devnet'`
 
 ## Plugin idempotency
 

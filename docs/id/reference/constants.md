@@ -12,7 +12,7 @@ Array readonly dari semua nilai `KaspaNetwork` yang valid:
 const AVAILABLE_NETWORKS: readonly KaspaNetwork[] = [
   'mainnet',
   'testnet-10',
-  'testnet-11',
+  'testnet-12',
   'simnet',
   'devnet',
 ]

@@ -83,7 +83,7 @@ app.use(KaspaPlugin, {
 })
 ```
 
-Jaringan yang tersedia: `'mainnet'` | `'testnet-10'` | `'testnet-11'` | `'simnet'` | `'devnet'`
+Jaringan yang tersedia: `'mainnet'` | `'testnet-10'` | `'testnet-12'` | `'simnet'` | `'devnet'`
 
 ## Idempotency plugin
 

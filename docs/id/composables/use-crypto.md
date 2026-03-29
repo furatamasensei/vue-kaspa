@@ -155,7 +155,7 @@ Alamat di Kaspa bersifat spesifik jaringan:
 | Jaringan | Awalan alamat |
 |---|---|
 | `'mainnet'` | `kaspa:` |
-| `'testnet-10'`, `'testnet-11'` | `kaspatest:` |
+| `'testnet-10'`, `'testnet-12'` | `kaspatest:` |
 | `'simnet'` | `kassim:` |
 | `'devnet'` | `kaspadev:` |
 

@@ -43,7 +43,7 @@ interface KaspaPluginOptions {
 ## KaspaNetwork
 
 ```ts
-type KaspaNetwork = 'mainnet' | 'testnet-10' | 'testnet-11' | 'simnet' | 'devnet'
+type KaspaNetwork = 'mainnet' | 'testnet-10' | 'testnet-12' | 'simnet' | 'devnet'
 ```
 
 ---

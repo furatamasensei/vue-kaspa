@@ -28,43 +28,75 @@ const badgeColor = computed(() => {
 const daaScore = computed(() =>
   rpc.virtualDaaScore.value > 0n ? rpc.virtualDaaScore.value.toLocaleString() : '—'
 )
+
+const links = [
+  { label: 'Faucet', title: 'Testnet 10', href: 'https://faucet-tn10.kaspanet.io/' },
+  { label: 'Faucet', title: 'Testnet 12', href: 'https://faucet-tn12.kaspanet.io/' },
+  { label: 'Docs', title: 'vue-kaspa', href: 'https://vue-kaspa.vercel.app/' },
+  { label: 'Explorer', title: 'Testnet 10', href: 'https://tn10.kaspa.stream/' },
+  { label: 'Explorer', title: 'Testnet 12', href: 'https://tn12.kaspa.stream/' },
+  { label: 'Explorer', title: 'Mainnet', href: 'https://kaspa.stream/' },
+]
 </script>
 
 <template>
-  <div style="width:100%;max-width:480px;padding:2rem;border:1px solid #e2e8f0;border-radius:10px;background:#f9f9f9;display:flex;flex-direction:column;gap:1.5rem;font-family:Inter,system-ui,sans-serif;">
-    <header style="display:flex;align-items:center;gap:.75rem;">
-      <span style="font-size:1.75rem;color:#49c5a3;line-height:1;">⬡</span>
-      <h1 style="font-size:1.25rem;font-weight:600;color:#1a1a1a;flex:1;margin:0;">vue-kaspa</h1>
-      <span :style="`font-size:.75rem;font-weight:500;padding:.2em .65em;border-radius:999px;border:1px solid ${badgeColor};color:${badgeColor};white-space:nowrap;`">
-        {{ stateLabel }}
-      </span>
-    </header>
+  <div style="width:100%;max-width:480px;display:flex;flex-direction:column;gap:0.75rem;font-family:Inter,system-ui,sans-serif;">
 
-    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
-      <div style="display:flex;flex-direction:column;gap:.25rem;">
-        <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;">Network</span>
-        <span style="font-size:.95rem;color:#1a1a1a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ rpc.networkId.value ?? '—' }}</span>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:.25rem;">
-        <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;">Server version</span>
-        <span style="font-size:.95rem;color:#1a1a1a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ rpc.serverVersion.value ?? '—' }}</span>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:.25rem;">
-        <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;">DAA Score</span>
-        <span style="font-size:.95rem;color:#1a1a1a;font-family:monospace;">{{ daaScore }}</span>
-      </div>
-      <div style="display:flex;flex-direction:column;gap:.25rem;">
-        <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;">Synced</span>
-        <span :style="`font-size:.95rem;color:${rpc.isConnected.value ? (rpc.isSynced.value ? '#4caf50' : '#1a1a1a') : '#9ca3af'};`">
-          {{ rpc.isConnected.value ? (rpc.isSynced.value ? 'Yes' : 'Syncing…') : '—' }}
+    <!-- Network status card (unchanged) -->
+    <div style="padding:2rem;border:1px solid #e2e8f0;border-radius:10px;background:#f9f9f9;display:flex;flex-direction:column;gap:1.5rem;">
+      <header style="display:flex;align-items:center;gap:.75rem;">
+        <span style="font-size:1.75rem;color:#49c5a3;line-height:1;">⬡</span>
+        <h1 style="font-size:1.25rem;font-weight:600;color:#1a1a1a;flex:1;margin:0;">vue-kaspa</h1>
+        <span :style="`font-size:.75rem;font-weight:500;padding:.2em .65em;border-radius:999px;border:1px solid ${badgeColor};color:${badgeColor};white-space:nowrap;`">
+          {{ stateLabel }}
         </span>
+      </header>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;">
+        <div style="display:flex;flex-direction:column;gap:.25rem;">
+          <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;">Network</span>
+          <span style="font-size:.95rem;color:#1a1a1a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ rpc.networkId.value ?? '—' }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.25rem;">
+          <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;">Server version</span>
+          <span style="font-size:.95rem;color:#1a1a1a;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">{{ rpc.serverVersion.value ?? '—' }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.25rem;">
+          <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;">DAA Score</span>
+          <span style="font-size:.95rem;color:#1a1a1a;font-family:monospace;">{{ daaScore }}</span>
+        </div>
+        <div style="display:flex;flex-direction:column;gap:.25rem;">
+          <span style="font-size:.7rem;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;">Synced</span>
+          <span :style="`font-size:.95rem;color:${rpc.isConnected.value ? (rpc.isSynced.value ? '#4caf50' : '#1a1a1a') : '#9ca3af'};`">
+            {{ rpc.isConnected.value ? (rpc.isSynced.value ? 'Yes' : 'Syncing…') : '—' }}
+          </span>
+        </div>
       </div>
+
+      <footer style="display:flex;align-items:center;gap:.5rem;font-size:.85rem;border-top:1px solid #e2e8f0;padding-top:1rem;">
+        <a href="https://vue-kaspa.vercel.app" target="_blank" rel="noopener" style="color:#374151;text-decoration:none;">Docs</a>
+        <span>·</span>
+        <a href="https://github.com/furatamasensei/vue-kaspa" target="_blank" rel="noopener" style="color:#374151;text-decoration:none;">GitHub</a>
+      </footer>
     </div>
 
-    <footer style="display:flex;align-items:center;gap:.5rem;font-size:.85rem;border-top:1px solid #e2e8f0;padding-top:1rem;">
-      <a href="https://vue-kaspa.vercel.app" target="_blank" rel="noopener" style="color:#374151;text-decoration:none;">Docs</a>
-      <span>·</span>
-      <a href="https://github.com/furatamasensei/vue-kaspa" target="_blank" rel="noopener" style="color:#374151;text-decoration:none;">GitHub</a>
-    </footer>
+    <!-- Bento link cards -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:0.75rem;">
+      <a
+        v-for="link in links"
+        :key="link.href"
+        :href="link.href"
+        target="_blank"
+        rel="noopener"
+        style="display:flex;flex-direction:column;justify-content:space-between;gap:0.75rem;padding:1rem;border:1px solid #e2e8f0;border-radius:10px;background:#f9f9f9;text-decoration:none;cursor:pointer;"
+      >
+        <div style="display:flex;justify-content:space-between;align-items:center;">
+          <span style="font-size:.65rem;text-transform:uppercase;letter-spacing:.05em;color:#9ca3af;">{{ link.label }}</span>
+          <span style="font-size:.75rem;color:#9ca3af;">↗</span>
+        </div>
+        <span style="font-size:.85rem;font-weight:600;color:#1a1a1a;">{{ link.title }}</span>
+      </a>
+    </div>
+
   </div>
 </template>

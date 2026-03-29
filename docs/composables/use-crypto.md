@@ -155,7 +155,7 @@ Addresses in Kaspa are network-specific:
 | Network | Address prefix |
 |---|---|
 | `'mainnet'` | `kaspa:` |
-| `'testnet-10'`, `'testnet-11'` | `kaspatest:` |
+| `'testnet-10'`, `'testnet-12'` | `kaspatest:` |
 | `'simnet'` | `kassim:` |
 | `'devnet'` | `kaspadev:` |
 
