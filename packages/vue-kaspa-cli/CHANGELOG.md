@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.11](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.10...vue-kaspa-cli-v0.1.11) (2026-03-29)
+
+
+### Bug Fixes
+
+* move U-shaped gradient to full-viewport body background ([4556204](https://github.com/furatamasensei/vue-kaspa/commit/4556204afbe1f071829e177ea0985d4f58dc4379))
+
 ## [0.1.10](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.9...vue-kaspa-cli-v0.1.10) (2026-03-29)
 
 

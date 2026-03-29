@@ -1,6 +1,6 @@
 {
   "name": "vue-kaspa-cli",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "type": "module",
   "description": "Scaffold a Vue 3 or Nuxt app wired to the Kaspa blockchain",
   "license": "MIT",
