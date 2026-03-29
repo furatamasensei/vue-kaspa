@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.7](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.6...vue-kaspa-cli-v0.1.7) (2026-03-29)
+
+
+### Features
+
+* resolve package versions on the fly in CLI, simplify Nuxt template ([d17452a](https://github.com/furatamasensei/vue-kaspa/commit/d17452a689f326fbbfaf752e2017fdd5305d9604))
+
 ## [0.1.6](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.5...vue-kaspa-cli-v0.1.6) (2026-03-29)
 
 
