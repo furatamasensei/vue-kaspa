@@ -65,7 +65,7 @@ const utxo = useUtxo()
 
 `@vue-kaspa/kaspa-wasm` はブラウザ専用の WASM パッケージです。モジュールはこれに関するすべての設定を自動的に処理します:
 
-1. **クライアント専用プラグイン** — `KaspaPlugin` は Nuxt のクライアントプラグインとして登録されます。サーバーサイドレンダリング中は実行されません。
+1. **クライアント専用プラグイン** — `KaspaPlugin` は Nuxt のクライアントプラグインとして登録されます。サーバーサイドレンダリング中は実行されません。`autoConnect: true`（デフォルト）の場合、クライアントが読み込まれると WASM が初期化され、RPC 接続が自動的に確立されます — コンポーネントに `onMounted` を記述する必要はありません。
 2. **SSR 外部化** — `@vue-kaspa/kaspa-wasm` は `vite.ssr.external` に追加され、Vite がサーバー側でバンドルまたは評価しようとするのを防ぎます。
 3. **WASM プラグイン** — `vite-plugin-wasm` が Vite の設定に追加され、開発環境と本番ビルドの両方で WASM モジュールが正しくインスタンス化されます。
 4. **COOP/COEP ヘッダー** — `Cross-Origin-Embedder-Policy: require-corp` と `Cross-Origin-Opener-Policy: same-origin` が Vite 開発サーバーと Nitro のルートルールに設定されます。これらは `kaspa-wasm` が内部で使用する `SharedArrayBuffer` に必要です。

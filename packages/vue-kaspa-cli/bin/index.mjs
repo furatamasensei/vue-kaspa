@@ -25,6 +25,33 @@ function copyDir(src, dest) {
   }
 }
 
+async function resolveVersion(pkg) {
+  try {
+    const res = await fetch(`https://registry.npmjs.org/${encodeURIComponent(pkg)}/latest`, {
+      headers: { Accept: 'application/vnd.npm.install-v1+json' },
+    })
+    if (!res.ok) return 'latest'
+    const data = await res.json()
+    return `^${data.version}`
+  } catch {
+    return 'latest'
+  }
+}
+
+async function resolvePackageVersions(pkg) {
+  const allNames = [
+    ...Object.keys(pkg.dependencies ?? {}),
+    ...Object.keys(pkg.devDependencies ?? {}),
+  ]
+  const entries = await Promise.all(allNames.map(async name => [name, await resolveVersion(name)]))
+  const resolved = Object.fromEntries(entries)
+  for (const section of ['dependencies', 'devDependencies']) {
+    for (const name of Object.keys(pkg[section] ?? {})) {
+      pkg[section][name] = resolved[name]
+    }
+  }
+}
+
 const prompt = createPromptModule()
 
 async function main() {
@@ -59,6 +86,11 @@ async function main() {
   const pkgPath = join(targetDir, 'package.json')
   const pkg = JSON.parse(readFileSync(pkgPath, 'utf8'))
   pkg.name = name.toLowerCase().replace(/\s+/g, '-').replace(/[^a-z0-9-]/g, '')
+
+  process.stdout.write('  Resolving latest package versions…')
+  await resolvePackageVersions(pkg)
+  process.stdout.write(' done\n')
+
   writeFileSync(pkgPath, JSON.stringify(pkg, null, 2) + '\n')
 
   const editHint = framework === 'Nuxt'
