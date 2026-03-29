@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.8](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.7...vue-kaspa-v0.1.8) (2026-03-29)
+
+
+### Bug Fixes
+
+* implement autoConnect in Nuxt module client plugin ([b4aa823](https://github.com/furatamasensei/vue-kaspa/commit/b4aa8239e56f9280cad44f5151dca216eaca808f))
+
 ## [0.1.7](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.6...vue-kaspa-v0.1.7) (2026-03-28)
 
 
