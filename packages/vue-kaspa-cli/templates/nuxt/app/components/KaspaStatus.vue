@@ -1,6 +1,7 @@
 <script setup lang="ts">
 // useKaspa, useRpc, and computed are auto-imported by Nuxt.
-// The nuxt module's client plugin handles init + connect via autoConnect: true.
+// WASM init and RPC connection are handled automatically by the vue-kaspa Nuxt module
+// when autoConnect: true (the default). No manual connect call is needed here.
 
 const kaspa = useKaspa()
 const rpc = useRpc()

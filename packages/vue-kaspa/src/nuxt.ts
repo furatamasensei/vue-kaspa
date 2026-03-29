@@ -66,11 +66,20 @@ export default defineNuxtModule<ModuleOptions>({
       mode: 'client',
       getContents: () => `
 import { defineNuxtPlugin } from 'nuxt/app'
-import { KaspaPlugin } from 'vue-kaspa'
+import { KaspaPlugin, useKaspa, useRpc } from 'vue-kaspa'
 
 export default defineNuxtPlugin((nuxtApp) => {
-  nuxtApp.vueApp.use(KaspaPlugin, ${JSON.stringify(options)})
-})
+  const options = ${JSON.stringify(options)}
+  nuxtApp.vueApp.use(KaspaPlugin, options)
+${options.autoConnect !== false ? `
+  // autoConnect: init WASM and establish the RPC connection on startup.
+  // runWithContext makes inject() available outside component setup.
+  nuxtApp.vueApp.runWithContext(() => {
+    const kaspa = useKaspa()
+    const rpc = useRpc()
+    kaspa.init().then(() => rpc.connect()).catch(() => {})
+  })
+` : ''}})
 `,
     })
 
