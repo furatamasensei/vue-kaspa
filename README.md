@@ -1,5 +1,3 @@
-# Vue Kaspa
-
 [![Vue Kaspa](./docs/public/og.png)](https://vue-kaspa.vercel.app)
 
 [![npm](https://img.shields.io/npm/v/vue-kaspa)](https://www.npmjs.com/package/vue-kaspa)
