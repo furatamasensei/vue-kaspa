@@ -140,12 +140,12 @@ const providerLabel: Record<WalletProvider, string> = {
 <style scoped>
 /* Map playground Tailwind theme to --ks-* vars so ConnectWallet fits in */
 .ks-theme {
-  --ks-surface:  hsl(var(--background));
-  --ks-soft:     hsl(var(--muted));
-  --ks-border:   hsl(var(--border));
-  --ks-heading:  hsl(var(--foreground));
-  --ks-text:     hsl(var(--foreground));
-  --ks-muted:    hsl(var(--muted-foreground));
-  --ks-accent:   hsl(var(--primary));
+  --ks-surface:  var(--card);
+  --ks-soft:     var(--muted);
+  --ks-border:   var(--border);
+  --ks-heading:  var(--card-foreground);
+  --ks-text:     var(--foreground);
+  --ks-muted:    var(--muted-foreground);
+  --ks-accent:   #49c5a3;
 }
 </style>
