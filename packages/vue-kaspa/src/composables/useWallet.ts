@@ -69,6 +69,13 @@ async function connectKasware(): Promise<void> {
       clearState()
     } else {
       _address.value = updated[0]
+      // Refresh public key and balance for the new account
+      Promise.all([kasware.getPublicKey(), kasware.getBalance()])
+        .then(([pk, bal]) => {
+          _publicKey.value = pk
+          _balance.value = bal
+        })
+        .catch(() => undefined)
     }
   }
   const onNetworkChanged = (network: string) => {
