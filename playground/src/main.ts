@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { VueKaspa } from 'vue-kaspa'
+import 'vue-kaspa/style'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
 import './assets/index.css'

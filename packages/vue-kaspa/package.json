@@ -11,7 +11,8 @@
     "./nuxt": {
       "import": "./dist/nuxt.mjs",
       "types": "./dist/nuxt.d.ts"
-    }
+    },
+    "./style": "./dist/vue-kaspa.css"
   },
   "main": "./dist/vue-kaspa.umd.cjs",
   "module": "./dist/vue-kaspa.es.js",
