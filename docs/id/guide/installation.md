@@ -69,7 +69,7 @@ export default defineConfig({
   // Diperlukan untuk SharedArrayBuffer / WASM threading
   server: {
     headers: {
-      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Embedder-Policy': 'credentialless',
       'Cross-Origin-Opener-Policy': 'same-origin',
     },
   },
@@ -94,7 +94,7 @@ Konfigurasi `server.headers` hanya berlaku untuk server dev Vite. Untuk deployme
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" },
+        { "key": "Cross-Origin-Embedder-Policy", "value": "credentialless" },
         { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
       ]
     }

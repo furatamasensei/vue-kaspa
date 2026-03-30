@@ -58,7 +58,7 @@ export default defineConfig({
   // Required for SharedArrayBuffer / WASM threading
   server: {
     headers: {
-      'Cross-Origin-Embedder-Policy': 'require-corp',
+      'Cross-Origin-Embedder-Policy': 'credentialless',
       'Cross-Origin-Opener-Policy': 'same-origin',
     },
   },
@@ -83,7 +83,7 @@ The `server.headers` config only applies to the Vite dev server. For production 
     {
       "source": "/(.*)",
       "headers": [
-        { "key": "Cross-Origin-Embedder-Policy", "value": "require-corp" },
+        { "key": "Cross-Origin-Embedder-Policy", "value": "credentialless" },
         { "key": "Cross-Origin-Opener-Policy", "value": "same-origin" }
       ]
     }
