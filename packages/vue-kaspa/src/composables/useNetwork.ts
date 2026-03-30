@@ -8,6 +8,11 @@ import type { KaspaPluginOptions, KaspaNetwork, UseNetworkReturn } from '../type
 // Module-level network state shared across all composable instances
 const _currentNetwork = ref<KaspaNetwork>('mainnet')
 
+/** @internal DevTools only — returns the reactive network ref */
+export function getCurrentNetworkRef() {
+  return _currentNetwork
+}
+
 export function useNetwork(): UseNetworkReturn {
   const pluginOptions = inject<KaspaPluginOptions>(KASPA_OPTIONS_KEY, {})
   const manager = getRpcManager()

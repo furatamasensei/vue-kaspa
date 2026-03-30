@@ -2,7 +2,7 @@ import { ref, computed, readonly } from 'vue'
 import { KaspaWalletError } from '../errors'
 import type { WalletProvider, WalletBalance, WalletSendOptions, UseWalletReturn } from '../types'
 
-// ─── Module-level shared state ─────────────────────────────────────────────
+// ─── Module-level shared state (also consumed by DevTools) ────────────────
 
 const _provider = ref<WalletProvider | null>(null)
 const _address = ref<string | null>(null)
@@ -14,6 +14,11 @@ const _error = ref<Error | null>(null)
 
 // Cleanup function for active KasWare event listeners
 let _removeKaswareListeners: (() => void) | null = null
+
+/** @internal DevTools only — returns reactive refs for the wallet module state */
+export function getWalletStateRefs() {
+  return { provider: _provider, address: _address, publicKey: _publicKey, balance: _balance, network: _network }
+}
 
 // ─── Helpers ───────────────────────────────────────────────────────────────
 

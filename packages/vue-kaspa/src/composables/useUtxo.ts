@@ -2,6 +2,26 @@ import { ref, computed, readonly, getCurrentInstance, onUnmounted } from 'vue'
 import { getRpcManager } from '../internal/rpc-manager'
 import type { UtxoEntry, UtxoBalance, UseUtxoReturn } from '../types'
 
+// ─── DevTools registry ─────────────────────────────────────────────────────
+
+export interface UtxoInstanceSnapshot {
+  id: number
+  trackedAddresses: string[]
+  mature: bigint
+  pending: bigint
+  entryCount: number
+}
+
+const _utxoRegistry = new Map<number, () => UtxoInstanceSnapshot>()
+let _utxoIdCounter = 0
+
+/** @internal DevTools only — snapshot of all active useUtxo instances */
+export function getUtxoSnapshots(): UtxoInstanceSnapshot[] {
+  return Array.from(_utxoRegistry.values()).map((fn) => fn())
+}
+
+// ─── Composable ────────────────────────────────────────────────────────────
+
 export function useUtxo(): UseUtxoReturn {
   const manager = getRpcManager()
 
@@ -21,6 +41,16 @@ export function useUtxo(): UseUtxoReturn {
     }
     return { mature, pending, outgoing: 0n }
   })
+
+  // Register this instance in the DevTools registry
+  const _instanceId = ++_utxoIdCounter
+  _utxoRegistry.set(_instanceId, () => ({
+    id: _instanceId,
+    trackedAddresses: trackedAddresses.value,
+    mature: balance.value.mature,
+    pending: balance.value.pending,
+    entryCount: entries.value.length,
+  }))
 
   // Handler registered on the event bridge to refresh on UTXO changes
   let bridgeHandler: ((e: unknown) => void) | null = null
@@ -86,6 +116,7 @@ export function useUtxo(): UseUtxoReturn {
     stopListening()
     trackedAddresses.value = []
     entries.value = []
+    _utxoRegistry.delete(_instanceId)
   }
 
   // Auto-cleanup when used inside a Vue component
