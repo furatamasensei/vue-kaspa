@@ -59,6 +59,12 @@ const navGroups = [
       { label: 'Switcher', to: '/network' },
     ],
   },
+  {
+    label: 'Wallet',
+    items: [
+      { label: 'Connect Wallet', to: '/wallet' },
+    ],
+  },
 ]
 </script>
 

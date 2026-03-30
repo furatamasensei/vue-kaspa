@@ -24,6 +24,7 @@ const router = createRouter({
     { path: '/crypto/sign', component: () => import('./pages/crypto/MessageSigner.vue') },
     { path: '/crypto/convert', component: () => import('./pages/crypto/UnitConverter.vue') },
     { path: '/network', component: () => import('./pages/network/index.vue') },
+    { path: '/wallet', component: () => import('./pages/wallet/index.vue') },
   ],
 })
 
