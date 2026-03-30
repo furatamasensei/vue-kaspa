@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { useWallet } from '../composables/useWallet'
+import { KASWARE_LOGO, KASTLE_LOGO } from './wallet-logos'
 import type { WalletProvider } from '../types'
 
 // ─── Props ─────────────────────────────────────────────────────────────────
@@ -163,19 +164,11 @@ async function handleDisconnect() {
         >
           <slot :name="`icon-${w.id}`">
             <span class="ks-cw-option-icon" aria-hidden="true">
-              <!-- KasWare default icon -->
-              <svg v-if="w.id === 'kasware'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <polygon points="12 2 22 7 22 17 12 22 2 17 2 7" />
-                <polyline points="12 2 12 22" />
-                <polyline points="2 7 22 7" />
-                <polyline points="2 17 22 17" />
-              </svg>
-              <!-- Kastle default icon -->
-              <svg v-else viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 21V9l9-7 9 7v12" />
-                <path d="M9 21v-6h6v6" />
-                <path d="M9 9h6" />
-              </svg>
+              <img
+                :src="w.id === 'kasware' ? KASWARE_LOGO : KASTLE_LOGO"
+                :alt="w.name"
+                class="ks-cw-option-logo"
+              />
             </span>
           </slot>
 
@@ -327,11 +320,12 @@ async function handleDisconnect() {
   border-radius: 0.375rem;
   background: var(--ks-soft, #f4f4f5);
   flex-shrink: 0;
-  color: var(--ks-accent, #49c5a3);
+  overflow: hidden;
 }
-.ks-cw-option-icon svg {
-  width: 1rem;
-  height: 1rem;
+.ks-cw-option-logo {
+  width: 1.75rem;
+  height: 1.75rem;
+  object-fit: contain;
 }
 
 .ks-cw-option-body {

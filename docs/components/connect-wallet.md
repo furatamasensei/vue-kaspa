@@ -71,15 +71,15 @@ Replaces the default "Connect Wallet" button. Receives `open` (boolean) and `tog
 
 ### `icon-kasware` / `icon-kastle`
 
-Replace the icon shown next to each wallet option in the selection menu.
+Replace the wallet logo shown in the selection menu. By default the component ships with the official KasWare and Kastle logos bundled — no additional setup needed.
 
 ```vue
 <ConnectWallet>
   <template #icon-kasware>
-    <img src="/kasware-logo.png" alt="KasWare" width="28" height="28" />
+    <img src="/my-kasware-logo.png" alt="KasWare" width="28" height="28" />
   </template>
   <template #icon-kastle>
-    <img src="/kastle-logo.png" alt="Kastle" width="28" height="28" />
+    <img src="/my-kastle-logo.png" alt="Kastle" width="28" height="28" />
   </template>
 </ConnectWallet>
 ```

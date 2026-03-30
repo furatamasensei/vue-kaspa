@@ -194,6 +194,10 @@ try {
 
 See [Error Handling](/guide/error-handling) for the full error hierarchy.
 
+## Account switching (KasWare)
+
+When the user switches accounts inside the KasWare extension, `address`, `publicKey`, and `balance` update automatically. Detection uses both the `accountsChanged` event and a 2-second polling fallback (since the event is not always fired reliably by the extension).
+
 ## Singleton
 
 `useWallet()` uses **module-level shared state**. All instances across your app read from and write to the same connection. Connecting in one component makes `isConnected` reactive in every other component that calls `useWallet()`.
