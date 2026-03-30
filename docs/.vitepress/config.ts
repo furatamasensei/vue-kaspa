@@ -18,6 +18,11 @@ const nav = (locale: string) => {
       activeMatch: `${base}/composables/`,
     },
     {
+      text: 'Components',
+      link: `${base}/components/connect-wallet`,
+      activeMatch: `${base}/components/`,
+    },
+    {
       text: { '': 'Reference', id: 'Referensi', ja: 'リファレンス', 'zh-TW': '參考' }[locale] ?? 'Reference',
       link: `${base}/reference/types`,
       activeMatch: `${base}/reference/`,
@@ -71,6 +76,15 @@ const sidebar = (locale: string) => {
           { text: 'useTransaction', link: `${base}/composables/use-transaction` },
           { text: 'useCrypto', link: `${base}/composables/use-crypto` },
           { text: 'useNetwork', link: `${base}/composables/use-network` },
+          { text: 'useWallet', link: `${base}/composables/use-wallet` },
+        ],
+      },
+    ],
+    [`${base}/components/`]: [
+      {
+        text: 'Components',
+        items: [
+          { text: 'ConnectWallet', link: `${base}/components/connect-wallet` },
         ],
       },
     ],

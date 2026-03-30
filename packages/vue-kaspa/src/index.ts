@@ -1,6 +1,9 @@
 // Plugin
 export { KaspaPlugin } from './plugin'
 
+// Components
+export { default as ConnectWallet } from './components/ConnectWallet.vue'
+
 // Composables
 export { useKaspa } from './composables/useKaspa'
 export { useRpc } from './composables/useRpc'

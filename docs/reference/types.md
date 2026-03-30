@@ -382,6 +382,43 @@ interface SignMessageResult {
 
 ---
 
+## WalletProvider
+
+```ts
+type WalletProvider = 'kasware' | 'kastle'
+```
+
+---
+
+## WalletBalance
+
+Balance reported by a connected wallet, in sompi.
+
+```ts
+interface WalletBalance {
+  confirmed: bigint
+  unconfirmed: bigint
+  total: bigint
+}
+```
+
+Populated for KasWare. Always `null` for Kastle (Kastle's API does not expose balance directly).
+
+---
+
+## WalletSendOptions
+
+Options for `useWallet().sendKaspa()`.
+
+```ts
+interface WalletSendOptions {
+  priorityFee?: bigint  // Extra fee in sompi
+  payload?: string      // Hex-encoded data payload
+}
+```
+
+---
+
 ## Composable return types
 
 Each composable has a corresponding return type interface:
@@ -394,3 +431,4 @@ Each composable has a corresponding return type interface:
 | `UseTransactionReturn` | [`useTransaction()`](/composables/use-transaction) |
 | `UseCryptoReturn` | [`useCrypto()`](/composables/use-crypto) |
 | `UseNetworkReturn` | [`useNetwork()`](/composables/use-network) |
+| `UseWalletReturn` | [`useWallet()`](/composables/use-wallet) |
