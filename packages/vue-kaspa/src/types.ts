@@ -209,6 +209,24 @@ export interface SignMessageResult {
   publicKeyHex: string
 }
 
+// ─── Wallet ────────────────────────────────────────────────────────────────
+
+/** Third-party wallet provider identifier */
+export type WalletProvider = 'kasware' | 'kastle'
+
+/** Balance reported by the connected wallet (in sompi) */
+export interface WalletBalance {
+  confirmed: bigint
+  unconfirmed: bigint
+  total: bigint
+}
+
+/** Options for sendKaspa via a third-party wallet */
+export interface WalletSendOptions {
+  priorityFee?: bigint
+  payload?: string
+}
+
 // ─── Composable Return Types ────────────────────────────────────────────────
 
 export interface UseKaspaReturn {
@@ -317,4 +335,45 @@ export interface UseNetworkReturn {
   daaScore: Readonly<Ref<bigint>>
   switchNetwork(network: KaspaNetwork): Promise<void>
   availableNetworks: readonly KaspaNetwork[]
+}
+
+export interface UseWalletReturn {
+  /** Which wallet provider is currently connected, or null */
+  provider: Readonly<Ref<WalletProvider | null>>
+  /** Connected account address, or null */
+  address: Readonly<Ref<string | null>>
+  /** Connected account public key, or null */
+  publicKey: Readonly<Ref<string | null>>
+  /** Wallet balance in sompi — populated for KasWare, null for Kastle */
+  balance: Readonly<Ref<WalletBalance | null>>
+  /** Active network reported by the wallet, or null */
+  network: Readonly<Ref<string | null>>
+  /** True while a connect() call is in progress */
+  isConnecting: Readonly<Ref<boolean>>
+  /** True when a provider is connected and an address is available */
+  isConnected: ComputedRef<boolean>
+  /** True when window.kasware is present */
+  isKaswareInstalled: ComputedRef<boolean>
+  /** True when window.kastle is present */
+  isKastleInstalled: ComputedRef<boolean>
+  /** Last connection error, or null */
+  error: Readonly<Ref<Error | null>>
+  /**
+   * Connect to a wallet provider.
+   * @param provider - 'kasware' or 'kastle'
+   * @param network  - Target network for Kastle (e.g. 'mainnet', 'testnet-10'). Ignored for KasWare.
+   */
+  connect(provider: WalletProvider, network?: string): Promise<void>
+  /** Disconnect the active wallet and clear all state */
+  disconnect(): Promise<void>
+  /**
+   * Send KAS via the active wallet.
+   * Only supported for KasWare. For Kastle, use window.kastle.signAndBroadcastTx() directly.
+   */
+  sendKaspa(to: string, amount: bigint, options?: WalletSendOptions): Promise<string>
+  /**
+   * Sign a message with the active wallet.
+   * Only supported for KasWare.
+   */
+  signMessage(message: string, options?: { type?: 'schnorr' | 'ecdsa' }): Promise<string>
 }

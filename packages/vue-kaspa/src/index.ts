@@ -8,6 +8,7 @@ export { useUtxo } from './composables/useUtxo'
 export { useTransaction } from './composables/useTransaction'
 export { useCrypto } from './composables/useCrypto'
 export { useNetwork } from './composables/useNetwork'
+export { useWallet } from './composables/useWallet'
 
 // Error classes
 export {
@@ -49,6 +50,10 @@ export type {
   UseTransactionReturn,
   UseCryptoReturn,
   UseNetworkReturn,
+  UseWalletReturn,
+  WalletProvider,
+  WalletBalance,
+  WalletSendOptions,
 } from './types'
 
 // Constants
