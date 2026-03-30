@@ -1,3 +1,1 @@
-{
-  "ignoreCommand": "git diff HEAD^ HEAD --name-only | grep -qE '^(docs/|packages/vue-kaspa/(package\\.json|CHANGELOG\\.md))' && exit 1 || exit 0"
-}
+{}
