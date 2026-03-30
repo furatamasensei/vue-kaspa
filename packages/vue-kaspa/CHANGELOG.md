@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.11](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.10...vue-kaspa-v0.1.11) (2026-03-30)
+
+
+### Bug Fixes
+
+* import vue-kaspa component CSS in playground ([3148509](https://github.com/furatamasensei/vue-kaspa/commit/31485094f51b8d890f390e302a2ef4c1a96432fb))
+
 ## [0.1.10](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.9...vue-kaspa-v0.1.10) (2026-03-30)
 
 
