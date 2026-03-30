@@ -1,19 +1,19 @@
 import { setupDevtoolsPlugin } from '@vue/devtools-api'
 import type { App } from 'vue'
 import { watch } from 'vue'
-import { getRpcManager } from '../internal/rpc-manager'
-import { getWasmState } from '../internal/wasm-loader'
-import { getWalletStateRefs } from '../composables/useWallet'
 import { getCurrentNetworkRef } from '../composables/useNetwork'
 import { getUtxoSnapshots } from '../composables/useUtxo'
+import { getWalletStateRefs } from '../composables/useWallet'
+import { getRpcManager } from '../internal/rpc-manager'
+import { getWasmState } from '../internal/wasm-loader'
+import type { InspectorState } from './inspector'
 import { INSPECTOR_ID, setupInspector } from './inspector'
 import {
-  postRpcEvent,
   postLifecycleEvent,
+  postRpcEvent,
   postWalletEvent,
   setupTimeline,
 } from './timeline'
-import type { InspectorState } from './inspector'
 
 export function setupDevtools(app: App): void {
   if (typeof window === 'undefined') return
@@ -23,7 +23,7 @@ export function setupDevtools(app: App): void {
       id: 'vue-kaspa',
       label: 'Vue Kaspa',
       packageName: 'vue-kaspa',
-      homepage: 'https://github.com/kaspanet/vue-kaspa',
+      homepage: 'https://github.com/furatamasensei/vue-kaspa',
       logo: 'https://raw.githubusercontent.com/furatamasensei/vue-kaspa/main/docs/public/logo.png',
       app,
       settings: {},
