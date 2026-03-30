@@ -2,6 +2,10 @@
 
 A pre-built wallet connection button that handles the full connect/disconnect flow for **KasWare** and **Kastle** browser wallets. Drop it into your app and customize through props and slots.
 
+::: warning Web only
+`ConnectWallet` relies on browser extension APIs (`window.kasware` / `window.kastle`) and is only supported in **web browsers**. Mobile apps are not supported.
+:::
+
 ## Import
 
 ```ts

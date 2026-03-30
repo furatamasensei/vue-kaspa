@@ -2,6 +2,10 @@
 
 Connects your app to third-party Kaspa browser wallet extensions — **KasWare** and **Kastle**. Exposes reactive connection state and a unified API for connecting, disconnecting, sending KAS, and signing messages.
 
+::: warning Web only
+`useWallet` relies on browser extension APIs (`window.kasware` / `window.kastle`) and is only supported in **web browsers**. Mobile apps are not supported.
+:::
+
 ::: tip No WASM required
 `useWallet` talks directly to the browser extension via `window.kasware` / `window.kastle`. You do not need to call `useKaspa().init()` first.
 :::
