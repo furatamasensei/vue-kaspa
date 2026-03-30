@@ -30,8 +30,8 @@ optimizeDeps.exclude: ['kaspa-wasm']
 ## Vue Plugin Setup
 
 ```ts
-import { KaspaPlugin } from 'vue-kaspa'
-app.use(KaspaPlugin, { network: 'mainnet', autoConnect: true })
+import { VueKaspa } from 'vue-kaspa'
+app.use(VueKaspa, { network: 'mainnet', autoConnect: true })
 ```
 
 ## Nuxt Setup
@@ -45,10 +45,10 @@ kaspa: { network: 'mainnet', autoConnect: true, panicHook: 'browser' }
 
 ---
 
-## KaspaPluginOptions
+## VueKaspaOptions
 
 ```ts
-interface KaspaPluginOptions {
+interface VueKaspaOptions {
   network?: KaspaNetwork         // default: 'mainnet'
   url?: string                   // custom node WS URL
   resolver?: boolean             // default: true (public resolver)
@@ -338,11 +338,11 @@ const AVAILABLE_NETWORKS: readonly KaspaNetwork[]
 
 ```ts
 import { createApp } from 'vue'
-import { KaspaPlugin, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
+import { VueKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
 
 // 1. Install plugin
 const app = createApp(App)
-app.use(KaspaPlugin, { network: 'mainnet', autoConnect: true })
+app.use(VueKaspa, { network: 'mainnet', autoConnect: true })
 
 // 2. In a component:
 const rpc = useRpc()

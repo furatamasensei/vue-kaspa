@@ -27,7 +27,7 @@ features:
     details: WASM status, connection state, UTXOs, and balances are Vue reactive refs — no manual wiring needed.
   - icon: 🧩
     title: Vue Plugin + Nuxt Module
-    details: Install once with app.use(KaspaPlugin) or add to nuxt.config.ts. All composables are auto-imported in Nuxt.
+    details: Install once with app.use(VueKaspa) or add to nuxt.config.ts. All composables are auto-imported in Nuxt.
   - icon: 🔑
     title: Full wallet toolkit
     details: BIP-39 mnemonic generation, BIP-32 HD key derivation, address utilities, message signing, and unit conversion.

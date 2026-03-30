@@ -6,10 +6,10 @@ import {
   extendRouteRules,
 } from '@nuxt/kit'
 import type { Nuxt } from '@nuxt/schema'
-import type { KaspaPluginOptions } from 'vue-kaspa'
+import type { VueKaspaOptions } from 'vue-kaspa'
 import wasm from 'vite-plugin-wasm'
 
-export interface ModuleOptions extends KaspaPluginOptions { }
+export interface ModuleOptions extends VueKaspaOptions { }
 
 // Required for SharedArrayBuffer which kaspa-wasm uses internally.
 const COOP_COEP = {
@@ -60,17 +60,17 @@ export default defineNuxtModule<ModuleOptions>({
       nuxt.options.vite.optimizeDeps.exclude.push('@vue-kaspa/kaspa-wasm')
     }
 
-    // Inject a client-only plugin that installs KaspaPlugin with the resolved options.
+    // Inject a client-only plugin that installs VueKaspa with the resolved options.
     addPluginTemplate({
       filename: 'vue-kaspa.client.mjs',
       mode: 'client',
       getContents: () => `
 import { defineNuxtPlugin } from 'nuxt/app'
-import { KaspaPlugin, useKaspa, useRpc } from 'vue-kaspa'
+import { VueKaspa, useKaspa, useRpc } from 'vue-kaspa'
 
 export default defineNuxtPlugin((nuxtApp) => {
   const options = ${JSON.stringify(options)}
-  nuxtApp.vueApp.use(KaspaPlugin, options)
+  nuxtApp.vueApp.use(VueKaspa, options)
 ${options.autoConnect !== false ? `
   // autoConnect: init WASM and establish the RPC connection on startup.
   // runWithContext makes inject() available outside component setup.

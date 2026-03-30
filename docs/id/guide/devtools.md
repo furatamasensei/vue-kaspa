@@ -58,7 +58,7 @@ Setiap event menampilkan ringkasan (hash blok, skor DAA, alamat yang terpengaruh
 
 ```ts
 // Nonaktifkan secara eksplisit (berguna di staging/produksi)
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   devtools: false,
 })
 ```

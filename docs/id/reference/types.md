@@ -4,7 +4,7 @@ Semua tipe diekspor dari `vue-kaspa` dan tersedia untuk diimpor:
 
 ```ts
 import type {
-  KaspaPluginOptions,
+  VueKaspaOptions,
   KaspaNetwork,
   // ...
 } from 'vue-kaspa'
@@ -12,12 +12,12 @@ import type {
 
 ---
 
-## KaspaPluginOptions
+## VueKaspaOptions
 
-Opsi yang diberikan ke `app.use(KaspaPlugin, options)` atau kunci `kaspa` di `nuxt.config.ts`.
+Opsi yang diberikan ke `app.use(VueKaspa, options)` atau kunci `kaspa` di `nuxt.config.ts`.
 
 ```ts
-interface KaspaPluginOptions {
+interface VueKaspaOptions {
   network?: KaspaNetwork
   url?: string
   resolver?: boolean
@@ -100,7 +100,7 @@ interface RpcOptions {
 }
 ```
 
-Bagian dari `KaspaPluginOptions` — diberikan ke `useRpc().connect(options?)` untuk menimpa default plugin untuk satu koneksi.
+Bagian dari `VueKaspaOptions` — diberikan ke `useRpc().connect(options?)` untuk menimpa default plugin untuk satu koneksi.
 
 ---
 

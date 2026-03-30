@@ -30,11 +30,11 @@ npm install vue-kaspa @vue-kaspa/kaspa-wasm
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { KaspaPlugin } from 'vue-kaspa'
+import { VueKaspa } from 'vue-kaspa'
 import App from './App.vue'
 
 createApp(App)
-  .use(KaspaPlugin, { network: 'mainnet' })
+  .use(VueKaspa, { network: 'mainnet' })
   .mount('#app')
 ```
 

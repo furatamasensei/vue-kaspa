@@ -26,7 +26,7 @@ That's all. No manual Vite config, no explicit plugin installation, no import st
 
 ## Module options
 
-The `kaspa` config key accepts the same options as [`KaspaPluginOptions`](/guide/vue-plugin#plugin-options):
+The `kaspa` config key accepts the same options as [`VueKaspaOptions`](/guide/vue-plugin#plugin-options):
 
 | Option | Type | Default |
 |---|---|---|
@@ -65,7 +65,7 @@ const utxo = useUtxo()
 
 `@vue-kaspa/kaspa-wasm` is a browser-only WASM package. The module handles every aspect of this automatically:
 
-1. **Client-only plugin** — `KaspaPlugin` is registered as a Nuxt client plugin. It never runs during server-side rendering. When `autoConnect: true` (the default), WASM is initialised and the RPC connection is established automatically as soon as the client loads — no `onMounted` call needed in your components.
+1. **Client-only plugin** — `VueKaspa` is registered as a Nuxt client plugin. It never runs during server-side rendering. When `autoConnect: true` (the default), WASM is initialised and the RPC connection is established automatically as soon as the client loads — no `onMounted` call needed in your components.
 2. **SSR external** — `@vue-kaspa/kaspa-wasm` is added to `vite.ssr.external`, preventing Vite from bundling or evaluating it on the server.
 3. **WASM plugin** — `vite-plugin-wasm` is added to the Vite config so WASM modules instantiate correctly in both dev and production builds.
 4. **COOP/COEP headers** — `Cross-Origin-Embedder-Policy: require-corp` and `Cross-Origin-Opener-Policy: same-origin` are set on the Vite dev server and via Nitro route rules for production. These are required for `SharedArrayBuffer`, which `kaspa-wasm` uses internally.

@@ -24,7 +24,7 @@ Rilis awal.
 ### Fitur
 
 **Vue Plugin + Nuxt Module**
-- `KaspaPlugin` untuk Vue 3 dengan konfigurasi `KaspaPluginOptions` lengkap
+- `VueKaspa` untuk Vue 3 dengan konfigurasi `VueKaspaOptions` lengkap
 - Modul Nuxt 3 (`vue-kaspa/nuxt`) dengan auto-import dan keamanan SSR
 - Integrasi Vue DevTools — panel inspektor dan timeline event
 

@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { defineComponent } from 'vue'
 import { mockWasmInit } from '../mocks/kaspa-wasm'
-import { KaspaPlugin } from '../../src/plugin'
+import { VueKaspa } from '../../src/plugin'
 import { useKaspa } from '../../src/composables/useKaspa'
 import { resetWasm } from '../../src/internal/wasm-loader'
 
@@ -15,7 +15,7 @@ function mountUseKaspa(pluginOptions = {}) {
     },
   })
   const wrapper = mount(TestComponent, {
-    global: { plugins: [[KaspaPlugin, { autoConnect: false, ...pluginOptions }]] },
+    global: { plugins: [[VueKaspa, { autoConnect: false, ...pluginOptions }]] },
     attachTo: document.body,
   })
   return { wrapper, get kaspa() { return result } }
@@ -76,7 +76,7 @@ describe('useKaspa', () => {
       components: { TestComponent },
       template: '<TestComponent /><TestComponent />',
     }, {
-      global: { plugins: [[KaspaPlugin, { autoConnect: false }]] },
+      global: { plugins: [[VueKaspa, { autoConnect: false }]] },
     })
     await flushPromises()
     // Both instances point to the same reactive state

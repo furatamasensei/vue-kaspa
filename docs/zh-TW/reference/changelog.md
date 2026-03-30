@@ -24,7 +24,7 @@
 ### 功能特色
 
 **Vue 插件 + Nuxt 模組**
-- 具備完整 `KaspaPluginOptions` 設定的 Vue 3 `KaspaPlugin`
+- 具備完整 `VueKaspaOptions` 設定的 Vue 3 `VueKaspa`
 - 具備自動匯入與 SSR 安全性的 Nuxt 3 模組（`vue-kaspa/nuxt`）
 - Vue DevTools 整合——檢視器面板與事件時間軸
 

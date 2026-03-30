@@ -26,7 +26,7 @@ features:
     details: WASM のステータス、接続状態、UTXO、残高はすべて Vue のリアクティブ ref です — 手動での配線は不要です。
   - icon: 🧩
     title: Vue プラグイン + Nuxt モジュール
-    details: app.use(KaspaPlugin) で一度インストールするか、nuxt.config.ts に追加するだけ。Nuxt ではすべてのコンポーザブルが自動インポートされます。
+    details: app.use(VueKaspa) で一度インストールするか、nuxt.config.ts に追加するだけ。Nuxt ではすべてのコンポーザブルが自動インポートされます。
   - icon: 🔑
     title: フルウォレットツールキット
     details: BIP-39 ニーモニック生成、BIP-32 HD キー導出、アドレスユーティリティ、メッセージ署名、単位変換を完備。

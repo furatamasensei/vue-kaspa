@@ -40,7 +40,7 @@ Singleton internal bersifat module-level — terdapat **satu koneksi RPC** dan *
 
 ```ts
 // Plugin
-import { KaspaPlugin } from 'vue-kaspa'
+import { VueKaspa } from 'vue-kaspa'
 
 // Composables
 import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
@@ -49,7 +49,7 @@ import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from
 import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'
 
 // Tipe (TypeScript)
-import type { KaspaPluginOptions, KaspaNetwork, UtxoEntry, PendingTx, /* ... */ } from 'vue-kaspa'
+import type { VueKaspaOptions, KaspaNetwork, UtxoEntry, PendingTx, /* ... */ } from 'vue-kaspa'
 
 // Konstanta
 import { AVAILABLE_NETWORKS } from 'vue-kaspa'

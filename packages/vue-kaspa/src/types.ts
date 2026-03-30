@@ -2,7 +2,7 @@ import type { Ref, ComputedRef } from 'vue'
 
 // ─── Plugin Options ────────────────────────────────────────────────────────
 
-export interface KaspaPluginOptions {
+export interface VueKaspaOptions {
   /** Network to connect to. Default: 'mainnet' */
   network?: KaspaNetwork
   /** RPC endpoint URL (e.g. 'ws://127.0.0.1:17110'). Mutually exclusive with resolver. */

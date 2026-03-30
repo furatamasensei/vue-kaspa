@@ -36,16 +36,7 @@ Adding vue-kaspa to an **existing** project? Continue with the steps below.
 
 ## Install the package
 
-```bash
-# npm
-npm install vue-kaspa @vue-kaspa/kaspa-wasm
-
-# pnpm
-pnpm add vue-kaspa @vue-kaspa/kaspa-wasm
-
-# yarn
-yarn add vue-kaspa @vue-kaspa/kaspa-wasm
-```
+<PackageManagerTabs packages="vue-kaspa @vue-kaspa/kaspa-wasm" />
 
 Both `vue-kaspa` and `@vue-kaspa/kaspa-wasm` are required. `@vue-kaspa/kaspa-wasm` provides the underlying WASM bindings; `vue-kaspa` wraps them with Vue reactivity.
 
@@ -53,9 +44,7 @@ Both `vue-kaspa` and `@vue-kaspa/kaspa-wasm` are required. `@vue-kaspa/kaspa-was
 
 `@vue-kaspa/kaspa-wasm` uses WebAssembly instantiation. Add `vite-plugin-wasm` to your Vite config:
 
-```bash
-npm install -D vite-plugin-wasm
-```
+<PackageManagerTabs packages="vite-plugin-wasm" :dev="true" />
 
 ```ts
 // vite.config.ts

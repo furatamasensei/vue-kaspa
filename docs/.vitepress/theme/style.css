@@ -17,6 +17,11 @@
 
 .vp-doc code {
   font-size: 0.875em;
+  color: #1a6b61;
+}
+
+.dark .vp-doc code {
+  color: #70C7BA;
 }
 
 .custom-block.tip {

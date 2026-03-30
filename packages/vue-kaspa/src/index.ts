@@ -1,5 +1,5 @@
 // Plugin
-export { KaspaPlugin } from './plugin'
+export { VueKaspa } from './plugin'
 
 // Components
 export { default as ConnectWallet } from './components/ConnectWallet.vue'
@@ -24,7 +24,7 @@ export {
 
 // All public types
 export type {
-  KaspaPluginOptions,
+  VueKaspaOptions,
   KaspaNetwork,
   RpcEncoding,
   WasmStatus,

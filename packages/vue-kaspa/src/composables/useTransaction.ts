@@ -3,7 +3,7 @@ import { ensureWasmInit } from '../internal/wasm-loader'
 import { getKaspa } from '../internal/kaspa'
 import { inject } from 'vue'
 import { KASPA_OPTIONS_KEY } from '../symbols'
-import type { KaspaPluginOptions, CreateTransactionSettings, TransactionSummary, PendingTx, UseTransactionReturn } from '../types'
+import type { VueKaspaOptions, CreateTransactionSettings, TransactionSummary, PendingTx, UseTransactionReturn } from '../types'
 
 type AnyPendingTx = {
   sign(keys: (string | Uint8Array)[]): void
@@ -59,7 +59,7 @@ function wrapPending(pending: AnyPendingTx, manager: ReturnType<typeof getRpcMan
 }
 
 export function useTransaction(): UseTransactionReturn {
-  const pluginOptions = inject<KaspaPluginOptions>(KASPA_OPTIONS_KEY, {})
+  const pluginOptions = inject<VueKaspaOptions>(KASPA_OPTIONS_KEY, {})
   const manager = getRpcManager()
 
   function toGeneratorSettings(settings: CreateTransactionSettings): Record<string, unknown> {

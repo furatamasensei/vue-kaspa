@@ -5,12 +5,12 @@
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { KaspaPlugin } from 'vue-kaspa'
+import { VueKaspa } from 'vue-kaspa'
 import App from './App.vue'
 
 const app = createApp(App)
 
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: true,
 })
@@ -39,7 +39,7 @@ app.mount('#app')
 提供 `url` 以略過公共解析器並連線至你自己的節點：
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'testnet-10',
   url: 'ws://127.0.0.1:17210',
 })
@@ -52,7 +52,7 @@ app.use(KaspaPlugin, {
 停用 `autoConnect` 以控制 WASM 載入與 RPC 連線的時機：
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: false,
 })
@@ -77,7 +77,7 @@ async function connect() {
 ## Testnet / devnet
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'testnet-10',
   // resolver automatically picks a testnet-10 node
 })
@@ -87,4 +87,4 @@ app.use(KaspaPlugin, {
 
 ## 插件冪等性
 
-多次呼叫 `app.use(KaspaPlugin)` 不會有任何效果——插件會檢查是否已安裝並靜默略過重複初始化。
+多次呼叫 `app.use(VueKaspa)` 不會有任何效果——插件會檢查是否已安裝並靜默略過重複初始化。

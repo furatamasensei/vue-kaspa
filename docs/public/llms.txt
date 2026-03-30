@@ -8,7 +8,7 @@ Vue Kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 6 composables: useK
 
 - [Introduction](/guide/introduction): Architecture overview, package exports, peer dependencies, design principles
 - [Installation](/guide/installation): npm/pnpm install, Vite WASM plugin config, CORS headers, TypeScript requirements
-- [Vue Plugin](/guide/vue-plugin): KaspaPlugin setup, all KaspaPluginOptions fields, custom node, manual init
+- [Vue Plugin](/guide/vue-plugin): VueKaspa setup, all VueKaspaOptions fields, custom node, manual init
 - [Nuxt Module](/guide/nuxt-module): nuxt.config.ts setup, auto-imported composables, SSR behavior
 - [Vue DevTools](/guide/devtools): Inspector panel (WASM, RPC, Network nodes), event timeline layer
 - [Error Handling](/guide/error-handling): KaspaError hierarchy, try/catch patterns, error refs on composables

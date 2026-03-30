@@ -2,10 +2,10 @@ import { computed, readonly } from 'vue'
 import { inject } from 'vue'
 import { getWasmState, ensureWasmInit, resetWasm } from '../internal/wasm-loader'
 import { KASPA_OPTIONS_KEY } from '../symbols'
-import type { KaspaPluginOptions, UseKaspaReturn } from '../types'
+import type { VueKaspaOptions, UseKaspaReturn } from '../types'
 
 export function useKaspa(): UseKaspaReturn {
-  const options = inject<KaspaPluginOptions>(KASPA_OPTIONS_KEY, {})
+  const options = inject<VueKaspaOptions>(KASPA_OPTIONS_KEY, {})
   const state = getWasmState()
 
   return {

@@ -13,7 +13,7 @@ Types entry:   ./dist/index.d.ts
 Nuxt entry:    vue-kaspa/nuxt
 ```
 
-**Exports:** `KaspaPlugin`, `useKaspa`, `useRpc`, `useUtxo`, `useTransaction`, `useCrypto`, `useNetwork`, error classes, 23 TypeScript types, `AVAILABLE_NETWORKS`
+**Exports:** `VueKaspa`, `useKaspa`, `useRpc`, `useUtxo`, `useTransaction`, `useCrypto`, `useNetwork`, error classes, 23 TypeScript types, `AVAILABLE_NETWORKS`
 
 ## Machine-readable files
 

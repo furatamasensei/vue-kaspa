@@ -1,5 +1,5 @@
 import { createApp } from 'vue'
-import { KaspaPlugin } from 'vue-kaspa'
+import { VueKaspa } from 'vue-kaspa'
 import { createRouter, createWebHashHistory } from 'vue-router'
 import App from './App.vue'
 import './assets/index.css'
@@ -30,7 +30,7 @@ const router = createRouter({
 
 const app = createApp(App)
 app.use(router)
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: true,
   devtools: true,

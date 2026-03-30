@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent } from 'vue'
-import { KaspaPlugin } from '../../src/plugin'
+import { VueKaspa } from '../../src/plugin'
 import { useCrypto } from '../../src/composables/useCrypto'
 import { resetWasm } from '../../src/internal/wasm-loader'
 import { loadKaspa } from '../../src/internal/kaspa'
@@ -15,7 +15,7 @@ function mountUseCrypto(pluginOptions = {}) {
     },
   })
   const wrapper = mount(TestComponent, {
-    global: { plugins: [[KaspaPlugin, { autoConnect: false, ...pluginOptions }]] },
+    global: { plugins: [[VueKaspa, { autoConnect: false, ...pluginOptions }]] },
     attachTo: document.body,
   })
   return { wrapper, get crypto() { return result } }

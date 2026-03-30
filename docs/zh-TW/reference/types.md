@@ -4,7 +4,7 @@
 
 ```ts
 import type {
-  KaspaPluginOptions,
+  VueKaspaOptions,
   KaspaNetwork,
   // ...
 } from 'vue-kaspa'
@@ -12,12 +12,12 @@ import type {
 
 ---
 
-## KaspaPluginOptions
+## VueKaspaOptions
 
-傳遞給 `app.use(KaspaPlugin, options)` 或 `nuxt.config.ts` 中 `kaspa` 鍵的選項。
+傳遞給 `app.use(VueKaspa, options)` 或 `nuxt.config.ts` 中 `kaspa` 鍵的選項。
 
 ```ts
-interface KaspaPluginOptions {
+interface VueKaspaOptions {
   network?: KaspaNetwork
   url?: string
   resolver?: boolean
@@ -100,7 +100,7 @@ interface RpcOptions {
 }
 ```
 
-`KaspaPluginOptions` 的子集——傳遞給 `useRpc().connect(options?)` 以覆蓋單次連線的插件預設值。
+`VueKaspaOptions` 的子集——傳遞給 `useRpc().connect(options?)` 以覆蓋單次連線的插件預設值。
 
 ---
 

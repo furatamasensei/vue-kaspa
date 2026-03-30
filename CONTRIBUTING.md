@@ -68,7 +68,7 @@ packages/vue-kaspa/
 │   ├── composables/     # useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork
 │   ├── devtools/        # Vue DevTools inspector + timeline
 │   ├── internal/        # wasm-loader, rpc-manager, event-bridge (singletons)
-│   ├── plugin.ts        # KaspaPlugin
+│   ├── plugin.ts        # VueKaspa
 │   ├── nuxt.ts          # Nuxt 3 module
 │   ├── types.ts         # All exported TypeScript types
 │   ├── errors.ts        # KaspaError hierarchy

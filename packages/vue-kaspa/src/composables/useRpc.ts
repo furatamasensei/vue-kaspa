@@ -5,7 +5,7 @@ import { ensureWasmInit } from '../internal/wasm-loader'
 import { KASPA_OPTIONS_KEY } from '../symbols'
 import { KaspaRpcError } from '../errors'
 import type {
-  KaspaPluginOptions,
+  VueKaspaOptions,
   RpcOptions,
   RpcEvent,
   RpcEventType,
@@ -19,7 +19,7 @@ import type {
 } from '../types'
 
 export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
-  const pluginOptions = inject<KaspaPluginOptions>(KASPA_OPTIONS_KEY, {})
+  const pluginOptions = inject<VueKaspaOptions>(KASPA_OPTIONS_KEY, {})
   const manager = getRpcManager()
   const { state, eventLog, bridge } = manager
 

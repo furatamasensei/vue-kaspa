@@ -6,33 +6,14 @@ const { version } = require('../../packages/vue-kaspa/package.json')
 
 const nav = (locale: string) => {
   const base = locale ? `/${locale}` : ''
+  const t = (en: string, id: string, ja: string, zhTW: string) =>
+    ({ '': en, id, ja, 'zh-TW': zhTW }[locale] ?? en)
   return [
-    {
-      text: { '': 'Guide', id: 'Panduan', ja: 'ガイド', 'zh-TW': '指南' }[locale] ?? 'Guide',
-      link: `${base}/guide/introduction`,
-      activeMatch: `${base}/guide/`,
-    },
-    {
-      text: 'Composables',
-      link: `${base}/composables/use-kaspa`,
-      activeMatch: `${base}/composables/`,
-    },
-    {
-      text: 'Components',
-      link: `${base}/components/connect-wallet`,
-      activeMatch: `${base}/components/`,
-    },
-    {
-      text: { '': 'Reference', id: 'Referensi', ja: 'リファレンス', 'zh-TW': '參考' }[locale] ?? 'Reference',
-      link: `${base}/reference/types`,
-      activeMatch: `${base}/reference/`,
-    },
-    { text: 'AI & LLMs', link: '/llms/', activeMatch: '/llms/' },
     {
       text: `v${version}`,
       items: [
         {
-          text: { '': 'Changelog', id: 'Catatan Perubahan', ja: '変更履歴', 'zh-TW': '更新日誌' }[locale] ?? 'Changelog',
+          text: t('Changelog', 'Catatan Perubahan', '変更履歴', '更新日誌'),
           link: `${base}/reference/changelog`,
         },
         { text: 'npm', link: 'https://www.npmjs.com/package/vue-kaspa' },
@@ -47,66 +28,59 @@ const sidebar = (locale: string) => {
   const t = (en: string, id: string, ja: string, zhTW: string) =>
     ({ '': en, id, ja, 'zh-TW': zhTW }[locale] ?? en)
 
-  return {
-    [`${base}/guide/`]: [
-      {
-        text: t('Getting Started', 'Mulai', 'はじめに', '快速開始'),
-        items: [
-          { text: t('Introduction', 'Pengenalan', 'はじめに', '介紹'), link: `${base}/guide/introduction` },
-          { text: t('Installation', 'Instalasi', 'インストール', '安裝'), link: `${base}/guide/installation` },
-          { text: 'Vue Plugin', link: `${base}/guide/vue-plugin` },
-          { text: 'Nuxt Module', link: `${base}/guide/nuxt-module` },
-        ],
-      },
-      {
-        text: t('Advanced', 'Lanjutan', '上級', '進階'),
-        items: [
-          { text: 'Vue DevTools', link: `${base}/guide/devtools` },
-          { text: t('Error Handling', 'Penanganan Error', 'エラー処理', '錯誤處理'), link: `${base}/guide/error-handling` },
-        ],
-      },
-    ],
-    [`${base}/composables/`]: [
-      {
-        text: 'Composables',
-        items: [
-          { text: 'useKaspa', link: `${base}/composables/use-kaspa` },
-          { text: 'useRpc', link: `${base}/composables/use-rpc` },
-          { text: 'useUtxo', link: `${base}/composables/use-utxo` },
-          { text: 'useTransaction', link: `${base}/composables/use-transaction` },
-          { text: 'useCrypto', link: `${base}/composables/use-crypto` },
-          { text: 'useNetwork', link: `${base}/composables/use-network` },
-          { text: 'useWallet', link: `${base}/composables/use-wallet` },
-        ],
-      },
-    ],
-    [`${base}/components/`]: [
-      {
-        text: 'Components',
-        items: [
-          { text: 'ConnectWallet', link: `${base}/components/connect-wallet` },
-        ],
-      },
-    ],
-    [`${base}/reference/`]: [
-      {
-        text: t('Reference', 'Referensi', 'リファレンス', '參考'),
-        items: [
-          { text: t('TypeScript Types', 'Tipe TypeScript', 'TypeScript 型', 'TypeScript 型別'), link: `${base}/reference/types` },
-          { text: t('Constants', 'Konstanta', '定数', '常量'), link: `${base}/reference/constants` },
-          { text: t('Changelog', 'Catatan Perubahan', '変更履歴', '更新日誌'), link: `${base}/reference/changelog` },
-        ],
-      },
-    ],
-    [`${base}/llms/`]: [
-      {
-        text: 'AI & LLMs',
-        items: [
-          { text: t('Overview', 'Ringkasan', '概要', '概覽'), link: '/llms/' },
-        ],
-      },
-    ],
-  }
+  const items = [
+    {
+      text: t('Getting Started', 'Mulai', 'はじめに', '快速開始'),
+      items: [
+        { text: t('Introduction', 'Pengenalan', 'はじめに', '介紹'), link: `${base}/guide/introduction` },
+        { text: t('Installation', 'Instalasi', 'インストール', '安裝'), link: `${base}/guide/installation` },
+        { text: 'Vue Plugin', link: `${base}/guide/vue-plugin` },
+        { text: 'Nuxt Module', link: `${base}/guide/nuxt-module` },
+      ],
+    },
+    {
+      text: 'Composables',
+      items: [
+        { text: 'useKaspa', link: `${base}/composables/use-kaspa` },
+        { text: 'useRpc', link: `${base}/composables/use-rpc` },
+        { text: 'useUtxo', link: `${base}/composables/use-utxo` },
+        { text: 'useTransaction', link: `${base}/composables/use-transaction` },
+        { text: 'useCrypto', link: `${base}/composables/use-crypto` },
+        { text: 'useNetwork', link: `${base}/composables/use-network` },
+        { text: 'useWallet', link: `${base}/composables/use-wallet` },
+      ],
+    },
+    {
+      text: 'Components',
+      items: [
+        { text: 'ConnectWallet', link: `${base}/components/connect-wallet` },
+      ],
+    },
+    {
+      text: t('Reference', 'Referensi', 'リファレンス', '參考'),
+      items: [
+        { text: t('TypeScript Types', 'Tipe TypeScript', 'TypeScript 型', 'TypeScript 型別'), link: `${base}/reference/types` },
+        { text: t('Constants', 'Konstanta', '定数', '常量'), link: `${base}/reference/constants` },
+        { text: t('Changelog', 'Catatan Perubahan', '変更履歴', '更新日誌'), link: `${base}/reference/changelog` },
+      ],
+    },
+    {
+      text: 'AI & LLMs',
+      items: [
+        { text: t('Overview', 'Ringkasan', '概要', '概覽'), link: '/llms/' },
+      ],
+    },
+    {
+      text: t('Advanced', 'Lanjutan', '上級', '進階'),
+      collapsed: true,
+      items: [
+        { text: 'Vue DevTools', link: `${base}/guide/devtools` },
+        { text: t('Error Handling', 'Penanganan Error', 'エラー処理', '錯誤處理'), link: `${base}/guide/error-handling` },
+      ],
+    },
+  ]
+
+  return items
 }
 
 export default defineConfig({

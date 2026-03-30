@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { defineComponent, inject } from 'vue'
 import {
-  KaspaPlugin, useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork,
+  VueKaspa, useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork,
   KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, AVAILABLE_NETWORKS,
 } from '../../src/index'
 import { KASPA_OPTIONS_KEY } from '../../src/symbols'
@@ -29,7 +29,7 @@ describe('Plugin install integration', () => {
       },
     })
     mount(TestComponent, {
-      global: { plugins: [[KaspaPlugin, { autoConnect: false }]] },
+      global: { plugins: [[VueKaspa, { autoConnect: false }]] },
     })
     expect(results.kaspa).toBeDefined()
     expect(results.rpc).toBeDefined()
@@ -49,7 +49,7 @@ describe('Plugin install integration', () => {
     })
     mount(TestComponent, {
       global: {
-        plugins: [[KaspaPlugin, { network: 'testnet-12', url: 'ws://test:17110', autoConnect: false }]],
+        plugins: [[VueKaspa, { network: 'testnet-12', url: 'ws://test:17110', autoConnect: false }]],
       },
     })
     expect((injectedOptions as Record<string, unknown>).network).toBe('testnet-12')
@@ -74,7 +74,7 @@ describe('Plugin install integration', () => {
       components: { ComponentA, ComponentB, ComponentC },
       template: '<ComponentA /><ComponentB /><ComponentC />',
     }, {
-      global: { plugins: [[KaspaPlugin, { autoConnect: false }]] },
+      global: { plugins: [[VueKaspa, { autoConnect: false }]] },
     })
 
     // Both kaspa instances reference the same computed
@@ -97,7 +97,7 @@ describe('Plugin install integration', () => {
       },
     })
     mount(TestComponent, {
-      global: { plugins: [[KaspaPlugin, { autoConnect: false }]] },
+      global: { plugins: [[VueKaspa, { autoConnect: false }]] },
     })
 
     await rpcResult!.connect()
@@ -108,7 +108,7 @@ describe('Plugin install integration', () => {
   })
 
   it('exports all public API surface', () => {
-    expect(typeof KaspaPlugin.install).toBe('function')
+    expect(typeof VueKaspa.install).toBe('function')
     expect(typeof useKaspa).toBe('function')
     expect(typeof useRpc).toBe('function')
     expect(typeof useUtxo).toBe('function')

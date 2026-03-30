@@ -3,7 +3,7 @@ import { inject } from 'vue'
 import { KASPA_OPTIONS_KEY } from '../symbols'
 import { getRpcManager } from '../internal/rpc-manager'
 import { AVAILABLE_NETWORKS } from '../types'
-import type { KaspaPluginOptions, KaspaNetwork, UseNetworkReturn } from '../types'
+import type { VueKaspaOptions, KaspaNetwork, UseNetworkReturn } from '../types'
 
 // Module-level network state shared across all composable instances
 const _currentNetwork = ref<KaspaNetwork>('mainnet')
@@ -14,7 +14,7 @@ export function getCurrentNetworkRef() {
 }
 
 export function useNetwork(): UseNetworkReturn {
-  const pluginOptions = inject<KaspaPluginOptions>(KASPA_OPTIONS_KEY, {})
+  const pluginOptions = inject<VueKaspaOptions>(KASPA_OPTIONS_KEY, {})
   const manager = getRpcManager()
 
   // Initialize from plugin options (first call wins)

@@ -3,21 +3,20 @@
 All types are exported from `vue-kaspa` and available for import:
 
 ```ts
-import type {
-  KaspaPluginOptions,
-  KaspaNetwork,
-  // ...
-} from 'vue-kaspa'
+import type { VueKaspaOptions, KaspaNetwork } from 'vue-kaspa'
+
+// Error classes are values (not just types) — import without `type`
+import { KaspaWalletError, KaspaRpcError } from 'vue-kaspa'
 ```
 
 ---
 
-## KaspaPluginOptions
+## VueKaspaOptions
 
-Options passed to `app.use(KaspaPlugin, options)` or the `kaspa` key in `nuxt.config.ts`.
+Options passed to `app.use(VueKaspa, options)` or the `kaspa` key in `nuxt.config.ts`.
 
 ```ts
-interface KaspaPluginOptions {
+interface VueKaspaOptions {
   network?: KaspaNetwork
   url?: string
   resolver?: boolean
@@ -100,7 +99,7 @@ interface RpcOptions {
 }
 ```
 
-Subset of `KaspaPluginOptions` — passed to `useRpc().connect(options?)` to override plugin defaults for a single connection.
+Subset of `VueKaspaOptions` — passed to `useRpc().connect(options?)` to override plugin defaults for a single connection.
 
 ---
 
@@ -432,3 +431,63 @@ Each composable has a corresponding return type interface:
 | `UseCryptoReturn` | [`useCrypto()`](/composables/use-crypto) |
 | `UseNetworkReturn` | [`useNetwork()`](/composables/use-network) |
 | `UseWalletReturn` | [`useWallet()`](/composables/use-wallet) |
+
+---
+
+## Error classes
+
+All error classes extend `KaspaError` and are exported from `vue-kaspa`. See [Error Handling](/guide/error-handling) for full usage patterns and examples.
+
+### KaspaError
+
+Base class for all Vue Kaspa errors.
+
+```ts
+class KaspaError extends Error {
+  readonly cause?: unknown
+}
+```
+
+### KaspaNotReadyError
+
+Thrown when a composable method is called before the WASM module is initialized.
+
+```ts
+class KaspaNotReadyError extends KaspaError {}
+```
+
+### KaspaRpcError
+
+Thrown when an RPC method call fails.
+
+```ts
+class KaspaRpcError extends KaspaError {
+  constructor(method: string, cause?: unknown)
+}
+```
+
+`err.message` is `"RPC method \"<method>\" failed"`. The underlying error is on `err.cause`.
+
+### KaspaWalletError
+
+Thrown when a wallet operation (`connect`, `sendKaspa`, `signMessage`) fails.
+
+```ts
+class KaspaWalletError extends KaspaError {
+  constructor(operation: string, cause?: unknown)
+}
+```
+
+`err.message` is `"Wallet operation \"<operation>\" failed"`.
+
+### KaspaCryptoError
+
+Thrown when a cryptographic operation fails.
+
+```ts
+class KaspaCryptoError extends KaspaError {
+  constructor(operation: string, cause?: unknown)
+}
+```
+
+`err.message` is `"Crypto operation \"<operation>\" failed"`.

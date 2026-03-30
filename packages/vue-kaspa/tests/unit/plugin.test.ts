@@ -1,17 +1,17 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { createApp } from 'vue'
-import { KaspaPlugin } from '../../src/plugin'
+import { VueKaspa } from '../../src/plugin'
 import { KASPA_OPTIONS_KEY, KASPA_INSTALLED_KEY } from '../../src/symbols'
 import { resetRpcManager } from '../../src/internal/rpc-manager'
 import { resetWasm } from '../../src/internal/wasm-loader'
 
 function createTestApp(options = {}) {
   const app = createApp({ template: '<div />' })
-  app.use(KaspaPlugin, options)
+  app.use(VueKaspa, options)
   return app
 }
 
-describe('KaspaPlugin', () => {
+describe('VueKaspa', () => {
   beforeEach(() => {
     resetRpcManager()
     resetWasm()
@@ -42,7 +42,7 @@ describe('KaspaPlugin', () => {
   it('does not install twice on the same app', () => {
     const app = createTestApp()
     const warnSpy = vi.spyOn(console, 'warn').mockImplementation(() => {})
-    app.use(KaspaPlugin, {})
+    app.use(VueKaspa, {})
     // Vue itself (or our guard) should emit a warning on duplicate install
     expect(warnSpy).toHaveBeenCalled()
     warnSpy.mockRestore()

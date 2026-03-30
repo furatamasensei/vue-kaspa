@@ -68,12 +68,13 @@ async function copyAddress() {
   width: min(440px, calc(100vw - 2rem));
   max-width: none;
   overflow: hidden;
+  box-sizing: border-box;
   background: var(--vp-c-bg);
   color: var(--vp-c-text-1);
   box-shadow: 0 20px 60px rgba(0, 0, 0, .2);
 }
 
-.donate-inner { padding: 2rem; position: relative; }
+.donate-inner { padding: 2rem; position: relative; box-sizing: border-box; width: 100%; max-width: 100%; }
 
 .donate-close {
   position: absolute;
@@ -89,8 +90,8 @@ async function copyAddress() {
 }
 .donate-close:hover { color: var(--vp-c-text-1); }
 
-.donate-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; color: var(--vp-c-text-1); }
-.donate-body { font-size: .875rem; color: var(--vp-c-text-2); margin: 0 0 1.25rem; line-height: 1.7; }
+.donate-title { margin: 0 0 .75rem; font-size: 1.05rem; font-weight: 700; color: var(--vp-c-text-1); white-space: normal; }
+.donate-body { font-size: .875rem; color: var(--vp-c-text-2); margin: 0 0 1.25rem; line-height: 1.7; white-space: normal; }
 
 .donate-copy-wrap { display: flex; flex-direction: column; gap: .5rem; }
 

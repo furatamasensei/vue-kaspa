@@ -1,7 +1,7 @@
 import type { InjectionKey } from 'vue'
-import type { KaspaPluginOptions } from './types'
+import type { VueKaspaOptions } from './types'
 
-export const KASPA_OPTIONS_KEY: InjectionKey<KaspaPluginOptions> =
+export const KASPA_OPTIONS_KEY: InjectionKey<VueKaspaOptions> =
   Symbol('kaspa:options')
 
 // Internal singleton state is module-level; these keys are for per-app overrides

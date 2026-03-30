@@ -4,7 +4,7 @@
 
 ```ts
 import type {
-  KaspaPluginOptions,
+  VueKaspaOptions,
   KaspaNetwork,
   // ...
 } from 'vue-kaspa'
@@ -12,12 +12,12 @@ import type {
 
 ---
 
-## KaspaPluginOptions
+## VueKaspaOptions
 
-`app.use(KaspaPlugin, options)` または `nuxt.config.ts` の `kaspa` キーに渡すオプションです。
+`app.use(VueKaspa, options)` または `nuxt.config.ts` の `kaspa` キーに渡すオプションです。
 
 ```ts
-interface KaspaPluginOptions {
+interface VueKaspaOptions {
   network?: KaspaNetwork
   url?: string
   resolver?: boolean
@@ -100,7 +100,7 @@ interface RpcOptions {
 }
 ```
 
-`KaspaPluginOptions` のサブセット — 単一の接続でプラグインのデフォルトを上書きするために `useRpc().connect(options?)` に渡します。
+`VueKaspaOptions` のサブセット — 単一の接続でプラグインのデフォルトを上書きするために `useRpc().connect(options?)` に渡します。
 
 ---
 

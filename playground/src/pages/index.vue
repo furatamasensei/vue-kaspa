@@ -6,11 +6,11 @@ import { useKaspa, useNetwork, useRpc } from 'vue-kaspa'
 import CodeExample from '../components/CodeExample.vue'
 
 const EXAMPLE = `import { createApp } from 'vue'
-import { KaspaPlugin, useKaspa, useRpc } from 'vue-kaspa'
+import { VueKaspa, useKaspa, useRpc } from 'vue-kaspa'
 
 // Install the plugin
 const app = createApp(App)
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: true,   // init WASM + connect on mount
   devtools: true,

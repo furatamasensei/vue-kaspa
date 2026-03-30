@@ -58,7 +58,7 @@ Each event shows a summary (block hash, DAA score, affected addresses, etc.) and
 
 ```ts
 // Explicitly disable (useful in staging/production)
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   devtools: false,
 })
 ```

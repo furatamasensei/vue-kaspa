@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount } from '@vue/test-utils'
 import { defineComponent, ref } from 'vue'
-import { KaspaPlugin } from '../../src/plugin'
+import { VueKaspa } from '../../src/plugin'
 import { useNetwork } from '../../src/composables/useNetwork'
 import { resetRpcManager } from '../../src/internal/rpc-manager'
 import { resetWasm } from '../../src/internal/wasm-loader'
@@ -18,7 +18,7 @@ function mountUseNetwork(pluginOptions = {}) {
     },
   })
   const wrapper = mount(TestComponent, {
-    global: { plugins: [[KaspaPlugin, { autoConnect: false, ...pluginOptions }]] },
+    global: { plugins: [[VueKaspa, { autoConnect: false, ...pluginOptions }]] },
     attachTo: document.body,
   })
   return { wrapper, get network() { return result } }

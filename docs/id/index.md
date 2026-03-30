@@ -26,7 +26,7 @@ features:
     details: Status WASM, kondisi koneksi, UTXO, dan saldo adalah Vue reactive refs — tidak perlu pengkabelan manual.
   - icon: 🧩
     title: Vue Plugin + Nuxt Module
-    details: Pasang sekali dengan app.use(KaspaPlugin) atau tambahkan ke nuxt.config.ts. Semua composable di-auto-import di Nuxt.
+    details: Pasang sekali dengan app.use(VueKaspa) atau tambahkan ke nuxt.config.ts. Semua composable di-auto-import di Nuxt.
   - icon: 🔑
     title: Toolkit dompet lengkap
     details: Pembuatan mnemonic BIP-39, derivasi kunci HD BIP-32, utilitas alamat, penandatanganan pesan, dan konversi unit.

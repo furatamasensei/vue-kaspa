@@ -5,12 +5,12 @@
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { KaspaPlugin } from 'vue-kaspa'
+import { VueKaspa } from 'vue-kaspa'
 import App from './App.vue'
 
 const app = createApp(App)
 
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: true,
 })
@@ -39,7 +39,7 @@ All options are optional.
 Provide a `url` to bypass the public resolver and connect to your own node:
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'testnet-10',
   url: 'ws://127.0.0.1:17210',
 })
@@ -52,7 +52,7 @@ When `url` is provided, `resolver` is automatically set to `false`.
 Disable `autoConnect` to control when WASM loads and the RPC connects:
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: false,
 })
@@ -77,7 +77,7 @@ async function connect() {
 ## Testnet / devnet
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'testnet-10',
   // resolver automatically picks a testnet-10 node
 })
@@ -87,4 +87,4 @@ Available networks: `'mainnet'` | `'testnet-10'` | `'testnet-12'` | `'simnet'` |
 
 ## Plugin idempotency
 
-Calling `app.use(KaspaPlugin)` more than once is a no-op — the plugin checks for an existing installation and skips re-initialization silently.
+Calling `app.use(VueKaspa)` more than once is a no-op — the plugin checks for an existing installation and skips re-initialization silently.

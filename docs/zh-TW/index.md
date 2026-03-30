@@ -26,7 +26,7 @@ features:
     details: WASM 狀態、連線狀態、UTXO 與餘額皆為 Vue 響應式 ref，無需手動接線。
   - icon: 🧩
     title: Vue 插件 + Nuxt 模組
-    details: 使用 app.use(KaspaPlugin) 一次安裝，或加入 nuxt.config.ts。所有可組合函式在 Nuxt 中均可自動匯入。
+    details: 使用 app.use(VueKaspa) 一次安裝，或加入 nuxt.config.ts。所有可組合函式在 Nuxt 中均可自動匯入。
   - icon: 🔑
     title: 完整錢包工具組
     details: BIP-39 助記詞生成、BIP-32 HD 金鑰衍生、地址工具、訊息簽署與單位換算。

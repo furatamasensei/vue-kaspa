@@ -24,7 +24,7 @@
 ### 機能
 
 **Vue プラグイン + Nuxt モジュール**
-- 完全な `KaspaPluginOptions` 設定を備えた Vue 3 向け `KaspaPlugin`
+- 完全な `VueKaspaOptions` 設定を備えた Vue 3 向け `VueKaspa`
 - 自動インポートと SSR セーフティを備えた Nuxt 3 モジュール (`vue-kaspa/nuxt`)
 - Vue DevTools 統合 — インスペクターパネルとイベントタイムライン
 

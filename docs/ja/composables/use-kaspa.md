@@ -85,7 +85,7 @@ onMounted(async () => {
 プラグインが `autoConnect: true` (デフォルト) でインストールされている場合、WASM は自動的に初期化されます。手動で `init()` を呼び出す必要はありません。
 
 ```ts
-app.use(KaspaPlugin, { autoConnect: true })
+app.use(VueKaspa, { autoConnect: true })
 // WASM loads on plugin install — wasmStatus becomes 'ready' before first component mount
 ```
 

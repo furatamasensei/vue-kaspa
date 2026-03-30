@@ -2,7 +2,7 @@ import { describe, it, expect, vi, beforeEach } from 'vitest'
 import { mount, flushPromises } from '@vue/test-utils'
 import { defineComponent } from 'vue'
 import { RpcClient, createRpcClientMock } from '../mocks/kaspa-wasm'
-import { KaspaPlugin } from '../../src/plugin'
+import { VueKaspa } from '../../src/plugin'
 import { useRpc } from '../../src/composables/useRpc'
 import { resetRpcManager, getRpcManager } from '../../src/internal/rpc-manager'
 import { resetWasm } from '../../src/internal/wasm-loader'
@@ -16,7 +16,7 @@ function mountUseRpc(pluginOptions = {}, rpcOptions = {}) {
     },
   })
   const wrapper = mount(TestComponent, {
-    global: { plugins: [[KaspaPlugin, { autoConnect: false, ...pluginOptions }]] },
+    global: { plugins: [[VueKaspa, { autoConnect: false, ...pluginOptions }]] },
     attachTo: document.body,
   })
   return { wrapper, get rpc() { return result } }

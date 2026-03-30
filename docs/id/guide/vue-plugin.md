@@ -5,12 +5,12 @@
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { KaspaPlugin } from 'vue-kaspa'
+import { VueKaspa } from 'vue-kaspa'
 import App from './App.vue'
 
 const app = createApp(App)
 
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: true,
 })
@@ -39,7 +39,7 @@ Semua opsi bersifat opsional.
 Berikan `url` untuk melewati resolver publik dan terhubung ke node Anda sendiri:
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'testnet-10',
   url: 'ws://127.0.0.1:17210',
 })
@@ -52,7 +52,7 @@ Ketika `url` diberikan, `resolver` otomatis diset ke `false`.
 Nonaktifkan `autoConnect` untuk mengontrol kapan WASM dimuat dan RPC terhubung:
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: false,
 })
@@ -77,7 +77,7 @@ async function connect() {
 ## Testnet / devnet
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'testnet-10',
   // resolver otomatis memilih node testnet-10
 })
@@ -87,4 +87,4 @@ Jaringan yang tersedia: `'mainnet'` | `'testnet-10'` | `'testnet-12'` | `'simnet
 
 ## Idempotency plugin
 
-Memanggil `app.use(KaspaPlugin)` lebih dari sekali tidak akan berpengaruh — plugin memeriksa instalasi yang sudah ada dan melewati re-inisialisasi secara diam-diam.
+Memanggil `app.use(VueKaspa)` lebih dari sekali tidak akan berpengaruh — plugin memeriksa instalasi yang sudah ada dan melewati re-inisialisasi secara diam-diam.

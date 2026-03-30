@@ -40,7 +40,7 @@
 
 ```ts
 // Plugin
-import { KaspaPlugin } from 'vue-kaspa'
+import { VueKaspa } from 'vue-kaspa'
 
 // Composables
 import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
@@ -49,7 +49,7 @@ import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from
 import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'
 
 // Types (TypeScript)
-import type { KaspaPluginOptions, KaspaNetwork, UtxoEntry, PendingTx, /* ... */ } from 'vue-kaspa'
+import type { VueKaspaOptions, KaspaNetwork, UtxoEntry, PendingTx, /* ... */ } from 'vue-kaspa'
 
 // Constants
 import { AVAILABLE_NETWORKS } from 'vue-kaspa'

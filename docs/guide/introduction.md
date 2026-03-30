@@ -1,72 +1,40 @@
 # Introduction
 
-**Vue Kaspa** is a Vue 3 plugin that provides reactive composables for interacting with the [Kaspa](https://kaspa.org) blockchain. It wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kaspa/kaspa-wasm) — the official WebAssembly SDK — and exposes its functionality through idiomatic Vue 3 APIs.
+Build Kaspa blockchain apps with Vue 3 — without touching WebAssembly directly.
 
-## What you get
+Vue Kaspa handles the hard parts: loading WASM, managing a WebSocket connection to the network, keeping balances and UTXOs in sync, and wiring it all into Vue's reactivity system. You write components. It handles the blockchain.
 
-Six composables covering the full workflow:
+## What you can build
 
-| Composable | Purpose |
+- **Wallets** — connect KasWare or Kastle, show live balances, send KAS
+- **Block explorers** — subscribe to new blocks and DAG events in real time
+- **dApps** — read UTXOs, build and sign transactions, work with HD keys
+- **Dashboards** — reactive network stats, fee estimates, UTXO history
+
+## What it gives you
+
+Seven composables that cover the full workflow:
+
+| Composable | What it does |
 |---|---|
-| [`useKaspa`](/composables/use-kaspa) | WASM initialization lifecycle |
-| [`useRpc`](/composables/use-rpc) | WebSocket RPC connection, queries, and events |
-| [`useUtxo`](/composables/use-utxo) | Real-time UTXO tracking and reactive balance |
-| [`useTransaction`](/composables/use-transaction) | Transaction building, signing, and submission |
-| [`useCrypto`](/composables/use-crypto) | Key generation, HD derivation, signing, unit conversion |
-| [`useNetwork`](/composables/use-network) | Network switching (mainnet, testnet, etc.) |
+| [`useKaspa`](/composables/use-kaspa) | Start up the WASM runtime |
+| [`useRpc`](/composables/use-rpc) | Connect to a Kaspa node, run queries, subscribe to events |
+| [`useUtxo`](/composables/use-utxo) | Watch an address — reactive balance that updates in real time |
+| [`useTransaction`](/composables/use-transaction) | Build, sign, and submit transactions |
+| [`useCrypto`](/composables/use-crypto) | Generate keys, derive addresses, sign messages, convert units |
+| [`useNetwork`](/composables/use-network) | Switch between mainnet, testnet-10, and other networks |
+| [`useWallet`](/composables/use-wallet) | Connect to browser wallet extensions (KasWare, Kastle) |
 
-## Architecture
+Plus a drop-in **`ConnectWallet`** component if you just need a connect button.
 
+## Why not use the WASM SDK directly?
+
+You can — but you'd be writing a lot of glue code. The WASM SDK gives you raw async calls. Vue Kaspa turns those into reactive refs that your templates can bind to, manages the connection lifecycle, handles cleanup when components unmount, and surfaces errors in a consistent way. It also sets up the Vue DevTools panel so you can inspect blockchain state alongside your component tree.
+
+## Works with Vue and Nuxt
+
+Install as a Vue plugin or use the Nuxt module — both get you auto-imports, the same composables, and the same behavior. Scaffold a starter project in seconds:
+
+```sh
+npx vue-kaspa-cli
 ```
-┌─────────────────────────────────────────────────────┐
-│  Your Vue components / Nuxt pages                   │
-│  useRpc()  useUtxo()  useTransaction()  useCrypto() │
-└──────────────────────┬──────────────────────────────┘
-                       │ Vue reactivity
-┌──────────────────────▼──────────────────────────────┐
-│  Internal singletons (shared across all components) │
-│  RpcManager · WasmLoader · EventBridge              │
-└──────────────────────┬──────────────────────────────┘
-                       │ WASM calls
-┌──────────────────────▼──────────────────────────────┐
-│  @vue-kaspa/kaspa-wasm (WebAssembly)                           │
-│  RpcClient · PrivateKey · XPrv · createTransactions │
-└─────────────────────────────────────────────────────┘
-```
-
-The internal singletons are module-level — there is **one RPC connection** and **one WASM instance** per application, shared across all composable instances. This is intentional: a browser tab should not open multiple WebSocket connections to a Kaspa node.
-
-## Public API surface
-
-```ts
-// Plugin
-import { KaspaPlugin } from 'vue-kaspa'
-
-// Composables
-import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
-
-// Error classes
-import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'
-
-// Types (TypeScript)
-import type { KaspaPluginOptions, KaspaNetwork, UtxoEntry, PendingTx, /* ... */ } from 'vue-kaspa'
-
-// Constants
-import { AVAILABLE_NETWORKS } from 'vue-kaspa'
-```
-
-## Peer dependencies
-
-| Package | Version |
-|---|---|
-| `vue` | `>=3.4.0` |
-| `@vue-kaspa/kaspa-wasm` | `>=1.1.0` |
-| `@nuxt/kit` | `^3.0.0` *(optional — only needed for the Nuxt module)* |
-
-## Design principles
-
-- **Singleton state** — one RPC connection and WASM instance per app. Calling `useRpc()` from 10 components all returns the same reactive state.
-- **Lazy WASM loading** — the WASM module is not loaded until `useKaspa().init()` is called (or automatically on plugin install when `autoConnect: true`).
-- **Auto-cleanup** — composables used inside Vue components clean up subscriptions and event handlers on `onUnmounted`.
-- **TypeScript-first** — all composable return types, options, and data structures are fully typed via exported interfaces.
-- **Tree-shakeable** — DevTools integration is dynamically imported and absent from production bundles when `devtools: false`.

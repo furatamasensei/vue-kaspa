@@ -5,12 +5,12 @@
 ```ts
 // main.ts
 import { createApp } from 'vue'
-import { KaspaPlugin } from 'vue-kaspa'
+import { VueKaspa } from 'vue-kaspa'
 import App from './App.vue'
 
 const app = createApp(App)
 
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: true,
 })
@@ -39,7 +39,7 @@ app.mount('#app')
 `url` を指定すると、公開リゾルバーをバイパスして独自のノードに接続できます:
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'testnet-10',
   url: 'ws://127.0.0.1:17210',
 })
@@ -52,7 +52,7 @@ app.use(KaspaPlugin, {
 `autoConnect` を無効にすることで、WASM のロードと RPC 接続のタイミングを制御できます:
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'mainnet',
   autoConnect: false,
 })
@@ -77,7 +77,7 @@ async function connect() {
 ## Testnet / Devnet
 
 ```ts
-app.use(KaspaPlugin, {
+app.use(VueKaspa, {
   network: 'testnet-10',
   // resolver automatically picks a testnet-10 node
 })
@@ -87,4 +87,4 @@ app.use(KaspaPlugin, {
 
 ## プラグインのべき等性
 
-`app.use(KaspaPlugin)` を複数回呼び出しても何も起こりません — プラグインは既存のインストールを確認し、再初期化を黙って無視します。
+`app.use(VueKaspa)` を複数回呼び出しても何も起こりません — プラグインは既存のインストールを確認し、再初期化を黙って無視します。
