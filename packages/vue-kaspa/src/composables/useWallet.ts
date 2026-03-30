@@ -15,6 +15,32 @@ const _error = ref<Error | null>(null)
 // Cleanup function for active KasWare event listeners
 let _removeKaswareListeners: (() => void) | null = null
 
+// Polling interval for KasWare account changes (event not always reliable)
+let _kaswarePollInterval: ReturnType<typeof setInterval> | null = null
+
+function startKaswarePolling(kasware: any): void {
+  _kaswarePollInterval = setInterval(async () => {
+    if (_provider.value !== 'kasware') return
+    try {
+      const accounts: string[] = await kasware.getAccounts()
+      if (!accounts?.length || accounts[0] === _address.value) return
+      _address.value = accounts[0]
+      const [pk, bal] = await Promise.all([kasware.getPublicKey(), kasware.getBalance()])
+      _publicKey.value = pk
+      _balance.value = bal
+    } catch {
+      // ignore — connection may be temporarily unavailable
+    }
+  }, 2_000)
+}
+
+function stopKaswarePolling(): void {
+  if (_kaswarePollInterval !== null) {
+    clearInterval(_kaswarePollInterval)
+    _kaswarePollInterval = null
+  }
+}
+
 /** @internal DevTools only — returns reactive refs for the wallet module state */
 export function getWalletStateRefs() {
   return { provider: _provider, address: _address, publicKey: _publicKey, balance: _balance, network: _network }
@@ -89,10 +115,13 @@ async function connectKasware(): Promise<void> {
   kasware.on('networkChanged', onNetworkChanged)
   kasware.on('balanceChanged', onBalanceChanged)
 
+  startKaswarePolling(kasware)
+
   _removeKaswareListeners = () => {
     tryOff(kasware, 'accountsChanged', onAccountsChanged)
     tryOff(kasware, 'networkChanged', onNetworkChanged)
     tryOff(kasware, 'balanceChanged', onBalanceChanged)
+    stopKaswarePolling()
   }
 }
 
