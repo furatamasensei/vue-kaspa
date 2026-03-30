@@ -1,5 +1,6 @@
 import tailwindcss from '@tailwindcss/vite'
 import vue from '@vitejs/plugin-vue'
+import vueDevTools from 'vite-plugin-vue-devtools'
 import { resolve } from 'path'
 import { defineConfig } from 'vite'
 import wasm from 'vite-plugin-wasm'
@@ -8,7 +9,7 @@ export default defineConfig(({ mode }) => {
   const isDev = mode === 'development'
 
   return {
-    plugins: [vue(), wasm(), tailwindcss()],
+    plugins: [vue(), wasm(), tailwindcss(), ...(isDev ? [vueDevTools()] : [])],
     resolve: {
       alias: {
         '@': resolve(__dirname, './src'),

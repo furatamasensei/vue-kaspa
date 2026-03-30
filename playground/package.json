@@ -9,10 +9,10 @@
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.2.2",
+    "@vue-kaspa/kaspa-wasm": "workspace:*",
     "@vueuse/core": "^14.2.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "@vue-kaspa/kaspa-wasm": "workspace:*",
     "lucide-vue-next": "^1.0.0",
     "reka-ui": "^2.9.2",
     "tailwind-merge": "^3.5.0",
@@ -28,6 +28,7 @@
     "typescript": "^6.0.2",
     "vite": "^8.0.3",
     "vite-plugin-top-level-await": "^1.6.0",
+    "vite-plugin-vue-devtools": "^8.1.1",
     "vite-plugin-wasm": "^3.6.0",
     "vue-tsc": "^2.2.8"
   }
