@@ -1,5 +1,23 @@
 # Changelog
 
+## [0.1.10](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.9...vue-kaspa-v0.1.10) (2026-03-30)
+
+
+### Features
+
+* add ConnectWallet component and wallet documentation ([c76a25c](https://github.com/furatamasensei/vue-kaspa/commit/c76a25cafba70b07e4a4de740495fcda8e1ed444))
+* add useWallet composable for third-party wallet integration ([83f47ca](https://github.com/furatamasensei/vue-kaspa/commit/83f47caac3e004c5d9f3068279c811b5e35130df))
+* overhaul Vue DevTools integration ([21fd4ed](https://github.com/furatamasensei/vue-kaspa/commit/21fd4ed85f9ac3da6d90f4919cc32d74f9955774))
+* use official wallet logos in ConnectWallet component ([5ac58b6](https://github.com/furatamasensei/vue-kaspa/commit/5ac58b6cf5ed5b9474561239c324af5d1361fd9a))
+
+
+### Bug Fixes
+
+* poll KasWare accounts to detect switches reliably ([f737049](https://github.com/furatamasensei/vue-kaspa/commit/f73704973035d7dda1704cad58b0557b9de77935))
+* refresh public key and balance on KasWare account switch ([937546f](https://github.com/furatamasensei/vue-kaspa/commit/937546f78f11cda12c366aba635c9ff5230d6486))
+* update Vue DevTools plugin logo and label ([3635fcc](https://github.com/furatamasensei/vue-kaspa/commit/3635fccaba4e77850bbfd93480eff121e4c290ed))
+* use project logo as Vue DevTools plugin icon ([48527c4](https://github.com/furatamasensei/vue-kaspa/commit/48527c41207f9aba08a0a0cfe64fdca96d25ae01))
+
 ## [0.1.9](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.8...vue-kaspa-v0.1.9) (2026-03-29)
 
 
