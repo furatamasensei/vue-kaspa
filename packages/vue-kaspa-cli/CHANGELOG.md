@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.12](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.11...vue-kaspa-cli-v0.1.12) (2026-03-31)
+
+
+### Bug Fixes
+
+* switch COEP header from require-corp to credentialless ([#19](https://github.com/furatamasensei/vue-kaspa/issues/19)) ([c6f7ad4](https://github.com/furatamasensei/vue-kaspa/commit/c6f7ad4c768c8115c85963aa028f8da2e413f841)), closes [#16](https://github.com/furatamasensei/vue-kaspa/issues/16)
+
 ## [0.1.11](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-cli-v0.1.10...vue-kaspa-cli-v0.1.11) (2026-03-29)
 
 
