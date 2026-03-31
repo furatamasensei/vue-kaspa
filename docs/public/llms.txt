@@ -30,5 +30,5 @@ Vue Kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 6 composables: useK
 - autoConnect: with `autoConnect: true` (default), WASM loads and RPC connects on plugin install — no manual `init()` needed.
 - Network: `useNetwork().switchNetwork()` disconnects and reconnects RPC automatically. `currentNetwork` is module-level (affects whole app).
 - Nuxt: kaspa-wasm is auto-excluded from SSR bundle; all composables are auto-imported; plugin is client-only.
-- WASM config: Vite needs `vite-plugin-wasm` + CORS headers (`Cross-Origin-Embedder-Policy: require-corp`).
+- WASM config: Vite needs `vite-plugin-wasm` + CORS headers (`Cross-Origin-Embedder-Policy: credentialless`).
 - Error types: `KaspaError` (base), `KaspaNotReadyError`, `KaspaRpcError`, `KaspaWalletError`, `KaspaCryptoError`.

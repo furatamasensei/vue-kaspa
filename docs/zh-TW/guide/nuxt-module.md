@@ -68,7 +68,7 @@ const utxo = useUtxo()
 1. **僅限客戶端插件** — `VueKaspa` 被註冊為 Nuxt 客戶端插件，在伺服器端渲染期間不會執行。當 `autoConnect: true`（預設值）時，客戶端載入後會自動初始化 WASM 並建立 RPC 連線——元件中無需撰寫 `onMounted`。
 2. **SSR 外部化** — `@vue-kaspa/kaspa-wasm` 被加入 `vite.ssr.external`，防止 Vite 在伺服器端打包或執行它。
 3. **WASM 插件** — `vite-plugin-wasm` 會自動加入 Vite 設定，確保 WASM 模組在開發環境與正式建置中均能正確實例化。
-4. **COOP/COEP 標頭** — `Cross-Origin-Embedder-Policy: require-corp` 與 `Cross-Origin-Opener-Policy: same-origin` 會設定在 Vite 開發伺服器及 Nitro 路由規則上。這些標頭是 `kaspa-wasm` 內部使用的 `SharedArrayBuffer` 所必需的。
+4. **COOP/COEP 標頭** — `Cross-Origin-Embedder-Policy: credentialless` 與 `Cross-Origin-Opener-Policy: same-origin` 會設定在 Vite 開發伺服器及 Nitro 路由規則上。這些標頭是 `kaspa-wasm` 內部使用的 `SharedArrayBuffer` 所必需的。
 5. **optimizeDeps** — `@vue-kaspa/kaspa-wasm` 從 Vite 的依賴預打包中排除。
 
 在 SSR 環境中呼叫的可組合函式會回傳安全的空狀態（例如 `wasmStatus: 'idle'`、`connectionState: 'disconnected'`），而不會拋出錯誤。

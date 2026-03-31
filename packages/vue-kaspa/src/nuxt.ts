@@ -13,7 +13,7 @@ export interface ModuleOptions extends VueKaspaOptions { }
 
 // Required for SharedArrayBuffer which kaspa-wasm uses internally.
 const COOP_COEP = {
-  'Cross-Origin-Embedder-Policy': 'require-corp',
+  'Cross-Origin-Embedder-Policy': 'credentialless',
   'Cross-Origin-Opener-Policy': 'same-origin',
 } as const
 

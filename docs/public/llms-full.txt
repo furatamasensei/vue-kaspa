@@ -21,7 +21,7 @@ Vite config (required):
 import wasm from 'vite-plugin-wasm'
 import topLevelAwait from 'vite-plugin-top-level-await'
 plugins: [vue(), wasm(), topLevelAwait()]
-server.headers: { 'Cross-Origin-Embedder-Policy': 'require-corp', 'Cross-Origin-Opener-Policy': 'same-origin' }
+server.headers: { 'Cross-Origin-Embedder-Policy': 'credentialless', 'Cross-Origin-Opener-Policy': 'same-origin' }
 optimizeDeps.exclude: ['kaspa-wasm']
 ```
 
