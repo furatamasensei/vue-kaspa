@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.14](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.13...vue-kaspa-v0.1.14) (2026-04-06)
+
+
+### Features
+
+* add unified vue kaspa facade ([7882822](https://github.com/furatamasensei/vue-kaspa/commit/7882822228838f92ed7eaf0d237d84a50720c261))
+
 ## [0.1.13](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.12...vue-kaspa-v0.1.13) (2026-04-06)
 
 
