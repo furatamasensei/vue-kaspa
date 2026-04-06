@@ -33,4 +33,7 @@ features:
   - icon: 🛠
     title: Pengalaman developer
     details: TypeScript-first dengan tipe ketat, inspektor Vue DevTools dan timeline event, serta hierarki error yang terstruktur.
+  - icon: 🛰
+    title: Indeks REST
+    details: Gunakan Kaspa REST API resmi untuk pencarian txid, saldo, riwayat alamat, dan pemeriksaan blok secara aman bertipe.
 ---

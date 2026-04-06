@@ -33,4 +33,7 @@ features:
   - icon: 🛠
     title: 開発者体験
     details: TypeScript ファーストで厳格な型付き、Vue DevTools インスペクターとイベントタイムライン、構造化されたエラー階層を提供します。
+  - icon: 🛰
+    title: REST インデックス
+    details: 公式 Kaspa REST API を使って、txid 検索、残高、アドレス履歴、ブロック確認を型安全に扱えます。
 ---

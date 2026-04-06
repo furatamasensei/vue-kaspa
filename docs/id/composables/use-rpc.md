@@ -70,6 +70,8 @@ await rpc.reconnect()
 
 `connect()` bersifat idempotent — memanggilnya saat sudah terhubung tidak akan berpengaruh.
 
+Jika kamu membutuhkan pencarian txid, riwayat alamat, saldo, atau data block explorer, gunakan [`useKaspaRest()`](/id/composables/use-kaspa-rest).
+
 ## Metode query
 
 Semua metode query memerlukan koneksi aktif. Metode ini melempar `KaspaRpcError` jika node tidak dapat dijangkau atau mengembalikan error.

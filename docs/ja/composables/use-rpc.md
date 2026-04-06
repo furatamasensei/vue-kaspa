@@ -70,6 +70,8 @@ await rpc.reconnect()
 
 `connect()` はべき等です — 既に接続されている状態で呼び出しても何も起こりません。
 
+txid 検索、アドレス履歴、残高、ブロック探索データが必要な場合は [`useKaspaRest()`](/ja/composables/use-kaspa-rest) を使ってください。
+
 ## クエリメソッド
 
 すべてのクエリメソッドはアクティブな接続が必要です。ノードに到達できないかエラーが返った場合は `KaspaRpcError` をスローします。

@@ -33,4 +33,7 @@ features:
   - icon: 🛠
     title: 開發者體驗
     details: TypeScript 優先並提供嚴格型別，整合 Vue DevTools 檢視器與事件時間軸，以及結構化的錯誤層級體系。
+  - icon: 🛰
+    title: REST 索引
+    details: 使用官方 Kaspa REST API 安全地進行 txid 查詢、餘額、地址歷史與區塊查核。
 ---

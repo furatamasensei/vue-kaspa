@@ -70,6 +70,8 @@ await rpc.reconnect()
 
 `connect()` 具有冪等性——在已連線時呼叫不會有任何效果。
 
+如果你需要 txid 查詢、地址歷史、餘額或區塊探索器資料，請使用 [`useKaspaRest()`](/zh-TW/composables/use-kaspa-rest)。
+
 ## 查詢方法
 
 所有查詢方法都需要活躍的連線。若節點無法連線或回傳錯誤，它們會拋出 `KaspaRpcError`。
