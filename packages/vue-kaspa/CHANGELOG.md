@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.13](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.12...vue-kaspa-v0.1.13) (2026-04-06)
+
+
+### Features
+
+* add playground RPC pages and expand test coverage ([ef39751](https://github.com/furatamasensei/vue-kaspa/commit/ef397515a3f026c69669d1bb0892244865c48a47))
+* add useBlockListener and useTransactionListener composables ([c3c2366](https://github.com/furatamasensei/vue-kaspa/commit/c3c236645d1ae4aee3e72542672730cef0122060))
+
 ## [0.1.12](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.11...vue-kaspa-v0.1.12) (2026-03-31)
 
 
