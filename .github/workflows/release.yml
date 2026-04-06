@@ -58,9 +58,8 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          # No registry-url: setup-node would write _authToken=${NODE_AUTH_TOKEN}
-          # into .npmrc which overrides npm's trusted-publishing OIDC auth flow.
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - run: pnpm --filter vue-kaspa build
@@ -88,8 +87,8 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          # No registry-url: same reason as above.
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Publish vue-kaspa-cli to npm (Trusted Publishing)
@@ -115,8 +114,8 @@ jobs:
           version: 10
       - uses: actions/setup-node@v4
         with:
-          node-version: '22'
-          # No registry-url: same reason as above.
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
       - run: pnpm install --frozen-lockfile
       - name: Publish @vue-kaspa/kaspa-wasm to npm (Trusted Publishing)
