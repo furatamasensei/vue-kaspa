@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.15](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.14...vue-kaspa-v0.1.15) (2026-04-06)
+
+
+### Bug Fixes
+
+* **nuxt:** expand auto import list ([88b6ec7](https://github.com/furatamasensei/vue-kaspa/commit/88b6ec7078dc85da52aaf8c4f104c1121c4b632c))
+
 ## [0.1.14](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.13...vue-kaspa-v0.1.14) (2026-04-06)
 
 
