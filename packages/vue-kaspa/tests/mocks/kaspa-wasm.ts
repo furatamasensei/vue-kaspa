@@ -138,7 +138,9 @@ export function createRpcClientMock() {
   }
 }
 
-export const RpcClient = vi.fn(function RpcClientImpl() { return createRpcClientMock() })
+export const RpcClient = vi.fn(function RpcClientImpl(_config?: Record<string, unknown>) {
+  return createRpcClientMock()
+})
 
 // ─── Resolver ──────────────────────────────────────────────────────────────
 

@@ -1,4 +1,4 @@
-import { vi } from 'vitest'
+import { afterEach, beforeEach, vi } from 'vitest'
 
 // Global mock for @vue-kaspa/kaspa-wasm is handled by vitest.config.ts resolve alias
 // Additional global setup can go here

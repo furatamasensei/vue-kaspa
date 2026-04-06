@@ -2,7 +2,11 @@
   "extends": "../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
+    "exactOptionalPropertyTypes": false,
     "paths": {
+      "vue-kaspa": ["../packages/vue-kaspa/src/index.ts"],
+      "vue-kaspa/style": ["../packages/vue-kaspa/src/style.css"],
       "@/*": ["./src/*"]
     }
   },

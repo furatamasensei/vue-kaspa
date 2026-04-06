@@ -2,6 +2,7 @@
   "extends": "../../tsconfig.base.json",
   "compilerOptions": {
     "baseUrl": ".",
+    "ignoreDeprecations": "6.0",
     "paths": {
       "@vue-kaspa/kaspa-wasm": ["./tests/mocks/kaspa-wasm.ts"]
     }

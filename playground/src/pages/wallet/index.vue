@@ -56,6 +56,18 @@ const providerLabel: Record<WalletProvider, string> = {
   kasware: 'KasWare',
   kastle: 'Kastle',
 }
+
+function handleConnected(payload: { provider: WalletProvider; address: string; publicKey: string }) {
+  console.log('connected', payload)
+}
+
+function handleDisconnected() {
+  console.log('disconnected')
+}
+
+function handleError(error: Error) {
+  console.error(error)
+}
 </script>
 
 <template>
@@ -73,9 +85,9 @@ const providerLabel: Record<WalletProvider, string> = {
           <ConnectWallet
             :show-balance="true"
             :show-network="true"
-            @connected="(p) => console.log('connected', p)"
-            @disconnected="() => console.log('disconnected')"
-            @error="(e) => console.error(e)"
+            @connected="handleConnected"
+            @disconnected="handleDisconnected"
+            @error="handleError"
           />
         </div>
 
