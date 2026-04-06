@@ -10,6 +10,7 @@ vue-kaspa wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kas
 ## Features
 
 - **`useRpc`** — WebSocket RPC connection, 12 query methods, real-time event subscriptions
+- **`useKaspaRest`** — official REST API wrapper for txid lookup, balances, address history, and explorer data
 - **`useUtxo`** — real-time UTXO tracking with reactive balance (mature / pending)
 - **`useTransaction`** — estimate, build, sign, and submit transactions; UTXO compounding handled automatically
 - **`useCrypto`** — BIP-39 mnemonic, BIP-32 HD derivation, message signing, KAS ↔ sompi conversion
@@ -103,6 +104,7 @@ Full docs at **[vue-kaspa.vercel.app](https://vue-kaspa.vercel.app)**
 - [Vue Plugin](https://vue-kaspa.vercel.app/guide/vue-plugin)
 - [Nuxt Module](https://vue-kaspa.vercel.app/guide/nuxt-module)
 - [useRpc](https://vue-kaspa.vercel.app/composables/use-rpc)
+- [useKaspaRest](https://vue-kaspa.vercel.app/composables/use-kaspa-rest)
 - [useUtxo](https://vue-kaspa.vercel.app/composables/use-utxo)
 - [useTransaction](https://vue-kaspa.vercel.app/composables/use-transaction)
 - [useCrypto](https://vue-kaspa.vercel.app/composables/use-crypto)
