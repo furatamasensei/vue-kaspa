@@ -431,6 +431,7 @@ Each composable has a corresponding return type interface:
 | `UseCryptoReturn` | [`useCrypto()`](/composables/use-crypto) |
 | `UseNetworkReturn` | [`useNetwork()`](/composables/use-network) |
 | `UseWalletReturn` | [`useWallet()`](/composables/use-wallet) |
+| `UseVueKaspaReturn` | [`useVueKaspa()`](/composables/use-vue-kaspa) |
 
 ---
 

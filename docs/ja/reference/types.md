@@ -394,3 +394,4 @@ interface SignMessageResult {
 | `UseTransactionReturn` | [`useTransaction()`](/ja/composables/use-transaction) |
 | `UseCryptoReturn` | [`useCrypto()`](/ja/composables/use-crypto) |
 | `UseNetworkReturn` | [`useNetwork()`](/ja/composables/use-network) |
+| `UseVueKaspaReturn` | [`useVueKaspa()`](/ja/composables/use-vue-kaspa) |

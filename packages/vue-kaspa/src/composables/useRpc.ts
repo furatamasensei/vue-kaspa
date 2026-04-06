@@ -1,4 +1,4 @@
-import { computed, inject, onUnmounted, readonly } from 'vue'
+import { computed, getCurrentInstance, inject, onUnmounted, readonly } from 'vue'
 import { KaspaRpcError } from '../errors'
 import { getRpcManager } from '../internal/rpc-manager'
 import { ensureWasmInit } from '../internal/wasm-loader'
@@ -30,12 +30,14 @@ export function useRpc(rpcOptions?: RpcOptions): UseRpcReturn {
   // Track handlers registered by this composable instance for cleanup
   const localHandlers: Array<{ event: RpcEventType; handler: (e: RpcEvent) => void }> = []
 
-  onUnmounted(() => {
-    for (const { event, handler } of localHandlers) {
-      bridge.off(event, handler)
-    }
-    localHandlers.length = 0
-  })
+  if (getCurrentInstance()) {
+    onUnmounted(() => {
+      for (const { event, handler } of localHandlers) {
+        bridge.off(event, handler)
+      }
+      localHandlers.length = 0
+    })
+  }
 
   function mergeOptions(override?: RpcOptions): RpcOptions {
     const opts: RpcOptions = {}

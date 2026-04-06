@@ -91,6 +91,7 @@ ${options.autoConnect !== false ? `
       { name: 'useTransaction', from: 'vue-kaspa' },
       { name: 'useCrypto', from: 'vue-kaspa' },
       { name: 'useNetwork', from: 'vue-kaspa' },
+      { name: 'useVueKaspa', from: 'vue-kaspa' },
     ])
   },
 })

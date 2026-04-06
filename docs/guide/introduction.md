@@ -13,7 +13,7 @@ Vue Kaspa handles the hard parts: loading WASM, managing a WebSocket connection 
 
 ## What it gives you
 
-Seven composables that cover the full workflow:
+Seven composables plus a unified facade that cover the full workflow:
 
 | Composable | What it does |
 |---|---|
@@ -25,7 +25,7 @@ Seven composables that cover the full workflow:
 | [`useNetwork`](/composables/use-network) | Switch between mainnet, testnet-10, and other networks |
 | [`useWallet`](/composables/use-wallet) | Connect to browser wallet extensions (KasWare, Kastle) |
 
-Plus a drop-in **`ConnectWallet`** component if you just need a connect button.
+Plus a drop-in **`ConnectWallet`** component if you just need a connect button, or **`useVueKaspa()`** when you want one typed entrypoint for the whole stack.
 
 ## Why not use the WASM SDK directly?
 

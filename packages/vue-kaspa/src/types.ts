@@ -512,3 +512,13 @@ export interface UseWalletReturn {
    */
   signMessage(message: string, options?: { type?: 'schnorr' | 'ecdsa' }): Promise<string>
 }
+
+export interface UseVueKaspaReturn {
+  kaspa: UseKaspaReturn
+  rpc: UseRpcReturn
+  utxo: UseUtxoReturn
+  transaction: UseTransactionReturn
+  crypto: UseCryptoReturn
+  network: UseNetworkReturn
+  wallet: UseWalletReturn
+}

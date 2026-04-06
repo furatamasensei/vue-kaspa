@@ -394,3 +394,4 @@ Setiap composable memiliki antarmuka tipe kembalian yang sesuai:
 | `UseTransactionReturn` | [`useTransaction()`](/composables/use-transaction) |
 | `UseCryptoReturn` | [`useCrypto()`](/composables/use-crypto) |
 | `UseNetworkReturn` | [`useNetwork()`](/composables/use-network) |
+| `UseVueKaspaReturn` | [`useVueKaspa()`](/composables/use-vue-kaspa) |

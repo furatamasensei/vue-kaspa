@@ -6,14 +6,14 @@ Vue Kaspa is designed to be LLM-friendly. All APIs are fully TypeScript-typed, c
 
 ```
 Package:       vue-kaspa
-Version:       0.1.3
+Version:       0.1.13
 npm:           https://www.npmjs.com/package/vue-kaspa
 Peer deps:     vue >= 3.4.0, @vue-kaspa/kaspa-wasm >= 1.1.0
 Types entry:   ./dist/index.d.ts
 Nuxt entry:    vue-kaspa/nuxt
 ```
 
-**Exports:** `VueKaspa`, `useKaspa`, `useRpc`, `useUtxo`, `useTransaction`, `useCrypto`, `useNetwork`, error classes, 23 TypeScript types, `AVAILABLE_NETWORKS`
+**Exports:** `VueKaspa`, `useKaspa`, `useRpc`, `useUtxo`, `useTransaction`, `useCrypto`, `useNetwork`, `useVueKaspa`, error classes, 24 TypeScript types, `AVAILABLE_NETWORKS`
 
 ## Machine-readable files
 

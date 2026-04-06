@@ -1,4 +1,4 @@
-import { computed, inject, onMounted, onUnmounted, ref } from 'vue'
+import { computed, getCurrentInstance, inject, onMounted, onUnmounted, ref } from 'vue'
 import { getRpcManager } from '../internal/rpc-manager'
 import { KASPA_OPTIONS_KEY } from '../symbols'
 import type {
@@ -53,24 +53,26 @@ export function useTransactionListener(options: TransactionListenerOptions = {})
   }
 
   if (autoSubscribe) {
-    onMounted(async () => {
-      if (manager.state.connectionState === 'connected') {
-        await subscribe()
-      } else {
-        // Wait for connection then subscribe
-        const connectHandler = async (event: RpcEvent) => {
-          if (event.type === 'connect') {
-            bridge.off('connect', connectHandler)
-            await subscribe()
+    if (getCurrentInstance()) {
+      onMounted(async () => {
+        if (manager.state.connectionState === 'connected') {
+          await subscribe()
+        } else {
+          // Wait for connection then subscribe
+          const connectHandler = async (event: RpcEvent) => {
+            if (event.type === 'connect') {
+              bridge.off('connect', connectHandler)
+              await subscribe()
+            }
           }
+          bridge.on('connect', connectHandler)
         }
-        bridge.on('connect', connectHandler)
-      }
-    })
+      })
 
-    onUnmounted(async () => {
-      await unsubscribe()
-    })
+      onUnmounted(async () => {
+        await unsubscribe()
+      })
+    }
   }
 
   return {

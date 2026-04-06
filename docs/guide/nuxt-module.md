@@ -52,12 +52,12 @@ The following composables are automatically available in all `.vue` files, `comp
 - `useTransaction`
 - `useCrypto`
 - `useNetwork`
+- `useVueKaspa`
 
 ```vue
 <!-- pages/wallet.vue — no imports needed -->
 <script setup lang="ts">
-const rpc = useRpc()
-const utxo = useUtxo()
+const vueKaspa = useVueKaspa()
 </script>
 ```
 

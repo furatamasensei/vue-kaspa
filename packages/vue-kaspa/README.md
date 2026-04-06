@@ -14,6 +14,7 @@ vue-kaspa wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kas
 - **`useTransaction`** — estimate, build, sign, and submit transactions; UTXO compounding handled automatically
 - **`useCrypto`** — BIP-39 mnemonic, BIP-32 HD derivation, message signing, KAS ↔ sompi conversion
 - **`useNetwork`** — network switching (mainnet, testnet-10, testnet-12, simnet, devnet)
+- **`useVueKaspa`** — unified facade for the full app workflow
 - **Nuxt 3 module** — auto-imports, client-only plugin, SSR-safe out of the box
 - **Vue DevTools** — inspector panel and event timeline
 

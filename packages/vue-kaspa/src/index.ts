@@ -14,6 +14,7 @@ export { useBlockListener } from './composables/useBlockListener'
 export { useCrypto } from './composables/useCrypto'
 export { useNetwork } from './composables/useNetwork'
 export { useWallet } from './composables/useWallet'
+export { useVueKaspa } from './composables/useVueKaspa'
 
 // Error classes
 export {
@@ -64,6 +65,7 @@ export type {
   UseCryptoReturn,
   UseNetworkReturn,
   UseWalletReturn,
+  UseVueKaspaReturn,
   WalletProvider,
   WalletBalance,
   WalletSendOptions,
