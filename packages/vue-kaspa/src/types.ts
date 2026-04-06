@@ -410,11 +410,24 @@ export interface TransactionListenerOptions {
   maxHistory?: number
   /** Automatically subscribe when the composable mounts. Default: true */
   autoSubscribe?: boolean
+  /**
+   * Resolve sender addresses for accepted transactions by fetching the
+   * accepting block's full transaction data. Default: false.
+   */
+  includeSenderAddresses?: boolean
+}
+
+export interface AcceptedTransactionInfo {
+  transactionId: string
+  acceptingBlockHash: string
+  senderAddresses: string[]
 }
 
 export interface UseTransactionListenerReturn {
   /** Recently accepted transaction IDs, most recent first */
   transactions: Readonly<Ref<string[]>>
+  /** Accepted transactions with sender addresses, most recent first */
+  acceptedTransactions: Readonly<Ref<AcceptedTransactionInfo[]>>
   /** True while the listener is actively subscribed */
   isListening: ComputedRef<boolean>
   /** Subscribe to virtual-chain-changed and start collecting transaction IDs */
@@ -423,6 +436,8 @@ export interface UseTransactionListenerReturn {
   unsubscribe(): Promise<void>
   /** Clear the transaction history */
   clear(): void
+  /** Resolve sender addresses for a tracked transaction ID and update the history */
+  resolveSenderAddresses(transactionId: string): Promise<string[]>
 }
 
 export interface UseTransactionReturn {

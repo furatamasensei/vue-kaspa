@@ -50,6 +50,7 @@ export type {
   TransactionSummary,
   CreateTransactionSettings,
   PendingTx,
+  AcceptedTransactionInfo,
   KeypairInfo,
   MnemonicInfo,
   DerivedKey,

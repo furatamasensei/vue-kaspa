@@ -253,6 +253,68 @@ interface RpcEvent<T = unknown> {
 
 ---
 
+## AcceptedTransactionInfo
+
+Used by `useTransactionListener().acceptedTransactions`.
+
+```ts
+interface AcceptedTransactionInfo {
+  transactionId: string
+  acceptingBlockHash: string
+  senderAddresses: string[]
+}
+```
+
+---
+
+## TransactionListenerOptions
+
+Options passed to `useTransactionListener()`.
+
+```ts
+interface TransactionListenerOptions {
+  maxHistory?: number
+  autoSubscribe?: boolean
+  includeSenderAddresses?: boolean
+}
+```
+
+| Field | Type | Default | Description |
+|---|---|---|---|
+| `maxHistory` | `number` | `100` | Max accepted transactions to keep |
+| `autoSubscribe` | `boolean` | `true` | Subscribe on mount |
+| `includeSenderAddresses` | `boolean` | `false` | Resolve sender addresses from the accepting block |
+
+---
+
+## UseTransactionListenerReturn
+
+Returned by `useTransactionListener()`.
+
+```ts
+interface UseTransactionListenerReturn {
+  transactions: Readonly<Ref<string[]>>
+  acceptedTransactions: Readonly<Ref<AcceptedTransactionInfo[]>>
+  isListening: ComputedRef<boolean>
+  subscribe(): Promise<void>
+  unsubscribe(): Promise<void>
+  clear(): void
+  resolveSenderAddresses(transactionId: string): Promise<string[]>
+}
+```
+
+| Field | Type | Description |
+|---|---|---|
+| `transactions` | `Readonly<Ref<string[]>>` | Recently accepted transaction IDs |
+| `acceptedTransactions` | `Readonly<Ref<AcceptedTransactionInfo[]>>` | Accepted transactions with sender addresses |
+| `isListening` | `ComputedRef<boolean>` | Whether the listener is subscribed |
+| `subscribe()` | `Promise<void>` | Start listening for `virtual-chain-changed` |
+| `unsubscribe()` | `Promise<void>` | Stop listening |
+| `clear()` | `void` | Clear the local history |
+| `resolveSenderAddresses(transactionId)` | `Promise<string[]>` | Fetch sender addresses for one tracked transaction |
+
+---
+
 ## PaymentOutput
 
 A single recipient in a transaction.

@@ -68,8 +68,25 @@ export function createRpcClientMock() {
     }),
 
     // ─── Block queries ──────────────────────────────────────────────────────
-    getBlock: vi.fn().mockResolvedValue({
-      block: { verboseData: { hash: 'mock-hash', timestamp: '1000000', blueScore: '100' }, transactions: [] },
+    getBlock: vi.fn().mockImplementation(async (request?: { includeTransactions?: boolean; hash?: string }) => {
+      if (request?.includeTransactions) {
+        return {
+          block: {
+            verboseData: { hash: request.hash ?? 'mock-hash', timestamp: '1000000', blueScore: '100' },
+            transactions: [
+              {
+                id: 'mock-txid',
+                inputs: [{ address: 'kaspa:qrmocksender' }],
+                outputs: [],
+              },
+            ],
+          },
+        }
+      }
+
+      return {
+        block: { verboseData: { hash: request?.hash ?? 'mock-hash', timestamp: '1000000', blueScore: '100' }, transactions: [] },
+      }
     }),
     getBlocks: vi.fn().mockResolvedValue({ blockHashes: ['mock-hash-1', 'mock-hash-2'], blocks: [] }),
     getBlockCount: vi.fn().mockResolvedValue({ blockCount: 1000n, headerCount: 1000n }),
@@ -238,6 +255,22 @@ export const PublicKeyGenerator = {
 
 export const createAddress = vi.fn().mockReturnValue({
   toString: () => 'kaspa:qrmockcreatedaddress',
+})
+
+export const Transaction = vi.fn(function TransactionImpl(value: any) {
+  return {
+    id: value?.id ?? 'mock-transaction-id',
+    addresses: vi.fn().mockImplementation((network: string) => {
+      const inputs = Array.isArray(value?.inputs) ? value.inputs : []
+      const senderAddresses = inputs
+        .map((input: any) => input?.address ?? input?.utxo?.address ?? input?.previousOutpoint?.address)
+        .filter(Boolean)
+      if (senderAddresses.length > 0) {
+        return senderAddresses.map((address: string) => ({ toString: () => address }))
+      }
+      return [{ toString: () => `kaspa:qrmocksender-${network}` }]
+    }),
+  }
 })
 
 // v1.1.0: Address is a class with constructor + static validate()

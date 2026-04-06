@@ -77,9 +77,10 @@ For the common case of listening to new blocks or confirmed transactions, use th
 | Composable | Subscribes to | Exposes |
 |---|---|---|
 | [`useBlockListener()`](/composables/use-block-listener) | `block-added` | `blocks: Ref<BlockInfo[]>` |
-| [`useTransactionListener()`](/composables/use-transaction-listener) | `virtual-chain-changed` | `transactions: Ref<string[]>` |
+| [`useTransactionListener()`](/composables/use-transaction-listener) | `virtual-chain-changed` | `transactions: Ref<string[]>, acceptedTransactions: Ref<...>` |
 
 Both handle subscribe/unsubscribe lifecycle automatically and accumulate a reactive history.
+If you need input-side sender addresses for confirmed payments, use the enriched `acceptedTransactions` history from `useTransactionListener()`.
 
 ## Query methods
 
