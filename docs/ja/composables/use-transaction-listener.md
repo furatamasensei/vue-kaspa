@@ -60,3 +60,7 @@ const { transactions, acceptedTransactions, isListening, subscribe, unsubscribe,
 - `virtual-chain-changed` を使うため、確定状態のイベントだけを扱います。
 - 送信元アドレスは入力から導出されるため、1件の取引に複数のアドレスが含まれる場合があります。
 - 生のブロックイベントが必要なら [`useBlockListener()`](/ja/composables/use-block-listener) を使ってください。
+
+## ハッシュヘルパー
+
+`acceptedTransactions.value` には取引 ID とそれを受け入れたブロックのハッシュが含まれます。`formatHash(hash, 'transaction')` や `formatHash(hash, 'block')` を使うと、ラベル付きの文字列（デフォルトではトランケートされ、明示的な suffix/prefix が付きます）を得られるため、UI 上でブロックハッシュとトランザクションハッシュを簡単に見分けられます。

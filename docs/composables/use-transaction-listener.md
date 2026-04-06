@@ -105,3 +105,7 @@ const { transactions, acceptedTransactions, isListening, subscribe, unsubscribe 
 - `senderAddresses` is derived from the accepted transaction inputs, so a transaction may report more than one sender address.
 - `maxHistory` bounds memory — oldest entries are dropped once the limit is reached.
 - For raw block events (hash, blue score, tx list), use [`useBlockListener`](/composables/use-block-listener) instead.
+
+## Hash helpers
+
+`acceptedTransactions.value` includes both transaction IDs and their accepting block hashes. Use `formatHash(hash, 'transaction')` or `formatHash(hash, 'block')` to render each string with an explicit label, optional truncation, and a consistent suffix/prefix so UIs can visually differentiate the two hash types.

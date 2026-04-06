@@ -60,3 +60,7 @@ const { transactions, acceptedTransactions, isListening, subscribe, unsubscribe,
 - 使用 `virtual-chain-changed`，因此只會處理已確認狀態。
 - 一筆交易可能會對應多個 sender addresses。
 - 若你要的是原始區塊事件，請使用 [`useBlockListener()`](/zh-TW/composables/use-block-listener)。
+
+## 哈希輔助
+
+`acceptedTransactions.value` 同時包含交易 ID 與接受該交易的區塊哈希。使用 `formatHash(hash, 'transaction')` 或 `formatHash(hash, 'block')` 可以取得附加明確標籤（預設會自動截斷與加上 suffix/prefix）的字串，有助於在 UI 中快速區分區塊哈希與交易哈希。

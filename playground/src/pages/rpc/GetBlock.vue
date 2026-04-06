@@ -4,7 +4,7 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { ref } from 'vue'
-import { useRpc, type BlockInfo } from 'vue-kaspa'
+import { useRpc, type BlockInfo, formatHash } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
 const EXAMPLE = `import { useRpc } from 'vue-kaspa'
@@ -71,8 +71,8 @@ async function fetch() {
       </CardHeader>
       <CardContent class="space-y-2">
         <div class="flex items-start gap-2">
-          <span class="text-sm text-muted-foreground w-32 shrink-0">Hash</span>
-          <span class="font-mono text-sm break-all">{{ block.hash }}</span>
+          <span class="text-sm text-muted-foreground w-32 shrink-0">Block hash</span>
+          <span class="font-mono text-sm break-all">{{ formatHash(block.hash, 'block') }}</span>
         </div>
         <div class="flex items-center gap-2">
           <span class="text-sm text-muted-foreground w-32">Blue Score</span>

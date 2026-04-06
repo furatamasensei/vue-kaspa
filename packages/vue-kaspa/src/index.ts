@@ -16,6 +16,7 @@ export { useCrypto } from './composables/useCrypto'
 export { useNetwork } from './composables/useNetwork'
 export { useWallet } from './composables/useWallet'
 export { useVueKaspa } from './composables/useVueKaspa'
+export { formatHash } from './utils/hash'
 
 // Error classes
 export {
@@ -135,6 +136,8 @@ export type {
   WalletBalance,
   WalletSendOptions,
 } from './types'
+
+export type { KaspaHashType, FormatHashOptions } from './utils/hash'
 
 // Constants
 export { AVAILABLE_NETWORKS } from './types'
