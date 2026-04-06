@@ -33,7 +33,7 @@ Kaspa 官方 REST API 的型別化包裝器。
 import { useKaspaRest } from 'vue-kaspa'
 ```
 
-## Signature
+## 簽章
 
 ```ts
 function useKaspaRest(options?: KaspaRestOptions): UseKaspaRestReturn
@@ -51,7 +51,7 @@ interface KaspaRestOptions {
 }
 ```
 
-## Return type
+## 回傳型別
 
 ```ts
 interface UseKaspaRestReturn {
@@ -100,7 +100,7 @@ interface UseKaspaRestReturn {
 }
 ```
 
-## Basic usage
+## 基本用法
 
 ```ts
 import { useKaspaRest } from 'vue-kaspa'
@@ -117,9 +117,9 @@ const fee = await rest.getFeeEstimate()
 
 ## Txid lookup
 
-`getTransaction()` is the convenience path. It searches by transaction id and returns `null` if the tx is missing.
+`getTransaction()` 是方便使用的查詢路徑。它會依 transaction id 搜尋，若交易不存在則回傳 `null`。
 
-`getTransactionById()` uses the dedicated REST endpoint for direct lookup.
+`getTransactionById()` 則會使用專用的 REST endpoint 進行直接查詢。
 
 ```ts
 const tx = await rest.getTransactionById('txid...', {
@@ -130,9 +130,9 @@ console.log(tx?.transactionId ?? tx?.transaction_id)
 console.log(tx?.senderAddresses)
 ```
 
-If the payload contains resolved input addresses, `senderAddresses` is filled in automatically. When the payload includes enough script data, the composable can derive sender addresses with `kaspa-wasm` as a fallback.
+如果 payload 已包含已解析的輸入地址，`senderAddresses` 會自動填入。當 payload 含有足夠的 script data 時，這個 composable 也可以將 `kaspa-wasm` 作為 fallback 來推導 sender addresses。
 
-## Caching
+## 快取
 
 The composable caches repeated identical requests in memory.
 
@@ -140,7 +140,7 @@ The composable caches repeated identical requests in memory.
 - `cacheTime` controls how long the entry stays in memory.
 - Call `clearCache()` to drop cached entries manually.
 
-## Experimental endpoints
+## 實驗性端點
 
 These REST routes are marked experimental in the official schema and may change without notice:
 - `GET /addresses/{kaspaAddress}/balance/{day_or_month}`

@@ -8,7 +8,7 @@
 import { useBlockListener } from 'vue-kaspa'
 ```
 
-## Return type
+## 回傳型別
 
 ```ts
 interface UseBlockListenerReturn {

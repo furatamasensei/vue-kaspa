@@ -1,6 +1,6 @@
 # useBlockListener
 
-Mendengarkan blok baru yang ditambahkan ke DAG Kaspa secara reaktif. Composable ini membungkus subscription `block-added` dan mengubah setiap event menjadi tipe [`BlockInfo`](/id/reference/types#blockinfo).
+Mendengarkan blok baru yang ditambahkan ke DAG Kaspa secara reaktif. Komposabel ini membungkus subscription `block-added` dan mengubah setiap event menjadi tipe [`BlockInfo`](/id/reference/types#blockinfo).
 
 ## Import
 
@@ -8,7 +8,7 @@ Mendengarkan blok baru yang ditambahkan ke DAG Kaspa secara reaktif. Composable 
 import { useBlockListener } from 'vue-kaspa'
 ```
 
-## Return type
+## Tipe return
 
 ```ts
 interface UseBlockListenerReturn {
@@ -37,7 +37,7 @@ import { useBlockListener } from 'vue-kaspa'
 const { blocks, isListening } = useBlockListener()
 ```
 
-`autoSubscribe: true` adalah default. Composable akan subscribe saat komponen mount dan unsubscribe saat unmount.
+`autoSubscribe: true` adalah default. Komposabel akan subscribe saat komponen mount dan unsubscribe saat unmount.
 
 ## Kontrol manual
 

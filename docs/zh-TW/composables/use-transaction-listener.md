@@ -8,7 +8,7 @@
 import { useTransactionListener } from 'vue-kaspa'
 ```
 
-## Return type
+## 回傳型別
 
 ```ts
 interface UseTransactionListenerReturn {

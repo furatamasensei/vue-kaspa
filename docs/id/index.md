@@ -15,7 +15,7 @@ hero:
       text: Coba CLI
       link: /id/guide/installation#quick-setup
     - theme: alt
-      text: Composables
+      text: Komposabel
       link: /id/composables/use-kaspa
 features:
   - icon: 🚀

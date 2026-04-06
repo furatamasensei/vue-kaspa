@@ -8,13 +8,13 @@
 import { useVueKaspa } from 'vue-kaspa'
 ```
 
-## Signature
+## 簽章
 
 ```ts
 function useVueKaspa(): UseVueKaspaReturn
 ```
 
-## Return shape
+## 回傳結構
 
 ```ts
 const vueKaspa = useVueKaspa()

@@ -6,7 +6,7 @@
 
 Sebelas composable plus satu facade terpadu mencakup alur kerja lengkap:
 
-| Composable | Fungsi |
+| Komposabel | Fungsi |
 |---|---|
 | [`useKaspa`](/composables/use-kaspa) | Siklus hidup inisialisasi WASM |
 | [`useRpc`](/composables/use-rpc) | Koneksi RPC WebSocket, query, dan event |
@@ -47,7 +47,7 @@ Singleton internal bersifat module-level — terdapat **satu koneksi RPC** dan *
 // Plugin
 import { VueKaspa } from 'vue-kaspa'
 
-// Composables
+// Komposabel
 import { useKaspa, useRpc, useKaspaRest, useUtxo, useTransaction, useTransactionListener, useBlockListener, useCrypto, useNetwork, useWallet, useVueKaspa } from 'vue-kaspa'
 
 // Kelas error

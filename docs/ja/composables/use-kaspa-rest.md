@@ -33,7 +33,7 @@ Kaspa の公式 REST API を型付きで扱うためのラッパーです。
 import { useKaspaRest } from 'vue-kaspa'
 ```
 
-## Signature
+## シグネチャ
 
 ```ts
 function useKaspaRest(options?: KaspaRestOptions): UseKaspaRestReturn
@@ -51,7 +51,7 @@ interface KaspaRestOptions {
 }
 ```
 
-## Return type
+## 戻り値の型
 
 ```ts
 interface UseKaspaRestReturn {
@@ -100,7 +100,7 @@ interface UseKaspaRestReturn {
 }
 ```
 
-## Basic usage
+## 基本的な使い方
 
 ```ts
 import { useKaspaRest } from 'vue-kaspa'
@@ -117,9 +117,9 @@ const fee = await rest.getFeeEstimate()
 
 ## Txid lookup
 
-`getTransaction()` is the convenience path. It searches by transaction id and returns `null` if the tx is missing.
+`getTransaction()` は手軽に使える検索パスです。transaction id で探し、見つからない場合は `null` を返します。
 
-`getTransactionById()` uses the dedicated REST endpoint for direct lookup.
+`getTransactionById()` は、直接検索用の専用 REST エンドポイントを使います。
 
 ```ts
 const tx = await rest.getTransactionById('txid...', {
@@ -130,9 +130,9 @@ console.log(tx?.transactionId ?? tx?.transaction_id)
 console.log(tx?.senderAddresses)
 ```
 
-If the payload contains resolved input addresses, `senderAddresses` is filled in automatically. When the payload includes enough script data, the composable can derive sender addresses with `kaspa-wasm` as a fallback.
+ペイロードに解決済みの入力アドレスが含まれている場合、`senderAddresses` は自動で埋まります。ペイロードに十分な script data が含まれている場合は、フォールバックとして `kaspa-wasm` から送信元アドレスを導出できます。
 
-## Caching
+## キャッシュ
 
 The composable caches repeated identical requests in memory.
 
@@ -140,7 +140,7 @@ The composable caches repeated identical requests in memory.
 - `cacheTime` controls how long the entry stays in memory.
 - Call `clearCache()` to drop cached entries manually.
 
-## Experimental endpoints
+## 実験的なエンドポイント
 
 These REST routes are marked experimental in the official schema and may change without notice:
 - `GET /addresses/{kaspaAddress}/balance/{day_or_month}`

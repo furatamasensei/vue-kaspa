@@ -33,7 +33,7 @@ Jika kamu memakai `simnet`, `devnet`, atau server REST self-hosted, berikan `bas
 import { useKaspaRest } from 'vue-kaspa'
 ```
 
-## Signature
+## Tanda tangan
 
 ```ts
 function useKaspaRest(options?: KaspaRestOptions): UseKaspaRestReturn
@@ -51,7 +51,7 @@ interface KaspaRestOptions {
 }
 ```
 
-## Return type
+## Tipe return
 
 ```ts
 interface UseKaspaRestReturn {
@@ -100,7 +100,7 @@ interface UseKaspaRestReturn {
 }
 ```
 
-## Basic usage
+## Pemakaian dasar
 
 ```ts
 import { useKaspaRest } from 'vue-kaspa'
@@ -117,9 +117,9 @@ const fee = await rest.getFeeEstimate()
 
 ## Txid lookup
 
-`getTransaction()` is the convenience path. It searches by transaction id and returns `null` if the tx is missing.
+`getTransaction()` adalah jalur praktis. Ia mencari berdasarkan transaction id dan mengembalikan `null` jika transaksinya tidak ditemukan.
 
-`getTransactionById()` uses the dedicated REST endpoint for direct lookup.
+`getTransactionById()` memakai endpoint REST khusus untuk lookup langsung.
 
 ```ts
 const tx = await rest.getTransactionById('txid...', {
@@ -130,9 +130,9 @@ console.log(tx?.transactionId ?? tx?.transaction_id)
 console.log(tx?.senderAddresses)
 ```
 
-If the payload contains resolved input addresses, `senderAddresses` is filled in automatically. When the payload includes enough script data, the composable can derive sender addresses with `kaspa-wasm` as a fallback.
+Jika payload berisi input address yang sudah ter-resolve, `senderAddresses` akan diisi otomatis. Saat payload memiliki script data yang cukup, composable ini bisa menurunkan sender address dengan `kaspa-wasm` sebagai fallback.
 
-## Caching
+## Cache
 
 The composable caches repeated identical requests in memory.
 
@@ -140,7 +140,7 @@ The composable caches repeated identical requests in memory.
 - `cacheTime` controls how long the entry stays in memory.
 - Call `clearCache()` to drop cached entries manually.
 
-## Experimental endpoints
+## Endpoint eksperimental
 
 These REST routes are marked experimental in the official schema and may change without notice:
 - `GET /addresses/{kaspaAddress}/balance/{day_or_month}`

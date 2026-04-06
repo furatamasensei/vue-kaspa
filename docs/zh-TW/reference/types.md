@@ -398,7 +398,7 @@ interface SignMessageResult {
 
 ## KaspaRestOptions
 
-Options passed to `useKaspaRest()`.
+`useKaspaRest()` 的選項。
 
 ```ts
 interface KaspaRestOptions {
@@ -414,7 +414,7 @@ interface KaspaRestOptions {
 
 ## KaspaRestRequestOptions
 
-Per-request overrides for the REST composable.
+供 REST composable 使用的每次請求覆寫設定。
 
 ```ts
 interface KaspaRestRequestOptions {
@@ -590,7 +590,7 @@ interface KaspaRestSubmitTransactionRequest {
 
 ## KaspaRestSubmitTransactionResponse
 
-Returned by `submitTransaction()`.
+回傳值: `submitTransaction()`.
 
 ```ts
 interface KaspaRestSubmitTransactionResponse {
@@ -603,7 +603,7 @@ interface KaspaRestSubmitTransactionResponse {
 
 ## KaspaRestTxMass
 
-Returned by `calculateTransactionMass()`.
+回傳值: `calculateTransactionMass()`.
 
 ```ts
 interface KaspaRestTxMass {
@@ -617,7 +617,7 @@ interface KaspaRestTxMass {
 
 ## KaspaRestTransactionAcceptance
 
-Returned by `getTransactionAcceptance()`.
+回傳值: `getTransactionAcceptance()`.
 
 ```ts
 interface KaspaRestTransactionAcceptance {
@@ -633,7 +633,7 @@ interface KaspaRestTransactionAcceptance {
 
 ## KaspaRestAddressesActiveResponse
 
-Returned by the experimental `POST /addresses/active` endpoint.
+回傳值: the experimental `POST /addresses/active` endpoint.
 
 ```ts
 interface KaspaRestAddressesActiveResponse {
@@ -647,7 +647,7 @@ interface KaspaRestAddressesActiveResponse {
 
 ## KaspaRestAddressesActiveCountResponse
 
-Returned by the experimental active-address count endpoints.
+回傳值: the experimental active-address count endpoints.
 
 ```ts
 interface KaspaRestAddressesActiveCountResponse {
@@ -661,7 +661,7 @@ interface KaspaRestAddressesActiveCountResponse {
 
 ## KaspaRestDistributionTier
 
-Used by `KaspaRestDistributionTiers`.
+供 `KaspaRestDistributionTiers`.
 
 ```ts
 interface KaspaRestDistributionTier {
@@ -675,7 +675,7 @@ interface KaspaRestDistributionTier {
 
 ## KaspaRestDistributionTiers
 
-Returned by the experimental address distribution endpoint.
+回傳值: the experimental address distribution endpoint.
 
 ```ts
 interface KaspaRestDistributionTiers {
@@ -688,7 +688,7 @@ interface KaspaRestDistributionTiers {
 
 ## KaspaRestOutpoint
 
-Used by `KaspaRestUtxoResponse`.
+供 `KaspaRestUtxoResponse`.
 
 ```ts
 interface KaspaRestOutpoint {
@@ -701,7 +701,7 @@ interface KaspaRestOutpoint {
 
 ## KaspaRestScriptPublicKey
 
-Used by `KaspaRestUtxoModel`.
+供 `KaspaRestUtxoModel`.
 
 ```ts
 interface KaspaRestScriptPublicKey {
@@ -714,7 +714,7 @@ interface KaspaRestScriptPublicKey {
 
 ## KaspaRestUtxoModel
 
-Used by `KaspaRestUtxoResponse`.
+供 `KaspaRestUtxoResponse`.
 
 ```ts
 interface KaspaRestUtxoModel {
@@ -729,7 +729,7 @@ interface KaspaRestUtxoModel {
 
 ## KaspaRestUtxoCountResponse
 
-Returned by `useKaspaRest().getUtxoCountByAddress()`.
+回傳值: `useKaspaRest().getUtxoCountByAddress()`.
 
 ```ts
 interface KaspaRestUtxoCountResponse {
@@ -741,7 +741,7 @@ interface KaspaRestUtxoCountResponse {
 
 ## KaspaRestBalancesByAddressEntry
 
-Returned by `useKaspaRest().getBalancesByAddresses()`.
+回傳值: `useKaspaRest().getBalancesByAddresses()`.
 
 ```ts
 interface KaspaRestBalancesByAddressEntry {
@@ -754,7 +754,7 @@ interface KaspaRestBalancesByAddressEntry {
 
 ## KaspaRestBlockHeader
 
-Used by `KaspaRestBlock` and `KaspaRestMaxHashrateResponse`.
+供 `KaspaRestBlock` and `KaspaRestMaxHashrateResponse`.
 
 ```ts
 interface KaspaRestBlockHeader {
@@ -777,7 +777,7 @@ interface KaspaRestBlockHeader {
 
 ## KaspaRestParentHash
 
-Used by `KaspaRestBlockHeader`.
+供 `KaspaRestBlockHeader`.
 
 ```ts
 interface KaspaRestParentHash {
@@ -789,7 +789,7 @@ interface KaspaRestParentHash {
 
 ## KaspaRestVerboseData
 
-Used by `KaspaRestBlock`.
+供 `KaspaRestBlock`.
 
 ```ts
 interface KaspaRestVerboseData {
@@ -809,7 +809,7 @@ interface KaspaRestVerboseData {
 
 ## KaspaRestBlockTxInputPreviousOutpoint
 
-Used by `KaspaRestBlockTxInput`.
+供 `KaspaRestBlockTxInput`.
 
 ```ts
 interface KaspaRestBlockTxInputPreviousOutpoint {
@@ -822,7 +822,7 @@ interface KaspaRestBlockTxInputPreviousOutpoint {
 
 ## KaspaRestBlockTxInput
 
-Used by `KaspaRestBlockTx`.
+供 `KaspaRestBlockTx`.
 
 ```ts
 interface KaspaRestBlockTxInput {
@@ -837,7 +837,7 @@ interface KaspaRestBlockTxInput {
 
 ## KaspaRestBlockTxOutputScriptPublicKey
 
-Used by `KaspaRestBlockTxOutput`.
+供 `KaspaRestBlockTxOutput`.
 
 ```ts
 interface KaspaRestBlockTxOutputScriptPublicKey {
@@ -850,7 +850,7 @@ interface KaspaRestBlockTxOutputScriptPublicKey {
 
 ## KaspaRestBlockTxOutputVerboseData
 
-Used by `KaspaRestBlockTxOutput`.
+供 `KaspaRestBlockTxOutput`.
 
 ```ts
 interface KaspaRestBlockTxOutputVerboseData {
@@ -863,7 +863,7 @@ interface KaspaRestBlockTxOutputVerboseData {
 
 ## KaspaRestBlockTxOutput
 
-Used by `KaspaRestBlockTx`.
+供 `KaspaRestBlockTx`.
 
 ```ts
 interface KaspaRestBlockTxOutput {
@@ -877,7 +877,7 @@ interface KaspaRestBlockTxOutput {
 
 ## KaspaRestBlockTxVerboseData
 
-Used by `KaspaRestBlockTx`.
+供 `KaspaRestBlockTx`.
 
 ```ts
 interface KaspaRestBlockTxVerboseData {
@@ -893,7 +893,7 @@ interface KaspaRestBlockTxVerboseData {
 
 ## KaspaRestBlockTx
 
-Used by `KaspaRestBlock`.
+供 `KaspaRestBlock`.
 
 ```ts
 interface KaspaRestBlockTx {
@@ -913,7 +913,7 @@ interface KaspaRestBlockTx {
 
 ## KaspaRestBlock
 
-Returned by `useKaspaRest().getBlock()`.
+回傳值: `useKaspaRest().getBlock()`.
 
 ```ts
 interface KaspaRestBlock {
@@ -928,7 +928,7 @@ interface KaspaRestBlock {
 
 ## KaspaRestBlockResponse
 
-Returned by `useKaspaRest().getBlocks()`.
+回傳值: `useKaspaRest().getBlocks()`.
 
 ```ts
 interface KaspaRestBlockResponse {
@@ -941,7 +941,7 @@ interface KaspaRestBlockResponse {
 
 ## KaspaRestBlueScoreResponse
 
-Returned by `useKaspaRest().getVirtualSelectedParentBlueScore()`.
+回傳值: `useKaspaRest().getVirtualSelectedParentBlueScore()`.
 
 ```ts
 interface KaspaRestBlueScoreResponse {
@@ -953,7 +953,7 @@ interface KaspaRestBlueScoreResponse {
 
 ## KaspaRestBlockdagResponse
 
-Returned by `useKaspaRest().getBlockDag()` and `getNetwork()`.
+回傳值: `useKaspaRest().getBlockDag()` and `getNetwork()`.
 
 ```ts
 interface KaspaRestBlockdagResponse {
@@ -974,7 +974,7 @@ interface KaspaRestBlockdagResponse {
 
 ## KaspaRestCoinSupplyResponse
 
-Returned by `useKaspaRest().getCoinSupply()`.
+回傳值: `useKaspaRest().getCoinSupply()`.
 
 ```ts
 interface KaspaRestCoinSupplyResponse {
@@ -987,7 +987,7 @@ interface KaspaRestCoinSupplyResponse {
 
 ## KaspaRestBlockRewardResponse
 
-Returned by `useKaspaRest().getBlockReward()`.
+回傳值: `useKaspaRest().getBlockReward()`.
 
 ```ts
 interface KaspaRestBlockRewardResponse {
@@ -999,7 +999,7 @@ interface KaspaRestBlockRewardResponse {
 
 ## KaspaRestHalvingResponse
 
-Returned by `useKaspaRest().getHalving()`.
+回傳值: `useKaspaRest().getHalving()`.
 
 ```ts
 interface KaspaRestHalvingResponse {
@@ -1013,7 +1013,7 @@ interface KaspaRestHalvingResponse {
 
 ## KaspaRestHashrateResponse
 
-Returned by `useKaspaRest().getHashrate()`.
+回傳值: `useKaspaRest().getHashrate()`.
 
 ```ts
 interface KaspaRestHashrateResponse {
@@ -1025,7 +1025,7 @@ interface KaspaRestHashrateResponse {
 
 ## KaspaRestMaxHashrateResponse
 
-Returned by `useKaspaRest().getMaxHashrate()`.
+回傳值: `useKaspaRest().getMaxHashrate()`.
 
 ```ts
 interface KaspaRestMaxHashrateResponse {
@@ -1038,7 +1038,7 @@ interface KaspaRestMaxHashrateResponse {
 
 ## KaspaRestHashrateHistoryResponse
 
-Returned by `useKaspaRest().getHashrateHistory()` and `getHashrateHistoryFor()`.
+回傳值: `useKaspaRest().getHashrateHistory()` and `getHashrateHistoryFor()`.
 
 ```ts
 interface KaspaRestHashrateHistoryResponse {
@@ -1056,7 +1056,7 @@ interface KaspaRestHashrateHistoryResponse {
 
 ## KaspaRestDBCheckStatus
 
-Used by `KaspaRestHealthResponse`.
+供 `KaspaRestHealthResponse`.
 
 ```ts
 interface KaspaRestDBCheckStatus {
@@ -1072,7 +1072,7 @@ interface KaspaRestDBCheckStatus {
 
 ## KaspaRestKaspadResponse
 
-Used by `KaspaRestHealthResponse`.
+供 `KaspaRestHealthResponse`.
 
 ```ts
 interface KaspaRestKaspadResponse {
@@ -1089,7 +1089,7 @@ interface KaspaRestKaspadResponse {
 
 ## KaspaRestHealthResponse
 
-Returned by `useKaspaRest().getHealth()`.
+回傳值: `useKaspaRest().getHealth()`.
 
 ```ts
 interface KaspaRestHealthResponse {
@@ -1102,7 +1102,7 @@ interface KaspaRestHealthResponse {
 
 ## KaspaRestKaspadInfoResponse
 
-Returned by `useKaspaRest().getKaspadInfo()`.
+回傳值: `useKaspaRest().getKaspadInfo()`.
 
 ```ts
 interface KaspaRestKaspadInfoResponse {
@@ -1118,7 +1118,7 @@ interface KaspaRestKaspadInfoResponse {
 
 ## KaspaRestPriceResponse
 
-Used by the raw REST `GET /info/price` endpoint via `request()`.
+供 the raw REST `GET /info/price` endpoint via `request()`.
 
 ```ts
 interface KaspaRestPriceResponse {
@@ -1130,7 +1130,7 @@ interface KaspaRestPriceResponse {
 
 ## KaspaRestMarketCapResponse
 
-Returned by `useKaspaRest().getMarketcap()` when the response is JSON.
+回傳值: `useKaspaRest().getMarketcap()` when the response is JSON.
 
 ```ts
 interface KaspaRestMarketCapResponse {
@@ -1142,7 +1142,7 @@ interface KaspaRestMarketCapResponse {
 
 ## KaspaRestUtxoResponse
 
-Returned by `useKaspaRest().getUtxosByAddress()` and `getUtxosByAddresses()`.
+回傳值: `useKaspaRest().getUtxosByAddress()` and `getUtxosByAddresses()`.
 
 ```ts
 interface KaspaRestUtxoResponse {
@@ -1167,7 +1167,7 @@ interface KaspaRestUtxoResponse {
 
 ## KaspaRestBalanceResponse
 
-Returned by `useKaspaRest().getAddressBalance()`.
+回傳值: `useKaspaRest().getAddressBalance()`.
 
 ```ts
 interface KaspaRestBalanceResponse {
@@ -1180,7 +1180,7 @@ interface KaspaRestBalanceResponse {
 
 ## KaspaRestAddressBalanceHistory
 
-Returned by `useKaspaRest().getAddressBalanceHistory()`.
+回傳值: `useKaspaRest().getAddressBalanceHistory()`.
 
 ```ts
 interface KaspaRestAddressBalanceHistory {
@@ -1193,7 +1193,7 @@ interface KaspaRestAddressBalanceHistory {
 
 ## KaspaRestAddressName
 
-Returned by `useKaspaRest().getAddressName()` and `getAddressNames()`.
+回傳值: `useKaspaRest().getAddressName()` and `getAddressNames()`.
 
 ```ts
 interface KaspaRestAddressName {
@@ -1206,7 +1206,7 @@ interface KaspaRestAddressName {
 
 ## KaspaRestTopAddresses
 
-Returned by `useKaspaRest().getTopAddresses()`.
+回傳值: `useKaspaRest().getTopAddresses()`.
 
 ```ts
 interface KaspaRestTopAddresses {
@@ -1223,7 +1223,7 @@ interface KaspaRestTopAddresses {
 
 ## KaspaRestTopAddress
 
-Used by `KaspaRestTopAddresses`.
+供 `KaspaRestTopAddresses`.
 
 ```ts
 interface KaspaRestTopAddress {
@@ -1237,7 +1237,7 @@ interface KaspaRestTopAddress {
 
 ## KaspaRestTransactionCount
 
-Returned by `useKaspaRest().getAddressTransactionCount()`.
+回傳值: `useKaspaRest().getAddressTransactionCount()`.
 
 ```ts
 interface KaspaRestTransactionCount {
@@ -1249,7 +1249,7 @@ interface KaspaRestTransactionCount {
 
 ## KaspaRestTransactionCountResponse
 
-Returned by the experimental transaction count endpoints.
+回傳值: the experimental transaction count endpoints.
 
 ```ts
 interface KaspaRestTransactionCountResponse {
@@ -1264,7 +1264,7 @@ interface KaspaRestTransactionCountResponse {
 
 ## KaspaRestVcBlock
 
-Returned by `useKaspaRest().getVirtualChain()`.
+回傳值: `useKaspaRest().getVirtualChain()`.
 
 ```ts
 interface KaspaRestVcBlock {
@@ -1283,7 +1283,7 @@ interface KaspaRestVcBlock {
 
 ## KaspaRestVcTxInput
 
-Used by `KaspaRestVcTx`.
+供 `KaspaRestVcTx`.
 
 ```ts
 interface KaspaRestVcTxInput {
@@ -1300,7 +1300,7 @@ interface KaspaRestVcTxInput {
 
 ## KaspaRestVcTxOutput
 
-Used by `KaspaRestVcTx`.
+供 `KaspaRestVcTx`.
 
 ```ts
 interface KaspaRestVcTxOutput {
@@ -1314,7 +1314,7 @@ interface KaspaRestVcTxOutput {
 
 ## KaspaRestVcTx
 
-Used by `KaspaRestVcBlock`.
+供 `KaspaRestVcBlock`.
 
 ```ts
 interface KaspaRestVcTx {
@@ -1329,7 +1329,7 @@ interface KaspaRestVcTx {
 
 ## KaspaRestBalanceEntry
 
-Returned by `useKaspaRest().getBalancesByAddresses()`.
+回傳值: `useKaspaRest().getBalancesByAddresses()`.
 
 ```ts
 interface KaspaRestBalanceEntry {
@@ -1342,7 +1342,7 @@ interface KaspaRestBalanceEntry {
 
 ## UseKaspaRestReturn
 
-Returned by `useKaspaRest()`.
+回傳值: `useKaspaRest()`.
 
 ```ts
 interface UseKaspaRestReturn {
@@ -1407,7 +1407,7 @@ interface RpcEvent<T = unknown> {
 
 ## AcceptedTransactionInfo
 
-Used by `useTransactionListener().acceptedTransactions`.
+供 `useTransactionListener().acceptedTransactions`.
 
 ```ts
 interface AcceptedTransactionInfo {
@@ -1421,7 +1421,7 @@ interface AcceptedTransactionInfo {
 
 ## TransactionListenerOptions
 
-Options passed to `useTransactionListener()`.
+`useTransactionListener()` 的選項。
 
 ```ts
 interface TransactionListenerOptions {
@@ -1431,7 +1431,7 @@ interface TransactionListenerOptions {
 }
 ```
 
-| Field | Type | Default | Description |
+| 欄位 | 型別 | 預設值 | 說明 |
 |---|---|---|---|
 | `maxHistory` | `number` | `100` | Max accepted transactions to keep |
 | `autoSubscribe` | `boolean` | `true` | Subscribe on mount |
@@ -1441,7 +1441,7 @@ interface TransactionListenerOptions {
 
 ## UseTransactionListenerReturn
 
-Returned by `useTransactionListener()`.
+回傳值: `useTransactionListener()`.
 
 ```ts
 interface UseTransactionListenerReturn {
@@ -1455,15 +1455,15 @@ interface UseTransactionListenerReturn {
 }
 ```
 
-| Field | Type | Description |
+| 欄位 | 型別 | 說明 |
 |---|---|---|
-| `transactions` | `Readonly<Ref<string[]>>` | Recently accepted transaction IDs |
-| `acceptedTransactions` | `Readonly<Ref<AcceptedTransactionInfo[]>>` | Accepted transactions with sender addresses |
-| `isListening` | `ComputedRef<boolean>` | Whether the listener is subscribed |
-| `subscribe()` | `Promise<void>` | Start listening for `virtual-chain-changed` |
-| `unsubscribe()` | `Promise<void>` | Stop listening |
-| `clear()` | `void` | Clear the local history |
-| `resolveSenderAddresses(transactionId)` | `Promise<string[]>` | Fetch sender addresses for one tracked transaction |
+| `transactions` | `Readonly<Ref<string[]>>` | 最近被接受的交易 ID |
+| `acceptedTransactions` | `Readonly<Ref<AcceptedTransactionInfo[]>>` | 含 sender addresses 的已接受交易 |
+| `isListening` | `ComputedRef<boolean>` | 是否正在訂閱 |
+| `subscribe()` | `Promise<void>` | 開始監聽 `virtual-chain-changed` |
+| `unsubscribe()` | `Promise<void>` | 停止監聽 |
+| `clear()` | `void` | 清除本地歷史 |
+| `resolveSenderAddresses(transactionId)` | `Promise<string[]>` | 取得單一追蹤交易的 sender addresses |
 
 ---
 
@@ -1482,7 +1482,7 @@ interface PaymentOutput {
 
 ## TransactionSummary
 
-Returned by `useTransaction().estimate()` and `create()`.
+回傳值: `useTransaction().estimate()` and `create()`.
 
 ```ts
 interface TransactionSummary {
@@ -1512,7 +1512,7 @@ interface CreateTransactionSettings {
 }
 ```
 
-| Field | Required | Description |
+| 欄位 | 必填 | 說明 |
 |---|---|---|
 | `entries` | Yes | UTXO inputs — pass `useUtxo().entries.value` |
 | `outputs` | No | Recipients. Omit for UTXO self-consolidation. |
@@ -1537,7 +1537,7 @@ interface PendingTx {
 }
 ```
 
-| Method | Description |
+| 方法 | 說明 |
 |---|---|
 | `sign(privateKeys)` | Sign with one or more hex private keys |
 | `submit()` | Submit to the network, returns transaction ID |
@@ -1621,7 +1621,7 @@ Populated for KasWare. Always `null` for Kastle (Kastle's API does not expose ba
 
 ## WalletSendOptions
 
-Options for `useWallet().sendKaspa()`.
+的選項: `useWallet().sendKaspa()`.
 
 ```ts
 interface WalletSendOptions {
@@ -1632,11 +1632,11 @@ interface WalletSendOptions {
 
 ---
 
-## Composable return types
+## 可組合函式回傳型別
 
-Each composable has a corresponding return type interface:
+每個 composable 都有對應的回傳型別介面：
 
-| Type | Composable |
+| 型別 | 可組合函式 |
 |---|---|
 | `UseKaspaReturn` | [`useKaspa()`](/composables/use-kaspa) |
 | `UseRpcReturn` | [`useRpc()`](/composables/use-rpc) |
@@ -1649,9 +1649,9 @@ Each composable has a corresponding return type interface:
 
 ---
 
-## Error classes
+## 錯誤類別
 
-All error classes extend `KaspaError` and are exported from `vue-kaspa`. See [Error Handling](/guide/error-handling) for full usage patterns and examples.
+所有錯誤類別都繼承自 `KaspaError`，並由 `vue-kaspa` 匯出。 See [Error Handling](/guide/error-handling) for full usage patterns and examples.
 
 ### KaspaError
 

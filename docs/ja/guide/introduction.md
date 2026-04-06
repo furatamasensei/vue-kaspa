@@ -47,10 +47,10 @@
 // Plugin
 import { VueKaspa } from 'vue-kaspa'
 
-// Composables
+// コンポーザブル
 import { useKaspa, useRpc, useKaspaRest, useUtxo, useTransaction, useTransactionListener, useBlockListener, useCrypto, useNetwork, useWallet, useVueKaspa } from 'vue-kaspa'
 
-// Error classes
+// エラークラス
 import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'
 
 // Types (TypeScript)

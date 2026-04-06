@@ -28,7 +28,7 @@ Rilis awal.
 - Modul Nuxt 3 (`vue-kaspa/nuxt`) dengan auto-import dan keamanan SSR
 - Integrasi Vue DevTools — panel inspektor dan timeline event
 
-**Composables**
+**Komposabel**
 - `useKaspa` — siklus hidup inisialisasi WASM dengan pelacakan status
 - `useRpc` — koneksi RPC WebSocket, 12 metode query, subscription event
 - `useUtxo` — pelacakan UTXO real-time, saldo reaktif, auto-cleanup saat unmount

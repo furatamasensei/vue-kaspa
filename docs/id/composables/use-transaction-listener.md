@@ -1,6 +1,6 @@
 # useTransactionListener
 
-Mendengarkan transaction ID yang sudah accepted di jaringan Kaspa secara reaktif. Composable ini memakai subscription `virtual-chain-changed` untuk menangkap transaksi saat terkonfirmasi.
+Mendengarkan transaction ID yang sudah accepted di jaringan Kaspa secara reaktif. Komposabel ini memakai subscription `virtual-chain-changed` untuk menangkap transaksi saat terkonfirmasi.
 
 ## Import
 
@@ -8,7 +8,7 @@ Mendengarkan transaction ID yang sudah accepted di jaringan Kaspa secara reaktif
 import { useTransactionListener } from 'vue-kaspa'
 ```
 
-## Return type
+## Tipe return
 
 ```ts
 interface UseTransactionListenerReturn {

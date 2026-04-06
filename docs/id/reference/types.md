@@ -386,7 +386,7 @@ interface SignMessageResult {
 
 Setiap composable memiliki antarmuka tipe kembalian yang sesuai:
 
-| Tipe | Composable |
+| Tipe | Komposabel |
 |---|---|
 | `UseKaspaReturn` | [`useKaspa()`](/composables/use-kaspa) |
 | `UseRpcReturn` | [`useRpc()`](/composables/use-rpc) |
@@ -398,7 +398,7 @@ Setiap composable memiliki antarmuka tipe kembalian yang sesuai:
 
 ## KaspaRestOptions
 
-Options passed to `useKaspaRest()`.
+Opsi yang diberikan ke `useKaspaRest()`. 
 
 ```ts
 interface KaspaRestOptions {
@@ -414,7 +414,7 @@ interface KaspaRestOptions {
 
 ## KaspaRestRequestOptions
 
-Per-request overrides for the REST composable.
+Penyetelan override per-request untuk composable REST.
 
 ```ts
 interface KaspaRestRequestOptions {
@@ -590,7 +590,7 @@ interface KaspaRestSubmitTransactionRequest {
 
 ## KaspaRestSubmitTransactionResponse
 
-Returned by `submitTransaction()`.
+Nilai return dari `submitTransaction()`.
 
 ```ts
 interface KaspaRestSubmitTransactionResponse {
@@ -603,7 +603,7 @@ interface KaspaRestSubmitTransactionResponse {
 
 ## KaspaRestTxMass
 
-Returned by `calculateTransactionMass()`.
+Nilai return dari `calculateTransactionMass()`.
 
 ```ts
 interface KaspaRestTxMass {
@@ -617,7 +617,7 @@ interface KaspaRestTxMass {
 
 ## KaspaRestTransactionAcceptance
 
-Returned by `getTransactionAcceptance()`.
+Nilai return dari `getTransactionAcceptance()`.
 
 ```ts
 interface KaspaRestTransactionAcceptance {
@@ -633,7 +633,7 @@ interface KaspaRestTransactionAcceptance {
 
 ## KaspaRestAddressesActiveResponse
 
-Returned by the experimental `POST /addresses/active` endpoint.
+Nilai return dari the experimental `POST /addresses/active` endpoint.
 
 ```ts
 interface KaspaRestAddressesActiveResponse {
@@ -647,7 +647,7 @@ interface KaspaRestAddressesActiveResponse {
 
 ## KaspaRestAddressesActiveCountResponse
 
-Returned by the experimental active-address count endpoints.
+Nilai return dari the experimental active-address count endpoints.
 
 ```ts
 interface KaspaRestAddressesActiveCountResponse {
@@ -661,7 +661,7 @@ interface KaspaRestAddressesActiveCountResponse {
 
 ## KaspaRestDistributionTier
 
-Used by `KaspaRestDistributionTiers`.
+Digunakan oleh `KaspaRestDistributionTiers`.
 
 ```ts
 interface KaspaRestDistributionTier {
@@ -675,7 +675,7 @@ interface KaspaRestDistributionTier {
 
 ## KaspaRestDistributionTiers
 
-Returned by the experimental address distribution endpoint.
+Nilai return dari the experimental address distribution endpoint.
 
 ```ts
 interface KaspaRestDistributionTiers {
@@ -688,7 +688,7 @@ interface KaspaRestDistributionTiers {
 
 ## KaspaRestOutpoint
 
-Used by `KaspaRestUtxoResponse`.
+Digunakan oleh `KaspaRestUtxoResponse`.
 
 ```ts
 interface KaspaRestOutpoint {
@@ -701,7 +701,7 @@ interface KaspaRestOutpoint {
 
 ## KaspaRestScriptPublicKey
 
-Used by `KaspaRestUtxoModel`.
+Digunakan oleh `KaspaRestUtxoModel`.
 
 ```ts
 interface KaspaRestScriptPublicKey {
@@ -714,7 +714,7 @@ interface KaspaRestScriptPublicKey {
 
 ## KaspaRestUtxoModel
 
-Used by `KaspaRestUtxoResponse`.
+Digunakan oleh `KaspaRestUtxoResponse`.
 
 ```ts
 interface KaspaRestUtxoModel {
@@ -729,7 +729,7 @@ interface KaspaRestUtxoModel {
 
 ## KaspaRestUtxoCountResponse
 
-Returned by `useKaspaRest().getUtxoCountByAddress()`.
+Nilai return dari `useKaspaRest().getUtxoCountByAddress()`.
 
 ```ts
 interface KaspaRestUtxoCountResponse {
@@ -741,7 +741,7 @@ interface KaspaRestUtxoCountResponse {
 
 ## KaspaRestBalancesByAddressEntry
 
-Returned by `useKaspaRest().getBalancesByAddresses()`.
+Nilai return dari `useKaspaRest().getBalancesByAddresses()`.
 
 ```ts
 interface KaspaRestBalancesByAddressEntry {
@@ -754,7 +754,7 @@ interface KaspaRestBalancesByAddressEntry {
 
 ## KaspaRestBlockHeader
 
-Used by `KaspaRestBlock` and `KaspaRestMaxHashrateResponse`.
+Digunakan oleh `KaspaRestBlock` and `KaspaRestMaxHashrateResponse`.
 
 ```ts
 interface KaspaRestBlockHeader {
@@ -777,7 +777,7 @@ interface KaspaRestBlockHeader {
 
 ## KaspaRestParentHash
 
-Used by `KaspaRestBlockHeader`.
+Digunakan oleh `KaspaRestBlockHeader`.
 
 ```ts
 interface KaspaRestParentHash {
@@ -789,7 +789,7 @@ interface KaspaRestParentHash {
 
 ## KaspaRestVerboseData
 
-Used by `KaspaRestBlock`.
+Digunakan oleh `KaspaRestBlock`.
 
 ```ts
 interface KaspaRestVerboseData {
@@ -809,7 +809,7 @@ interface KaspaRestVerboseData {
 
 ## KaspaRestBlockTxInputPreviousOutpoint
 
-Used by `KaspaRestBlockTxInput`.
+Digunakan oleh `KaspaRestBlockTxInput`.
 
 ```ts
 interface KaspaRestBlockTxInputPreviousOutpoint {
@@ -822,7 +822,7 @@ interface KaspaRestBlockTxInputPreviousOutpoint {
 
 ## KaspaRestBlockTxInput
 
-Used by `KaspaRestBlockTx`.
+Digunakan oleh `KaspaRestBlockTx`.
 
 ```ts
 interface KaspaRestBlockTxInput {
@@ -837,7 +837,7 @@ interface KaspaRestBlockTxInput {
 
 ## KaspaRestBlockTxOutputScriptPublicKey
 
-Used by `KaspaRestBlockTxOutput`.
+Digunakan oleh `KaspaRestBlockTxOutput`.
 
 ```ts
 interface KaspaRestBlockTxOutputScriptPublicKey {
@@ -850,7 +850,7 @@ interface KaspaRestBlockTxOutputScriptPublicKey {
 
 ## KaspaRestBlockTxOutputVerboseData
 
-Used by `KaspaRestBlockTxOutput`.
+Digunakan oleh `KaspaRestBlockTxOutput`.
 
 ```ts
 interface KaspaRestBlockTxOutputVerboseData {
@@ -863,7 +863,7 @@ interface KaspaRestBlockTxOutputVerboseData {
 
 ## KaspaRestBlockTxOutput
 
-Used by `KaspaRestBlockTx`.
+Digunakan oleh `KaspaRestBlockTx`.
 
 ```ts
 interface KaspaRestBlockTxOutput {
@@ -877,7 +877,7 @@ interface KaspaRestBlockTxOutput {
 
 ## KaspaRestBlockTxVerboseData
 
-Used by `KaspaRestBlockTx`.
+Digunakan oleh `KaspaRestBlockTx`.
 
 ```ts
 interface KaspaRestBlockTxVerboseData {
@@ -893,7 +893,7 @@ interface KaspaRestBlockTxVerboseData {
 
 ## KaspaRestBlockTx
 
-Used by `KaspaRestBlock`.
+Digunakan oleh `KaspaRestBlock`.
 
 ```ts
 interface KaspaRestBlockTx {
@@ -913,7 +913,7 @@ interface KaspaRestBlockTx {
 
 ## KaspaRestBlock
 
-Returned by `useKaspaRest().getBlock()`.
+Nilai return dari `useKaspaRest().getBlock()`.
 
 ```ts
 interface KaspaRestBlock {
@@ -928,7 +928,7 @@ interface KaspaRestBlock {
 
 ## KaspaRestBlockResponse
 
-Returned by `useKaspaRest().getBlocks()`.
+Nilai return dari `useKaspaRest().getBlocks()`.
 
 ```ts
 interface KaspaRestBlockResponse {
@@ -941,7 +941,7 @@ interface KaspaRestBlockResponse {
 
 ## KaspaRestBlueScoreResponse
 
-Returned by `useKaspaRest().getVirtualSelectedParentBlueScore()`.
+Nilai return dari `useKaspaRest().getVirtualSelectedParentBlueScore()`.
 
 ```ts
 interface KaspaRestBlueScoreResponse {
@@ -953,7 +953,7 @@ interface KaspaRestBlueScoreResponse {
 
 ## KaspaRestBlockdagResponse
 
-Returned by `useKaspaRest().getBlockDag()` and `getNetwork()`.
+Nilai return dari `useKaspaRest().getBlockDag()` and `getNetwork()`.
 
 ```ts
 interface KaspaRestBlockdagResponse {
@@ -974,7 +974,7 @@ interface KaspaRestBlockdagResponse {
 
 ## KaspaRestCoinSupplyResponse
 
-Returned by `useKaspaRest().getCoinSupply()`.
+Nilai return dari `useKaspaRest().getCoinSupply()`.
 
 ```ts
 interface KaspaRestCoinSupplyResponse {
@@ -987,7 +987,7 @@ interface KaspaRestCoinSupplyResponse {
 
 ## KaspaRestBlockRewardResponse
 
-Returned by `useKaspaRest().getBlockReward()`.
+Nilai return dari `useKaspaRest().getBlockReward()`.
 
 ```ts
 interface KaspaRestBlockRewardResponse {
@@ -999,7 +999,7 @@ interface KaspaRestBlockRewardResponse {
 
 ## KaspaRestHalvingResponse
 
-Returned by `useKaspaRest().getHalving()`.
+Nilai return dari `useKaspaRest().getHalving()`.
 
 ```ts
 interface KaspaRestHalvingResponse {
@@ -1013,7 +1013,7 @@ interface KaspaRestHalvingResponse {
 
 ## KaspaRestHashrateResponse
 
-Returned by `useKaspaRest().getHashrate()`.
+Nilai return dari `useKaspaRest().getHashrate()`.
 
 ```ts
 interface KaspaRestHashrateResponse {
@@ -1025,7 +1025,7 @@ interface KaspaRestHashrateResponse {
 
 ## KaspaRestMaxHashrateResponse
 
-Returned by `useKaspaRest().getMaxHashrate()`.
+Nilai return dari `useKaspaRest().getMaxHashrate()`.
 
 ```ts
 interface KaspaRestMaxHashrateResponse {
@@ -1038,7 +1038,7 @@ interface KaspaRestMaxHashrateResponse {
 
 ## KaspaRestHashrateHistoryResponse
 
-Returned by `useKaspaRest().getHashrateHistory()` and `getHashrateHistoryFor()`.
+Nilai return dari `useKaspaRest().getHashrateHistory()` and `getHashrateHistoryFor()`.
 
 ```ts
 interface KaspaRestHashrateHistoryResponse {
@@ -1056,7 +1056,7 @@ interface KaspaRestHashrateHistoryResponse {
 
 ## KaspaRestDBCheckStatus
 
-Used by `KaspaRestHealthResponse`.
+Digunakan oleh `KaspaRestHealthResponse`.
 
 ```ts
 interface KaspaRestDBCheckStatus {
@@ -1072,7 +1072,7 @@ interface KaspaRestDBCheckStatus {
 
 ## KaspaRestKaspadResponse
 
-Used by `KaspaRestHealthResponse`.
+Digunakan oleh `KaspaRestHealthResponse`.
 
 ```ts
 interface KaspaRestKaspadResponse {
@@ -1089,7 +1089,7 @@ interface KaspaRestKaspadResponse {
 
 ## KaspaRestHealthResponse
 
-Returned by `useKaspaRest().getHealth()`.
+Nilai return dari `useKaspaRest().getHealth()`.
 
 ```ts
 interface KaspaRestHealthResponse {
@@ -1102,7 +1102,7 @@ interface KaspaRestHealthResponse {
 
 ## KaspaRestKaspadInfoResponse
 
-Returned by `useKaspaRest().getKaspadInfo()`.
+Nilai return dari `useKaspaRest().getKaspadInfo()`.
 
 ```ts
 interface KaspaRestKaspadInfoResponse {
@@ -1118,7 +1118,7 @@ interface KaspaRestKaspadInfoResponse {
 
 ## KaspaRestPriceResponse
 
-Used by the raw REST `GET /info/price` endpoint via `request()`.
+Digunakan oleh the raw REST `GET /info/price` endpoint via `request()`.
 
 ```ts
 interface KaspaRestPriceResponse {
@@ -1130,7 +1130,7 @@ interface KaspaRestPriceResponse {
 
 ## KaspaRestMarketCapResponse
 
-Returned by `useKaspaRest().getMarketcap()` when the response is JSON.
+Nilai return dari `useKaspaRest().getMarketcap()` when the response is JSON.
 
 ```ts
 interface KaspaRestMarketCapResponse {
@@ -1142,7 +1142,7 @@ interface KaspaRestMarketCapResponse {
 
 ## KaspaRestUtxoResponse
 
-Returned by `useKaspaRest().getUtxosByAddress()` and `getUtxosByAddresses()`.
+Nilai return dari `useKaspaRest().getUtxosByAddress()` and `getUtxosByAddresses()`.
 
 ```ts
 interface KaspaRestUtxoResponse {
@@ -1167,7 +1167,7 @@ interface KaspaRestUtxoResponse {
 
 ## KaspaRestBalanceResponse
 
-Returned by `useKaspaRest().getAddressBalance()`.
+Nilai return dari `useKaspaRest().getAddressBalance()`.
 
 ```ts
 interface KaspaRestBalanceResponse {
@@ -1180,7 +1180,7 @@ interface KaspaRestBalanceResponse {
 
 ## KaspaRestAddressBalanceHistory
 
-Returned by `useKaspaRest().getAddressBalanceHistory()`.
+Nilai return dari `useKaspaRest().getAddressBalanceHistory()`.
 
 ```ts
 interface KaspaRestAddressBalanceHistory {
@@ -1193,7 +1193,7 @@ interface KaspaRestAddressBalanceHistory {
 
 ## KaspaRestAddressName
 
-Returned by `useKaspaRest().getAddressName()` and `getAddressNames()`.
+Nilai return dari `useKaspaRest().getAddressName()` and `getAddressNames()`.
 
 ```ts
 interface KaspaRestAddressName {
@@ -1206,7 +1206,7 @@ interface KaspaRestAddressName {
 
 ## KaspaRestTopAddresses
 
-Returned by `useKaspaRest().getTopAddresses()`.
+Nilai return dari `useKaspaRest().getTopAddresses()`.
 
 ```ts
 interface KaspaRestTopAddresses {
@@ -1223,7 +1223,7 @@ interface KaspaRestTopAddresses {
 
 ## KaspaRestTopAddress
 
-Used by `KaspaRestTopAddresses`.
+Digunakan oleh `KaspaRestTopAddresses`.
 
 ```ts
 interface KaspaRestTopAddress {
@@ -1237,7 +1237,7 @@ interface KaspaRestTopAddress {
 
 ## KaspaRestTransactionCount
 
-Returned by `useKaspaRest().getAddressTransactionCount()`.
+Nilai return dari `useKaspaRest().getAddressTransactionCount()`.
 
 ```ts
 interface KaspaRestTransactionCount {
@@ -1249,7 +1249,7 @@ interface KaspaRestTransactionCount {
 
 ## KaspaRestTransactionCountResponse
 
-Returned by the experimental transaction count endpoints.
+Nilai return dari the experimental transaction count endpoints.
 
 ```ts
 interface KaspaRestTransactionCountResponse {
@@ -1264,7 +1264,7 @@ interface KaspaRestTransactionCountResponse {
 
 ## KaspaRestVcBlock
 
-Returned by `useKaspaRest().getVirtualChain()`.
+Nilai return dari `useKaspaRest().getVirtualChain()`.
 
 ```ts
 interface KaspaRestVcBlock {
@@ -1283,7 +1283,7 @@ interface KaspaRestVcBlock {
 
 ## KaspaRestVcTxInput
 
-Used by `KaspaRestVcTx`.
+Digunakan oleh `KaspaRestVcTx`.
 
 ```ts
 interface KaspaRestVcTxInput {
@@ -1300,7 +1300,7 @@ interface KaspaRestVcTxInput {
 
 ## KaspaRestVcTxOutput
 
-Used by `KaspaRestVcTx`.
+Digunakan oleh `KaspaRestVcTx`.
 
 ```ts
 interface KaspaRestVcTxOutput {
@@ -1314,7 +1314,7 @@ interface KaspaRestVcTxOutput {
 
 ## KaspaRestVcTx
 
-Used by `KaspaRestVcBlock`.
+Digunakan oleh `KaspaRestVcBlock`.
 
 ```ts
 interface KaspaRestVcTx {
@@ -1329,7 +1329,7 @@ interface KaspaRestVcTx {
 
 ## KaspaRestBalanceEntry
 
-Returned by `useKaspaRest().getBalancesByAddresses()`.
+Nilai return dari `useKaspaRest().getBalancesByAddresses()`.
 
 ```ts
 interface KaspaRestBalanceEntry {
@@ -1342,7 +1342,7 @@ interface KaspaRestBalanceEntry {
 
 ## UseKaspaRestReturn
 
-Returned by `useKaspaRest()`.
+Nilai return dari `useKaspaRest()`.
 
 ```ts
 interface UseKaspaRestReturn {
@@ -1407,7 +1407,7 @@ interface RpcEvent<T = unknown> {
 
 ## AcceptedTransactionInfo
 
-Used by `useTransactionListener().acceptedTransactions`.
+Digunakan oleh `useTransactionListener().acceptedTransactions`.
 
 ```ts
 interface AcceptedTransactionInfo {
@@ -1421,7 +1421,7 @@ interface AcceptedTransactionInfo {
 
 ## TransactionListenerOptions
 
-Options passed to `useTransactionListener()`.
+Opsi yang diberikan ke `useTransactionListener()`.
 
 ```ts
 interface TransactionListenerOptions {
@@ -1431,7 +1431,7 @@ interface TransactionListenerOptions {
 }
 ```
 
-| Field | Type | Default | Description |
+| Kolom | Tipe | Default | Deskripsi |
 |---|---|---|---|
 | `maxHistory` | `number` | `100` | Max accepted transactions to keep |
 | `autoSubscribe` | `boolean` | `true` | Subscribe on mount |
@@ -1441,7 +1441,7 @@ interface TransactionListenerOptions {
 
 ## UseTransactionListenerReturn
 
-Returned by `useTransactionListener()`.
+Nilai return dari `useTransactionListener()`.
 
 ```ts
 interface UseTransactionListenerReturn {
@@ -1455,15 +1455,15 @@ interface UseTransactionListenerReturn {
 }
 ```
 
-| Field | Type | Description |
+| Kolom | Tipe | Deskripsi |
 |---|---|---|
-| `transactions` | `Readonly<Ref<string[]>>` | Recently accepted transaction IDs |
-| `acceptedTransactions` | `Readonly<Ref<AcceptedTransactionInfo[]>>` | Accepted transactions with sender addresses |
-| `isListening` | `ComputedRef<boolean>` | Whether the listener is subscribed |
-| `subscribe()` | `Promise<void>` | Start listening for `virtual-chain-changed` |
-| `unsubscribe()` | `Promise<void>` | Stop listening |
-| `clear()` | `void` | Clear the local history |
-| `resolveSenderAddresses(transactionId)` | `Promise<string[]>` | Fetch sender addresses for one tracked transaction |
+| `transactions` | `Readonly<Ref<string[]>>` | ID transaksi yang baru diterima |
+| `acceptedTransactions` | `Readonly<Ref<AcceptedTransactionInfo[]>>` | Transaksi yang diterima beserta sender address |
+| `isListening` | `ComputedRef<boolean>` | Apakah listener sedang subscribe |
+| `subscribe()` | `Promise<void>` | Mulai mendengarkan `virtual-chain-changed` |
+| `unsubscribe()` | `Promise<void>` | Hentikan pendengaran |
+| `clear()` | `void` | Hapus histori lokal |
+| `resolveSenderAddresses(transactionId)` | `Promise<string[]>` | Ambil sender address untuk satu transaksi yang dilacak |
 
 ---
 
@@ -1482,7 +1482,7 @@ interface PaymentOutput {
 
 ## TransactionSummary
 
-Returned by `useTransaction().estimate()` and `create()`.
+Nilai return dari `useTransaction().estimate()` and `create()`.
 
 ```ts
 interface TransactionSummary {
@@ -1512,7 +1512,7 @@ interface CreateTransactionSettings {
 }
 ```
 
-| Field | Required | Description |
+| Kolom | Wajib | Deskripsi |
 |---|---|---|
 | `entries` | Yes | UTXO inputs — pass `useUtxo().entries.value` |
 | `outputs` | No | Recipients. Omit for UTXO self-consolidation. |
@@ -1537,7 +1537,7 @@ interface PendingTx {
 }
 ```
 
-| Method | Description |
+| Metode | Deskripsi |
 |---|---|
 | `sign(privateKeys)` | Sign with one or more hex private keys |
 | `submit()` | Submit to the network, returns transaction ID |
@@ -1621,7 +1621,7 @@ Populated for KasWare. Always `null` for Kastle (Kastle's API does not expose ba
 
 ## WalletSendOptions
 
-Options for `useWallet().sendKaspa()`.
+Opsi untuk `useWallet().sendKaspa()`.
 
 ```ts
 interface WalletSendOptions {
@@ -1632,11 +1632,11 @@ interface WalletSendOptions {
 
 ---
 
-## Composable return types
+## Tipe return composable
 
-Each composable has a corresponding return type interface:
+Setiap composable punya interface return type yang sesuai:
 
-| Type | Composable |
+| Tipe | Komposabel |
 |---|---|
 | `UseKaspaReturn` | [`useKaspa()`](/composables/use-kaspa) |
 | `UseRpcReturn` | [`useRpc()`](/composables/use-rpc) |
@@ -1649,9 +1649,9 @@ Each composable has a corresponding return type interface:
 
 ---
 
-## Error classes
+## Kelas error
 
-All error classes extend `KaspaError` and are exported from `vue-kaspa`. See [Error Handling](/guide/error-handling) for full usage patterns and examples.
+Semua kelas error mewarisi `KaspaError` dan diekspor dari `vue-kaspa`. Lihat [Error Handling](/guide/error-handling) untuk pola pemakaian dan contoh lengkap.
 
 ### KaspaError
 

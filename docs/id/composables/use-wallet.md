@@ -7,7 +7,7 @@ Wrapper bertipe untuk extension wallet browser Kaspa: KasWare dan Kastle. Menyed
 :::
 
 ::: tip No WASM required
-Composable ini langsung bicara ke extension browser, jadi tidak perlu memanggil `useKaspa().init()` dulu.
+Komposabel ini langsung bicara ke extension browser, jadi tidak perlu memanggil `useKaspa().init()` dulu.
 :::
 
 ## Import
@@ -16,7 +16,7 @@ Composable ini langsung bicara ke extension browser, jadi tidak perlu memanggil 
 import { useWallet } from 'vue-kaspa'
 ```
 
-## Return type
+## Tipe return
 
 ```ts
 interface UseWalletReturn {

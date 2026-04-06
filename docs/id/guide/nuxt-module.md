@@ -44,7 +44,7 @@ Modul Nuxt menggunakan `panicHook` default `'browser'` (menampilkan dialog saat 
 
 ## Auto-import
 
-Composable berikut tersedia secara otomatis di semua file `.vue`, `composables/`, dan `pages/` — tidak perlu import:
+Komposabel berikut tersedia secara otomatis di semua file `.vue`, `composables/`, dan `pages/` — tidak perlu import:
 
 - `useKaspa`
 - `useRpc`
@@ -76,7 +76,7 @@ const utxo = useUtxo()
 4. **Header COOP/COEP** — `Cross-Origin-Embedder-Policy: credentialless` dan `Cross-Origin-Opener-Policy: same-origin` diatur pada server dev Vite dan via Nitro route rules untuk produksi. Header ini diperlukan untuk `SharedArrayBuffer` yang digunakan `kaspa-wasm` secara internal.
 5. **optimizeDeps** — `@vue-kaspa/kaspa-wasm` dikecualikan dari pre-bundling dependensi Vite.
 
-Composable yang dipanggil dalam konteks SSR mengembalikan state kosong yang aman (mis. `wasmStatus: 'idle'`, `connectionState: 'disconnected'`) tanpa melempar error.
+Komposabel yang dipanggil dalam konteks SSR mengembalikan state kosong yang aman (mis. `wasmStatus: 'idle'`, `connectionState: 'disconnected'`) tanpa melempar error.
 
 ::: tip Bungkus komponen WASM dengan `<ClientOnly>`
 Komponen yang menggunakan composable bergantung WASM (`useRpc`, `useKaspa`, `useUtxo`, dll.) hanya memiliki state aktif setelah plugin client diinisialisasi. Bungkus dengan `<ClientOnly>` untuk mencegah rendering SSR:
