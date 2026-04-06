@@ -428,7 +428,7 @@ interface KaspaRestRequestOptions {
 
 ## KaspaRestResolvePreviousOutpoints
 
-Controls how much previous-outpoint data REST should resolve.
+Mengatur seberapa banyak data previous-outpoint yang harus di-resolve oleh REST.
 
 ```ts
 type KaspaRestResolvePreviousOutpoints = 'no' | 'light' | 'full'
@@ -438,7 +438,7 @@ type KaspaRestResolvePreviousOutpoints = 'no' | 'light' | 'full'
 
 ## KaspaRestError
 
-Error thrown by the REST composable when a request fails.
+Error yang dilempar komposabel REST saat permintaan gagal.
 
 ```ts
 class KaspaRestError extends KaspaError {}
@@ -448,7 +448,7 @@ class KaspaRestError extends KaspaError {}
 
 ## KaspaRestTransaction
 
-Transaction payload returned by the REST composable.
+Payload transaksi yang dikembalikan oleh komposabel REST.
 
 ```ts
 interface KaspaRestTransaction {
@@ -478,7 +478,7 @@ interface KaspaRestTransaction {
 
 ## KaspaRestSubmitTxScriptPublicKey
 
-Used inside `KaspaRestSubmitTxOutput`.
+Digunakan di dalam `KaspaRestSubmitTxOutput`.
 
 ```ts
 interface KaspaRestSubmitTxScriptPublicKey {
@@ -491,7 +491,7 @@ interface KaspaRestSubmitTxScriptPublicKey {
 
 ## KaspaRestSubmitTxOutpoint
 
-Used inside `KaspaRestSubmitTxInput`.
+Digunakan di dalam `KaspaRestSubmitTxInput`.
 
 ```ts
 interface KaspaRestSubmitTxOutpoint {
@@ -504,7 +504,7 @@ interface KaspaRestSubmitTxOutpoint {
 
 ## KaspaRestSubmitTxInput
 
-Used inside `KaspaRestSubmitTxModel`.
+Digunakan di dalam `KaspaRestSubmitTxModel`.
 
 ```ts
 interface KaspaRestSubmitTxInput {
@@ -519,7 +519,7 @@ interface KaspaRestSubmitTxInput {
 
 ## KaspaRestSubmitTxOutput
 
-Used inside `KaspaRestSubmitTxModel`.
+Digunakan di dalam `KaspaRestSubmitTxModel`.
 
 ```ts
 interface KaspaRestSubmitTxOutput {
@@ -532,7 +532,7 @@ interface KaspaRestSubmitTxOutput {
 
 ## KaspaRestTxSearch
 
-Request body for `searchTransactions()`.
+Body permintaan untuk `searchTransactions()`.
 
 ```ts
 interface KaspaRestTxSearch {
@@ -548,7 +548,7 @@ interface KaspaRestTxSearch {
 
 ## KaspaRestTxSearchAcceptingBlueScores
 
-Filter object used by `KaspaRestTxSearch`.
+Objek filter yang dipakai oleh `KaspaRestTxSearch`.
 
 ```ts
 interface KaspaRestTxSearchAcceptingBlueScores {
@@ -561,7 +561,7 @@ interface KaspaRestTxSearchAcceptingBlueScores {
 
 ## KaspaRestSubmitTxModel
 
-Transaction payload accepted by `submitTransaction()` and `calculateTransactionMass()`.
+Payload transaksi yang diterima oleh `submitTransaction()` dan `calculateTransactionMass()`.
 
 ```ts
 interface KaspaRestSubmitTxModel {
@@ -577,7 +577,7 @@ interface KaspaRestSubmitTxModel {
 
 ## KaspaRestSubmitTransactionRequest
 
-Body sent to the REST `POST /transactions` endpoint.
+Body yang dikirim ke endpoint REST `POST /transactions`.
 
 ```ts
 interface KaspaRestSubmitTransactionRequest {
@@ -633,7 +633,7 @@ interface KaspaRestTransactionAcceptance {
 
 ## KaspaRestAddressesActiveResponse
 
-Nilai return dari the experimental `POST /addresses/active` endpoint.
+Nilai return dari endpoint eksperimental `POST /addresses/active`.
 
 ```ts
 interface KaspaRestAddressesActiveResponse {
@@ -647,7 +647,7 @@ interface KaspaRestAddressesActiveResponse {
 
 ## KaspaRestAddressesActiveCountResponse
 
-Nilai return dari the experimental active-address count endpoints.
+Nilai return dari endpoint hitung active-address yang bersifat eksperimental.
 
 ```ts
 interface KaspaRestAddressesActiveCountResponse {
@@ -675,7 +675,7 @@ interface KaspaRestDistributionTier {
 
 ## KaspaRestDistributionTiers
 
-Nilai return dari the experimental address distribution endpoint.
+Nilai return dari endpoint distribusi alamat yang bersifat eksperimental.
 
 ```ts
 interface KaspaRestDistributionTiers {
@@ -754,7 +754,7 @@ interface KaspaRestBalancesByAddressEntry {
 
 ## KaspaRestBlockHeader
 
-Digunakan oleh `KaspaRestBlock` and `KaspaRestMaxHashrateResponse`.
+Digunakan oleh `KaspaRestBlock` dan `KaspaRestMaxHashrateResponse`.
 
 ```ts
 interface KaspaRestBlockHeader {
@@ -953,7 +953,7 @@ interface KaspaRestBlueScoreResponse {
 
 ## KaspaRestBlockdagResponse
 
-Nilai return dari `useKaspaRest().getBlockDag()` and `getNetwork()`.
+Nilai return dari `useKaspaRest().getBlockDag()` dan `getNetwork()`.
 
 ```ts
 interface KaspaRestBlockdagResponse {
@@ -1038,7 +1038,7 @@ interface KaspaRestMaxHashrateResponse {
 
 ## KaspaRestHashrateHistoryResponse
 
-Nilai return dari `useKaspaRest().getHashrateHistory()` and `getHashrateHistoryFor()`.
+Nilai return dari `useKaspaRest().getHashrateHistory()` dan `getHashrateHistoryFor()`.
 
 ```ts
 interface KaspaRestHashrateHistoryResponse {
@@ -1118,7 +1118,7 @@ interface KaspaRestKaspadInfoResponse {
 
 ## KaspaRestPriceResponse
 
-Digunakan oleh the raw REST `GET /info/price` endpoint via `request()`.
+Digunakan oleh endpoint REST mentah `GET /info/price` melalui `request()`.
 
 ```ts
 interface KaspaRestPriceResponse {
@@ -1130,7 +1130,7 @@ interface KaspaRestPriceResponse {
 
 ## KaspaRestMarketCapResponse
 
-Nilai return dari `useKaspaRest().getMarketcap()` when the response is JSON.
+Nilai return dari `useKaspaRest().getMarketcap()` saat respons berupa JSON.
 
 ```ts
 interface KaspaRestMarketCapResponse {
@@ -1142,7 +1142,7 @@ interface KaspaRestMarketCapResponse {
 
 ## KaspaRestUtxoResponse
 
-Nilai return dari `useKaspaRest().getUtxosByAddress()` and `getUtxosByAddresses()`.
+Nilai return dari `useKaspaRest().getUtxosByAddress()` dan `getUtxosByAddresses()`.
 
 ```ts
 interface KaspaRestUtxoResponse {
@@ -1193,7 +1193,7 @@ interface KaspaRestAddressBalanceHistory {
 
 ## KaspaRestAddressName
 
-Nilai return dari `useKaspaRest().getAddressName()` and `getAddressNames()`.
+Nilai return dari `useKaspaRest().getAddressName()` dan `getAddressNames()`.
 
 ```ts
 interface KaspaRestAddressName {
@@ -1249,7 +1249,7 @@ interface KaspaRestTransactionCount {
 
 ## KaspaRestTransactionCountResponse
 
-Nilai return dari the experimental transaction count endpoints.
+Nilai return dari endpoint hitung transaksi yang bersifat eksperimental.
 
 ```ts
 interface KaspaRestTransactionCountResponse {
@@ -1393,13 +1393,13 @@ type RpcEventType =
 
 ## RpcEvent&lt;T&gt;
 
-Generic event envelope. The type of `data` depends on the event type.
+Envelope event generik. Tipe `data` bergantung pada tipe event.
 
 ```ts
 interface RpcEvent<T = unknown> {
   type: RpcEventType
   data: T
-  timestamp: number  // Unix milliseconds
+  timestamp: number  // Unix milidetik
 }
 ```
 
@@ -1433,9 +1433,9 @@ interface TransactionListenerOptions {
 
 | Kolom | Tipe | Default | Deskripsi |
 |---|---|---|---|
-| `maxHistory` | `number` | `100` | Max accepted transactions to keep |
-| `autoSubscribe` | `boolean` | `true` | Subscribe on mount |
-| `includeSenderAddresses` | `boolean` | `false` | Resolve sender addresses from the accepting block |
+| `maxHistory` | `number` | `100` | Jumlah maksimum transaksi accepted yang disimpan |
+| `autoSubscribe` | `boolean` | `true` | Subscribe saat mount |
+| `includeSenderAddresses` | `boolean` | `false` | Resolve sender address dari block yang menerima transaksi |
 
 ---
 
@@ -1469,7 +1469,7 @@ interface UseTransactionListenerReturn {
 
 ## PaymentOutput
 
-A single recipient in a transaction.
+Satu penerima dalam sebuah transaksi.
 
 ```ts
 interface PaymentOutput {
@@ -1482,15 +1482,15 @@ interface PaymentOutput {
 
 ## TransactionSummary
 
-Nilai return dari `useTransaction().estimate()` and `create()`.
+Nilai return dari `useTransaction().estimate()` dan `create()`.
 
 ```ts
 interface TransactionSummary {
-  fees: bigint                  // Total fees in sompi
-  mass: bigint                  // Total mass in grams
-  transactions: number          // Number of transactions (>1 = compounding)
-  finalTransactionId?: string   // Set after submission via send()
-  finalAmount?: bigint          // Final output amount after fees
+  fees: bigint                  // Total biaya dalam sompi
+  mass: bigint                  // Total massa dalam gram
+  transactions: number          // Jumlah transaksi (>1 = compounding)
+  finalTransactionId?: string   // Diset setelah pengiriman melalui send()
+  finalAmount?: bigint          // Jumlah output final setelah biaya
 }
 ```
 
@@ -1498,7 +1498,7 @@ interface TransactionSummary {
 
 ## CreateTransactionSettings
 
-Input to `useTransaction().estimate()`, `create()`, and `send()`.
+Input untuk `useTransaction().estimate()`, `create()`, dan `send()`.
 
 ```ts
 interface CreateTransactionSettings {
@@ -1514,19 +1514,19 @@ interface CreateTransactionSettings {
 
 | Kolom | Wajib | Deskripsi |
 |---|---|---|
-| `entries` | Yes | UTXO inputs — pass `useUtxo().entries.value` |
-| `outputs` | No | Recipients. Omit for UTXO self-consolidation. |
-| `changeAddress` | Yes | Change return address |
-| `priorityFee` | No | Fixed fee in sompi |
-| `feeRate` | No | Dynamic fee in sompi/gram (alternative to `priorityFee`) |
-| `payload` | No | Hex-encoded data payload |
-| `networkId` | No* | Required when `entries` is a plain array |
+| `entries` | Ya | Input UTXO — berikan `useUtxo().entries.value` |
+| `outputs` | Tidak | Penerima. Lewati untuk konsolidasi UTXO sendiri. |
+| `changeAddress` | Ya | Alamat pengembalian kembalian |
+| `priorityFee` | Tidak | Biaya tetap dalam sompi |
+| `feeRate` | Tidak | Biaya dinamis dalam sompi/gram (alternatif dari `priorityFee`) |
+| `payload` | Tidak | Payload data yang di-encode hex |
+| `networkId` | Tidak* | Diperlukan ketika `entries` adalah array biasa |
 
 ---
 
 ## PendingTx
 
-An unsigned (or partially signed) transaction returned by `useTransaction().create()`.
+Transaksi yang belum ditandatangani (atau sebagian ditandatangani) yang dikembalikan oleh `useTransaction().create()`.
 
 ```ts
 interface PendingTx {
@@ -1539,10 +1539,10 @@ interface PendingTx {
 
 | Metode | Deskripsi |
 |---|---|
-| `sign(privateKeys)` | Sign with one or more hex private keys |
-| `submit()` | Submit to the network, returns transaction ID |
-| `serialize()` | Get a plain object for inspection or external submission |
-| `addresses()` | Input addresses — useful for selecting the required signing keys |
+| `sign(privateKeys)` | Tandatangani dengan satu atau beberapa kunci privat hex |
+| `submit()` | Kirim ke jaringan, mengembalikan ID transaksi |
+| `serialize()` | Ambil objek plain untuk inspeksi atau pengiriman eksternal |
+| `addresses()` | Alamat input — berguna untuk memilih kunci penandatangan yang diperlukan |
 
 ---
 
@@ -1551,8 +1551,8 @@ interface PendingTx {
 ```ts
 interface KeypairInfo {
   privateKeyHex: string   // 32-byte private key as hex
-  publicKeyHex: string    // Compressed public key as hex
-  address: string         // Network-specific Kaspa address
+  publicKeyHex: string    // Kunci publik terkompresi dalam hex
+  address: string         // Alamat Kaspa spesifik jaringan
 }
 ```
 
@@ -1562,7 +1562,7 @@ interface KeypairInfo {
 
 ```ts
 interface MnemonicInfo {
-  phrase: string          // Space-separated BIP-39 words
+  phrase: string          // Kata-kata BIP-39 yang dipisahkan spasi
   wordCount: 12 | 24
 }
 ```
@@ -1571,11 +1571,11 @@ interface MnemonicInfo {
 
 ## DerivedKey
 
-A single key from an HD wallet derivation.
+Satu kunci dari derivasi HD wallet.
 
 ```ts
 interface DerivedKey {
-  index: number           // Position in the derivation chain (0-based)
+  index: number           // Posisi dalam rantai derivasi (berbasis 0)
   publicKeyHex: string
   address: string
 }
@@ -1588,7 +1588,7 @@ interface DerivedKey {
 ```ts
 interface SignMessageResult {
   message: string
-  signature: string       // Hex-encoded signature
+  signature: string       // Tanda tangan yang di-encode hex
   publicKeyHex: string
 }
 ```
@@ -1605,7 +1605,7 @@ type WalletProvider = 'kasware' | 'kastle'
 
 ## WalletBalance
 
-Balance reported by a connected wallet, in sompi.
+Saldo yang dilaporkan oleh wallet yang terhubung, dalam sompi.
 
 ```ts
 interface WalletBalance {
@@ -1625,8 +1625,8 @@ Opsi untuk `useWallet().sendKaspa()`.
 
 ```ts
 interface WalletSendOptions {
-  priorityFee?: bigint  // Extra fee in sompi
-  payload?: string      // Hex-encoded data payload
+  priorityFee?: bigint  // Biaya ekstra dalam sompi
+  payload?: string      // Payload data yang di-encode hex
 }
 ```
 
@@ -1655,7 +1655,7 @@ Semua kelas error mewarisi `KaspaError` dan diekspor dari `vue-kaspa`. Lihat [Er
 
 ### KaspaError
 
-Base class for all Vue Kaspa errors.
+Kelas dasar untuk semua error Vue Kaspa.
 
 ```ts
 class KaspaError extends Error {
@@ -1665,7 +1665,7 @@ class KaspaError extends Error {
 
 ### KaspaNotReadyError
 
-Thrown when a composable method is called before the WASM module is initialized.
+Dilempar saat method composable dipanggil sebelum modul WASM diinisialisasi.
 
 ```ts
 class KaspaNotReadyError extends KaspaError {}
@@ -1673,7 +1673,7 @@ class KaspaNotReadyError extends KaspaError {}
 
 ### KaspaRpcError
 
-Thrown when an RPC method call fails.
+Dilempar saat pemanggilan method RPC gagal.
 
 ```ts
 class KaspaRpcError extends KaspaError {
@@ -1681,11 +1681,11 @@ class KaspaRpcError extends KaspaError {
 }
 ```
 
-`err.message` is `"RPC method \"<method>\" failed"`. The underlying error is on `err.cause`.
+`err.message` adalah `"RPC method \"<method>\" failed"`. Error aslinya ada di `err.cause`.
 
 ### KaspaWalletError
 
-Thrown when a wallet operation (`connect`, `sendKaspa`, `signMessage`) fails.
+Dilempar saat operasi wallet (`connect`, `sendKaspa`, `signMessage`) gagal.
 
 ```ts
 class KaspaWalletError extends KaspaError {
@@ -1693,11 +1693,11 @@ class KaspaWalletError extends KaspaError {
 }
 ```
 
-`err.message` is `"Wallet operation \"<operation>\" failed"`.
+`err.message` adalah `"Wallet operation \"<operation>\" failed"`.
 
 ### KaspaCryptoError
 
-Thrown when a cryptographic operation fails.
+Dilempar saat operasi kriptografi gagal.
 
 ```ts
 class KaspaCryptoError extends KaspaError {
@@ -1705,4 +1705,4 @@ class KaspaCryptoError extends KaspaError {
 }
 ```
 
-`err.message` is `"Crypto operation \"<operation>\" failed"`.
+`err.message` adalah `"Crypto operation \"<operation>\" failed"`.

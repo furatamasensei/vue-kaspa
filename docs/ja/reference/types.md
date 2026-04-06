@@ -248,7 +248,7 @@ type RpcEventType =
 interface RpcEvent<T = unknown> {
   type: RpcEventType
   data: T
-  timestamp: number  // Unix milliseconds
+  timestamp: number  // Unix ミリ秒
 }
 ```
 
@@ -260,7 +260,7 @@ interface RpcEvent<T = unknown> {
 
 ```ts
 interface PaymentOutput {
-  address: string  // Kaspa address
+  address: string  // Kaspa アドレス
   amount: bigint   // in sompi
 }
 ```
@@ -273,11 +273,11 @@ interface PaymentOutput {
 
 ```ts
 interface TransactionSummary {
-  fees: bigint                  // Total fees in sompi
-  mass: bigint                  // Total mass in grams
-  transactions: number          // Number of transactions (>1 = compounding)
-  finalTransactionId?: string   // Set after submission via send()
-  finalAmount?: bigint          // Final output amount after fees
+  fees: bigint                  // sompi 単位の総手数料
+  mass: bigint                  // グラム単位の総マス
+  transactions: number          // トランザクション数 (>1 で compounding)
+  finalTransactionId?: string   // `send()` 送信後に設定される
+  finalAmount?: bigint          // 手数料差し引き後の最終出力額
 }
 ```
 
@@ -338,8 +338,8 @@ interface PendingTx {
 ```ts
 interface KeypairInfo {
   privateKeyHex: string   // 32-byte private key as hex
-  publicKeyHex: string    // Compressed public key as hex
-  address: string         // Network-specific Kaspa address
+  publicKeyHex: string    // 圧縮公開鍵を hex で表現
+  address: string         // ネットワーク固有の Kaspa アドレス
 }
 ```
 
@@ -349,7 +349,7 @@ interface KeypairInfo {
 
 ```ts
 interface MnemonicInfo {
-  phrase: string          // Space-separated BIP-39 words
+  phrase: string          // スペース区切りの BIP-39 ワード
   wordCount: 12 | 24
 }
 ```
@@ -362,7 +362,7 @@ HD ウォレット導出から得られる単一のキーです。
 
 ```ts
 interface DerivedKey {
-  index: number           // Position in the derivation chain (0-based)
+  index: number           // 導出チェーン内の位置 (0 から開始)
   publicKeyHex: string
   address: string
 }
@@ -375,7 +375,7 @@ interface DerivedKey {
 ```ts
 interface SignMessageResult {
   message: string
-  signature: string       // Hex-encoded signature
+  signature: string       // hex エンコードされた署名
   publicKeyHex: string
 }
 ```
@@ -428,7 +428,7 @@ interface KaspaRestRequestOptions {
 
 ## KaspaRestResolvePreviousOutpoints
 
-Controls how much previous-outpoint data REST should resolve.
+REST がどこまで previous-outpoint データを解決するかを制御します。
 
 ```ts
 type KaspaRestResolvePreviousOutpoints = 'no' | 'light' | 'full'
@@ -438,7 +438,7 @@ type KaspaRestResolvePreviousOutpoints = 'no' | 'light' | 'full'
 
 ## KaspaRestError
 
-Error thrown by the REST composable when a request fails.
+REST composable でリクエストが失敗したときに投げられるエラーです。
 
 ```ts
 class KaspaRestError extends KaspaError {}
@@ -448,7 +448,7 @@ class KaspaRestError extends KaspaError {}
 
 ## KaspaRestTransaction
 
-Transaction payload returned by the REST composable.
+REST composable が返すトランザクション payload です。
 
 ```ts
 interface KaspaRestTransaction {
@@ -478,7 +478,7 @@ interface KaspaRestTransaction {
 
 ## KaspaRestSubmitTxScriptPublicKey
 
-Used inside `KaspaRestSubmitTxOutput`.
+`KaspaRestSubmitTxOutput` 内で使われます。
 
 ```ts
 interface KaspaRestSubmitTxScriptPublicKey {
@@ -491,7 +491,7 @@ interface KaspaRestSubmitTxScriptPublicKey {
 
 ## KaspaRestSubmitTxOutpoint
 
-Used inside `KaspaRestSubmitTxInput`.
+`KaspaRestSubmitTxInput` 内で使われます。
 
 ```ts
 interface KaspaRestSubmitTxOutpoint {
@@ -504,7 +504,7 @@ interface KaspaRestSubmitTxOutpoint {
 
 ## KaspaRestSubmitTxInput
 
-Used inside `KaspaRestSubmitTxModel`.
+`KaspaRestSubmitTxModel` 内で使われます。
 
 ```ts
 interface KaspaRestSubmitTxInput {
@@ -519,7 +519,7 @@ interface KaspaRestSubmitTxInput {
 
 ## KaspaRestSubmitTxOutput
 
-Used inside `KaspaRestSubmitTxModel`.
+`KaspaRestSubmitTxModel` 内で使われます。
 
 ```ts
 interface KaspaRestSubmitTxOutput {
@@ -532,7 +532,7 @@ interface KaspaRestSubmitTxOutput {
 
 ## KaspaRestTxSearch
 
-Request body for `searchTransactions()`.
+`searchTransactions()` のリクエストボディです。
 
 ```ts
 interface KaspaRestTxSearch {
@@ -548,7 +548,7 @@ interface KaspaRestTxSearch {
 
 ## KaspaRestTxSearchAcceptingBlueScores
 
-Filter object used by `KaspaRestTxSearch`.
+`KaspaRestTxSearch` で使うフィルターオブジェクトです。
 
 ```ts
 interface KaspaRestTxSearchAcceptingBlueScores {
@@ -561,7 +561,7 @@ interface KaspaRestTxSearchAcceptingBlueScores {
 
 ## KaspaRestSubmitTxModel
 
-Transaction payload accepted by `submitTransaction()` and `calculateTransactionMass()`.
+`submitTransaction()` と `calculateTransactionMass()` が受け取るトランザクション payload です。
 
 ```ts
 interface KaspaRestSubmitTxModel {
@@ -577,7 +577,7 @@ interface KaspaRestSubmitTxModel {
 
 ## KaspaRestSubmitTransactionRequest
 
-Body sent to the REST `POST /transactions` endpoint.
+REST の `POST /transactions` エンドポイントに送信するボディです。
 
 ```ts
 interface KaspaRestSubmitTransactionRequest {
@@ -590,7 +590,7 @@ interface KaspaRestSubmitTransactionRequest {
 
 ## KaspaRestSubmitTransactionResponse
 
-〜の戻り値: `submitTransaction()`.
+`submitTransaction()` の戻り値です。
 
 ```ts
 interface KaspaRestSubmitTransactionResponse {
@@ -603,7 +603,7 @@ interface KaspaRestSubmitTransactionResponse {
 
 ## KaspaRestTxMass
 
-〜の戻り値: `calculateTransactionMass()`.
+`calculateTransactionMass()` の戻り値です。
 
 ```ts
 interface KaspaRestTxMass {
@@ -617,7 +617,7 @@ interface KaspaRestTxMass {
 
 ## KaspaRestTransactionAcceptance
 
-〜の戻り値: `getTransactionAcceptance()`.
+`getTransactionAcceptance()` の戻り値です。
 
 ```ts
 interface KaspaRestTransactionAcceptance {
@@ -633,7 +633,7 @@ interface KaspaRestTransactionAcceptance {
 
 ## KaspaRestAddressesActiveResponse
 
-〜の戻り値: the experimental `POST /addresses/active` endpoint.
+実験的な `POST /addresses/active` エンドポイントの戻り値です。
 
 ```ts
 interface KaspaRestAddressesActiveResponse {
@@ -647,7 +647,7 @@ interface KaspaRestAddressesActiveResponse {
 
 ## KaspaRestAddressesActiveCountResponse
 
-〜の戻り値: the experimental active-address count endpoints.
+〜の戻り値: 実験的な active-address count エンドポイントです。
 
 ```ts
 interface KaspaRestAddressesActiveCountResponse {
@@ -675,7 +675,7 @@ interface KaspaRestDistributionTier {
 
 ## KaspaRestDistributionTiers
 
-〜の戻り値: the experimental address distribution endpoint.
+〜の戻り値: 実験的な address distribution エンドポイントです。
 
 ```ts
 interface KaspaRestDistributionTiers {
@@ -754,7 +754,7 @@ interface KaspaRestBalancesByAddressEntry {
 
 ## KaspaRestBlockHeader
 
-〜で使用: `KaspaRestBlock` and `KaspaRestMaxHashrateResponse`.
+〜で使用: `KaspaRestBlock` と `KaspaRestMaxHashrateResponse`.
 
 ```ts
 interface KaspaRestBlockHeader {
@@ -953,7 +953,7 @@ interface KaspaRestBlueScoreResponse {
 
 ## KaspaRestBlockdagResponse
 
-〜の戻り値: `useKaspaRest().getBlockDag()` and `getNetwork()`.
+〜の戻り値: `useKaspaRest().getBlockDag()` と `getNetwork()`.
 
 ```ts
 interface KaspaRestBlockdagResponse {
@@ -1038,7 +1038,7 @@ interface KaspaRestMaxHashrateResponse {
 
 ## KaspaRestHashrateHistoryResponse
 
-〜の戻り値: `useKaspaRest().getHashrateHistory()` and `getHashrateHistoryFor()`.
+〜の戻り値: `useKaspaRest().getHashrateHistory()` と `getHashrateHistoryFor()`.
 
 ```ts
 interface KaspaRestHashrateHistoryResponse {
@@ -1118,7 +1118,7 @@ interface KaspaRestKaspadInfoResponse {
 
 ## KaspaRestPriceResponse
 
-〜で使用: the raw REST `GET /info/price` endpoint via `request()`.
+〜で使用: 生の REST `GET /info/price` エンドポイントを `request()` 経由で使います。
 
 ```ts
 interface KaspaRestPriceResponse {
@@ -1130,7 +1130,7 @@ interface KaspaRestPriceResponse {
 
 ## KaspaRestMarketCapResponse
 
-〜の戻り値: `useKaspaRest().getMarketcap()` when the response is JSON.
+〜の戻り値: レスポンスが JSON の場合の `useKaspaRest().getMarketcap()` です。
 
 ```ts
 interface KaspaRestMarketCapResponse {
@@ -1142,7 +1142,7 @@ interface KaspaRestMarketCapResponse {
 
 ## KaspaRestUtxoResponse
 
-〜の戻り値: `useKaspaRest().getUtxosByAddress()` and `getUtxosByAddresses()`.
+〜の戻り値: `useKaspaRest().getUtxosByAddress()` と `getUtxosByAddresses()` です。
 
 ```ts
 interface KaspaRestUtxoResponse {
@@ -1193,7 +1193,7 @@ interface KaspaRestAddressBalanceHistory {
 
 ## KaspaRestAddressName
 
-〜の戻り値: `useKaspaRest().getAddressName()` and `getAddressNames()`.
+〜の戻り値: `useKaspaRest().getAddressName()` と `getAddressNames()` です。
 
 ```ts
 interface KaspaRestAddressName {
@@ -1249,7 +1249,7 @@ interface KaspaRestTransactionCount {
 
 ## KaspaRestTransactionCountResponse
 
-〜の戻り値: the experimental transaction count endpoints.
+〜の戻り値: 実験的な transaction count エンドポイントです。
 
 ```ts
 interface KaspaRestTransactionCountResponse {
@@ -1393,13 +1393,13 @@ type RpcEventType =
 
 ## RpcEvent&lt;T&gt;
 
-Generic event envelope. The type of `data` depends on the event type.
+汎用イベントエンベロープです。`data` の型はイベントの種類によって変わります。
 
 ```ts
 interface RpcEvent<T = unknown> {
   type: RpcEventType
   data: T
-  timestamp: number  // Unix milliseconds
+  timestamp: number  // Unix ミリ秒
 }
 ```
 
@@ -1433,9 +1433,9 @@ interface TransactionListenerOptions {
 
 | フィールド | 型 | 既定値 | 説明 |
 |---|---|---|---|
-| `maxHistory` | `number` | `100` | Max accepted transactions to keep |
-| `autoSubscribe` | `boolean` | `true` | Subscribe on mount |
-| `includeSenderAddresses` | `boolean` | `false` | Resolve sender addresses from the accepting block |
+| `maxHistory` | `number` | `100` | 保持する受理済みトランザクションの最大数 |
+| `autoSubscribe` | `boolean` | `true` | マウント時に購読を開始する |
+| `includeSenderAddresses` | `boolean` | `false` | 受理ブロックから送信元アドレスを解決する |
 
 ---
 
@@ -1469,11 +1469,11 @@ interface UseTransactionListenerReturn {
 
 ## PaymentOutput
 
-A single recipient in a transaction.
+トランザクション内の単一の受取人です。
 
 ```ts
 interface PaymentOutput {
-  address: string  // Kaspa address
+  address: string  // Kaspa アドレス
   amount: bigint   // in sompi
 }
 ```
@@ -1482,15 +1482,15 @@ interface PaymentOutput {
 
 ## TransactionSummary
 
-〜の戻り値: `useTransaction().estimate()` and `create()`.
+`useTransaction().estimate()` と `create()` の戻り値です。
 
 ```ts
 interface TransactionSummary {
-  fees: bigint                  // Total fees in sompi
-  mass: bigint                  // Total mass in grams
-  transactions: number          // Number of transactions (>1 = compounding)
-  finalTransactionId?: string   // Set after submission via send()
-  finalAmount?: bigint          // Final output amount after fees
+  fees: bigint                  // sompi 単位の総手数料
+  mass: bigint                  // グラム単位の総マス
+  transactions: number          // トランザクション数 (>1 で compounding)
+  finalTransactionId?: string   // `send()` 送信後に設定される
+  finalAmount?: bigint          // 手数料差し引き後の最終出力額
 }
 ```
 
@@ -1498,7 +1498,7 @@ interface TransactionSummary {
 
 ## CreateTransactionSettings
 
-Input to `useTransaction().estimate()`, `create()`, and `send()`.
+`useTransaction().estimate()`、`create()`、`send()` への入力です。
 
 ```ts
 interface CreateTransactionSettings {
@@ -1514,19 +1514,19 @@ interface CreateTransactionSettings {
 
 | フィールド | 必須 | 説明 |
 |---|---|---|
-| `entries` | Yes | UTXO inputs — pass `useUtxo().entries.value` |
-| `outputs` | No | Recipients. Omit for UTXO self-consolidation. |
-| `changeAddress` | Yes | Change return address |
-| `priorityFee` | No | Fixed fee in sompi |
-| `feeRate` | No | Dynamic fee in sompi/gram (alternative to `priorityFee`) |
-| `payload` | No | Hex-encoded data payload |
-| `networkId` | No* | Required when `entries` is a plain array |
+| `entries` | はい | UTXO 入力 — `useUtxo().entries.value` を渡します |
+| `outputs` | いいえ | 受取人。UTXO セルフ統合なら省略します。 |
+| `changeAddress` | はい | お釣りの返送先アドレス |
+| `priorityFee` | いいえ | sompi 単位の固定手数料 |
+| `feeRate` | いいえ | sompi/グラム単位の動的手数料 (`priorityFee` の代替) |
+| `payload` | いいえ | 16 進エンコードされたデータペイロード |
+| `networkId` | いいえ* | `entries` がプレーン配列のときに必要です |
 
 ---
 
 ## PendingTx
 
-An unsigned (or partially signed) transaction returned by `useTransaction().create()`.
+`useTransaction().create()` が返す未署名 (または部分署名済み) のトランザクションです。
 
 ```ts
 interface PendingTx {
@@ -1539,10 +1539,10 @@ interface PendingTx {
 
 | メソッド | 説明 |
 |---|---|
-| `sign(privateKeys)` | Sign with one or more hex private keys |
-| `submit()` | Submit to the network, returns transaction ID |
-| `serialize()` | Get a plain object for inspection or external submission |
-| `addresses()` | Input addresses — useful for selecting the required signing keys |
+| `sign(privateKeys)` | 1 つ以上の hex 秘密鍵で署名する |
+| `submit()` | ネットワークに送信し、トランザクション ID を返す |
+| `serialize()` | 検査や外部送信用のプレーンオブジェクトを取得する |
+| `addresses()` | 入力アドレス — 必要な署名鍵の選択に役立つ |
 
 ---
 
@@ -1551,8 +1551,8 @@ interface PendingTx {
 ```ts
 interface KeypairInfo {
   privateKeyHex: string   // 32-byte private key as hex
-  publicKeyHex: string    // Compressed public key as hex
-  address: string         // Network-specific Kaspa address
+  publicKeyHex: string    // 圧縮公開鍵を hex で表現
+  address: string         // ネットワーク固有の Kaspa アドレス
 }
 ```
 
@@ -1562,7 +1562,7 @@ interface KeypairInfo {
 
 ```ts
 interface MnemonicInfo {
-  phrase: string          // Space-separated BIP-39 words
+  phrase: string          // スペース区切りの BIP-39 ワード
   wordCount: 12 | 24
 }
 ```
@@ -1571,11 +1571,11 @@ interface MnemonicInfo {
 
 ## DerivedKey
 
-A single key from an HD wallet derivation.
+HD ウォレット導出から得られる単一のキーです。
 
 ```ts
 interface DerivedKey {
-  index: number           // Position in the derivation chain (0-based)
+  index: number           // 導出チェーン内の位置 (0 から開始)
   publicKeyHex: string
   address: string
 }
@@ -1588,7 +1588,7 @@ interface DerivedKey {
 ```ts
 interface SignMessageResult {
   message: string
-  signature: string       // Hex-encoded signature
+  signature: string       // hex エンコードされた署名
   publicKeyHex: string
 }
 ```
@@ -1605,7 +1605,7 @@ type WalletProvider = 'kasware' | 'kastle'
 
 ## WalletBalance
 
-Balance reported by a connected wallet, in sompi.
+接続済みウォレットが報告する残高です。単位は sompi です。
 
 ```ts
 interface WalletBalance {
@@ -1625,8 +1625,8 @@ Populated for KasWare. Always `null` for Kastle (Kastle's API does not expose ba
 
 ```ts
 interface WalletSendOptions {
-  priorityFee?: bigint  // Extra fee in sompi
-  payload?: string      // Hex-encoded data payload
+  priorityFee?: bigint  // sompi 単位の追加手数料
+  payload?: string      // hex エンコードされたデータペイロード
 }
 ```
 
@@ -1651,11 +1651,11 @@ interface WalletSendOptions {
 
 ## エラークラス
 
-すべてのエラークラスは `KaspaError` を継承し、`vue-kaspa` からエクスポートされます。 See [Error Handling](/guide/error-handling) for full usage patterns and examples.
+すべてのエラークラスは `KaspaError` を継承し、`vue-kaspa` からエクスポートされます。使用パターンと例は [Error Handling](/guide/error-handling) を参照してください。
 
 ### KaspaError
 
-Base class for all Vue Kaspa errors.
+すべての Vue Kaspa エラーの基底クラスです。
 
 ```ts
 class KaspaError extends Error {
@@ -1665,7 +1665,7 @@ class KaspaError extends Error {
 
 ### KaspaNotReadyError
 
-Thrown when a composable method is called before the WASM module is initialized.
+WASM モジュールの初期化前に composable メソッドが呼び出されたときに投げられます。
 
 ```ts
 class KaspaNotReadyError extends KaspaError {}
@@ -1673,7 +1673,7 @@ class KaspaNotReadyError extends KaspaError {}
 
 ### KaspaRpcError
 
-Thrown when an RPC method call fails.
+RPC メソッドの呼び出しに失敗したときに投げられます。
 
 ```ts
 class KaspaRpcError extends KaspaError {
@@ -1681,11 +1681,11 @@ class KaspaRpcError extends KaspaError {
 }
 ```
 
-`err.message` is `"RPC method \"<method>\" failed"`. The underlying error is on `err.cause`.
+`err.message` は `"RPC method \"<method>\" failed"` です。元のエラーは `err.cause` にあります。
 
 ### KaspaWalletError
 
-Thrown when a wallet operation (`connect`, `sendKaspa`, `signMessage`) fails.
+ウォレット操作 (`connect`、`sendKaspa`、`signMessage`) に失敗したときに投げられます。
 
 ```ts
 class KaspaWalletError extends KaspaError {
@@ -1693,11 +1693,11 @@ class KaspaWalletError extends KaspaError {
 }
 ```
 
-`err.message` is `"Wallet operation \"<operation>\" failed"`.
+`err.message` は `"Wallet operation \"<operation>\" failed"` です。
 
 ### KaspaCryptoError
 
-Thrown when a cryptographic operation fails.
+暗号処理に失敗したときに投げられます。
 
 ```ts
 class KaspaCryptoError extends KaspaError {
@@ -1705,4 +1705,4 @@ class KaspaCryptoError extends KaspaError {
 }
 ```
 
-`err.message` is `"Crypto operation \"<operation>\" failed"`.
+`err.message` は `"Crypto operation \"<operation>\" failed"` です。

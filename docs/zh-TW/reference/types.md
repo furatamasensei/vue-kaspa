@@ -248,7 +248,7 @@ type RpcEventType =
 interface RpcEvent<T = unknown> {
   type: RpcEventType
   data: T
-  timestamp: number  // Unix milliseconds
+  timestamp: number  // Unix 毫秒
 }
 ```
 
@@ -260,7 +260,7 @@ interface RpcEvent<T = unknown> {
 
 ```ts
 interface PaymentOutput {
-  address: string  // Kaspa address
+  address: string  // Kaspa 地址
   amount: bigint   // in sompi
 }
 ```
@@ -273,11 +273,11 @@ interface PaymentOutput {
 
 ```ts
 interface TransactionSummary {
-  fees: bigint                  // Total fees in sompi
-  mass: bigint                  // Total mass in grams
-  transactions: number          // Number of transactions (>1 = compounding)
-  finalTransactionId?: string   // Set after submission via send()
-  finalAmount?: bigint          // Final output amount after fees
+  fees: bigint                  // sompi 單位的總手續費
+  mass: bigint                  // 克單位的總質量
+  transactions: number          // 交易數量（>1 = compounding）
+  finalTransactionId?: string   // `send()` 送出後設定
+  finalAmount?: bigint          // 扣除手續費後的最終輸出金額
 }
 ```
 
@@ -338,8 +338,8 @@ interface PendingTx {
 ```ts
 interface KeypairInfo {
   privateKeyHex: string   // 32-byte private key as hex
-  publicKeyHex: string    // Compressed public key as hex
-  address: string         // Network-specific Kaspa address
+  publicKeyHex: string    // 以 hex 表示的壓縮公鑰
+  address: string         // 網路專屬的 Kaspa 地址
 }
 ```
 
@@ -349,7 +349,7 @@ interface KeypairInfo {
 
 ```ts
 interface MnemonicInfo {
-  phrase: string          // Space-separated BIP-39 words
+  phrase: string          // 以空格分隔的 BIP-39 詞
   wordCount: 12 | 24
 }
 ```
@@ -362,7 +362,7 @@ HD 錢包衍生中的單一金鑰。
 
 ```ts
 interface DerivedKey {
-  index: number           // Position in the derivation chain (0-based)
+  index: number           // 衍生鏈中的位置（從 0 開始）
   publicKeyHex: string
   address: string
 }
@@ -375,7 +375,7 @@ interface DerivedKey {
 ```ts
 interface SignMessageResult {
   message: string
-  signature: string       // Hex-encoded signature
+  signature: string       // 以 hex 編碼的簽章
   publicKeyHex: string
 }
 ```
@@ -428,7 +428,7 @@ interface KaspaRestRequestOptions {
 
 ## KaspaRestResolvePreviousOutpoints
 
-Controls how much previous-outpoint data REST should resolve.
+REST 會解析多少 previous-outpoint 資料。
 
 ```ts
 type KaspaRestResolvePreviousOutpoints = 'no' | 'light' | 'full'
@@ -438,7 +438,7 @@ type KaspaRestResolvePreviousOutpoints = 'no' | 'light' | 'full'
 
 ## KaspaRestError
 
-Error thrown by the REST composable when a request fails.
+REST composable 的請求失敗時會拋出的錯誤。
 
 ```ts
 class KaspaRestError extends KaspaError {}
@@ -448,7 +448,7 @@ class KaspaRestError extends KaspaError {}
 
 ## KaspaRestTransaction
 
-Transaction payload returned by the REST composable.
+REST composable 回傳的交易 payload。
 
 ```ts
 interface KaspaRestTransaction {
@@ -478,7 +478,7 @@ interface KaspaRestTransaction {
 
 ## KaspaRestSubmitTxScriptPublicKey
 
-Used inside `KaspaRestSubmitTxOutput`.
+用於 `KaspaRestSubmitTxOutput` 內部。
 
 ```ts
 interface KaspaRestSubmitTxScriptPublicKey {
@@ -491,7 +491,7 @@ interface KaspaRestSubmitTxScriptPublicKey {
 
 ## KaspaRestSubmitTxOutpoint
 
-Used inside `KaspaRestSubmitTxInput`.
+用於 `KaspaRestSubmitTxInput` 內部。
 
 ```ts
 interface KaspaRestSubmitTxOutpoint {
@@ -504,7 +504,7 @@ interface KaspaRestSubmitTxOutpoint {
 
 ## KaspaRestSubmitTxInput
 
-Used inside `KaspaRestSubmitTxModel`.
+用於 `KaspaRestSubmitTxModel` 內部。
 
 ```ts
 interface KaspaRestSubmitTxInput {
@@ -519,7 +519,7 @@ interface KaspaRestSubmitTxInput {
 
 ## KaspaRestSubmitTxOutput
 
-Used inside `KaspaRestSubmitTxModel`.
+用於 `KaspaRestSubmitTxModel` 內部。
 
 ```ts
 interface KaspaRestSubmitTxOutput {
@@ -532,7 +532,7 @@ interface KaspaRestSubmitTxOutput {
 
 ## KaspaRestTxSearch
 
-Request body for `searchTransactions()`.
+`searchTransactions()` 的請求主體。
 
 ```ts
 interface KaspaRestTxSearch {
@@ -548,7 +548,7 @@ interface KaspaRestTxSearch {
 
 ## KaspaRestTxSearchAcceptingBlueScores
 
-Filter object used by `KaspaRestTxSearch`.
+`KaspaRestTxSearch` 使用的篩選物件。
 
 ```ts
 interface KaspaRestTxSearchAcceptingBlueScores {
@@ -561,7 +561,7 @@ interface KaspaRestTxSearchAcceptingBlueScores {
 
 ## KaspaRestSubmitTxModel
 
-Transaction payload accepted by `submitTransaction()` and `calculateTransactionMass()`.
+`submitTransaction()` 與 `calculateTransactionMass()` 接受的交易 payload。
 
 ```ts
 interface KaspaRestSubmitTxModel {
@@ -577,7 +577,7 @@ interface KaspaRestSubmitTxModel {
 
 ## KaspaRestSubmitTransactionRequest
 
-Body sent to the REST `POST /transactions` endpoint.
+送往 REST `POST /transactions` 端點的主體。
 
 ```ts
 interface KaspaRestSubmitTransactionRequest {
@@ -590,7 +590,7 @@ interface KaspaRestSubmitTransactionRequest {
 
 ## KaspaRestSubmitTransactionResponse
 
-回傳值: `submitTransaction()`.
+`submitTransaction()` 的回傳值。
 
 ```ts
 interface KaspaRestSubmitTransactionResponse {
@@ -603,7 +603,7 @@ interface KaspaRestSubmitTransactionResponse {
 
 ## KaspaRestTxMass
 
-回傳值: `calculateTransactionMass()`.
+`calculateTransactionMass()` 的回傳值。
 
 ```ts
 interface KaspaRestTxMass {
@@ -617,7 +617,7 @@ interface KaspaRestTxMass {
 
 ## KaspaRestTransactionAcceptance
 
-回傳值: `getTransactionAcceptance()`.
+`getTransactionAcceptance()` 的回傳值。
 
 ```ts
 interface KaspaRestTransactionAcceptance {
@@ -633,7 +633,7 @@ interface KaspaRestTransactionAcceptance {
 
 ## KaspaRestAddressesActiveResponse
 
-回傳值: the experimental `POST /addresses/active` endpoint.
+實驗性 `POST /addresses/active` 端點的回傳值。
 
 ```ts
 interface KaspaRestAddressesActiveResponse {
@@ -647,7 +647,7 @@ interface KaspaRestAddressesActiveResponse {
 
 ## KaspaRestAddressesActiveCountResponse
 
-回傳值: the experimental active-address count endpoints.
+回傳值: 實驗性的 active-address count 端點。
 
 ```ts
 interface KaspaRestAddressesActiveCountResponse {
@@ -675,7 +675,7 @@ interface KaspaRestDistributionTier {
 
 ## KaspaRestDistributionTiers
 
-回傳值: the experimental address distribution endpoint.
+回傳值: 實驗性的 address distribution 端點。
 
 ```ts
 interface KaspaRestDistributionTiers {
@@ -754,7 +754,7 @@ interface KaspaRestBalancesByAddressEntry {
 
 ## KaspaRestBlockHeader
 
-供 `KaspaRestBlock` and `KaspaRestMaxHashrateResponse`.
+供 `KaspaRestBlock` 和 `KaspaRestMaxHashrateResponse` 使用。
 
 ```ts
 interface KaspaRestBlockHeader {
@@ -953,7 +953,7 @@ interface KaspaRestBlueScoreResponse {
 
 ## KaspaRestBlockdagResponse
 
-回傳值: `useKaspaRest().getBlockDag()` and `getNetwork()`.
+回傳值: `useKaspaRest().getBlockDag()` 和 `getNetwork()`。
 
 ```ts
 interface KaspaRestBlockdagResponse {
@@ -1038,7 +1038,7 @@ interface KaspaRestMaxHashrateResponse {
 
 ## KaspaRestHashrateHistoryResponse
 
-回傳值: `useKaspaRest().getHashrateHistory()` and `getHashrateHistoryFor()`.
+回傳值: `useKaspaRest().getHashrateHistory()` 和 `getHashrateHistoryFor()`。
 
 ```ts
 interface KaspaRestHashrateHistoryResponse {
@@ -1118,7 +1118,7 @@ interface KaspaRestKaspadInfoResponse {
 
 ## KaspaRestPriceResponse
 
-供 the raw REST `GET /info/price` endpoint via `request()`.
+供原生 REST `GET /info/price` 端點，透過 `request()` 使用。
 
 ```ts
 interface KaspaRestPriceResponse {
@@ -1130,7 +1130,7 @@ interface KaspaRestPriceResponse {
 
 ## KaspaRestMarketCapResponse
 
-回傳值: `useKaspaRest().getMarketcap()` when the response is JSON.
+回傳值: 當回應為 JSON 時的 `useKaspaRest().getMarketcap()`。
 
 ```ts
 interface KaspaRestMarketCapResponse {
@@ -1142,7 +1142,7 @@ interface KaspaRestMarketCapResponse {
 
 ## KaspaRestUtxoResponse
 
-回傳值: `useKaspaRest().getUtxosByAddress()` and `getUtxosByAddresses()`.
+回傳值: `useKaspaRest().getUtxosByAddress()` 和 `getUtxosByAddresses()`。
 
 ```ts
 interface KaspaRestUtxoResponse {
@@ -1193,7 +1193,7 @@ interface KaspaRestAddressBalanceHistory {
 
 ## KaspaRestAddressName
 
-回傳值: `useKaspaRest().getAddressName()` and `getAddressNames()`.
+回傳值: `useKaspaRest().getAddressName()` 和 `getAddressNames()`。
 
 ```ts
 interface KaspaRestAddressName {
@@ -1249,7 +1249,7 @@ interface KaspaRestTransactionCount {
 
 ## KaspaRestTransactionCountResponse
 
-回傳值: the experimental transaction count endpoints.
+回傳值: 實驗性的 transaction count 端點。
 
 ```ts
 interface KaspaRestTransactionCountResponse {
@@ -1393,13 +1393,13 @@ type RpcEventType =
 
 ## RpcEvent&lt;T&gt;
 
-Generic event envelope. The type of `data` depends on the event type.
+通用事件信封。`data` 的型別取決於事件類型。
 
 ```ts
 interface RpcEvent<T = unknown> {
   type: RpcEventType
   data: T
-  timestamp: number  // Unix milliseconds
+  timestamp: number  // Unix 毫秒
 }
 ```
 
@@ -1433,9 +1433,9 @@ interface TransactionListenerOptions {
 
 | 欄位 | 型別 | 預設值 | 說明 |
 |---|---|---|---|
-| `maxHistory` | `number` | `100` | Max accepted transactions to keep |
-| `autoSubscribe` | `boolean` | `true` | Subscribe on mount |
-| `includeSenderAddresses` | `boolean` | `false` | Resolve sender addresses from the accepting block |
+| `maxHistory` | `number` | `100` | 保留的已接受交易最大數量 |
+| `autoSubscribe` | `boolean` | `true` | 掛載時自動訂閱 |
+| `includeSenderAddresses` | `boolean` | `false` | 從接受區塊解析 sender addresses |
 
 ---
 
@@ -1469,11 +1469,11 @@ interface UseTransactionListenerReturn {
 
 ## PaymentOutput
 
-A single recipient in a transaction.
+交易中的單一收款方。
 
 ```ts
 interface PaymentOutput {
-  address: string  // Kaspa address
+  address: string  // Kaspa 地址
   amount: bigint   // in sompi
 }
 ```
@@ -1482,15 +1482,15 @@ interface PaymentOutput {
 
 ## TransactionSummary
 
-回傳值: `useTransaction().estimate()` and `create()`.
+`useTransaction().estimate()` 與 `create()` 的回傳值。
 
 ```ts
 interface TransactionSummary {
-  fees: bigint                  // Total fees in sompi
-  mass: bigint                  // Total mass in grams
-  transactions: number          // Number of transactions (>1 = compounding)
-  finalTransactionId?: string   // Set after submission via send()
-  finalAmount?: bigint          // Final output amount after fees
+  fees: bigint                  // sompi 單位的總手續費
+  mass: bigint                  // 克單位的總質量
+  transactions: number          // 交易數量（>1 = compounding）
+  finalTransactionId?: string   // `send()` 送出後設定
+  finalAmount?: bigint          // 扣除手續費後的最終輸出金額
 }
 ```
 
@@ -1498,7 +1498,7 @@ interface TransactionSummary {
 
 ## CreateTransactionSettings
 
-Input to `useTransaction().estimate()`, `create()`, and `send()`.
+`useTransaction().estimate()`、`create()` 與 `send()` 的輸入。
 
 ```ts
 interface CreateTransactionSettings {
@@ -1514,19 +1514,19 @@ interface CreateTransactionSettings {
 
 | 欄位 | 必填 | 說明 |
 |---|---|---|
-| `entries` | Yes | UTXO inputs — pass `useUtxo().entries.value` |
-| `outputs` | No | Recipients. Omit for UTXO self-consolidation. |
-| `changeAddress` | Yes | Change return address |
-| `priorityFee` | No | Fixed fee in sompi |
-| `feeRate` | No | Dynamic fee in sompi/gram (alternative to `priorityFee`) |
-| `payload` | No | Hex-encoded data payload |
-| `networkId` | No* | Required when `entries` is a plain array |
+| `entries` | 是 | UTXO 輸入 — 請傳入 `useUtxo().entries.value` |
+| `outputs` | 否 | 收款方。若是 UTXO 自我整合可省略。 |
+| `changeAddress` | 是 | 找零回傳地址 |
+| `priorityFee` | 否 | 以 sompi 計算的固定費用 |
+| `feeRate` | 否 | 以 sompi/克計算的動態費用（`priorityFee` 的替代方案） |
+| `payload` | 否 | 十六進位編碼的資料 payload |
+| `networkId` | 否* | 當 `entries` 是一般陣列時必填 |
 
 ---
 
 ## PendingTx
 
-An unsigned (or partially signed) transaction returned by `useTransaction().create()`.
+`useTransaction().create()` 回傳的未簽署（或部分簽署）交易。
 
 ```ts
 interface PendingTx {
@@ -1539,10 +1539,10 @@ interface PendingTx {
 
 | 方法 | 說明 |
 |---|---|
-| `sign(privateKeys)` | Sign with one or more hex private keys |
-| `submit()` | Submit to the network, returns transaction ID |
-| `serialize()` | Get a plain object for inspection or external submission |
-| `addresses()` | Input addresses — useful for selecting the required signing keys |
+| `sign(privateKeys)` | 使用一或多個 hex 私鑰簽署 |
+| `submit()` | 送出到網路，並回傳交易 ID |
+| `serialize()` | 取得供檢查或外部送出的純物件 |
+| `addresses()` | 輸入地址 — 有助於挑選所需的簽署金鑰 |
 
 ---
 
@@ -1551,8 +1551,8 @@ interface PendingTx {
 ```ts
 interface KeypairInfo {
   privateKeyHex: string   // 32-byte private key as hex
-  publicKeyHex: string    // Compressed public key as hex
-  address: string         // Network-specific Kaspa address
+  publicKeyHex: string    // 以 hex 表示的壓縮公鑰
+  address: string         // 網路專屬的 Kaspa 地址
 }
 ```
 
@@ -1562,7 +1562,7 @@ interface KeypairInfo {
 
 ```ts
 interface MnemonicInfo {
-  phrase: string          // Space-separated BIP-39 words
+  phrase: string          // 以空格分隔的 BIP-39 詞
   wordCount: 12 | 24
 }
 ```
@@ -1571,11 +1571,11 @@ interface MnemonicInfo {
 
 ## DerivedKey
 
-A single key from an HD wallet derivation.
+HD 錢包衍生出的單一金鑰。
 
 ```ts
 interface DerivedKey {
-  index: number           // Position in the derivation chain (0-based)
+  index: number           // 衍生鏈中的位置（從 0 開始）
   publicKeyHex: string
   address: string
 }
@@ -1588,7 +1588,7 @@ interface DerivedKey {
 ```ts
 interface SignMessageResult {
   message: string
-  signature: string       // Hex-encoded signature
+  signature: string       // 以 hex 編碼的簽章
   publicKeyHex: string
 }
 ```
@@ -1605,7 +1605,7 @@ type WalletProvider = 'kasware' | 'kastle'
 
 ## WalletBalance
 
-Balance reported by a connected wallet, in sompi.
+連線錢包回報的餘額，單位為 sompi。
 
 ```ts
 interface WalletBalance {
@@ -1625,8 +1625,8 @@ Populated for KasWare. Always `null` for Kastle (Kastle's API does not expose ba
 
 ```ts
 interface WalletSendOptions {
-  priorityFee?: bigint  // Extra fee in sompi
-  payload?: string      // Hex-encoded data payload
+  priorityFee?: bigint  // sompi 單位的額外手續費
+  payload?: string      // 以 hex 編碼的資料 payload
 }
 ```
 
@@ -1651,11 +1651,11 @@ interface WalletSendOptions {
 
 ## 錯誤類別
 
-所有錯誤類別都繼承自 `KaspaError`，並由 `vue-kaspa` 匯出。 See [Error Handling](/guide/error-handling) for full usage patterns and examples.
+所有錯誤類別都繼承自 `KaspaError`，並由 `vue-kaspa` 匯出。使用模式與範例請參考 [Error Handling](/guide/error-handling)。
 
 ### KaspaError
 
-Base class for all Vue Kaspa errors.
+所有 Vue Kaspa 錯誤的基底類別。
 
 ```ts
 class KaspaError extends Error {
@@ -1665,7 +1665,7 @@ class KaspaError extends Error {
 
 ### KaspaNotReadyError
 
-Thrown when a composable method is called before the WASM module is initialized.
+當在 WASM 模組初始化前呼叫 composable 方法時拋出。
 
 ```ts
 class KaspaNotReadyError extends KaspaError {}
@@ -1673,7 +1673,7 @@ class KaspaNotReadyError extends KaspaError {}
 
 ### KaspaRpcError
 
-Thrown when an RPC method call fails.
+當 RPC 方法呼叫失敗時拋出。
 
 ```ts
 class KaspaRpcError extends KaspaError {
@@ -1681,11 +1681,11 @@ class KaspaRpcError extends KaspaError {
 }
 ```
 
-`err.message` is `"RPC method \"<method>\" failed"`. The underlying error is on `err.cause`.
+`err.message` 是 `"RPC method \"<method>\" failed"`。底層錯誤在 `err.cause`。
 
 ### KaspaWalletError
 
-Thrown when a wallet operation (`connect`, `sendKaspa`, `signMessage`) fails.
+當錢包操作 (`connect`、`sendKaspa`、`signMessage`) 失敗時拋出。
 
 ```ts
 class KaspaWalletError extends KaspaError {
@@ -1693,11 +1693,11 @@ class KaspaWalletError extends KaspaError {
 }
 ```
 
-`err.message` is `"Wallet operation \"<operation>\" failed"`.
+`err.message` 是 `"Wallet operation \"<operation>\" failed"`。
 
 ### KaspaCryptoError
 
-Thrown when a cryptographic operation fails.
+當密碼學操作失敗時拋出。
 
 ```ts
 class KaspaCryptoError extends KaspaError {
@@ -1705,4 +1705,4 @@ class KaspaCryptoError extends KaspaError {
 }
 ```
 
-`err.message` is `"Crypto operation \"<operation>\" failed"`.
+`err.message` 是 `"Crypto operation \"<operation>\" failed"`。
