@@ -5,6 +5,7 @@ import { useTransaction } from './useTransaction'
 import { useCrypto } from './useCrypto'
 import { useNetwork } from './useNetwork'
 import { useWallet } from './useWallet'
+import { useKaspaRest } from './useKaspaRest'
 import type { UseVueKaspaReturn } from '../types'
 
 export function useVueKaspa(): UseVueKaspaReturn {
@@ -16,5 +17,6 @@ export function useVueKaspa(): UseVueKaspaReturn {
     crypto: useCrypto(),
     network: useNetwork(),
     wallet: useWallet(),
+    rest: useKaspaRest(),
   }
 }

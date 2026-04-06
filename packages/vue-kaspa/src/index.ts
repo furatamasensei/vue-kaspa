@@ -11,6 +11,7 @@ export { useUtxo } from './composables/useUtxo'
 export { useTransaction } from './composables/useTransaction'
 export { useTransactionListener } from './composables/useTransactionListener'
 export { useBlockListener } from './composables/useBlockListener'
+export { useKaspaRest } from './composables/useKaspaRest'
 export { useCrypto } from './composables/useCrypto'
 export { useNetwork } from './composables/useNetwork'
 export { useWallet } from './composables/useWallet'
@@ -21,6 +22,7 @@ export {
   KaspaError,
   KaspaNotReadyError,
   KaspaRpcError,
+  KaspaRestError,
   KaspaWalletError,
   KaspaCryptoError,
 } from './errors'
@@ -40,6 +42,14 @@ export type {
   MempoolEntry,
   BalanceResult,
   FeeEstimate,
+  KaspaRestOptions,
+  KaspaRestRequestOptions,
+  KaspaRestResolvePreviousOutpoints,
+  KaspaRestTransaction,
+  KaspaRestTransactionAcceptance,
+  KaspaRestBalanceEntry,
+  KaspaRestSubmitTransactionResponse,
+  KaspaRestReturn,
   RpcEventType,
   RpcEvent,
   BlockDagInfo,
@@ -63,6 +73,7 @@ export type {
   UseBlockListenerReturn,
   TransactionListenerOptions,
   UseTransactionListenerReturn,
+  UseKaspaRestReturn,
   UseCryptoReturn,
   UseNetworkReturn,
   UseWalletReturn,

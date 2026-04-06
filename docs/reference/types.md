@@ -19,6 +19,7 @@ Options passed to `app.use(VueKaspa, options)` or the `kaspa` key in `nuxt.confi
 interface VueKaspaOptions {
   network?: KaspaNetwork
   url?: string
+  restUrl?: string
   resolver?: boolean
   encoding?: RpcEncoding
   autoConnect?: boolean
@@ -31,6 +32,7 @@ interface VueKaspaOptions {
 |---|---|---|---|
 | `network` | `KaspaNetwork` | `'mainnet'` | Network to connect to |
 | `url` | `string` | — | Custom RPC WebSocket URL |
+| `restUrl` | `string` | `https://api.kaspa.org` | Official Kaspa REST API base URL |
 | `resolver` | `boolean` | `true` | Use public node resolver |
 | `encoding` | `RpcEncoding` | `'Borsh'` | Wire encoding format |
 | `autoConnect` | `boolean` | `true` | Auto-init WASM and connect on install |
@@ -217,6 +219,73 @@ interface FeeEstimate {
 ```
 
 `feerate` is in sompi per gram of transaction mass. Use with `useTransaction()`'s `feeRate` setting.
+
+---
+
+## KaspaRestOptions
+
+Options passed to `useKaspaRest()`.
+
+```ts
+interface KaspaRestOptions {
+  baseUrl?: string
+  staleTime?: number
+  cacheTime?: number
+  headers?: HeadersInit
+  fetcher?: typeof fetch
+}
+```
+
+---
+
+## KaspaRestTransaction
+
+Normalized transaction returned by the REST composable.
+
+```ts
+interface KaspaRestTransaction {
+  id?: string
+  transactionId?: string
+  hash?: string
+  inputs?: unknown[]
+  outputs?: unknown[]
+  senderAddresses?: string[]
+}
+```
+
+---
+
+## KaspaRestBalanceEntry
+
+Returned by `useKaspaRest().getBalancesByAddresses()`.
+
+```ts
+interface KaspaRestBalanceEntry {
+  address: string
+  balance: bigint
+}
+```
+
+---
+
+## UseKaspaRestReturn
+
+Returned by `useKaspaRest()`.
+
+```ts
+interface UseKaspaRestReturn {
+  baseUrl: Readonly<Ref<string>>
+  cacheSize: ComputedRef<number>
+  clearCache(prefix?: string): void
+  request<T>(method: 'GET' | 'POST', path: string, options?: unknown): Promise<T>
+  getTransaction(transactionId: string, options?: unknown): Promise<KaspaRestTransaction | null>
+  searchTransactions(request: Record<string, unknown>, options?: unknown): Promise<KaspaRestTransaction[]>
+  getFullTransactionsByAddress(address: string, options?: unknown): Promise<KaspaRestTransaction[]>
+  getFullTransactionsByAddressPage(address: string, options?: unknown): Promise<KaspaRestTransaction[]>
+  getTransactionAcceptance(transactionIds: string[], options?: unknown): Promise<unknown>
+  submitTransaction(tx: unknown, options?: unknown): Promise<unknown>
+}
+```
 
 ---
 

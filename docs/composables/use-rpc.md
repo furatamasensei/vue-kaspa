@@ -81,6 +81,7 @@ For the common case of listening to new blocks or confirmed transactions, use th
 
 Both handle subscribe/unsubscribe lifecycle automatically and accumulate a reactive history.
 If you need input-side sender addresses for confirmed payments, use the enriched `acceptedTransactions` history from `useTransactionListener()`.
+For REST lookups by txid or address history, use [`useKaspaRest()`](/composables/use-kaspa-rest).
 
 ## Query methods
 

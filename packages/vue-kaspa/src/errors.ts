@@ -23,6 +23,13 @@ export class KaspaRpcError extends KaspaError {
   }
 }
 
+export class KaspaRestError extends KaspaError {
+  constructor(operation: string, cause?: unknown) {
+    super(`REST operation "${operation}" failed`, cause)
+    this.name = 'KaspaRestError'
+  }
+}
+
 export class KaspaWalletError extends KaspaError {
   constructor(operation: string, cause?: unknown) {
     super(`Wallet operation "${operation}" failed`, cause)

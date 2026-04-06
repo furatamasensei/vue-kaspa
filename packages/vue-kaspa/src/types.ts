@@ -7,6 +7,8 @@ export interface VueKaspaOptions {
   network?: KaspaNetwork
   /** RPC endpoint URL (e.g. 'ws://127.0.0.1:17110'). Mutually exclusive with resolver. */
   url?: string
+  /** REST endpoint URL for the official Kaspa REST API. Default: 'https://api.kaspa.org' */
+  restUrl?: string
   /** Use public node resolver. Default: true when url is not provided */
   resolver?: boolean
   /** Wire encoding format. Default: 'Borsh' */
@@ -147,6 +149,138 @@ export interface FeeEstimate {
   normalBuckets: Array<{ feerate: number; estimatedSeconds: number }>
   lowBuckets: Array<{ feerate: number; estimatedSeconds: number }>
 }
+
+// ─── REST API ──────────────────────────────────────────────────────────────
+
+export type KaspaRestResolvePreviousOutpoints = 'no' | 'light' | 'full'
+
+export interface KaspaRestOptions {
+  /** Official REST API base URL. Default: https://api.kaspa.org */
+  baseUrl?: string
+  /** Shared cache TTL in milliseconds. Default: 30s */
+  staleTime?: number
+  /** Cache retention in milliseconds. Default: 5m */
+  cacheTime?: number
+  /** Optional request headers for authenticated/self-hosted setups */
+  headers?: HeadersInit
+  /** Optional fetch implementation */
+  fetcher?: typeof fetch
+}
+
+export interface KaspaRestRequestOptions {
+  /** Bypass the cache and force a network request */
+  forceRefresh?: boolean
+  /** Override the default staleTime for this call */
+  staleTime?: number
+  /** Disable caching for this call */
+  cache?: boolean
+}
+
+export interface KaspaRestTxScriptPublicKey {
+  version?: number
+  script?: string
+}
+
+export interface KaspaRestTxPreviousOutpoint {
+  address?: string
+  amount?: bigint
+  scriptPublicKey?: KaspaRestTxScriptPublicKey
+}
+
+export interface KaspaRestTxInput {
+  address?: string
+  amount?: bigint
+  scriptPublicKey?: KaspaRestTxScriptPublicKey
+  previousOutpoint?: KaspaRestTxPreviousOutpoint
+  utxo?: KaspaRestTxPreviousOutpoint
+}
+
+export interface KaspaRestTransaction {
+  id?: string
+  transactionId?: string
+  hash?: string
+  inputs?: KaspaRestTxInput[]
+  outputs?: unknown[]
+  senderAddresses?: string[]
+  [key: string]: unknown
+}
+
+export interface KaspaRestTransactionAcceptance {
+  transactionId: string
+  accepted?: boolean
+  acceptingBlockHash?: string
+  acceptingBlueScore?: bigint | number
+  acceptingTimestamp?: bigint | number
+}
+
+export interface KaspaRestSubmitTransactionResponse {
+  transactionId?: string
+  [key: string]: unknown
+}
+
+export interface KaspaRestBalanceEntry {
+  address: string
+  balance: bigint
+}
+
+export interface KaspaRestReturn {
+  baseUrl: Readonly<Ref<string>>
+  cacheSize: ComputedRef<number>
+  clearCache(prefix?: string): void
+  request<T = unknown>(
+    method: 'GET' | 'POST',
+    path: string,
+    options?: {
+      query?: Record<string, string | number | boolean | bigint | undefined | null>
+      body?: unknown
+      cacheKey?: string
+    } & KaspaRestRequestOptions,
+  ): Promise<T>
+  getBlock(hash: string, includeTransactions?: boolean): Promise<unknown>
+  getBlocks(options?: { lowHash?: string; includeBlocks?: boolean; includeTransactions?: boolean }): Promise<unknown>
+  getBlocksFromBlueScore(options: { blueScore?: number; blueScoreGte?: number; blueScoreLt?: number; includeTransactions?: boolean }): Promise<unknown>
+  getUtxosByAddress(address: string, options?: KaspaRestRequestOptions): Promise<UtxoEntry[]>
+  getUtxosByAddresses(addresses: string[], options?: KaspaRestRequestOptions): Promise<UtxoEntry[]>
+  getUtxoCountByAddress(address: string, options?: KaspaRestRequestOptions): Promise<unknown>
+  getTransaction(transactionId: string, options?: { resolvePreviousOutpoints?: KaspaRestResolvePreviousOutpoints; acceptance?: string } & KaspaRestRequestOptions): Promise<KaspaRestTransaction | null>
+  searchTransactions(
+    request: Record<string, unknown>,
+    options?: { resolvePreviousOutpoints?: KaspaRestResolvePreviousOutpoints; acceptance?: string } & KaspaRestRequestOptions,
+  ): Promise<KaspaRestTransaction[]>
+  getTransactionAcceptance(transactionIds: string[], options?: KaspaRestRequestOptions): Promise<KaspaRestTransactionAcceptance[]>
+  getFullTransactionsByAddress(
+    address: string,
+    options?: { limit?: number; offset?: number; fields?: string; resolvePreviousOutpoints?: KaspaRestResolvePreviousOutpoints; acceptance?: string } & KaspaRestRequestOptions,
+  ): Promise<KaspaRestTransaction[]>
+  getFullTransactionsByAddressPage(
+    address: string,
+    options?: { limit?: number; before?: number; after?: number; fields?: string; resolvePreviousOutpoints?: KaspaRestResolvePreviousOutpoints; acceptance?: string } & KaspaRestRequestOptions,
+  ): Promise<KaspaRestTransaction[]>
+  getAddressTransactionCount(address: string, options?: KaspaRestRequestOptions): Promise<unknown>
+  getAddressesActiveCount(options?: KaspaRestRequestOptions): Promise<unknown>
+  getAddressesActiveCountFor(dayOrMonth: string, options?: KaspaRestRequestOptions): Promise<unknown>
+  getBalancesByAddresses(addresses: string[], options?: KaspaRestRequestOptions): Promise<KaspaRestBalanceEntry[]>
+  getBlockReward(options?: { stringOnly?: boolean } & KaspaRestRequestOptions): Promise<unknown>
+  getHalving(field?: string, options?: KaspaRestRequestOptions): Promise<unknown>
+  getHashrate(options?: { stringOnly?: boolean } & KaspaRestRequestOptions): Promise<unknown>
+  getMaxHashrate(options?: KaspaRestRequestOptions): Promise<unknown>
+  getHashrateHistory(options?: { dayOrMonth?: string; resolution?: '15m' | '1h' | '3h' | '1d' | '7d' } & KaspaRestRequestOptions): Promise<unknown>
+  getHashrateHistoryFor(dayOrMonth: string, resolution?: '15m' | '1h', options?: KaspaRestRequestOptions): Promise<unknown>
+  getHealth(options?: KaspaRestRequestOptions): Promise<unknown>
+  getMarketcap(options?: { stringOnly?: boolean } & KaspaRestRequestOptions): Promise<unknown>
+  getVirtualSelectedParentBlueScore(options?: KaspaRestRequestOptions): Promise<{ blueScore: bigint }>
+  getBlockDag(options?: KaspaRestRequestOptions): Promise<BlockDagInfo>
+  getNetwork(options?: KaspaRestRequestOptions): Promise<BlockDagInfo>
+  getCoinSupply(options?: KaspaRestRequestOptions): Promise<unknown>
+  getCirculatingCoins(inBillion?: boolean, options?: KaspaRestRequestOptions): Promise<string>
+  getTotalCoins(inBillion?: boolean, options?: KaspaRestRequestOptions): Promise<string>
+  getKaspadInfo(options?: KaspaRestRequestOptions): Promise<unknown>
+  getFeeEstimate(options?: KaspaRestRequestOptions): Promise<FeeEstimate>
+  submitTransaction(tx: unknown, options?: { replaceByFee?: boolean } & KaspaRestRequestOptions): Promise<KaspaRestSubmitTransactionResponse>
+  calculateTransactionMass(tx: unknown, options?: KaspaRestRequestOptions): Promise<unknown>
+}
+
+export type UseKaspaRestReturn = KaspaRestReturn
 
 // ─── RPC Events ────────────────────────────────────────────────────────────
 
@@ -536,4 +670,5 @@ export interface UseVueKaspaReturn {
   crypto: UseCryptoReturn
   network: UseNetworkReturn
   wallet: UseWalletReturn
+  rest: KaspaRestReturn
 }
