@@ -60,7 +60,3 @@ const { transactions, acceptedTransactions, isListening, subscribe, unsubscribe,
 - Menggunakan `virtual-chain-changed`, jadi hanya event transaksi yang accepted yang diproses.
 - Satu transaksi bisa punya lebih dari satu sender address.
 - Untuk event block mentah, gunakan [`useBlockListener()`](/id/composables/use-block-listener).
-
-## Pembantu hash
-
-`acceptedTransactions.value` menyimpan ID transaksi dan block hash penerima. Gunakan `formatHash(hash, 'transaction')` atau `formatHash(hash, 'block')` agar setiap string menampilkan label eksplisit, pemendekan default, dan suffix/prefix konsisten sehingga mudah membedakan antara hash transaksi dan hash block di UI.

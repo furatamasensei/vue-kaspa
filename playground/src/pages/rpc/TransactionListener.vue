@@ -3,7 +3,7 @@ import { Badge } from '@/components/ui/badge'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { useTransactionListener, formatHash } from 'vue-kaspa'
+import { useTransactionListener } from 'vue-kaspa'
 import CodeExample from '../../components/CodeExample.vue'
 
 const EXAMPLE = `import { useTransactionListener } from 'vue-kaspa'
@@ -59,9 +59,8 @@ const { transactions, isListening, subscribe, unsubscribe, clear } = useTransact
               No transactions yet. Click Start to begin listening.
             </div>
             <div v-for="txId in transactions" :key="txId"
-              class="py-2 border-b border-border/50 last:border-0 space-y-1">
-              <p class="text-xs text-muted-foreground">Transaction ID</p>
-              <div class="font-mono text-xs text-foreground break-all">{{ formatHash(txId, 'transaction') }}</div>
+              class="py-2 border-b border-border/50 last:border-0">
+              <div class="font-mono text-xs text-foreground break-all">{{ txId }}</div>
             </div>
           </div>
         </ScrollArea>
