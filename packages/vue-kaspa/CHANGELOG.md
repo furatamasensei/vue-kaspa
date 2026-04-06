@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.1.16](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.15...vue-kaspa-v0.1.16) (2026-04-06)
+
+
+### Features
+
+* add hash formatting helper ([90aec9e](https://github.com/furatamasensei/vue-kaspa/commit/90aec9eddaee907c5cd8995585e3aaea20945481))
+* add network-aware crypto formatters ([6bfed1d](https://github.com/furatamasensei/vue-kaspa/commit/6bfed1d2f5a31589e2d05a4281bb5d8482d6da72))
+
 ## [0.1.15](https://github.com/furatamasensei/vue-kaspa/compare/vue-kaspa-v0.1.14...vue-kaspa-v0.1.15) (2026-04-06)
 
 
