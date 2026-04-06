@@ -2,7 +2,7 @@
 
 Membangun, menandatangani, dan mengirimkan transaksi Kaspa. Membungkus `createTransactions()` dan `estimateTransactions()` dari `@vue-kaspa/kaspa-wasm` dan menangani UTXO compounding secara otomatis.
 
-## Import
+## Impor
 
 ```ts
 import { useTransaction } from 'vue-kaspa'

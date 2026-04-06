@@ -2,7 +2,7 @@
 
 Kaspa ネットワークで確定されたトランザクション ID をリアクティブに監視します。`virtual-chain-changed` サブスクリプションを使い、確定時にトランザクションを受け取ります。
 
-## Import
+## インポート
 
 ```ts
 import { useTransactionListener } from 'vue-kaspa'
@@ -26,7 +26,7 @@ interface UseTransactionListenerReturn {
 }
 ```
 
-## Options
+## オプション
 
 ```ts
 interface TransactionListenerOptions {

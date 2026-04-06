@@ -2,15 +2,15 @@
 
 KasWare と Kastle に対応した、Kaspa ブラウザウォレット拡張向けのラッパーです。接続状態をリアクティブに扱い、送金とメッセージ署名を共通 API で呼び出せます。
 
-::: warning Web only
+::: warning Web ブラウザ限定
 `useWallet` は `window.kasware` / `window.kastle` を使うため、**Web ブラウザ限定**です。
 :::
 
-::: tip No WASM required
+::: tip WASM 不要
 ウォレット拡張へ直接接続するため、`useKaspa().init()` は不要です。
 :::
 
-## Import
+## インポート
 
 ```ts
 import { useWallet } from 'vue-kaspa'

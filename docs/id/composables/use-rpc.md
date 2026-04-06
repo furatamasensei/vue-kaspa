@@ -2,7 +2,7 @@
 
 Mengelola koneksi RPC WebSocket ke node Kaspa. Menyediakan state koneksi reaktif dan metode untuk melakukan query blockchain serta berlangganan event.
 
-## Import
+## Impor
 
 ```ts
 import { useRpc } from 'vue-kaspa'

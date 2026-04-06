@@ -2,7 +2,7 @@
 
 `useVueKaspa()` adalah facade terpadu untuk kode aplikasi. Ia menggabungkan composable yang ada ke dalam satu object bertipe sehingga kamu bisa mulai dari satu import lalu masuk ke subsystem yang dibutuhkan.
 
-## Import
+## Impor
 
 ```ts
 import { useVueKaspa } from 'vue-kaspa'

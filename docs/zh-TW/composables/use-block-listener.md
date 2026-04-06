@@ -2,7 +2,7 @@
 
 即時監聽新增到 Kaspa DAG 的區塊。它包裝 `block-added` 訂閱，並將每個事件轉成 [`BlockInfo`](/zh-TW/reference/types#blockinfo) 型別。
 
-## Import
+## 匯入
 
 ```ts
 import { useBlockListener } from 'vue-kaspa'
@@ -20,7 +20,7 @@ interface UseBlockListenerReturn {
 }
 ```
 
-## Options
+## 選項
 
 ```ts
 interface BlockListenerOptions {

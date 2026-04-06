@@ -2,7 +2,7 @@
 
 `useVueKaspa()` 是給應用程式使用的整合入口，會把各個 composable 包成一個有型別的物件，方便從單一 import 開始使用。
 
-## Import
+## 匯入
 
 ```ts
 import { useVueKaspa } from 'vue-kaspa'

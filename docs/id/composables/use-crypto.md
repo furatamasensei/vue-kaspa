@@ -4,7 +4,7 @@ Utilitas kriptografi murni: pembuatan mnemonic, derivasi kunci HD, operasi alama
 
 Semua metode bersifat sinkron dan mengembalikan nilai biasa — tidak ada reactive ref.
 
-## Import
+## Impor
 
 ```ts
 import { useCrypto } from 'vue-kaspa'

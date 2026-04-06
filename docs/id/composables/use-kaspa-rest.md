@@ -27,7 +27,7 @@ Secara default composable memilih host REST berdasarkan network Kaspa yang aktif
 
 Jika kamu memakai `simnet`, `devnet`, atau server REST self-hosted, berikan `baseUrl` secara eksplisit.
 
-## Import
+## Impor
 
 ```ts
 import { useKaspaRest } from 'vue-kaspa'
@@ -39,7 +39,7 @@ import { useKaspaRest } from 'vue-kaspa'
 function useKaspaRest(options?: KaspaRestOptions): UseKaspaRestReturn
 ```
 
-## Options
+## Opsi
 
 ```ts
 interface KaspaRestOptions {
@@ -134,15 +134,15 @@ Jika payload berisi input address yang sudah ter-resolve, `senderAddresses` akan
 
 ## Cache
 
-The composable caches repeated identical requests in memory.
+Komposabel ini menyimpan cache permintaan identik yang berulang di memori.
 
-- `staleTime` controls when a cached result is considered fresh.
-- `cacheTime` controls how long the entry stays in memory.
-- Call `clearCache()` to drop cached entries manually.
+- `staleTime` mengatur kapan hasil cache masih dianggap segar.
+- `cacheTime` mengatur berapa lama entri bertahan di memori.
+- Panggil `clearCache()` untuk menghapus entri cache secara manual.
 
 ## Endpoint eksperimental
 
-These REST routes are marked experimental in the official schema and may change without notice:
+Route REST berikut ditandai experimental di schema resmi dan dapat berubah tanpa pemberitahuan:
 - `GET /addresses/{kaspaAddress}/balance/{day_or_month}`
 - `GET /addresses/distribution`
 - `GET /addresses/top`
@@ -152,11 +152,11 @@ These REST routes are marked experimental in the official schema and may change 
 - `GET /transactions/count/{day_or_month}`
 - `GET /virtual-chain`
 
-They are still wrapped here for convenience, but treat them as unstable.
+Route ini tetap dibungkus demi kenyamanan, tetapi anggap saja masih tidak stabil.
 
 ## Endpoint families
 
-The wrapper covers the main official REST surface:
+Wrapper ini mencakup permukaan REST resmi yang utama:
 
 - `GET /addresses/{kaspaAddress}/balance`
 - `GET /addresses/{kaspaAddress}/balance/{day_or_month}` `experimental`
@@ -203,4 +203,4 @@ The wrapper covers the main official REST surface:
 - `GET /transactions/count/{day_or_month}` `experimental`
 - `GET /virtual-chain` `experimental`
 
-For anything not wrapped yet, use `request()` directly.
+Untuk endpoint yang belum dibungkus, gunakan `request()` secara langsung.

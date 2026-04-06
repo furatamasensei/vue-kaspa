@@ -2,15 +2,15 @@
 
 Wrapper bertipe untuk extension wallet browser Kaspa: KasWare dan Kastle. Menyediakan state koneksi reaktif dan API tunggal untuk connect, disconnect, kirim KAS, dan tanda tangan pesan.
 
-::: warning Web only
+::: warning Hanya Web
 `useWallet` bergantung pada `window.kasware` / `window.kastle`, jadi **hanya untuk browser**.
 :::
 
-::: tip No WASM required
+::: tip Tidak perlu WASM
 Komposabel ini langsung bicara ke extension browser, jadi tidak perlu memanggil `useKaspa().init()` dulu.
 :::
 
-## Import
+## Impor
 
 ```ts
 import { useWallet } from 'vue-kaspa'

@@ -2,7 +2,7 @@
 
 Mengelola jaringan yang sedang aktif. Pergantian jaringan secara otomatis memutuskan koneksi RPC saat ini dan menghubungkan kembali ke jaringan baru.
 
-## Import
+## Impor
 
 ```ts
 import { useNetwork } from 'vue-kaspa'

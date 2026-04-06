@@ -2,7 +2,7 @@
 
 Mengontrol siklus hidup modul WebAssembly `@vue-kaspa/kaspa-wasm`. Modul WASM harus diinisialisasi sebelum koneksi RPC atau operasi kriptografi apa pun dapat dilakukan.
 
-## Import
+## Impor
 
 ```ts
 import { useKaspa } from 'vue-kaspa'

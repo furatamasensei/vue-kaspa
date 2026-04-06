@@ -2,7 +2,7 @@
 
 Mendengarkan blok baru yang ditambahkan ke DAG Kaspa secara reaktif. Komposabel ini membungkus subscription `block-added` dan mengubah setiap event menjadi tipe [`BlockInfo`](/id/reference/types#blockinfo).
 
-## Import
+## Impor
 
 ```ts
 import { useBlockListener } from 'vue-kaspa'
@@ -20,7 +20,7 @@ interface UseBlockListenerReturn {
 }
 ```
 
-## Options
+## Opsi
 
 ```ts
 interface BlockListenerOptions {

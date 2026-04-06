@@ -27,7 +27,7 @@ Kaspa 官方 REST API 的型別化包裝器。
 
 如果你使用 `simnet`、`devnet` 或自架 REST 伺服器，請明確提供 `baseUrl`。
 
-## Import
+## 匯入
 
 ```ts
 import { useKaspaRest } from 'vue-kaspa'
@@ -39,7 +39,7 @@ import { useKaspaRest } from 'vue-kaspa'
 function useKaspaRest(options?: KaspaRestOptions): UseKaspaRestReturn
 ```
 
-## Options
+## 選項
 
 ```ts
 interface KaspaRestOptions {
@@ -115,7 +115,7 @@ const utxos = await rest.getUtxosByAddress('kaspa:qr...')
 const fee = await rest.getFeeEstimate()
 ```
 
-## Txid lookup
+## Txid 查詢
 
 `getTransaction()` 是方便使用的查詢路徑。它會依 transaction id 搜尋，若交易不存在則回傳 `null`。
 
@@ -134,15 +134,15 @@ console.log(tx?.senderAddresses)
 
 ## 快取
 
-The composable caches repeated identical requests in memory.
+這個 composable 會把重複且相同的請求快取在記憶體中。
 
-- `staleTime` controls when a cached result is considered fresh.
-- `cacheTime` controls how long the entry stays in memory.
-- Call `clearCache()` to drop cached entries manually.
+- `staleTime` 用來決定快取結果何時仍被視為新鮮。
+- `cacheTime` 用來決定項目在記憶體中保留多久。
+- 呼叫 `clearCache()` 可以手動清除快取項目。
 
 ## 實驗性端點
 
-These REST routes are marked experimental in the official schema and may change without notice:
+以下 REST 路由在官方 schema 中標記為 experimental，可能在未通知的情況下變更:
 - `GET /addresses/{kaspaAddress}/balance/{day_or_month}`
 - `GET /addresses/distribution`
 - `GET /addresses/top`
@@ -152,11 +152,11 @@ These REST routes are marked experimental in the official schema and may change 
 - `GET /transactions/count/{day_or_month}`
 - `GET /virtual-chain`
 
-They are still wrapped here for convenience, but treat them as unstable.
+為了方便仍然有包裝，但請把它們視為不穩定功能。
 
-## Endpoint families
+## 端點類別
 
-The wrapper covers the main official REST surface:
+這個 wrapper 涵蓋官方 REST 的主要範圍:
 
 - `GET /addresses/{kaspaAddress}/balance`
 - `GET /addresses/{kaspaAddress}/balance/{day_or_month}` `experimental`
@@ -203,4 +203,4 @@ The wrapper covers the main official REST surface:
 - `GET /transactions/count/{day_or_month}` `experimental`
 - `GET /virtual-chain` `experimental`
 
-For anything not wrapped yet, use `request()` directly.
+尚未包裝的端點，請直接使用 `request()`。

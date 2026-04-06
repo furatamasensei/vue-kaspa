@@ -27,7 +27,7 @@ Kaspa の公式 REST API を型付きで扱うためのラッパーです。
 
 `simnet`、`devnet`、または self-hosted REST サーバーを使う場合は `baseUrl` を明示してください。
 
-## Import
+## インポート
 
 ```ts
 import { useKaspaRest } from 'vue-kaspa'
@@ -39,7 +39,7 @@ import { useKaspaRest } from 'vue-kaspa'
 function useKaspaRest(options?: KaspaRestOptions): UseKaspaRestReturn
 ```
 
-## Options
+## オプション
 
 ```ts
 interface KaspaRestOptions {
@@ -115,7 +115,7 @@ const utxos = await rest.getUtxosByAddress('kaspa:qr...')
 const fee = await rest.getFeeEstimate()
 ```
 
-## Txid lookup
+## Txid 検索
 
 `getTransaction()` は手軽に使える検索パスです。transaction id で探し、見つからない場合は `null` を返します。
 
@@ -134,15 +134,15 @@ console.log(tx?.senderAddresses)
 
 ## キャッシュ
 
-The composable caches repeated identical requests in memory.
+この composable は、同一の繰り返しリクエストをメモリ上にキャッシュします。
 
-- `staleTime` controls when a cached result is considered fresh.
-- `cacheTime` controls how long the entry stays in memory.
-- Call `clearCache()` to drop cached entries manually.
+- `staleTime` は、キャッシュ済み結果をいつ新鮮とみなすかを決めます。
+- `cacheTime` は、エントリをメモリに保持する時間を決めます。
+- `clearCache()` を呼ぶと、キャッシュ済みエントリを手動で削除できます。
 
 ## 実験的なエンドポイント
 
-These REST routes are marked experimental in the official schema and may change without notice:
+以下の REST ルートは公式スキーマ上で experimental 扱いになっており、予告なく変更される可能性があります:
 - `GET /addresses/{kaspaAddress}/balance/{day_or_month}`
 - `GET /addresses/distribution`
 - `GET /addresses/top`
@@ -152,11 +152,11 @@ These REST routes are marked experimental in the official schema and may change 
 - `GET /transactions/count/{day_or_month}`
 - `GET /virtual-chain`
 
-They are still wrapped here for convenience, but treat them as unstable.
+利便性のためにこのラッパーで公開していますが、安定版としては扱わないでください。
 
-## Endpoint families
+## エンドポイント群
 
-The wrapper covers the main official REST surface:
+このラッパーは公式 REST の主要な範囲をカバーしています:
 
 - `GET /addresses/{kaspaAddress}/balance`
 - `GET /addresses/{kaspaAddress}/balance/{day_or_month}` `experimental`
@@ -203,4 +203,4 @@ The wrapper covers the main official REST surface:
 - `GET /transactions/count/{day_or_month}` `experimental`
 - `GET /virtual-chain` `experimental`
 
-For anything not wrapped yet, use `request()` directly.
+まだラップされていないものは、`request()` を直接使ってください。

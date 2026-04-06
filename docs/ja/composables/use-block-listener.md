@@ -2,7 +2,7 @@
 
 Kaspa DAG に追加された新しいブロックをリアクティブに監視します。`block-added` サブスクリプションを包み、各イベントを [`BlockInfo`](/ja/reference/types#blockinfo) 型に変換します。
 
-## Import
+## インポート
 
 ```ts
 import { useBlockListener } from 'vue-kaspa'
@@ -20,7 +20,7 @@ interface UseBlockListenerReturn {
 }
 ```
 
-## Options
+## オプション
 
 ```ts
 interface BlockListenerOptions {

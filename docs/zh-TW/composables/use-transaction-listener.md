@@ -2,7 +2,7 @@
 
 即時監聽 Kaspa 網路中已接受的交易 ID。它使用 `virtual-chain-changed` 訂閱，當交易被確認時就會捕捉到。
 
-## Import
+## 匯入
 
 ```ts
 import { useTransactionListener } from 'vue-kaspa'
@@ -26,7 +26,7 @@ interface UseTransactionListenerReturn {
 }
 ```
 
-## Options
+## 選項
 
 ```ts
 interface TransactionListenerOptions {

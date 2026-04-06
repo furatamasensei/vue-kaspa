@@ -2,15 +2,15 @@
 
 提供 KasWare 與 Kastle Kaspa 瀏覽器錢包擴充套件的型別化包裝。可用單一 API 管理連線狀態、送出 KAS 與簽署訊息。
 
-::: warning Web only
+::: warning 僅限 Web
 `useWallet` 依賴 `window.kasware` / `window.kastle`，**僅支援瀏覽器**。
 :::
 
-::: tip No WASM required
+::: tip 不需要 WASM
 它直接和瀏覽器擴充套件溝通，因此不需要先呼叫 `useKaspa().init()`。
 :::
 
-## Import
+## 匯入
 
 ```ts
 import { useWallet } from 'vue-kaspa'

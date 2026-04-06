@@ -2,7 +2,7 @@
 
 `useVueKaspa()` はアプリ用の統合ファサードです。各コンポーザブルを 1 つの型付きオブジェクトにまとめ、単一の import から必要な機能にアクセスできます。
 
-## Import
+## インポート
 
 ```ts
 import { useVueKaspa } from 'vue-kaspa'

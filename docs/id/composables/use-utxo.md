@@ -2,7 +2,7 @@
 
 Melacak UTXO untuk satu atau beberapa alamat secara real-time. Berlangganan ke stream notifikasi perubahan UTXO node dan secara otomatis menghitung saldo reaktif.
 
-## Import
+## Impor
 
 ```ts
 import { useUtxo } from 'vue-kaspa'
