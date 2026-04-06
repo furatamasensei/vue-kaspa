@@ -87,10 +87,14 @@ ${options.autoConnect !== false ? `
     addImports([
       { name: 'useKaspa', from: 'vue-kaspa' },
       { name: 'useRpc', from: 'vue-kaspa' },
+      { name: 'useKaspaRest', from: 'vue-kaspa' },
       { name: 'useUtxo', from: 'vue-kaspa' },
       { name: 'useTransaction', from: 'vue-kaspa' },
+      { name: 'useTransactionListener', from: 'vue-kaspa' },
+      { name: 'useBlockListener', from: 'vue-kaspa' },
       { name: 'useCrypto', from: 'vue-kaspa' },
       { name: 'useNetwork', from: 'vue-kaspa' },
+      { name: 'useWallet', from: 'vue-kaspa' },
       { name: 'useVueKaspa', from: 'vue-kaspa' },
     ])
   },
