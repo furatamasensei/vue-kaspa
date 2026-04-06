@@ -135,4 +135,227 @@ describe('useRpc', () => {
     await rpc.connect()
     expect(RpcClient).toHaveBeenCalledTimes(1)
   })
+
+  // ─── New query methods ───────────────────────────────────────────────────
+
+  it('getBlockDagInfo() returns dag info', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const info = await rpc.getBlockDagInfo()
+    expect(info.networkName).toBe('kaspa-mainnet')
+    expect(info.blockCount).toBe(1000n)
+    expect(info.tipHashes).toBeInstanceOf(Array)
+  })
+
+  it('getSink() returns sink hash', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const result = await rpc.getSink()
+    expect(result.sink).toBe('mock-sink-hash')
+  })
+
+  it('getSinkBlueScore() returns blue score', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const result = await rpc.getSinkBlueScore()
+    expect(result.sinkBlueScore).toBe(100n)
+  })
+
+  it('getConnectedPeerInfo() returns peer list', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const peers = await rpc.getConnectedPeerInfo()
+    expect(peers).toBeInstanceOf(Array)
+  })
+
+  it('getPeerAddresses() returns banned and known lists', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const result = await rpc.getPeerAddresses()
+    expect(result.banned).toBeInstanceOf(Array)
+    expect(result.known).toBeInstanceOf(Array)
+  })
+
+  it('getSyncStatus() returns sync state', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const status = await rpc.getSyncStatus()
+    expect(status.isSynced).toBe(true)
+  })
+
+  it('getMetrics() returns metrics object', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const metrics = await rpc.getMetrics()
+    expect(metrics).toBeDefined()
+  })
+
+  it('getMempoolEntry() returns a single entry', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const entry = await rpc.getMempoolEntry('mock-txid')
+    expect(entry.fee).toBe(1000n)
+    expect(entry.transaction.id).toBe('mock-txid')
+  })
+
+  it('getVirtualChainFromBlock() returns chain result', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const result = await rpc.getVirtualChainFromBlock('mock-hash', false)
+    expect(result.addedChainBlockHashes).toBeInstanceOf(Array)
+    expect(result.removedChainBlockHashes).toBeInstanceOf(Array)
+  })
+
+  it('estimateNetworkHashesPerSecond() returns hash rate', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const result = await rpc.estimateNetworkHashesPerSecond(1000)
+    expect(result.networkHashesPerSecond).toBe(1_000_000n)
+  })
+
+  it('getBlocks() passes options to client', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const blocks = await rpc.getBlocks({ includeBlocks: true })
+    expect(blocks).toBeInstanceOf(Array)
+    const manager = getRpcManager()
+    const client = manager.getClient() as unknown as { getBlocks: ReturnType<typeof vi.fn> }
+    expect(client.getBlocks).toHaveBeenCalledWith(expect.objectContaining({ includeBlocks: true }))
+  })
+
+  it('getCurrentNetwork() returns network string', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const network = await rpc.getCurrentNetwork()
+    expect(network).toBe('mainnet')
+  })
+
+  it('getHeaders() returns array', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const headers = await rpc.getHeaders('mock-hash', 10, true)
+    expect(headers).toBeInstanceOf(Array)
+  })
+
+  // ─── Admin / Mining ──────────────────────────────────────────────────────
+
+  it('submitBlock() calls client submitBlock', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const result = await rpc.submitBlock({}, false)
+    expect(result).toBeDefined()
+  })
+
+  it('addPeer() resolves without error', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.addPeer('127.0.0.1:16110')).resolves.toBeUndefined()
+  })
+
+  it('ban() resolves without error', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.ban('127.0.0.1')).resolves.toBeUndefined()
+  })
+
+  it('unban() resolves without error', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.unban('127.0.0.1')).resolves.toBeUndefined()
+  })
+
+  it('resolveFinalityConflict() resolves without error', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.resolveFinalityConflict('mock-hash')).resolves.toBeUndefined()
+  })
+
+  it('shutdown() resolves without error', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.shutdown()).resolves.toBeUndefined()
+  })
+
+  // ─── New subscriptions ───────────────────────────────────────────────────
+
+  it('subscribeDaaScore() / unsubscribeDaaScore() resolve', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.subscribeDaaScore()).resolves.toBeUndefined()
+    await expect(rpc.unsubscribeDaaScore()).resolves.toBeUndefined()
+  })
+
+  it('subscribeBlockAdded() / unsubscribeBlockAdded() resolve', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.subscribeBlockAdded()).resolves.toBeUndefined()
+    await expect(rpc.unsubscribeBlockAdded()).resolves.toBeUndefined()
+  })
+
+  it('subscribeVirtualChainChanged() / unsubscribeVirtualChainChanged() resolve', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.subscribeVirtualChainChanged(true)).resolves.toBeUndefined()
+    await expect(rpc.unsubscribeVirtualChainChanged(true)).resolves.toBeUndefined()
+  })
+
+  it('subscribeSinkBlueScoreChanged() / unsubscribeSinkBlueScoreChanged() resolve', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.subscribeSinkBlueScoreChanged()).resolves.toBeUndefined()
+    await expect(rpc.unsubscribeSinkBlueScoreChanged()).resolves.toBeUndefined()
+  })
+
+  it('subscribeVirtualDaaScoreChanged() / unsubscribeVirtualDaaScoreChanged() resolve', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.subscribeVirtualDaaScoreChanged()).resolves.toBeUndefined()
+    await expect(rpc.unsubscribeVirtualDaaScoreChanged()).resolves.toBeUndefined()
+  })
+
+  it('subscribeNewBlockTemplate() / unsubscribeNewBlockTemplate() resolve', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.subscribeNewBlockTemplate()).resolves.toBeUndefined()
+    await expect(rpc.unsubscribeNewBlockTemplate()).resolves.toBeUndefined()
+  })
+
+  it('subscribeFinalityConflict() / unsubscribeFinalityConflict() resolve', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.subscribeFinalityConflict()).resolves.toBeUndefined()
+    await expect(rpc.unsubscribeFinalityConflict()).resolves.toBeUndefined()
+  })
+
+  it('subscribeFinalityConflictResolved() / unsubscribeFinalityConflictResolved() resolve', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.subscribeFinalityConflictResolved()).resolves.toBeUndefined()
+    await expect(rpc.unsubscribeFinalityConflictResolved()).resolves.toBeUndefined()
+  })
+
+  it('subscribePruningPointUtxoSetOverride() / unsubscribePruningPointUtxoSetOverride() resolve', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    await expect(rpc.subscribePruningPointUtxoSetOverride()).resolves.toBeUndefined()
+    await expect(rpc.unsubscribePruningPointUtxoSetOverride()).resolves.toBeUndefined()
+  })
+
+  // ─── Error propagation ───────────────────────────────────────────────────
+
+  it('getBlockDagInfo() throws KaspaRpcError on failure', async () => {
+    const { rpc } = mountUseRpc()
+    await rpc.connect()
+    const manager = getRpcManager()
+    const client = manager.getClient() as unknown as { getBlockDagInfo: ReturnType<typeof vi.fn> }
+    client.getBlockDagInfo.mockRejectedValueOnce(new Error('dag error'))
+    await expect(rpc.getBlockDagInfo()).rejects.toThrow('getBlockDagInfo')
+  })
+
+  it('throws when calling any method without connection', async () => {
+    const { rpc } = mountUseRpc()
+    await expect(rpc.getBlockDagInfo()).rejects.toThrow()
+    await expect(rpc.getSink()).rejects.toThrow()
+    await expect(rpc.getConnectedPeerInfo()).rejects.toThrow()
+  })
 })

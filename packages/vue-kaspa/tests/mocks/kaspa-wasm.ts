@@ -17,10 +17,30 @@ export function createRpcClientMock() {
     url: 'ws://mock-node:17110',
     addEventListener: vi.fn(),
     removeEventListener: vi.fn(),
+
+    // ─── Subscriptions ──────────────────────────────────────────────────────
+    subscribeDaaScore: vi.fn().mockResolvedValue(undefined),
+    unsubscribeDaaScore: vi.fn().mockResolvedValue(undefined),
     subscribeVirtualDaaScoreChanged: vi.fn().mockResolvedValue(undefined),
+    unsubscribeVirtualDaaScoreChanged: vi.fn().mockResolvedValue(undefined),
     subscribeBlockAdded: vi.fn().mockResolvedValue(undefined),
+    unsubscribeBlockAdded: vi.fn().mockResolvedValue(undefined),
     subscribeUtxosChanged: vi.fn().mockResolvedValue(undefined),
     unsubscribeUtxosChanged: vi.fn().mockResolvedValue(undefined),
+    subscribeVirtualChainChanged: vi.fn().mockResolvedValue(undefined),
+    unsubscribeVirtualChainChanged: vi.fn().mockResolvedValue(undefined),
+    subscribeFinalityConflict: vi.fn().mockResolvedValue(undefined),
+    unsubscribeFinalityConflict: vi.fn().mockResolvedValue(undefined),
+    subscribeFinalityConflictResolved: vi.fn().mockResolvedValue(undefined),
+    unsubscribeFinalityConflictResolved: vi.fn().mockResolvedValue(undefined),
+    subscribeSinkBlueScoreChanged: vi.fn().mockResolvedValue(undefined),
+    unsubscribeSinkBlueScoreChanged: vi.fn().mockResolvedValue(undefined),
+    subscribePruningPointUtxoSetOverride: vi.fn().mockResolvedValue(undefined),
+    unsubscribePruningPointUtxoSetOverride: vi.fn().mockResolvedValue(undefined),
+    subscribeNewBlockTemplate: vi.fn().mockResolvedValue(undefined),
+    unsubscribeNewBlockTemplate: vi.fn().mockResolvedValue(undefined),
+
+    // ─── Server info ────────────────────────────────────────────────────────
     getServerInfo: vi.fn().mockResolvedValue({
       isUtxoIndexEnabled: true,
       isSynced: true,
@@ -37,15 +57,56 @@ export function createRpcClientMock() {
       serverVersion: '1.1.0',
       networkId: 'kaspa-mainnet',
     }),
+    getSyncStatus: vi.fn().mockResolvedValue({ isSynced: true }),
+    getMetrics: vi.fn().mockResolvedValue({
+      processMetrics: {},
+      connectionMetrics: { connectedPeers: 8 },
+      bandwidthMetrics: {},
+      consensusMetrics: {},
+      storageMetrics: {},
+      blockchainMetrics: {},
+    }),
+
+    // ─── Block queries ──────────────────────────────────────────────────────
     getBlock: vi.fn().mockResolvedValue({
       block: { verboseData: { hash: 'mock-hash', timestamp: '1000000', blueScore: '100' }, transactions: [] },
     }),
+    getBlocks: vi.fn().mockResolvedValue({ blockHashes: ['mock-hash-1', 'mock-hash-2'], blocks: [] }),
     getBlockCount: vi.fn().mockResolvedValue({ blockCount: 1000n, headerCount: 1000n }),
+    getBlockDagInfo: vi.fn().mockResolvedValue({
+      networkName: 'kaspa-mainnet',
+      blockCount: 1000n,
+      headerCount: 1000n,
+      tipHashes: ['mock-tip-hash'],
+      difficulty: 1234567.89,
+      pastMedianTime: 1700000000000n,
+      virtualParentHashes: ['mock-parent-hash'],
+      pruningPointHash: 'mock-pruning-hash',
+      virtualDaaScore: 500000n,
+    }),
+    getHeaders: vi.fn().mockResolvedValue({ headers: [] }),
+    getSink: vi.fn().mockResolvedValue({ sink: 'mock-sink-hash' }),
+    getSinkBlueScore: vi.fn().mockResolvedValue({ sinkBlueScore: 100n }),
+    getVirtualChainFromBlock: vi.fn().mockResolvedValue({
+      removedChainBlockHashes: [],
+      addedChainBlockHashes: ['mock-added-hash'],
+      acceptedTransactionIds: [],
+    }),
+    getBlockTemplate: vi.fn().mockResolvedValue({ block: {} }),
+
+    // ─── Balance / UTXO ─────────────────────────────────────────────────────
     getBalanceByAddress: vi.fn().mockResolvedValue({ balance: 1_000_000_000n }),
     getBalancesByAddresses: vi.fn().mockResolvedValue({ balances: [] }),
     getUtxosByAddresses: vi.fn().mockResolvedValue({ entries: [] }),
+
+    // ─── Mempool ────────────────────────────────────────────────────────────
+    getMempoolEntry: vi.fn().mockResolvedValue({
+      mempoolEntry: { fee: 1000n, isOrphan: false, transaction: { id: 'mock-txid', inputs: [], outputs: [] } },
+    }),
     getMempoolEntries: vi.fn().mockResolvedValue({ mempoolEntries: [] }),
     getMempoolEntriesByAddresses: vi.fn().mockResolvedValue({ addressEntries: [] }),
+
+    // ─── Fee / supply ───────────────────────────────────────────────────────
     getFeeEstimate: vi.fn().mockResolvedValue({
       estimate: {
         priorityBucket: { feerate: 1.0, estimatedSeconds: 10 },
@@ -53,11 +114,26 @@ export function createRpcClientMock() {
         lowBuckets: [],
       },
     }),
-    submitTransaction: vi.fn().mockResolvedValue({ transactionId: 'mock-txid-0000' }),
     getCoinSupply: vi.fn().mockResolvedValue({
       circulatingCoinSupply: 20_000_000_000n,
       maxCoinSupply: 28_700_000_000n,
     }),
+
+    // ─── Network / peers ────────────────────────────────────────────────────
+    getConnectedPeerInfo: vi.fn().mockResolvedValue({ peerInfo: [] }),
+    getPeerAddresses: vi.fn().mockResolvedValue({ banned: [], known: [] }),
+    getCurrentNetwork: vi.fn().mockResolvedValue({ currentNetwork: 'mainnet' }),
+    getSubnetwork: vi.fn().mockResolvedValue({}),
+    estimateNetworkHashesPerSecond: vi.fn().mockResolvedValue({ networkHashesPerSecond: 1_000_000n }),
+
+    // ─── Transactions / Mining / Admin ──────────────────────────────────────
+    submitTransaction: vi.fn().mockResolvedValue({ transactionId: 'mock-txid-0000' }),
+    submitBlock: vi.fn().mockResolvedValue({ report: {} }),
+    addPeer: vi.fn().mockResolvedValue(undefined),
+    ban: vi.fn().mockResolvedValue(undefined),
+    unban: vi.fn().mockResolvedValue(undefined),
+    resolveFinalityConflict: vi.fn().mockResolvedValue(undefined),
+    shutdown: vi.fn().mockResolvedValue(undefined),
     ping: vi.fn().mockResolvedValue(undefined),
   }
 }
