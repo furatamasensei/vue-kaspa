@@ -70,6 +70,17 @@ await rpc.reconnect()
 
 `connect()` is idempotent — calling it while already connected is a no-op.
 
+## High-level listeners
+
+For the common case of listening to new blocks or confirmed transactions, use the dedicated composables instead of managing subscriptions manually:
+
+| Composable | Subscribes to | Exposes |
+|---|---|---|
+| [`useBlockListener()`](/composables/use-block-listener) | `block-added` | `blocks: Ref<BlockInfo[]>` |
+| [`useTransactionListener()`](/composables/use-transaction-listener) | `virtual-chain-changed` | `transactions: Ref<string[]>` |
+
+Both handle subscribe/unsubscribe lifecycle automatically and accumulate a reactive history.
+
 ## Query methods
 
 All query methods require an active connection. They throw `KaspaRpcError` if the node is unreachable or returns an error.
@@ -84,15 +95,53 @@ const info = await rpc.getInfo()
 // Chain block counts
 const { blockCount, headerCount } = await rpc.getBlockCount()
 
+// DAG information
+const dag = await rpc.getBlockDagInfo()
+// { networkName, blockCount, headerCount, tipHashes, difficulty, virtualDaaScore, ... }
+
 // Connectivity check
 await rpc.ping()
+
+// Sync status
+const { isSynced } = await rpc.getSyncStatus()
+
+// Current network name
+const network = await rpc.getCurrentNetwork()
+
+// Estimated network hash rate
+const { networkHashesPerSecond } = await rpc.estimateNetworkHashesPerSecond(1000)
+// Optional second arg: tipHash string
+
+// Node metrics
+const metrics = await rpc.getMetrics()
 ```
 
 ### Blocks
 
 ```ts
+// Single block by hash
 const block = await rpc.getBlock('abc123...')
 // { hash, timestamp, blueScore, transactions: string[] }
+
+// Range of blocks from a low hash
+const blocks = await rpc.getBlocks({ lowHash: 'abc123...', includeTransactions: false })
+
+// Block headers
+const headers = await rpc.getHeaders('startHash', 100, true)
+
+// DAG sink (virtual selected tip)
+const { sink } = await rpc.getSink()
+const { sinkBlueScore } = await rpc.getSinkBlueScore()
+
+// Virtual chain from a given block
+const chain = await rpc.getVirtualChainFromBlock('startHash', true)
+// { removedChainBlockHashes, addedChainBlockHashes, acceptedTransactionIds? }
+
+// Block template (for mining)
+const template = await rpc.getBlockTemplate('kaspa:qr...', 'optional-extra-data')
+
+// Subnetwork info
+const subnet = await rpc.getSubnetwork('subnetworkId')
 ```
 
 ### Balances
@@ -120,6 +169,9 @@ const entries = await rpc.getUtxosByAddresses(['kaspa:qr...'])
 ### Mempool
 
 ```ts
+// Single entry by transaction ID
+const entry = await rpc.getMempoolEntry('txid...')
+
 // All mempool entries
 const entries = await rpc.getMempoolEntries()
 const entriesWithOrphans = await rpc.getMempoolEntries(true)
@@ -148,11 +200,41 @@ await tx.send({ ..., feeRate: estimate.priorityBucket.feerate })
 const { circulatingCoinSupply, maxCoinSupply } = await rpc.getCoinSupply()
 ```
 
+### Peers
+
+```ts
+const peers = await rpc.getConnectedPeerInfo()
+// peers: ConnectedPeerInfo[]
+
+const { banned, known } = await rpc.getPeerAddresses()
+```
+
 ### Transaction submission
 
 ```ts
 // Submit a raw signed transaction (prefer useTransaction().send() for a higher-level API)
 const txId = await rpc.submitTransaction(rawTx)
+```
+
+### Mining / Admin
+
+These methods require elevated node permissions.
+
+```ts
+// Submit a mined block
+await rpc.submitBlock(block)
+await rpc.submitBlock(block, true) // allowNonDaaBlocks
+
+// Peer management
+await rpc.addPeer('1.2.3.4:16111', false)
+await rpc.ban('1.2.3.4')
+await rpc.unban('1.2.3.4')
+
+// Resolve a finality conflict
+await rpc.resolveFinalityConflict('finalityBlockHash')
+
+// Graceful node shutdown
+await rpc.shutdown()
 ```
 
 ### UTXO subscriptions (low-level)
@@ -194,6 +276,48 @@ rpc.off('block-added', handler)
 ```
 
 Handlers registered inside a Vue component's `<script setup>` are automatically removed on `onUnmounted`. No manual cleanup needed.
+
+## Subscription methods
+
+Before events fire, you must tell the node which events to send. Each subscription has a matching unsubscribe method.
+
+| Subscribe | Unsubscribe | Event emitted |
+|---|---|---|
+| `subscribeDaaScore()` | `unsubscribeDaaScore()` | `virtual-daa-score-changed` |
+| `subscribeBlockAdded()` | `unsubscribeBlockAdded()` | `block-added` |
+| `subscribeVirtualChainChanged(includeAcceptedTxIds)` | `unsubscribeVirtualChainChanged(includeAcceptedTxIds)` | `virtual-chain-changed` |
+| `subscribeUtxosChanged(addresses)` | `unsubscribeUtxosChanged(addresses)` | `utxos-changed` |
+| `subscribeVirtualDaaScoreChanged()` | `unsubscribeVirtualDaaScoreChanged()` | `virtual-daa-score-changed` |
+| `subscribeSinkBlueScoreChanged()` | `unsubscribeSinkBlueScoreChanged()` | `sink-blue-score-changed` |
+| `subscribeNewBlockTemplate()` | `unsubscribeNewBlockTemplate()` | `new-block-template` |
+| `subscribeFinalityConflict()` | `unsubscribeFinalityConflict()` | `finality-conflict` |
+| `subscribeFinalityConflictResolved()` | `unsubscribeFinalityConflictResolved()` | `finality-conflict-resolved` |
+| `subscribePruningPointUtxoSetOverride()` | `unsubscribePruningPointUtxoSetOverride()` | `pruning-point-utxo-set-override` |
+
+::: tip Higher-level alternatives
+For `block-added` use [`useBlockListener()`](/composables/use-block-listener).
+For `virtual-chain-changed` (accepted transactions) use [`useTransactionListener()`](/composables/use-transaction-listener).
+Both handle subscribe/unsubscribe lifecycle automatically.
+:::
+
+```ts
+// Example: subscribe to new blocks and listen
+await rpc.subscribeBlockAdded()
+rpc.on('block-added', (event) => {
+  console.log('New block:', event.data)
+})
+
+// With accepted transaction IDs
+await rpc.subscribeVirtualChainChanged(true)
+rpc.on('virtual-chain-changed', (event) => {
+  const accepted = event.data.acceptedTransactionIds ?? []
+  console.log('Accepted txs:', accepted.flatMap(e => e.acceptedTransactionIds))
+})
+
+// Clean up
+await rpc.unsubscribeBlockAdded()
+await rpc.unsubscribeVirtualChainChanged(true)
+```
 
 ## All event types
 

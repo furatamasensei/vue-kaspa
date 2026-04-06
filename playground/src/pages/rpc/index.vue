@@ -39,6 +39,8 @@ const connVariant: Record<string, BadgeVariant> = {
         { label: 'Mempool Viewer', to: '/rpc/mempool' },
         { label: 'Fee Estimate', to: '/rpc/fees' },
         { label: 'Live Event Log', to: '/rpc/events' },
+        { label: 'Block Listener', to: '/rpc/block-listener' },
+        { label: 'Tx Listener', to: '/rpc/tx-listener' },
       ]" :key="item.to" :to="item.to"
         class="flex items-center justify-center rounded-lg border border-border bg-card px-4 py-5 text-sm font-medium text-card-foreground transition-colors hover:border-primary/50 hover:text-primary no-underline text-center">
         {{ item.label }}

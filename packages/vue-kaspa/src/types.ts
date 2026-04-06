@@ -1,4 +1,4 @@
-import type { Ref, ComputedRef } from 'vue'
+import type { ComputedRef, Ref } from 'vue'
 
 // ─── Plugin Options ────────────────────────────────────────────────────────
 
@@ -67,6 +67,54 @@ export interface BlockInfo {
   timestamp: number
   blueScore: bigint
   transactions: string[]
+}
+
+export interface BlockDagInfo {
+  networkName: string
+  blockCount: bigint
+  headerCount: bigint
+  tipHashes: string[]
+  difficulty: number
+  pastMedianTime: bigint
+  virtualParentHashes: string[]
+  pruningPointHash: string
+  virtualDaaScore: bigint
+}
+
+export interface ConnectedPeerInfo {
+  id: string
+  address: string
+  isIbdPeer: boolean
+  lastPingDuration: bigint
+  lastPingTime: bigint
+  timeOffset: bigint
+  userAgent: string
+  advertisedProtocolVersion: number
+  timeConnected: bigint
+  isOutbound: boolean
+}
+
+export interface PeerAddress {
+  addr: string
+  timestamp: bigint
+}
+
+export interface VirtualChainResult {
+  removedChainBlockHashes: string[]
+  addedChainBlockHashes: string[]
+  acceptedTransactionIds?: Array<{
+    acceptingBlockHash: string
+    acceptedTransactionIds: string[]
+  }>
+}
+
+export interface GetBlocksOptions {
+  /** Only return blocks with blue score higher than this block's */
+  lowHash?: string
+  /** Include full block data (default: true) */
+  includeBlocks?: boolean
+  /** Include transaction data inside blocks (default: false) */
+  includeTransactions?: boolean
 }
 
 /** Flat UTXO entry — matches kaspa-wasm IUtxoEntry; safe to pass directly to createTransactions() */
@@ -249,22 +297,69 @@ export interface UseRpcReturn {
   connect(options?: RpcOptions): Promise<void>
   disconnect(): Promise<void>
   reconnect(): Promise<void>
+
+  // ─── Query ───────────────────────────────────────────────────────────────
   getInfo(): Promise<ServerInfo>
   getBlock(hash: string): Promise<BlockInfo>
+  getBlocks(options?: GetBlocksOptions): Promise<unknown[]>
   getBlockCount(): Promise<{ blockCount: bigint; headerCount: bigint }>
+  getBlockDagInfo(): Promise<BlockDagInfo>
+  getHeaders(startHash: string, limit: number, isAscending: boolean): Promise<unknown[]>
+  getSink(): Promise<{ sink: string }>
+  getSinkBlueScore(): Promise<{ sinkBlueScore: bigint }>
+  getVirtualChainFromBlock(startHash: string, includeAcceptedTxIds: boolean): Promise<VirtualChainResult>
   getBalanceByAddress(address: string): Promise<BalanceResult>
   getBalancesByAddresses(addresses: string[]): Promise<BalanceResult[]>
   getUtxosByAddresses(addresses: string[]): Promise<UtxoEntry[]>
+  getMempoolEntry(transactionId: string): Promise<MempoolEntry>
   getMempoolEntries(includeOrphanPool?: boolean): Promise<MempoolEntry[]>
   getMempoolEntriesByAddresses(addresses: string[]): Promise<MempoolEntry[]>
   getFeeEstimate(): Promise<FeeEstimate>
-  submitTransaction(tx: unknown): Promise<string>
   getCoinSupply(): Promise<{ circulatingCoinSupply: bigint; maxCoinSupply: bigint }>
-  ping(): Promise<void>
-  /** Subscribe node to UTXO change notifications for the given addresses */
+  getConnectedPeerInfo(): Promise<ConnectedPeerInfo[]>
+  getPeerAddresses(): Promise<{ banned: PeerAddress[]; known: PeerAddress[] }>
+  getMetrics(): Promise<unknown>
+  getSyncStatus(): Promise<{ isSynced: boolean }>
+  getCurrentNetwork(): Promise<string>
+  getSubnetwork(subnetworkId: string): Promise<unknown>
+  estimateNetworkHashesPerSecond(windowSize: number, tipHash?: string): Promise<{ networkHashesPerSecond: bigint }>
+  getBlockTemplate(payAddress: string, extraData?: string): Promise<unknown>
+
+  // ─── Transactions ────────────────────────────────────────────────────────
+  submitTransaction(tx: unknown): Promise<string>
+
+  // ─── Mining / Admin ──────────────────────────────────────────────────────
+  submitBlock(block: unknown, allowNonDaaBlocks?: boolean): Promise<unknown>
+  addPeer(peerAddress: string, isTrustPeer?: boolean): Promise<void>
+  ban(ip: string): Promise<void>
+  unban(ip: string): Promise<void>
+  resolveFinalityConflict(finalityBlockHash: string): Promise<void>
+  shutdown(): Promise<void>
+
+  // ─── Subscriptions ───────────────────────────────────────────────────────
+  subscribeDaaScore(): Promise<void>
+  unsubscribeDaaScore(): Promise<void>
   subscribeUtxosChanged(addresses: string[]): Promise<void>
-  /** Unsubscribe node from UTXO change notifications for the given addresses */
   unsubscribeUtxosChanged(addresses: string[]): Promise<void>
+  subscribeVirtualChainChanged(includeAcceptedTxIds: boolean): Promise<void>
+  unsubscribeVirtualChainChanged(includeAcceptedTxIds: boolean): Promise<void>
+  subscribeBlockAdded(): Promise<void>
+  unsubscribeBlockAdded(): Promise<void>
+  subscribeFinalityConflict(): Promise<void>
+  unsubscribeFinalityConflict(): Promise<void>
+  subscribeFinalityConflictResolved(): Promise<void>
+  unsubscribeFinalityConflictResolved(): Promise<void>
+  subscribeSinkBlueScoreChanged(): Promise<void>
+  unsubscribeSinkBlueScoreChanged(): Promise<void>
+  subscribeVirtualDaaScoreChanged(): Promise<void>
+  unsubscribeVirtualDaaScoreChanged(): Promise<void>
+  subscribePruningPointUtxoSetOverride(): Promise<void>
+  unsubscribePruningPointUtxoSetOverride(): Promise<void>
+  subscribeNewBlockTemplate(): Promise<void>
+  unsubscribeNewBlockTemplate(): Promise<void>
+
+  // ─── Events ──────────────────────────────────────────────────────────────
+  ping(): Promise<void>
   on<T = unknown>(event: RpcEventType, handler: (event: RpcEvent<T>) => void): void
   off<T = unknown>(event: RpcEventType, handler: (event: RpcEvent<T>) => void): void
   eventLog: Readonly<Ref<RpcEvent[]>>
@@ -288,6 +383,46 @@ export interface UseUtxoReturn {
   refresh(): Promise<void>
   /** Remove all entries and unsubscribe from all addresses */
   clear(): Promise<void>
+}
+
+export interface BlockListenerOptions {
+  /** Maximum number of blocks to keep in history. Default: 100 */
+  maxHistory?: number
+  /** Automatically subscribe when the composable mounts. Default: true */
+  autoSubscribe?: boolean
+}
+
+export interface UseBlockListenerReturn {
+  /** Recently added blocks, most recent first */
+  blocks: Readonly<Ref<BlockInfo[]>>
+  /** True while the listener is actively subscribed */
+  isListening: ComputedRef<boolean>
+  /** Subscribe to block-added and start collecting blocks */
+  subscribe(): Promise<void>
+  /** Unsubscribe and stop collecting */
+  unsubscribe(): Promise<void>
+  /** Clear the block history */
+  clear(): void
+}
+
+export interface TransactionListenerOptions {
+  /** Maximum number of transaction IDs to keep in history. Default: 100 */
+  maxHistory?: number
+  /** Automatically subscribe when the composable mounts. Default: true */
+  autoSubscribe?: boolean
+}
+
+export interface UseTransactionListenerReturn {
+  /** Recently accepted transaction IDs, most recent first */
+  transactions: Readonly<Ref<string[]>>
+  /** True while the listener is actively subscribed */
+  isListening: ComputedRef<boolean>
+  /** Subscribe to virtual-chain-changed and start collecting transaction IDs */
+  subscribe(): Promise<void>
+  /** Unsubscribe and stop collecting */
+  unsubscribe(): Promise<void>
+  /** Clear the transaction history */
+  clear(): void
 }
 
 export interface UseTransactionReturn {

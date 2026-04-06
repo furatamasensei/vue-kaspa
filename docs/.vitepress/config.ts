@@ -48,6 +48,8 @@ const sidebar = (locale: string) => {
         { text: 'useCrypto', link: `${base}/composables/use-crypto` },
         { text: 'useNetwork', link: `${base}/composables/use-network` },
         { text: 'useWallet', link: `${base}/composables/use-wallet` },
+        { text: 'useBlockListener', link: `${base}/composables/use-block-listener` },
+        { text: 'useTransactionListener', link: `${base}/composables/use-transaction-listener` },
       ],
     },
     {

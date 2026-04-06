@@ -9,6 +9,8 @@ export { useKaspa } from './composables/useKaspa'
 export { useRpc } from './composables/useRpc'
 export { useUtxo } from './composables/useUtxo'
 export { useTransaction } from './composables/useTransaction'
+export { useTransactionListener } from './composables/useTransactionListener'
+export { useBlockListener } from './composables/useBlockListener'
 export { useCrypto } from './composables/useCrypto'
 export { useNetwork } from './composables/useNetwork'
 export { useWallet } from './composables/useWallet'
@@ -51,6 +53,10 @@ export type {
   UseRpcReturn,
   UseUtxoReturn,
   UseTransactionReturn,
+  BlockListenerOptions,
+  UseBlockListenerReturn,
+  TransactionListenerOptions,
+  UseTransactionListenerReturn,
   UseCryptoReturn,
   UseNetworkReturn,
   UseWalletReturn,
