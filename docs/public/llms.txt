@@ -2,7 +2,7 @@
 
 > Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by kaspa-wasm.
 
-Vue Kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 6 composables: useKaspa (WASM lifecycle), useRpc (WebSocket RPC connection, queries, events), useUtxo (real-time UTXO tracking, reactive balance), useTransaction (transaction building, signing, submitting), useCrypto (key generation, BIP-32 HD derivation, message signing, unit conversion), useNetwork (network switching). Also ships a Nuxt 3 module with auto-imports.
+Vue Kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 7 composables: useKaspa (WASM lifecycle), useRpc (WebSocket RPC connection, queries, events), useKaspaRest (official REST API reads for tx lookup, balances, address history, block explorer data), useUtxo (real-time UTXO tracking, reactive balance), useTransaction (transaction building, signing, submitting), useCrypto (key generation, BIP-32 HD derivation, message signing, unit conversion), useNetwork (network switching). Also ships a Nuxt 3 module with auto-imports.
 
 ## Docs
 
@@ -14,6 +14,7 @@ Vue Kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 6 composables: useK
 - [Error Handling](/guide/error-handling): KaspaError hierarchy, try/catch patterns, error refs on composables
 - [useKaspa](/composables/use-kaspa): WasmStatus lifecycle, init(), reset(), singleton note, panic hook
 - [useRpc](/composables/use-rpc): Connection state machine, all 12 query methods, event subscriptions, all 11 RpcEventType values, auto-reconnect
+- [useKaspaRest](/composables/use-kaspa-rest): Official REST wrapper, txid lookup, balances, address history, block explorer reads, active-network base URL, built-in caching
 - [useUtxo](/composables/use-utxo): track/untrack/refresh/clear, UtxoBalance (mature/pending/outgoing), auto-cleanup, passing entries to useTransaction
 - [useTransaction](/composables/use-transaction): estimate/create/send, CreateTransactionSettings, PendingTx interface, UTXO compounding, hardware wallet pattern
 - [useCrypto](/composables/use-crypto): generateMnemonic, mnemonicToKeypair, derivePublicKeys (BIP-32), address utilities, signMessage/verifyMessage, kaspaToSompi/sompiToKaspa
@@ -26,6 +27,7 @@ Vue Kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 6 composables: useK
 
 - Amounts: always `bigint` in sompi. 1 KAS = 100_000_000n sompi. Use `useCrypto().kaspaToSompi()` for user input.
 - Singleton state: one RPC connection and WASM instance per app — `useRpc()` from 10 components all share the same reactive refs.
+- REST: `useKaspaRest()` follows the current network by default and is better for cached read-heavy workflows; use `getTransactionById()` for direct txid lookup.
 - Auto-cleanup: `useRpc().on()` handlers and `useUtxo()` tracking auto-cleanup on component unmount. Call `clear()` manually in Pinia stores.
 - autoConnect: with `autoConnect: true` (default), WASM loads and RPC connects on plugin install — no manual `init()` needed.
 - Network: `useNetwork().switchNetwork()` disconnects and reconnects RPC automatically. `currentNetwork` is module-level (affects whole app).

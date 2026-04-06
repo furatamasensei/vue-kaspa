@@ -283,6 +283,32 @@ Singleton: changing currentNetwork affects all composable instances.
 
 ---
 
+## useKaspaRest(options?) — official REST API reads
+
+```ts
+const rest = useKaspaRest()
+
+// Reactive state:
+rest.baseUrl       // ComputedRef<string>
+rest.cacheSize     // ComputedRef<number>
+
+// Read-heavy lookups:
+await rest.getTransactionById(txid)      // typed tx lookup, sender addresses included when available
+await rest.getAddressBalance(address)    // typed balance lookup
+await rest.getBlock(hash, true)          // block data, optional transactions
+await rest.getHealth()                   // node/REST health
+
+// Write-like REST calls:
+await rest.submitTransaction(tx)         // submit to REST API
+await rest.calculateTransactionMass(tx)  // estimate tx mass
+```
+
+REST follows the active network by default and can target a self-hosted REST base URL.
+Use it for cached read-heavy workflows, txid lookup, and block explorer style data.
+Experimental REST endpoints are marked as experimental in the typed docs.
+
+---
+
 ## Error Classes
 
 ```ts
@@ -338,7 +364,7 @@ const AVAILABLE_NETWORKS: readonly KaspaNetwork[]
 
 ```ts
 import { createApp } from 'vue'
-import { VueKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
+import { VueKaspa, useRpc, useKaspaRest, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
 
 // 1. Install plugin
 const app = createApp(App)
@@ -346,6 +372,7 @@ app.use(VueKaspa, { network: 'mainnet', autoConnect: true })
 
 // 2. In a component:
 const rpc = useRpc()
+const rest = useKaspaRest()
 const utxo = useUtxo()
 const tx = useTransaction()
 const crypto = useCrypto()

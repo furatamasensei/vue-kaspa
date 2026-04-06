@@ -13,7 +13,7 @@ Types entry:   ./dist/index.d.ts
 Nuxt entry:    vue-kaspa/nuxt
 ```
 
-**Exports:** `VueKaspa`, `useKaspa`, `useRpc`, `useUtxo`, `useTransaction`, `useCrypto`, `useNetwork`, `useVueKaspa`, error classes, 24 TypeScript types, `AVAILABLE_NETWORKS`
+**Exports:** `VueKaspa`, `useKaspa`, `useRpc`, `useKaspaRest`, `useUtxo`, `useTransaction`, `useCrypto`, `useNetwork`, `useVueKaspa`, error classes, 24 TypeScript types, `AVAILABLE_NETWORKS`
 
 ## Machine-readable files
 
@@ -57,6 +57,14 @@ rpc.on('block-added', handler)
 // Automatically removed when component unmounts
 ```
 
+**useKaspaRest follows the active network and is read-heavy**
+```ts
+// Best for tx lookup, balances, address history, block explorer data
+const rest = useKaspaRest()
+// Follows current network by default; can be pointed at self-hosted REST too
+await rest.getTransactionById(txid)
+```
+
 **useUtxo auto-clears in components; manual clear() needed in stores**
 ```ts
 // Component: auto-cleared on unmount ✓
@@ -98,6 +106,12 @@ Expected: calls `derivePublicKeys(phrase, 'mainnet', 10, 5)`, iterates `receive`
 > I want to react to new blocks and UTXO changes on my address using vue-kaspa's `useRpc()`. Show me how to subscribe and clean up on component unmount.
 
 Expected: `rpc.on('block-added', ...)`, `rpc.on('utxos-changed', ...)`, notes auto-cleanup inside `<script setup>`.
+
+### Look up a transaction via REST
+
+> I have a txid and want the sender addresses and block acceptance info using vue-kaspa's `useKaspaRest()`. Show me the typed lookup and mention when REST is the right tool.
+
+Expected: uses `rest.getTransactionById(txid)` or `rest.getTransaction(txid)`, notes active-network REST base URL, cached read path, and txid/address-history use cases.
 
 ### Check fee before sending
 

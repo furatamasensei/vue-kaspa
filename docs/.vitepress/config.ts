@@ -44,6 +44,7 @@ const sidebar = (locale: string) => {
         ...(locale === '' ? [{ text: 'useVueKaspa', link: `${base}/composables/use-vue-kaspa` }] : []),
         { text: 'useKaspa', link: `${base}/composables/use-kaspa` },
         { text: 'useRpc', link: `${base}/composables/use-rpc` },
+        { text: 'useKaspaRest', link: `${base}/composables/use-kaspa-rest` },
         { text: 'useUtxo', link: `${base}/composables/use-utxo` },
         { text: 'useTransaction', link: `${base}/composables/use-transaction` },
         { text: 'useCrypto', link: `${base}/composables/use-crypto` },
