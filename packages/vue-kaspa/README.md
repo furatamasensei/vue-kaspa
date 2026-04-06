@@ -15,6 +15,9 @@ vue-kaspa wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kas
 - **`useTransaction`** — estimate, build, sign, and submit transactions; UTXO compounding handled automatically
 - **`useCrypto`** — BIP-39 mnemonic, BIP-32 HD derivation, message signing, KAS ↔ sompi conversion
 - **`useNetwork`** — network switching (mainnet, testnet-10, testnet-12, simnet, devnet)
+- **`useWallet`** — KasWare/Kastle browser wallet integration
+- **`useBlockListener`** — raw new-block subscription helper
+- **`useTransactionListener`** — confirmed transaction tracking and sender address resolution
 - **`useVueKaspa`** — unified facade for the full app workflow
 - **Nuxt 3 module** — auto-imports, client-only plugin, SSR-safe out of the box
 - **Vue DevTools** — inspector panel and event timeline
@@ -108,6 +111,10 @@ Full docs at **[vue-kaspa.vercel.app](https://vue-kaspa.vercel.app)**
 - [useUtxo](https://vue-kaspa.vercel.app/composables/use-utxo)
 - [useTransaction](https://vue-kaspa.vercel.app/composables/use-transaction)
 - [useCrypto](https://vue-kaspa.vercel.app/composables/use-crypto)
+- [useWallet](https://vue-kaspa.vercel.app/composables/use-wallet)
+- [useBlockListener](https://vue-kaspa.vercel.app/composables/use-block-listener)
+- [useTransactionListener](https://vue-kaspa.vercel.app/composables/use-transaction-listener)
+- [useVueKaspa](https://vue-kaspa.vercel.app/composables/use-vue-kaspa)
 - [TypeScript Types](https://vue-kaspa.vercel.app/reference/types)
 
 ## Peer dependencies

@@ -1,8 +1,8 @@
 # Vue Kaspa
 
-> Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by kaspa-wasm.
+> Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by @vue-kaspa/kaspa-wasm.
 
-Vue Kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 7 composables: useKaspa (WASM lifecycle), useRpc (WebSocket RPC connection, queries, events), useKaspaRest (official REST API reads for tx lookup, balances, address history, block explorer data), useUtxo (real-time UTXO tracking, reactive balance), useTransaction (transaction building, signing, submitting), useCrypto (key generation, BIP-32 HD derivation, message signing, unit conversion), useNetwork (network switching). Also ships a Nuxt 3 module with auto-imports.
+Vue Kaspa wraps @vue-kaspa/kaspa-wasm with Vue 3 reactivity and exposes 11 composables: useKaspa (WASM lifecycle), useRpc (WebSocket RPC connection, queries, events), useKaspaRest (official REST API reads for tx lookup, balances, address history, block explorer data), useUtxo (real-time UTXO tracking, reactive balance), useTransaction (transaction building, signing, submitting), useTransactionListener (confirmed tx ID tracking and sender lookup), useBlockListener (new block tracking), useCrypto (key generation, BIP-32 HD derivation, message signing, unit conversion), useNetwork (network switching), useWallet (browser wallet extension integration), useVueKaspa (unified facade). Also ships a Nuxt 3 module with auto-imports.
 
 ## Docs
 
@@ -17,9 +17,13 @@ Vue Kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 7 composables: useK
 - [useKaspaRest](/composables/use-kaspa-rest): Official REST wrapper, txid lookup, balances, address history, block explorer reads, active-network base URL, built-in caching
 - [useUtxo](/composables/use-utxo): track/untrack/refresh/clear, UtxoBalance (mature/pending/outgoing), auto-cleanup, passing entries to useTransaction
 - [useTransaction](/composables/use-transaction): estimate/create/send, CreateTransactionSettings, PendingTx interface, UTXO compounding, hardware wallet pattern
+- [useTransactionListener](/composables/use-transaction-listener): accepted tx IDs, sender address resolution, virtual-chain-changed subscription
+- [useBlockListener](/composables/use-block-listener): block-added subscription, block history, manual subscribe/unsubscribe
 - [useCrypto](/composables/use-crypto): generateMnemonic, mnemonicToKeypair, derivePublicKeys (BIP-32), address utilities, signMessage/verifyMessage, kaspaToSompi/sompiToKaspa
 - [useNetwork](/composables/use-network): switchNetwork, available networks, network-aware addresses, singleton warning
-- [TypeScript Types](/reference/types): All 23 exported interfaces and union types with field tables
+- [useWallet](/composables/use-wallet): KasWare/Kastle browser wallet integration, sendKaspa, signMessage, reactive connection state
+- [useVueKaspa](/composables/use-vue-kaspa): unified facade for app code
+- [TypeScript Types](/reference/types): All 105 exported interfaces, type aliases, and unions with field tables
 - [Constants](/reference/constants): AVAILABLE_NETWORKS, WasmStatus/RpcConnectionState/RpcEventType value tables
 - [AI & LLMs](/llms/): Prompt cookbook, key facts, llms.txt usage, claude-mem skills
 
@@ -31,6 +35,6 @@ Vue Kaspa wraps kaspa-wasm with Vue 3 reactivity and exposes 7 composables: useK
 - Auto-cleanup: `useRpc().on()` handlers and `useUtxo()` tracking auto-cleanup on component unmount. Call `clear()` manually in Pinia stores.
 - autoConnect: with `autoConnect: true` (default), WASM loads and RPC connects on plugin install — no manual `init()` needed.
 - Network: `useNetwork().switchNetwork()` disconnects and reconnects RPC automatically. `currentNetwork` is module-level (affects whole app).
-- Nuxt: kaspa-wasm is auto-excluded from SSR bundle; all composables are auto-imported; plugin is client-only.
+- Nuxt: @vue-kaspa/kaspa-wasm is auto-excluded from SSR bundle; all composables are auto-imported; plugin is client-only.
 - WASM config: Vite needs `vite-plugin-wasm` + CORS headers (`Cross-Origin-Embedder-Policy: credentialless`).
 - Error types: `KaspaError` (base), `KaspaNotReadyError`, `KaspaRpcError`, `KaspaWalletError`, `KaspaCryptoError`.

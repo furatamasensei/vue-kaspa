@@ -1644,8 +1644,8 @@ Each composable has a corresponding return type interface:
 | `UseTransactionReturn` | [`useTransaction()`](/composables/use-transaction) |
 | `UseCryptoReturn` | [`useCrypto()`](/composables/use-crypto) |
 | `UseNetworkReturn` | [`useNetwork()`](/composables/use-network) |
-| `UseWalletReturn` | [`useWallet()`](/composables/use-wallet) |
-| `UseVueKaspaReturn` | [`useVueKaspa()`](/composables/use-vue-kaspa) |
+| `UseWalletReturn` | [`useWallet()`](/zh-TW/composables/use-wallet) |
+| `UseVueKaspaReturn` | [`useVueKaspa()`](/zh-TW/composables/use-vue-kaspa) |
 
 ---
 

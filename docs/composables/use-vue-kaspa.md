@@ -21,6 +21,7 @@ const vueKaspa = useVueKaspa()
 
 vueKaspa.kaspa      // useKaspa() return value
 vueKaspa.rpc        // useRpc() return value
+vueKaspa.rest       // useKaspaRest() return value
 vueKaspa.utxo       // useUtxo() return value
 vueKaspa.transaction
 vueKaspa.crypto

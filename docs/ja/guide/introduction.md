@@ -4,16 +4,21 @@
 
 ## 提供される機能
 
-フルワークフローをカバーする 6 つのコンポーザブル:
+フルワークフローをカバーする 11 個のコンポーザブルと 1 つの統合ファサード:
 
 | コンポーザブル | 目的 |
 |---|---|
 | [`useKaspa`](/ja/composables/use-kaspa) | WASM 初期化ライフサイクル |
 | [`useRpc`](/ja/composables/use-rpc) | WebSocket RPC 接続、クエリ、イベント |
+| [`useKaspaRest`](/ja/composables/use-kaspa-rest) | 公式 REST API で txid 検索、残高、アドレス履歴、探索データを取得 |
 | [`useUtxo`](/ja/composables/use-utxo) | リアルタイム UTXO 追跡とリアクティブ残高 |
 | [`useTransaction`](/ja/composables/use-transaction) | トランザクションの構築、署名、送信 |
+| [`useTransactionListener`](/ja/composables/use-transaction-listener) | 確定済みトランザクション ID と送信元アドレスを追跡 |
+| [`useBlockListener`](/ja/composables/use-block-listener) | 追加された新規ブロックを監視 |
 | [`useCrypto`](/ja/composables/use-crypto) | キー生成、HD 導出、署名、単位変換 |
 | [`useNetwork`](/ja/composables/use-network) | ネットワーク切り替え (mainnet、testnet など) |
+| [`useWallet`](/ja/composables/use-wallet) | ブラウザ拡張ウォレット (KasWare, Kastle) に接続 |
+| [`useVueKaspa`](/ja/composables/use-vue-kaspa) | フルスタック向けの統合ファサード |
 
 ## アーキテクチャ
 
@@ -43,7 +48,7 @@
 import { VueKaspa } from 'vue-kaspa'
 
 // Composables
-import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
+import { useKaspa, useRpc, useKaspaRest, useUtxo, useTransaction, useTransactionListener, useBlockListener, useCrypto, useNetwork, useWallet, useVueKaspa } from 'vue-kaspa'
 
 // Error classes
 import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'

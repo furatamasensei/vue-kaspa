@@ -48,10 +48,14 @@ The following composables are automatically available in all `.vue` files, `comp
 
 - `useKaspa`
 - `useRpc`
+- `useKaspaRest`
 - `useUtxo`
 - `useTransaction`
+- `useTransactionListener`
+- `useBlockListener`
 - `useCrypto`
 - `useNetwork`
+- `useWallet`
 - `useVueKaspa`
 
 ```vue

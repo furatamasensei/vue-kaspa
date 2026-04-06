@@ -41,7 +41,7 @@ const sidebar = (locale: string) => {
     {
       text: 'Composables',
       items: [
-        ...(locale === '' ? [{ text: 'useVueKaspa', link: `${base}/composables/use-vue-kaspa` }] : []),
+        { text: 'useVueKaspa', link: `${base}/composables/use-vue-kaspa` },
         { text: 'useKaspa', link: `${base}/composables/use-kaspa` },
         { text: 'useRpc', link: `${base}/composables/use-rpc` },
         { text: 'useKaspaRest', link: `${base}/composables/use-kaspa-rest` },

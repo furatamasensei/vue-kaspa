@@ -4,16 +4,21 @@
 
 ## 你將獲得
 
-六個可組合函式，涵蓋完整工作流程：
+十一個可組合函式加上一個整合 facade，涵蓋完整工作流程：
 
 | 可組合函式 | 用途 |
 |---|---|
 | [`useKaspa`](/composables/use-kaspa) | WASM 初始化生命週期 |
 | [`useRpc`](/composables/use-rpc) | WebSocket RPC 連線、查詢與事件 |
+| [`useKaspaRest`](/composables/use-kaspa-rest) | 透過官方 REST API 查詢 txid、餘額、地址歷史與探索器資料 |
 | [`useUtxo`](/composables/use-utxo) | 即時 UTXO 追蹤與響應式餘額 |
 | [`useTransaction`](/composables/use-transaction) | 交易建構、簽署與提交 |
+| [`useTransactionListener`](/composables/use-transaction-listener) | 追蹤已接受的交易 ID 與送出方地址 |
+| [`useBlockListener`](/composables/use-block-listener) | 監聽新增的區塊 |
 | [`useCrypto`](/composables/use-crypto) | 金鑰生成、HD 衍生、簽署、單位換算 |
 | [`useNetwork`](/composables/use-network) | 網路切換（mainnet、testnet 等） |
+| [`useWallet`](/composables/use-wallet) | 連線到瀏覽器錢包擴充套件（KasWare、Kastle） |
+| [`useVueKaspa`](/composables/use-vue-kaspa) | 供應用程式使用的整合入口 |
 
 ## 架構
 
@@ -43,7 +48,7 @@
 import { VueKaspa } from 'vue-kaspa'
 
 // Composables
-import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
+import { useKaspa, useRpc, useKaspaRest, useUtxo, useTransaction, useTransactionListener, useBlockListener, useCrypto, useNetwork, useWallet, useVueKaspa } from 'vue-kaspa'
 
 // Error classes
 import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'

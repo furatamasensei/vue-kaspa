@@ -4,16 +4,21 @@
 
 ## Apa yang Anda dapatkan
 
-Enam composable yang mencakup alur kerja lengkap:
+Sebelas composable plus satu facade terpadu mencakup alur kerja lengkap:
 
 | Composable | Fungsi |
 |---|---|
 | [`useKaspa`](/composables/use-kaspa) | Siklus hidup inisialisasi WASM |
 | [`useRpc`](/composables/use-rpc) | Koneksi RPC WebSocket, query, dan event |
+| [`useKaspaRest`](/composables/use-kaspa-rest) | Query REST API resmi untuk txid, saldo, riwayat alamat, dan data explorer |
 | [`useUtxo`](/composables/use-utxo) | Pelacakan UTXO real-time dan saldo reaktif |
 | [`useTransaction`](/composables/use-transaction) | Pembuatan, penandatanganan, dan pengiriman transaksi |
+| [`useTransactionListener`](/composables/use-transaction-listener) | Melacak transaction ID yang accepted dan sender address |
+| [`useBlockListener`](/composables/use-block-listener) | Mendengarkan blok baru yang ditambahkan |
 | [`useCrypto`](/composables/use-crypto) | Pembuatan kunci, derivasi HD, penandatanganan, konversi unit |
 | [`useNetwork`](/composables/use-network) | Pergantian jaringan (mainnet, testnet, dll.) |
+| [`useWallet`](/composables/use-wallet) | Koneksi ke extension wallet browser (KasWare, Kastle) |
+| [`useVueKaspa`](/composables/use-vue-kaspa) | Facade terpadu yang diketik untuk seluruh stack |
 
 ## Arsitektur
 
@@ -43,7 +48,7 @@ Singleton internal bersifat module-level — terdapat **satu koneksi RPC** dan *
 import { VueKaspa } from 'vue-kaspa'
 
 // Composables
-import { useKaspa, useRpc, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
+import { useKaspa, useRpc, useKaspaRest, useUtxo, useTransaction, useTransactionListener, useBlockListener, useCrypto, useNetwork, useWallet, useVueKaspa } from 'vue-kaspa'
 
 // Kelas error
 import { KaspaError, KaspaNotReadyError, KaspaRpcError, KaspaWalletError, KaspaCryptoError } from 'vue-kaspa'

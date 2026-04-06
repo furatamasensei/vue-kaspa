@@ -48,10 +48,15 @@ Composable berikut tersedia secara otomatis di semua file `.vue`, `composables/`
 
 - `useKaspa`
 - `useRpc`
+- `useKaspaRest`
 - `useUtxo`
 - `useTransaction`
+- `useTransactionListener`
+- `useBlockListener`
 - `useCrypto`
 - `useNetwork`
+- `useWallet`
+- `useVueKaspa`
 
 ```vue
 <!-- pages/wallet.vue — tidak perlu import -->

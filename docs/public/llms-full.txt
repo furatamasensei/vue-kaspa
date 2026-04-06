@@ -1,10 +1,10 @@
 # Vue Kaspa — Full API Reference
 
-> Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by kaspa-wasm.
+> Vue 3 plugin and Nuxt 3 module providing reactive composables for the Kaspa blockchain, powered by @vue-kaspa/kaspa-wasm.
 
 Package: vue-kaspa
-Version: 0.1.0
-Peer deps: vue >= 3.4.0, kaspa-wasm >= 1.1.0, @nuxt/kit ^3.0.0 (optional)
+Version: 0.1.14
+Peer deps: vue >= 3.4.0, @vue-kaspa/kaspa-wasm >= 1.1.0, @nuxt/kit ^3.0.0 (optional)
 Types: ./dist/index.d.ts
 Nuxt entry: vue-kaspa/nuxt
 
@@ -13,7 +13,7 @@ Nuxt entry: vue-kaspa/nuxt
 ## Installation
 
 ```bash
-npm install vue-kaspa kaspa-wasm
+npm install vue-kaspa @vue-kaspa/kaspa-wasm
 ```
 
 Vite config (required):
@@ -22,7 +22,7 @@ import wasm from 'vite-plugin-wasm'
 import topLevelAwait from 'vite-plugin-top-level-await'
 plugins: [vue(), wasm(), topLevelAwait()]
 server.headers: { 'Cross-Origin-Embedder-Policy': 'credentialless', 'Cross-Origin-Opener-Policy': 'same-origin' }
-optimizeDeps.exclude: ['kaspa-wasm']
+optimizeDeps.exclude: ['@vue-kaspa/kaspa-wasm']
 ```
 
 ---
@@ -170,6 +170,35 @@ UtxoEntry shape:
 
 ---
 
+## useBlockListener() — block-added subscription
+
+```ts
+const { blocks, isListening, subscribe, unsubscribe, clear } = useBlockListener()
+// blocks.value: BlockInfo[] (most recent first)
+```
+
+Use for raw new-block events from `block-added`. It auto-subscribes in components unless disabled.
+
+---
+
+## useTransactionListener() — accepted transaction tracking
+
+```ts
+const {
+  transactions,
+  acceptedTransactions,
+  isListening,
+  subscribe,
+  unsubscribe,
+  clear,
+  resolveSenderAddresses,
+} = useTransactionListener({ includeSenderAddresses: true })
+```
+
+Use for confirmed transaction IDs from `virtual-chain-changed`. `acceptedTransactions` includes the accepting block hash and sender addresses when available.
+
+---
+
 ## useTransaction() — build and send transactions
 
 ```ts
@@ -283,6 +312,45 @@ Singleton: changing currentNetwork affects all composable instances.
 
 ---
 
+## useWallet() — browser wallet extension integration
+
+```ts
+const wallet = useWallet()
+
+wallet.provider
+wallet.address
+wallet.balance
+wallet.isConnected
+
+await wallet.connect('kasware')
+await wallet.disconnect()
+await wallet.sendKaspa('kaspa:qr...', 100_000_000n)
+await wallet.signMessage('hello')
+```
+
+Use for KasWare/Kastle browser wallet flows. Web-only; no WASM initialization required.
+
+---
+
+## useVueKaspa() — unified facade
+
+```ts
+const vueKaspa = useVueKaspa()
+
+vueKaspa.kaspa
+vueKaspa.rpc
+vueKaspa.rest
+vueKaspa.utxo
+vueKaspa.transaction
+vueKaspa.crypto
+vueKaspa.network
+vueKaspa.wallet
+```
+
+Use when you want one typed entrypoint for app code instead of importing each subsystem separately.
+
+---
+
 ## useKaspaRest(options?) — official REST API reads
 
 ```ts
@@ -364,7 +432,7 @@ const AVAILABLE_NETWORKS: readonly KaspaNetwork[]
 
 ```ts
 import { createApp } from 'vue'
-import { VueKaspa, useRpc, useKaspaRest, useUtxo, useTransaction, useCrypto, useNetwork } from 'vue-kaspa'
+import { VueKaspa, useRpc, useKaspaRest, useUtxo, useTransaction, useTransactionListener, useBlockListener, useCrypto, useNetwork, useWallet, useVueKaspa } from 'vue-kaspa'
 
 // 1. Install plugin
 const app = createApp(App)
@@ -377,6 +445,8 @@ const utxo = useUtxo()
 const tx = useTransaction()
 const crypto = useCrypto()
 const network = useNetwork()
+const wallet = useWallet()
+const vueKaspa = useVueKaspa()
 
 // 3. Wait for connection (or watch rpc.isConnected)
 await rpc.connect()

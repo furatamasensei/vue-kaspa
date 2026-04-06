@@ -13,19 +13,23 @@ Vue Kaspa handles the hard parts: loading WASM, managing a WebSocket connection 
 
 ## What it gives you
 
-Seven composables plus a unified facade that cover the full workflow:
+Eleven composables plus a unified facade cover the full workflow:
 
 | Composable | What it does |
 |---|---|
 | [`useKaspa`](/composables/use-kaspa) | Start up the WASM runtime |
 | [`useRpc`](/composables/use-rpc) | Connect to a Kaspa node, run queries, subscribe to events |
+| [`useKaspaRest`](/composables/use-kaspa-rest) | Query the official REST API for txid lookup, balances, address history, and explorer data |
 | [`useUtxo`](/composables/use-utxo) | Watch an address — reactive balance that updates in real time |
 | [`useTransaction`](/composables/use-transaction) | Build, sign, and submit transactions |
+| [`useTransactionListener`](/composables/use-transaction-listener) | Track accepted transaction IDs and sender addresses |
+| [`useBlockListener`](/composables/use-block-listener) | Listen for new blocks as they are added |
 | [`useCrypto`](/composables/use-crypto) | Generate keys, derive addresses, sign messages, convert units |
 | [`useNetwork`](/composables/use-network) | Switch between mainnet, testnet-10, and other networks |
 | [`useWallet`](/composables/use-wallet) | Connect to browser wallet extensions (KasWare, Kastle) |
+| [`useVueKaspa`](/composables/use-vue-kaspa) | Unified typed facade for the full stack |
 
-Plus a drop-in **`ConnectWallet`** component if you just need a connect button, or **`useVueKaspa()`** when you want one typed entrypoint for the whole stack.
+Plus a drop-in **`ConnectWallet`** component if you just need a connect button.
 
 ## Why not use the WASM SDK directly?
 

@@ -1,0 +1,62 @@
+# useTransactionListener
+
+Kaspa ネットワークで確定されたトランザクション ID をリアクティブに監視します。`virtual-chain-changed` サブスクリプションを使い、確定時にトランザクションを受け取ります。
+
+## Import
+
+```ts
+import { useTransactionListener } from 'vue-kaspa'
+```
+
+## Return type
+
+```ts
+interface UseTransactionListenerReturn {
+  transactions: Readonly<Ref<string[]>>
+  acceptedTransactions: Readonly<Ref<Array<{
+    transactionId: string
+    acceptingBlockHash: string
+    senderAddresses: string[]
+  }>>>
+  isListening: ComputedRef<boolean>
+  subscribe(): Promise<void>
+  unsubscribe(): Promise<void>
+  clear(): void
+  resolveSenderAddresses(transactionId: string): Promise<string[]>
+}
+```
+
+## Options
+
+```ts
+interface TransactionListenerOptions {
+  maxHistory?: number
+  autoSubscribe?: boolean
+  includeSenderAddresses?: boolean
+}
+```
+
+## 基本的な使い方
+
+```ts
+import { useTransactionListener } from 'vue-kaspa'
+
+const { transactions, acceptedTransactions, isListening } = useTransactionListener()
+```
+
+`includeSenderAddresses` を有効にすると、承認ブロックから送信元アドレスも解決します。
+
+## 手動制御
+
+```ts
+const { transactions, acceptedTransactions, isListening, subscribe, unsubscribe, clear, resolveSenderAddresses } = useTransactionListener({
+  autoSubscribe: false,
+  includeSenderAddresses: true,
+})
+```
+
+## 注意
+
+- `virtual-chain-changed` を使うため、確定状態のイベントだけを扱います。
+- 送信元アドレスは入力から導出されるため、1件の取引に複数のアドレスが含まれる場合があります。
+- 生のブロックイベントが必要なら [`useBlockListener()`](/ja/composables/use-block-listener) を使ってください。

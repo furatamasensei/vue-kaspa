@@ -48,10 +48,15 @@ Nuxt 模組將 `panicHook` 預設為 `'browser'`（WASM 崩潰時顯示對話框
 
 - `useKaspa`
 - `useRpc`
+- `useKaspaRest`
 - `useUtxo`
 - `useTransaction`
+- `useTransactionListener`
+- `useBlockListener`
 - `useCrypto`
 - `useNetwork`
+- `useWallet`
+- `useVueKaspa`
 
 ```vue
 <!-- pages/wallet.vue — 無需 import -->
