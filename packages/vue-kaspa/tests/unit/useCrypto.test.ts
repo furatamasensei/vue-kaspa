@@ -3,6 +3,7 @@ import { mount } from '@vue/test-utils'
 import { defineComponent } from 'vue'
 import { VueKaspa } from '../../src/plugin'
 import { useCrypto } from '../../src/composables/useCrypto'
+import { useNetwork, getCurrentNetworkRef } from '../../src/composables/useNetwork'
 import { resetWasm } from '../../src/internal/wasm-loader'
 import { loadKaspa } from '../../src/internal/kaspa'
 
@@ -21,10 +22,36 @@ function mountUseCrypto(pluginOptions = {}) {
   return { wrapper, get crypto() { return result } }
 }
 
+function mountUseCryptoAndNetwork(pluginOptions = {}) {
+  let cryptoResult: ReturnType<typeof useCrypto>
+  let networkResult: ReturnType<typeof useNetwork>
+  const TestComponent = defineComponent({
+    setup() {
+      cryptoResult = useCrypto()
+      networkResult = useNetwork()
+      return () => null
+    },
+  })
+  const wrapper = mount(TestComponent, {
+    global: { plugins: [[VueKaspa, { autoConnect: false, ...pluginOptions }]] },
+    attachTo: document.body,
+  })
+  return {
+    wrapper,
+    get crypto() {
+      return cryptoResult
+    },
+    get network() {
+      return networkResult
+    },
+  }
+}
+
 describe('useCrypto', () => {
   beforeEach(async () => {
     resetWasm()
     await loadKaspa()
+    getCurrentNetworkRef().value = 'mainnet'
   })
 
   describe('unit conversions (pure, no WASM needed)', () => {
@@ -45,6 +72,33 @@ describe('useCrypto', () => {
       const { crypto } = mountUseCrypto()
       const result = crypto.sompiToKaspaString(1_000_000_000n)
       expect(result).toContain('1')
+    })
+
+    it('currencyUnit defaults to KAS on mainnet', () => {
+      const { crypto } = mountUseCrypto({ network: 'mainnet' })
+
+      expect(crypto.currencyUnit()).toBe('KAS')
+      expect(crypto.numberToKaspa(1_500_000_000n)).toContain('KAS')
+    })
+
+    it('currencyUnit switches to TKAS on testnet', () => {
+      const { crypto } = mountUseCrypto({ network: 'testnet-10' })
+
+      expect(crypto.currencyUnit()).toBe('TKAS')
+      expect(crypto.numberToKaspa(1_500_000_000n)).toContain('TKAS')
+    })
+
+    it('network-aware helpers follow the active network', async () => {
+      const { crypto, network } = mountUseCryptoAndNetwork({ network: 'testnet-10' })
+
+      expect(crypto.currencyUnit()).toBe('TKAS')
+      expect(crypto.numberToKaspa(1_000_000_000n)).toContain('TKAS')
+      expect(crypto.numberToSompi('1.5')).toBe(1_500_000_000n)
+
+      await network.switchNetwork('mainnet')
+
+      expect(crypto.currencyUnit()).toBe('KAS')
+      expect(crypto.numberToKaspa(1_000_000_000n)).toContain('KAS')
     })
   })
 

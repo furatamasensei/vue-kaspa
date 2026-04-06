@@ -1,8 +1,19 @@
 import { getKaspa } from '../internal/kaspa'
 import type { KaspaNetwork, UseCryptoReturn, KeypairInfo, MnemonicInfo, DerivedKey } from '../types'
 import { KaspaCryptoError } from '../errors'
+import { useNetwork } from './useNetwork'
 
 export function useCrypto(): UseCryptoReturn {
+  const network = useNetwork()
+
+  function resolveNetwork(networkOverride?: KaspaNetwork): KaspaNetwork {
+    return networkOverride ?? network.currentNetwork.value
+  }
+
+  function resolveUnit(networkOverride?: KaspaNetwork): 'KAS' | 'TKAS' {
+    return resolveNetwork(networkOverride) === 'mainnet' ? 'KAS' : 'TKAS'
+  }
+
   return {
     generateMnemonic(wordCount: 12 | 24 = 24): MnemonicInfo {
       try {
@@ -36,9 +47,18 @@ export function useCrypto(): UseCryptoReturn {
 
     generateKeypair(network: KaspaNetwork): KeypairInfo {
       try {
-        const { Mnemonic } = getKaspa()
+        const { Mnemonic, PrivateKey } = getKaspa()
         const mnemonic = Mnemonic.random(24)
-        return useCrypto().mnemonicToKeypair(mnemonic.phrase, network)
+        const seedHex = mnemonic.toSeed()
+        const privateKeyHex = seedHex.slice(0, 64)
+        const privKey = new PrivateKey(privateKeyHex)
+        const keypair = privKey.toKeypair()
+        const address = keypair.toAddress(network)
+        return {
+          privateKeyHex,
+          publicKeyHex: keypair.publicKey as string,
+          address: address.toString(),
+        }
       } catch (err) {
         throw new KaspaCryptoError('generateKeypair', err)
       }
@@ -128,6 +148,21 @@ export function useCrypto(): UseCryptoReturn {
         }
       }
       return str
+    },
+
+    currencyUnit(networkOverride?: KaspaNetwork): 'KAS' | 'TKAS' {
+      return resolveUnit(networkOverride)
+    },
+
+    numberToKaspa(sompi: bigint | number, networkOverride?: KaspaNetwork): string {
+      const { sompiToKaspaStringWithSuffix } = getKaspa()
+      return sompiToKaspaStringWithSuffix(sompi, resolveNetwork(networkOverride))
+    },
+
+    numberToSompi(kas: string | number): bigint {
+      const { kaspaToSompi: sdkKaspaToSompi } = getKaspa()
+      const result = sdkKaspaToSompi(String(kas))
+      return result ?? 0n
     },
   }
 }

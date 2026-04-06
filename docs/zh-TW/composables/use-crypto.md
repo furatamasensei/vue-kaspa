@@ -25,6 +25,9 @@ import { useCrypto } from 'vue-kaspa'
 | `kaspaToSompi(kas)` | `bigint` | 將 KAS（字串/數字）轉換為 sompi |
 | `sompiToKaspa(sompi)` | `string` | 將 sompi 轉換為 KAS 十進位字串 |
 | `sompiToKaspaString(sompi, decimals?)` | `string` | 將 sompi 格式化為帶選用小數位的 KAS 字串 |
+| `currencyUnit(network?)` | `'KAS' \| 'TKAS'` | 根據網路取得目前單位標籤（mainnet 是 KAS，其餘是 TKAS） |
+| `numberToKaspa(sompi, network?)` | `string` | 以目前網路的後綴格式化 sompi |
+| `numberToSompi(kas)` | `bigint` | `kaspaToSompi()` 的別名 |
 
 ## 助記詞生成
 
@@ -144,9 +147,16 @@ const kas = crypto.sompiToKaspa(150_000_000n)   // '1.5'
 const str = crypto.sompiToKaspaString(150_000_000n)      // '1.50000000'
 const str2 = crypto.sompiToKaspaString(150_000_000n, 2)  // '1.50'
 const str3 = crypto.sompiToKaspaString(150_000_000n, 0)  // '1'
+
+// 配合網路顯示的輔助函式
+const unit = crypto.currencyUnit()                       // mainnet 顯示 'KAS'，其他網路顯示 'TKAS'
+const display = crypto.numberToKaspa(150_000_000n)       // 例如 '1.50000000 KAS'
+const sompiFromNumber = crypto.numberToSompi('1.5')      // 150_000_000n
 ```
 
 接受使用者輸入時請務必使用 `kaspaToSompi()`——它能正確處理小數字串。
+
+`currencyUnit()` 與 `numberToKaspa()` 預設使用 `useNetwork()` 的目前網路。如需格式化其他網路，可傳入 `network` 參數。
 
 ## 網路特定地址
 

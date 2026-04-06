@@ -13,7 +13,7 @@ vue-kaspa wraps [`@vue-kaspa/kaspa-wasm`](https://www.npmjs.com/package/@vue-kas
 - **`useKaspaRest`** — official REST API wrapper for txid lookup, balances, address history, and explorer data
 - **`useUtxo`** — real-time UTXO tracking with reactive balance (mature / pending)
 - **`useTransaction`** — estimate, build, sign, and submit transactions; UTXO compounding handled automatically
-- **`useCrypto`** — BIP-39 mnemonic, BIP-32 HD derivation, message signing, KAS ↔ sompi conversion
+- **`useCrypto`** — BIP-39 mnemonic, BIP-32 HD derivation, message signing, KAS ↔ sompi conversion, network-aware unit formatting
 - **`useNetwork`** — network switching (mainnet, testnet-10, testnet-12, simnet, devnet)
 - **`useWallet`** — KasWare/Kastle browser wallet integration
 - **`useBlockListener`** — raw new-block subscription helper

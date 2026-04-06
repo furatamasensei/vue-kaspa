@@ -25,6 +25,9 @@ import { useCrypto } from 'vue-kaspa'
 | `kaspaToSompi(kas)` | `bigint` | Konversi KAS (string/number) ke sompi |
 | `sompiToKaspa(sompi)` | `string` | Konversi sompi ke string desimal KAS |
 | `sompiToKaspaString(sompi, decimals?)` | `string` | Format sompi sebagai KAS dengan jumlah desimal opsional |
+| `currencyUnit(network?)` | `'KAS' \| 'TKAS'` | Tentukan label unit saat ini (KAS di mainnet, TKAS di jaringan selainnya) |
+| `numberToKaspa(sompi, network?)` | `string` | Format sompi dengan sufiks jaringan aktif |
+| `numberToSompi(kas)` | `bigint` | Alias untuk `kaspaToSompi()` |
 
 ## Pembuatan mnemonic
 
@@ -144,9 +147,16 @@ const kas = crypto.sompiToKaspa(150_000_000n)   // '1.5'
 const str = crypto.sompiToKaspaString(150_000_000n)      // '1.50000000'
 const str2 = crypto.sompiToKaspaString(150_000_000n, 2)  // '1.50'
 const str3 = crypto.sompiToKaspaString(150_000_000n, 0)  // '1'
+
+// helper tampilan yang peka jaringan
+const unit = crypto.currencyUnit()                       // 'KAS' di mainnet, 'TKAS' di jaringan lain
+const display = crypto.numberToKaspa(150_000_000n)       // '1.50000000 KAS' atau '1.50000000 TKAS'
+const sompiFromNumber = crypto.numberToSompi('1.5')      // 150_000_000n
 ```
 
 Selalu gunakan `kaspaToSompi()` saat menerima input pengguna — fungsi ini menangani string desimal dengan benar.
+
+`currencyUnit()` dan `numberToKaspa()` mengikuti jaringan aktif dari `useNetwork()`. Berikan argumen `network` jika ingin memformat untuk jaringan lain.
 
 ## Alamat spesifik jaringan
 

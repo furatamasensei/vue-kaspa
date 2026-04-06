@@ -18,6 +18,10 @@ const sompi2: bigint = crypto.kaspaToSompi('0.001') // 1_000_000n
 const kas: string = crypto.sompiToKaspaString(1_500_000_000n)  // '1.5'
 const kas2: string = crypto.sompiToKaspaString(100n)           // '0.0000001'
 
+// network-aware display helpers
+const unit: string = crypto.currencyUnit()                     // 'KAS' or 'TKAS'
+const display: string = crypto.numberToKaspa(1_500_000_000n)   // '1.50000000 KAS' or '1.50000000 TKAS'
+
 // 1 KAS = 1,000,000,000 sompi (10⁹)`
 
 const crypto = useCrypto()
@@ -64,7 +68,7 @@ try {
 const formattedKas = computed(() => {
   if (!sompiValue.value) return '-'
   try {
-    return crypto.sompiToKaspaString(BigInt(sompiValue.value))
+    return crypto.numberToKaspa(BigInt(sompiValue.value))
   } catch {
     return '-'
   }
@@ -118,12 +122,12 @@ const examples = [
       </CardHeader>
       <CardContent>
         <div v-if="sompiValue" class="space-y-1">
-          <p class="text-xs text-muted-foreground">sompiToKaspaString()</p>
-          <p class="font-mono text-2xl text-primary">{{ formattedKas }} KAS</p>
+          <p class="text-xs text-muted-foreground">numberToKaspa()</p>
+          <p class="font-mono text-2xl text-primary">{{ formattedKas }}</p>
         </div>
       </CardContent>
     </Card>
 
-    <CodeExample :code="EXAMPLE" title="useCrypto — kaspaToSompi / sompiToKaspaString" />
+    <CodeExample :code="EXAMPLE" title="useCrypto — unit conversion helpers" />
   </div>
 </template>

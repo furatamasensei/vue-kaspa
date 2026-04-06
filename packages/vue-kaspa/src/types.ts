@@ -1002,6 +1002,9 @@ export interface UseCryptoReturn {
   kaspaToSompi(kas: string | number): bigint
   sompiToKaspa(sompi: bigint): string
   sompiToKaspaString(sompi: bigint, decimals?: number): string
+  currencyUnit(network?: KaspaNetwork): 'KAS' | 'TKAS'
+  numberToKaspa(sompi: bigint | number, network?: KaspaNetwork): string
+  numberToSompi(kas: string | number): bigint
 }
 
 export interface UseNetworkReturn {

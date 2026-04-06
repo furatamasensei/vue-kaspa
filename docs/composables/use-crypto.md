@@ -25,6 +25,9 @@ import { useCrypto } from 'vue-kaspa'
 | `kaspaToSompi(kas)` | `bigint` | Convert KAS (string/number) to sompi |
 | `sompiToKaspa(sompi)` | `string` | Convert sompi to KAS decimal string |
 | `sompiToKaspaString(sompi, decimals?)` | `string` | Format sompi as KAS with optional decimal places |
+| `currencyUnit(network?)` | `'KAS' \| 'TKAS'` | Resolve the current unit label |
+| `numberToKaspa(sompi, network?)` | `string` | Format sompi with the active network suffix |
+| `numberToSompi(kas)` | `bigint` | Alias for `kaspaToSompi()` |
 
 ## Mnemonic generation
 
@@ -144,9 +147,16 @@ const kas = crypto.sompiToKaspa(150_000_000n)   // '1.5'
 const str = crypto.sompiToKaspaString(150_000_000n)      // '1.50000000'
 const str2 = crypto.sompiToKaspaString(150_000_000n, 2)  // '1.50'
 const str3 = crypto.sompiToKaspaString(150_000_000n, 0)  // '1'
+
+// network-aware display helpers
+const unit = crypto.currencyUnit()                       // 'KAS' on mainnet, 'TKAS' elsewhere
+const display = crypto.numberToKaspa(150_000_000n)       // '1.50000000 KAS' or '1.50000000 TKAS'
+const sompiFromNumber = crypto.numberToSompi('1.5')      // 150_000_000n
 ```
 
 Always use `kaspaToSompi()` when accepting user input — it handles decimal strings correctly.
+
+`currencyUnit()` and `numberToKaspa()` default to the current active network from `useNetwork()`. Pass an explicit `network` argument if you want to format for a different network.
 
 ## Network-specific addresses
 

@@ -25,6 +25,9 @@ import { useCrypto } from 'vue-kaspa'
 | `kaspaToSompi(kas)` | `bigint` | KAS (文字列/数値) を sompi に変換する |
 | `sompiToKaspa(sompi)` | `string` | sompi を KAS の小数文字列に変換する |
 | `sompiToKaspaString(sompi, decimals?)` | `string` | sompi をオプションの小数点以下桁数で KAS としてフォーマットする |
+| `currencyUnit(network?)` | `'KAS' \| 'TKAS'` | 現在の単位ラベルを解決する（mainnet は KAS、それ以外は TKAS） |
+| `numberToKaspa(sompi, network?)` | `string` | 現在のネットワーク接頭辞付きで sompi をフォーマットする |
+| `numberToSompi(kas)` | `bigint` | `kaspaToSompi()` のエイリアス |
 
 ## ニーモニック生成
 
@@ -144,9 +147,16 @@ const kas = crypto.sompiToKaspa(150_000_000n)   // '1.5'
 const str = crypto.sompiToKaspaString(150_000_000n)      // '1.50000000'
 const str2 = crypto.sompiToKaspaString(150_000_000n, 2)  // '1.50'
 const str3 = crypto.sompiToKaspaString(150_000_000n, 0)  // '1'
+
+// ネットワーク対応の表示ヘルパー
+const unit = crypto.currencyUnit()                       // mainnet は 'KAS', その他は 'TKAS'
+const display = crypto.numberToKaspa(150_000_000n)       // '1.50000000 KAS' など
+const sompiFromNumber = crypto.numberToSompi('1.5')      // 150_000_000n
 ```
 
 ユーザー入力を受け付ける際は常に `kaspaToSompi()` を使用してください — 小数文字列を正しく処理します。
+
+`currencyUnit()` および `numberToKaspa()` は `useNetwork()` の現在のネットワークを参照します。別ネットワークでフォーマットしたい場合は `network` 引数を明示してください。
 
 ## ネットワーク固有のアドレス
 

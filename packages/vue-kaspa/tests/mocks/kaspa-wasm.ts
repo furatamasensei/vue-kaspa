@@ -327,8 +327,9 @@ export const sompiToKaspaString = vi.fn().mockImplementation((sompi: bigint) => 
   return (Number(sompi) / 1_000_000_000).toFixed(8)
 })
 
-export const sompiToKaspaStringWithSuffix = vi.fn().mockImplementation((sompi: bigint) => {
-  return (Number(sompi) / 1_000_000_000).toFixed(8) + ' KAS'
+export const sompiToKaspaStringWithSuffix = vi.fn().mockImplementation((sompi: bigint, network: string) => {
+  const suffix = network === 'mainnet' ? 'KAS' : 'TKAS'
+  return (Number(sompi) / 1_000_000_000).toFixed(8) + ` ${suffix}`
 })
 
 // ─── Hashing ───────────────────────────────────────────────────────────────
